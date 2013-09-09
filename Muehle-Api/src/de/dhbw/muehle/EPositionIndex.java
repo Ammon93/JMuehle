@@ -6,6 +6,8 @@ public enum EPositionIndex {
 	 */
 	Eins(1), Zwei(2), Drei(3);
 	
+	//Test 123
+	
 	private int value;
 	private EPositionIndex(int value)
 	{
