@@ -1,5 +1,5 @@
 package de.dhbw.muehle;
-//sers
+
 public enum EPositionIndex {
 	/**
 	 * die m&ouml;glichen Indexe einer Position;
