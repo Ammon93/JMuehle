@@ -6,8 +6,6 @@ public enum EPositionIndex {
 	 */
 	Eins(1), Zwei(2), Drei(3);
 	
-	//testtest
-	
 	private int value;
 	private EPositionIndex(int value)
 	{
