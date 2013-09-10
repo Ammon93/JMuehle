@@ -1,1 +1,0 @@
-Core: 2013-09-09T18:21:10.330+02:00: run() ohne Fehler gestartet
