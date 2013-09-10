@@ -1,3 +1,26 @@
 
 Core: 2013-09-09T18:33:04.132+02:00: run() ohne Fehler gestartet
 Core: 2013-09-10T10:33:03.840+02:00: run() ohne Fehler gestartet
+Core: 2013-09-10T13:05:07.622+02:00: run() ohne Fehler gestartet
+Core: 2013-09-10T13:07:01.908+02:00: run() ohne Fehler gestartet
+Core: 2013-09-10T13:11:59.273+02:00: run() ohne Fehler gestartet
+Core: 2013-09-10T13:21:17.516+02:00: run() ohne Fehler gestartet
+Core: 2013-09-10T13:44:19.905+02:00: run() ohne Fehler gestartet
+Core: 2013-09-10T13:47:20.408+02:00: run() ohne Fehler gestartet
+Core: 2013-09-10T13:48:04.159+02:00: run() ohne Fehler gestartet
+Core: 2013-09-10T13:53:07.788+02:00: run() ohne Fehler gestartet
+Core: 2013-09-10T14:12:52.092+02:00: run() ohne Fehler gestartet
+Core: 2013-09-10T14:13:35.082+02:00: run() ohne Fehler gestartet
+Core: 2013-09-10T14:14:50.244+02:00: run() ohne Fehler gestartet
+Core: 2013-09-10T14:15:38.886+02:00: run() ohne Fehler gestartet
+Core: 2013-09-10T14:17:32.305+02:00: run() ohne Fehler gestartet
+Core: 2013-09-10T14:18:00.617+02:00: run() ohne Fehler gestartet
+Core: 2013-09-10T14:19:43.692+02:00: run() ohne Fehler gestartet
+Core: 2013-09-10T14:20:29.794+02:00: run() ohne Fehler gestartet
+Core: 2013-09-10T14:21:38.547+02:00: run() ohne Fehler gestartet
+Core: 2013-09-10T14:22:09.660+02:00: run() ohne Fehler gestartet
+Core: 2013-09-10T14:22:21.572+02:00: run() ohne Fehler gestartet
+Core: 2013-09-10T14:24:03.901+02:00: run() ohne Fehler gestartet
+Core: 2013-09-10T14:26:03.591+02:00: run() ohne Fehler gestartet
+Core: 2013-09-10T14:26:18.736+02:00: run() ohne Fehler gestartet
+Core: 2013-09-10T14:27:00.732+02:00: run() ohne Fehler gestartet

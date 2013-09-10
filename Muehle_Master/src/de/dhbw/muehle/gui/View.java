@@ -1,6 +1,9 @@
 package de.dhbw.muehle.gui;
 
-import javax.swing.JFrame;
+import java.awt.*;
+import javax.swing.*;
+
+
 
 /**
  * Hier wird die View gebaut. Nur der Aufbau !!
@@ -10,14 +13,32 @@ import javax.swing.JFrame;
  */
 
 public class View {
+
+
+	private JFrame mainFrame;
+	private JPanel mainPanel;
+	private JLabel label;
 	
-	private JFrame frame;
+
+ class BgPanel extends JPanel {
+	    Image bg = new ImageIcon("res/SPIELBRETT.png").getImage();
+	    @Override
+	    public void paintComponent(Graphics g) {
+	        g.drawImage(bg, 0, 0, getWidth(), getHeight(), this);
+	    }
+	}
+	
 	
 	public void init(){
-		//System.out.println("Passt");
-		frame = new JFrame("Fenster");
-		frame.setVisible(true);
-		frame.setBounds(100, 100, 500, 500);
+		
+		//ImageIcon bGround = new ImageIcon("res/SPIELBRETT_Angepasst.png");
+		
+		mainFrame = new JFrame("Fenster");
+		mainFrame.setLayout(new FlowLayout());
+		mainPanel = new BgPanel();
+		mainFrame.setBounds(100,100,500,500);
+		mainFrame.setContentPane(mainPanel);
+		mainFrame.setVisible(true);
 	}
 }
 
