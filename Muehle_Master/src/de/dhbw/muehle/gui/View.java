@@ -2,6 +2,12 @@ package de.dhbw.muehle.gui;
 
 import javax.swing.JFrame;
 
+/**
+ * Hier wird die View gebaut. Nur der Aufbau !!
+ * sämtliche Funktionen werden im ViewController und den View Actions implementiert.
+ * @author Kreistschen
+ *
+ */
 
 public class View {
 	

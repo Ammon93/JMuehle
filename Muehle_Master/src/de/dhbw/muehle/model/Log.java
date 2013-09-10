@@ -4,8 +4,15 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
+
+
 import org.joda.time.DateTime;
 
+/** Die Log Klasse schreibt Meldungen aus der Konsole in eine Textdatei.
+ * Hier wird später die Fehlerbehebnung stattfinden.
+ * @author Kreistschen
+ *
+ */
 	
 	public class Log {
 

@@ -1,5 +1,9 @@
 package de.dhbw.muehle.gui;
 
+/**
+ * Diese Klasse dient als Schnittstelle zwischen dem Core und der View
+ */
+
 import de.dhbw.muehle.core.Core;
 
 public class ViewController {
