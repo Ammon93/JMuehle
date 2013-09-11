@@ -24,3 +24,5 @@ Core: 2013-09-10T14:24:03.901+02:00: run() ohne Fehler gestartet
 Core: 2013-09-10T14:26:03.591+02:00: run() ohne Fehler gestartet
 Core: 2013-09-10T14:26:18.736+02:00: run() ohne Fehler gestartet
 Core: 2013-09-10T14:27:00.732+02:00: run() ohne Fehler gestartet
+Core: 2013-09-11T12:36:54.003+02:00: run() ohne Fehler gestartet
+Core: 2013-09-11T12:38:33.040+02:00: run() ohne Fehler gestartet

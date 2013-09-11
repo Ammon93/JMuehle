@@ -5,6 +5,10 @@ import de.dhbw.muehle.model.Log;
 import de.dhbw.muehle.model.Model;
 
 public class Core {
+	
+	/**
+	 * inits eindeutig bezeichnen
+	 */
 
 	ViewController vController;
 	Model model;
