@@ -17,7 +17,6 @@ public class View {
 
 	private JFrame mainFrame;
 	private JPanel mainPanel;
-	private JLabel label;
 	
 
  class BgPanel extends JPanel {
