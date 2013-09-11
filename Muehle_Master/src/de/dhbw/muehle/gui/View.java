@@ -7,7 +7,7 @@ import javax.swing.*;
 
 /**
  * Hier wird die View gebaut. Nur der Aufbau !!
- * sämtliche Funktionen werden im ViewController und den View Actions implementiert.
+ * sï¿½mtliche Funktionen werden im ViewController und den View Actions implementiert.
  * @author Kreistschen
  *
  */
@@ -29,7 +29,7 @@ public class View {
 	}
 	
 	
-	public void init(){
+	public void initFrame(){
 		
 		//ImageIcon bGround = new ImageIcon("res/SPIELBRETT_Angepasst.png");
 		

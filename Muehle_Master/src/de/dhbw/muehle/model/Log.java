@@ -9,7 +9,7 @@ import java.io.IOException;
 import org.joda.time.DateTime;
 
 /** Die Log Klasse schreibt Meldungen aus der Konsole in eine Textdatei.
- * Hier wird später die Fehlerbehebnung stattfinden.
+ * Hier wird spï¿½ter die Fehlerbehebnung stattfinden.
  * @author Kreistschen
  *
  */
@@ -20,18 +20,18 @@ import org.joda.time.DateTime;
 			
 		}
 		
-		public static void log(String value, String classname){
+		public static void log(String message, String classname){
 			DateTime date = new DateTime();
-			String newvalue = classname + ": " + date.toString()  + ": " + value + "\n";
-			System.out.println(newvalue);
-			writeout(newvalue);
+			String logMessage = classname + ": " + date.toString()  + ": " + message + "\n";
+			System.out.println(logMessage);
+			writeout(logMessage);
 		}
 		
-		private static void writeout(String value){
+		private static void writeout(String str){
 			BufferedWriter writer;
 			try {
 				writer = new BufferedWriter(new FileWriter("res/Logfile.txt", true));
-				writer.write(value);
+				writer.write(str);
 				writer.close();
 			} catch (IOException e) {
 				e.printStackTrace();

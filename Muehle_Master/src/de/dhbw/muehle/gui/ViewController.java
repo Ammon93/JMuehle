@@ -17,8 +17,8 @@ public class ViewController {
 		core = _core;
 	}
 		
-	public void init(){
-		view.init();
+	public void initGui(){
+		view.initFrame();
 		vActions = new ViewActions(view);
 	}
 		

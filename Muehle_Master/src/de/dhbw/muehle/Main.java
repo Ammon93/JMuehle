@@ -11,8 +11,8 @@ public class Main {
 		*Dieser Startet den GUI Controller, welcher wiederum die GUI startet
 		*/
 		
-		Core core = new Core();
-		core.init();
+		Core muehle = new Core();
+		muehle.initGame();
 	}
 
 }

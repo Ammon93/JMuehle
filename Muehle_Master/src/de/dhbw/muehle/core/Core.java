@@ -6,10 +6,7 @@ import de.dhbw.muehle.model.Model;
 
 public class Core {
 	
-	/**
-	 * inits eindeutig bezeichnen
-	 */
-
+	
 	ViewController vController;
 	Model model;
 	Log log;
@@ -17,10 +14,10 @@ public class Core {
 	public Core(){
 		vController = new ViewController(this);
 		model = new Model();
-		}
+	}
 
-	public void init(){
-		vController.init();
+	public void initGame(){
+		vController.initGui();
 		run();
 	}
 	
