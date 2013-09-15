@@ -1,7 +1,7 @@
 package de.dhbw.muehle.gui;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import javax.swing.JFrame;
 
 
 
@@ -12,33 +12,45 @@ import javax.swing.*;
  *
  */
 
-public class View {
+public class View extends JFrame{
 
-
-	private JFrame mainFrame;
-	private JPanel mainPanel;
+	private MainMenu mainMenu;
 	
+	
+	public View(ViewController vController){
+		setTitle("JMuehle");		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLayout(new BorderLayout());
+		setBounds(100,100,500,500);
+		
+		
+		// mainMenu hinzufügen
+		mainMenu = new MainMenu(vController);
+		mainMenu.setVisible(false);
+		add(mainMenu);
+	}
 
- class BgPanel extends JPanel {
-	    Image bg = new ImageIcon("res/SPIELBRETT.png").getImage();
-	    @Override
-	    public void paintComponent(Graphics g) {
-	        g.drawImage(bg, 0, 0, getWidth(), getHeight(), this);
-	    }
+
+
+	/**
+	 * @return mainMenu
+	 */
+	protected void showComponet(String component, boolean visibility) {
+		switch (component) {
+		case "mainMenu":
+			mainMenu.setVisible(visibility);
+			break;
+		}
+		repaint();
 	}
 	
 	
-	public void initFrame(){
-		
-		//ImageIcon bGround = new ImageIcon("res/SPIELBRETT_Angepasst.png");
-		
-		mainFrame = new JFrame("Fenster");
-		mainFrame.setLayout(new FlowLayout());
-		mainPanel = new BgPanel();
-		mainFrame.setBounds(100,100,500,500);
-		mainFrame.setContentPane(mainPanel);
-		mainFrame.setVisible(true);
-	}
+// muss noch in eigene Klasse ausgelagert werden
+//	class BgPanel extends JPanel {
+//	    Image bg = new ImageIcon("res/SPIELBRETT.png").getImage();
+//	    @Override
+//	    public void paintComponent(Graphics g) {
+//	        g.drawImage(bg, 0, 0, getWidth(), getHeight(), this);
+//	    }
+//	}
 }
-
-

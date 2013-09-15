@@ -12,19 +12,25 @@ import de.dhbw.muehle.model.spielstein.Position;
 
 public class ViewController implements IViewController {
 
-	private View view;
-	private ViewActions vActions;
+	private View frame;
 	private Core core;
 	
 	public ViewController(Core _core){
-		view = new View();
+		frame = new View(this);
 		core = _core;
 	}
 		
 	public void initGui(){
-		view.initFrame();
-		vActions = new ViewActions(view);
+		frame.setVisible(true); // Frame anzeigen
+		frame.showComponet("mainMenu", true); // Hauptmenü anzeigen
 	}
+	
+	public void displaySettings() {
+		frame.showComponet("mainMenu", false); // Hauptmenü ausblenden
+		
+		//hier der Code um das Einstellungspanel anzuzeigen
+	}
+	
 	
 
 	@Override
@@ -52,6 +58,3 @@ public class ViewController implements IViewController {
 		return null;
 	}
 }
-
-
-
