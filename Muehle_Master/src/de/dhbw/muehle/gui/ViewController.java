@@ -4,6 +4,7 @@ package de.dhbw.muehle.gui;
  * Diese Klasse dient als Schnittstelle zwischen dem Core und der View
  */
 
+import java.awt.Dimension;
 import java.util.List;
 
 import de.dhbw.muehle.core.Core;
@@ -21,13 +22,15 @@ public class ViewController implements IViewController {
 	}
 		
 	public void initGui(){
+		frame.setContentPane(frame.mainMenu); // Hauptmenü anzeigen
 		frame.setVisible(true); // Frame anzeigen
-		frame.showComponet("mainMenu", true); // Hauptmenü anzeigen
+	}
+	
+	public void startPvE() {
+		frame.setContentPane(frame.gamePanel); // GamePanel anzeigen
 	}
 	
 	public void displaySettings() {
-		frame.showComponet("mainMenu", false); // Hauptmenü ausblenden
-		
 		//hier der Code um das Einstellungspanel anzuzeigen
 	}
 	

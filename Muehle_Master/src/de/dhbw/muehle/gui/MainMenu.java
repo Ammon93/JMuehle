@@ -27,6 +27,9 @@ public class MainMenu extends JPanel {
 		// Listener initialisieren
 		vActions = new MainMenuVA(vController);
 		
+		// Panelgröße festlegen
+		setSize(300,140);
+		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 29, 0};
@@ -43,7 +46,7 @@ public class MainMenu extends JPanel {
 		gbc_lblTitle.gridy = 0;
 		add(lblTitle, gbc_lblTitle);
 		
-		btnPvE = new JButton("Player vs. PC");
+		btnPvE = new JButton("PvE");
 		btnPvE.addActionListener(vActions.new btnPvEAction());
 		GridBagConstraints gbc_btnPvE = new GridBagConstraints();
 		gbc_btnPvE.gridwidth = 2;
@@ -52,7 +55,7 @@ public class MainMenu extends JPanel {
 		gbc_btnPvE.gridy = 1;
 		add(btnPvE, gbc_btnPvE);
 		
-		btnPvP = new JButton("Player vs. Player");
+		btnPvP = new JButton("PvP");
 		btnPvP.addActionListener(vActions.new btnPvPAction());
 		GridBagConstraints gbc_btnPvP = new GridBagConstraints();
 		gbc_btnPvP.gridwidth = 2;

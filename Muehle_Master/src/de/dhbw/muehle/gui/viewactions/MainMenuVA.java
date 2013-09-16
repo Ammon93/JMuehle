@@ -67,7 +67,7 @@ public class MainMenuVA {
 	 */
 	//MainMenu
 	private void actionBtnPvE(ActionEvent e) {
-		
+		vController.startPvE();
 	}
 	
 	private void actionBtnPvP(ActionEvent e) {
