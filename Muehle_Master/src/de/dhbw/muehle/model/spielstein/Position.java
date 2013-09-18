@@ -8,7 +8,7 @@ package de.dhbw.muehle.model.spielstein;
  * 
  * @author DHBW
  */
-public final class Position
+public class Position
 {
 	/**
 	 * die Ebene
@@ -75,7 +75,7 @@ public final class Position
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ebene.getValue();
-		result = prime * result + x.getValue();
+		result = prime * result + x.getValue();                 
 		result = prime * result + y.getValue();
 		return result;
 	}
