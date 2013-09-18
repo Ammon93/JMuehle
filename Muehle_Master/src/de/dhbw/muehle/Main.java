@@ -13,8 +13,6 @@ public class Main {
 		
 		Core muehle = new Core();
 		muehle.initGame();
-		
-		//Kommentar
 	}
 
 }
