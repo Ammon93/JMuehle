@@ -1,4 +1,4 @@
-package de.dhbw.muehle.gui;
+package de.dhbw.muehle.gui.menus;
 
 import javax.swing.JPanel;
 
@@ -11,6 +11,7 @@ import java.awt.Font;
 
 import javax.swing.JButton;
 
+import de.dhbw.muehle.gui.ViewController;
 import de.dhbw.muehle.gui.viewactions.MainMenuVA;
 
 import java.awt.Insets;

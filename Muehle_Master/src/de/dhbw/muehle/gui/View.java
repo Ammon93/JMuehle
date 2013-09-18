@@ -5,6 +5,9 @@ import java.awt.Container;
 
 import javax.swing.JFrame;
 
+import de.dhbw.muehle.gui.menus.GamePanel;
+import de.dhbw.muehle.gui.menus.MainMenu;
+
 
 
 /**
