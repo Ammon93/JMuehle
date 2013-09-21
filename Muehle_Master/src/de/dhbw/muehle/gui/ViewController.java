@@ -4,11 +4,7 @@ package de.dhbw.muehle.gui;
  * Diese Klasse dient als Schnittstelle zwischen dem Core und der View
  */
 
-import java.awt.Dimension;
-import java.awt.Image;
 import java.util.List;
-
-import javax.swing.ImageIcon;
 
 import de.dhbw.muehle.core.Core;
 import de.dhbw.muehle.model.spielstein.ISpielstein;
@@ -31,12 +27,14 @@ public class ViewController implements IViewController {
 	
 	public void startPvE() {
 		frame.setContentPane(frame.gamePanel); // GamePanel anzeigen
-//		Image bg = new ImageIcon("/Volumes/Benutzer/Ammon/Dropbox/Fallstudie/Design/Steine/SchwarzerStein.png").getImage();
-//		frame.gamePanel.gameStone[0][0].setText("");
 	}
 	
 	public void displaySettings() {
 		//hier der Code um das Einstellungspanel anzuzeigen
+	}
+	
+	public void stoneClicked(GameStone stone) {
+		
 	}
 	
 	

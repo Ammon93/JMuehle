@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import de.dhbw.muehle.gui.GameStone;
 import de.dhbw.muehle.gui.ViewController;
 import de.dhbw.muehle.gui.viewactions.GamePanelVA;
 import de.dhbw.muehle.gui.viewactions.MainMenuVA;
@@ -28,10 +29,9 @@ public class GamePanel extends JPanel {
 
 	private Image background;
 	private JPanel gameField;
-	public JLabel gameStone[][][];
+	private GameStone gameStone[][][];
 	
 	private GamePanelVA vActions;
-	private Graphics paint;
 	
 	public GamePanel(ViewController vController) {
 		// Listener initialisieren
@@ -70,14 +70,12 @@ public class GamePanel extends JPanel {
 		JPanel stoneField = new JPanel();
 		add(stoneField, "2, 1, fill, fill");
 		
+		
 		// Hintergrundbild laden
-		background = new ImageIcon("res/SPIELBRETT.png").getImage();
+		background = new ImageIcon("res/themes/Wooden Mill/Spielbrett/Spielbrett 3.0.png").getImage();
 		
 		// Spielsteine initialisieren
-		gameStone = new JLabel[3][3][3];
-		
-		// Graphics-Objekt des Spielbrettpanels holen
-		paint = getGraphics();
+		gameStone = new GameStone[3][3][3];
 		
 		// Labels für die Spielsteine einfügen
 		generateJLabels();
@@ -85,19 +83,12 @@ public class GamePanel extends JPanel {
 	
 	
 	private void generateJLabels(){
-		final Image bg = new ImageIcon("/Volumes/Benutzer/Ammon/Dropbox/Fallstudie/Design/Wooden Mill/Steine/SchwarzerStein.png").getImage();
-		
 		int k = 3;
 		for(int i=0;i<3;i++){
 			for(int x=0;x<3;x++){
 				for(int y=0;y<3;y++){
 					if(! (x==1 && y==1)){
-						gameStone[i][x][y] = new JLabel(){
-							@Override
-					   		public void paintComponent(Graphics g) {
-						        g.drawImage(bg, 0, 0, getWidth(), getHeight(), this);
-						    }
-						};
+						gameStone[i][x][y] = new GameStone();
 						gameStone[i][x][y].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 						gameStone[i][x][y].addMouseListener(vActions.new lblGameStoneMouse());
 						gameField.add(gameStone[i][x][y], (x*k+i+1)+", "+(y*k+i+1)+", fill, fill");
@@ -109,8 +100,10 @@ public class GamePanel extends JPanel {
 	}
 	
 	
+	// Spielbrettbild dynamisch auf das GamePanel zeichnen
     @Override
     public void paintComponent(Graphics g) {
+    	// Hintergrundbild dynamisch zeichnen
         g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
     }
 

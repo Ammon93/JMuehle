@@ -3,6 +3,7 @@ package de.dhbw.muehle.gui.viewactions;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import de.dhbw.muehle.gui.GameStone;
 import de.dhbw.muehle.gui.ViewController;
 
 public class GamePanelVA {
@@ -45,8 +46,8 @@ public class GamePanelVA {
 	/**
 	 * Methoden, die von den einzelnen Listenern aufgerufen werden
 	 */
-	//ActionListener
+	//MouseListener
 	private void mouseClickedLblGameStone(MouseEvent e) {
-		
+		vController.stoneClicked((GameStone) e.getComponent());
 	}
 }
