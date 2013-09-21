@@ -12,22 +12,35 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import de.dhbw.muehle.gui.ViewController;
+import de.dhbw.muehle.gui.viewactions.GamePanelVA;
+import de.dhbw.muehle.gui.viewactions.MainMenuVA;
+
 import java.awt.GridLayout;
+
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
 
+import java.awt.Cursor;
+
 public class GamePanel extends JPanel {
 
 	private Image background;
 	private JPanel gameField;
-	public JLabel gameStone[][];
+	public JLabel gameStone[][][];
 	
+	private GamePanelVA vActions;
+	private Graphics paint;
 	
 	public GamePanel(ViewController vController) {
+		// Listener initialisieren
+		vActions = new GamePanelVA(vController);
+		
 		// Panelgröße festlegen
 		setSize(705, 600);
+		
+		
 		setLayout(new FormLayout(new ColumnSpec[] {
 				ColumnSpec.decode("1dlu:grow(6)"),
 				ColumnSpec.decode("1dlu:grow"),},
@@ -54,9 +67,6 @@ public class GamePanel extends JPanel {
 				RowSpec.decode("default:grow"),
 				RowSpec.decode("default:grow"),}));
 		
-//		JLabel lblNewLabel = new JLabel("New label");
-//		gameField.add(lblNewLabel, "1, 1");
-		
 		JPanel stoneField = new JPanel();
 		add(stoneField, "2, 1, fill, fill");
 		
@@ -64,25 +74,37 @@ public class GamePanel extends JPanel {
 		background = new ImageIcon("res/SPIELBRETT.png").getImage();
 		
 		// Spielsteine initialisieren
-		gameStone = new JLabel[7][7];
+		gameStone = new JLabel[3][3][3];
 		
-		// Spielsteine einfügen
+		// Graphics-Objekt des Spielbrettpanels holen
+		paint = getGraphics();
+		
+		// Labels für die Spielsteine einfügen
 		generateJLabels();
 	}
 	
 	
 	private void generateJLabels(){
-		final Image bg = new ImageIcon("/home/ammon/Dropbox/Fallstudie/Design/Steine/SchwarzerStein.png").getImage();
-		for(int x=0;x<7;x++){
-			for(int y=0;y<7;y++){
-				gameStone[x][y] = new JLabel(){
-					@Override
-				    public void paintComponent(Graphics g) {
-				        g.drawImage(bg, 0, 0, getWidth(), getHeight(), this);
-				    }
-				};
-				gameField.add(gameStone[x][y], (x+1)+", "+(y+1)+", fill, fill");
+		final Image bg = new ImageIcon("/Volumes/Benutzer/Ammon/Dropbox/Fallstudie/Design/Wooden Mill/Steine/SchwarzerStein.png").getImage();
+		
+		int k = 3;
+		for(int i=0;i<3;i++){
+			for(int x=0;x<3;x++){
+				for(int y=0;y<3;y++){
+					if(! (x==1 && y==1)){
+						gameStone[i][x][y] = new JLabel(){
+							@Override
+					   		public void paintComponent(Graphics g) {
+						        g.drawImage(bg, 0, 0, getWidth(), getHeight(), this);
+						    }
+						};
+						gameStone[i][x][y].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+						gameStone[i][x][y].addMouseListener(vActions.new lblGameStoneMouse());
+						gameField.add(gameStone[i][x][y], (x*k+i+1)+", "+(y*k+i+1)+", fill, fill");
+					}
+				}
 			}
+			k--;
 		}
 	}
 	

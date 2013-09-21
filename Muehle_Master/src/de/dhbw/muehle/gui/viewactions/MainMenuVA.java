@@ -65,7 +65,7 @@ public class MainMenuVA {
 	/**
 	 * Methoden, die von den einzelnen Listenern aufgerufen werden
 	 */
-	//MainMenu
+	//ActionListener
 	private void actionBtnPvE(ActionEvent e) {
 		vController.startPvE();
 	}
