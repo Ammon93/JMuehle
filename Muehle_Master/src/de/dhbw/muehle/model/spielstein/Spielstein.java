@@ -1,18 +1,10 @@
 package de.dhbw.muehle.model.spielstein;
 
-import java.awt.Image;
-
-import javax.swing.ImageIcon;
-
-
-
-
 
 public class Spielstein implements ISpielstein{
 	
-	Position position;
-	Image spielstein;
-	ESpielsteinFarbe farbe;
+	private Position position;
+	private ESpielsteinFarbe farbe;
 	
 	
 	public Spielstein(EPositionIndex ebene,EPositionIndex x,EPositionIndex y,ESpielsteinFarbe farbe){
@@ -34,5 +26,4 @@ public class Spielstein implements ISpielstein{
 		return position;
 		
 	}
-
 }

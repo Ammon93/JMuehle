@@ -6,17 +6,23 @@ package de.dhbw.muehle.gui;
 
 import java.util.List;
 
+import javax.swing.JLabel;
+
 import de.dhbw.muehle.core.Core;
 import de.dhbw.muehle.model.spielstein.ISpielstein;
 import de.dhbw.muehle.model.spielstein.Position;
+import de.dhbw.muehle.model.theme.ThemeLoader;
 
 public class ViewController implements IViewController {
 
 	private View frame;
 	private Core core;
+	private ThemeLoader thLoader;
 	
 	public ViewController(Core _core){
-		frame = new View(this);
+		thLoader = new ThemeLoader();
+		
+		frame = new View(this, thLoader.getTheme(0));
 		core = _core;
 	}
 		
@@ -26,14 +32,14 @@ public class ViewController implements IViewController {
 	}
 	
 	public void startPvE() {
-		frame.setContentPane(frame.gamePanel); // GamePanel anzeigen
+		frame.setContentPane(frame.gamePanel); // GamePanel (Spielbrett) anzeigen
 	}
 	
 	public void displaySettings() {
 		//hier der Code um das Einstellungspanel anzuzeigen
 	}
 	
-	public void stoneClicked(GameStone stone) {
+	public void stoneClicked(JLabel stone) {
 		
 	}
 	

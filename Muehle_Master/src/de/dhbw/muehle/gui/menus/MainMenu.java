@@ -13,6 +13,7 @@ import javax.swing.JButton;
 
 import de.dhbw.muehle.gui.ViewController;
 import de.dhbw.muehle.gui.viewactions.MainMenuVA;
+import de.dhbw.muehle.model.theme.Theme;
 
 import java.awt.Insets;
 
@@ -24,7 +25,7 @@ public class MainMenu extends JPanel {
 	private JButton btnPvE, btnPvP, btnSettings, btnQuit;
 	private MainMenuVA vActions;
 	
-	public MainMenu(ViewController vController) {
+	public MainMenu(ViewController vController, Theme theme) {
 		// Listener initialisieren
 		vActions = new MainMenuVA(vController);
 		

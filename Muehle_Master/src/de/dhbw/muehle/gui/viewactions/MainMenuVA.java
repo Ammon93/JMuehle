@@ -30,7 +30,7 @@ public class MainMenuVA {
 		public class btnPvEAction implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				actionBtnPvE(e);
+				vController.startPvE();
 			}
 		}
 		
@@ -38,7 +38,7 @@ public class MainMenuVA {
 		public class btnPvPAction implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				actionBtnPvP(e);
+				
 			}
 		}
 		
@@ -46,7 +46,7 @@ public class MainMenuVA {
 		public class btnSettingsAction implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				actionBtnSettings(e);
+				vController.displaySettings();
 			}
 		}
 		
@@ -54,32 +54,9 @@ public class MainMenuVA {
 		public class btnQuitAction implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				actionBtnQuit(e);
+				// Programm beenden
+				System.exit(0); //noch die brachiale Methode, muss noch besser gelöst werden!!!
 			}
 		}
 //	}
-		
-		
-
-
-	/**
-	 * Methoden, die von den einzelnen Listenern aufgerufen werden
-	 */
-	//ActionListener
-	private void actionBtnPvE(ActionEvent e) {
-		vController.startPvE();
-	}
-	
-	private void actionBtnPvP(ActionEvent e) {
-		
-	}
-	
-	private void actionBtnSettings(ActionEvent e) {
-		vController.displaySettings();
-	}
-
-	private void actionBtnQuit(ActionEvent e) {
-		// Programm beenden
-		System.exit(0); //noch die brachiale Methode, muss noch besser gelöst werden!!!
-	}
 }
