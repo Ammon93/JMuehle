@@ -22,7 +22,7 @@ public class ViewController implements IViewController {
 	public ViewController(Core _core){
 		thLoader = new ThemeLoader();
 		
-		frame = new View(this, thLoader.getTheme(0));
+		frame = new View(this, thLoader.getTheme(1));
 		core = _core;
 	}
 		
