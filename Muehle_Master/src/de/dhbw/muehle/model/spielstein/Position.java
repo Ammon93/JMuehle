@@ -40,6 +40,55 @@ public class Position
     }
     
     /**
+     * Konstruktor
+     *
+     * @param ebene Ebene eines Feldes
+     * @param x X-Position eines Feldes (Spalte)
+     * @param y Y-Position eines Feldes (Zeile)
+     */
+    public Position(int ebene, int x, int y){
+		switch (ebene) {
+		case 1:
+			this.ebene = EPositionIndex.Eins;
+			break;
+		case 2:
+			this.ebene = EPositionIndex.Zwei;
+			break;
+		case 3:
+			this.ebene = EPositionIndex.Drei;
+			break;
+		default:
+			this.ebene = null;
+		}
+		switch (x) {
+		case 1:
+			this.x = EPositionIndex.Eins;
+			break;
+		case 2:
+			this.x = EPositionIndex.Zwei;
+			break;
+		case 3:
+			this.x = EPositionIndex.Drei;
+			break;
+		default:
+			this.x = null;
+		}
+		switch (y) {
+		case 1:
+			this.y = EPositionIndex.Eins;
+			break;
+		case 2:
+			this.y = EPositionIndex.Zwei;
+			break;
+		case 3:
+			this.y = EPositionIndex.Drei;
+			break;
+		default:
+			this.y = null;
+		}
+    }
+    
+    /**
      * Liefert die Ebene
      * 
      * @return Ebene

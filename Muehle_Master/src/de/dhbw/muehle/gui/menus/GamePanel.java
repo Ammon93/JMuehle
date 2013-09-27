@@ -13,6 +13,7 @@ import com.jgoodies.forms.layout.RowSpec;
 
 import de.dhbw.muehle.gui.ViewController;
 import de.dhbw.muehle.gui.viewactions.GamePanelVA;
+import de.dhbw.muehle.model.spielstein.EPositionIndex;
 import de.dhbw.muehle.model.spielstein.Position;
 import de.dhbw.muehle.model.theme.Theme;
 
@@ -98,12 +99,12 @@ public class GamePanel extends JPanel {
 	 * Labels für Spielsteine erzeugen und auf dem Spielbrett einfügen
 	 */
 	private void generateJLabels(){
-		int i = 3;
+		int i = 3; // Hilfsvariable
 		for(int e=0;e<3;e++){
 			for(int x=0;x<3;x++){
 				for(int y=0;y<3;y++){
 					if(! (x==1 && y==1)){
-						lblGameStone[e][x][y] = new LblGameStone();
+						lblGameStone[e][x][y] = new LblGameStone(e+1, x+1, y+1);
 						lblGameStone[e][x][y].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 						lblGameStone[e][x][y].addMouseListener(vActions.new lblGameStoneMouse());
 						gameField.add(lblGameStone[e][x][y], (x*i+e+1)+", "+(y*i+e+1)+", fill, fill");
@@ -154,6 +155,20 @@ public class GamePanel extends JPanel {
 class LblGameStone extends JLabel{
 	
 	private Image image;
+	private Position pos;
+	
+	public LblGameStone(int ebene, int x, int y) {	
+		pos = new Position(ebene, x, y);
+	}
+	
+	
+	/**
+	 * Liefert die Position des Labels auf dem Spielbrett
+	 * @return Position
+	 */
+	public Position getPosition(){
+		return pos;
+	}
 	
 	
 	/**
