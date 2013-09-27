@@ -10,19 +10,20 @@ import de.dhbw.muehle.model.spielstein.Spielstein;
 public class Core {
 	
 	
-	ViewController vController;
-	Model model;
-	Log log;
+	private ViewController vController;
+	private Model model;
+	
+	private Spielstein[] StW, StS;
 	
 	public Core(){
 		vController = new ViewController(this);
 		model = new Model();
+		
+		erzeugeSpielsteine();
 	}
 
 	public void initGame(){
 		vController.initGui();
-		erzeugeSpielsteine();
-		
 	}
 	
 	private void run(){
@@ -31,15 +32,12 @@ public class Core {
 	
 	private void erzeugeSpielsteine(){
 		
-		Spielstein [] StW = new Spielstein [9];
-		Spielstein [] StS = new Spielstein [9];
+		StW = new Spielstein [9];
+		StS = new Spielstein [9];
 		
 		for(int i=0;i<9;i++){
-			for(int j=0;j<9;j++){
-				StW[j]= new Spielstein(EPositionIndex.Drei,EPositionIndex.Drei,EPositionIndex.Drei,ESpielsteinFarbe.WEISS);
-			}
-		StS[i]= new Spielstein(EPositionIndex.Drei,EPositionIndex.Drei,EPositionIndex.Drei,ESpielsteinFarbe.WEISS);
-		
+			StW[i]= new Spielstein(EPositionIndex.Drei,EPositionIndex.Drei,EPositionIndex.Drei,ESpielsteinFarbe.WEISS);
+			StS[i]= new Spielstein(EPositionIndex.Drei,EPositionIndex.Drei,EPositionIndex.Drei,ESpielsteinFarbe.SCHWARZ);
 		}
 	
 		Log.log("Alle Spielsteine wurden erstellt",getClass().getSimpleName());

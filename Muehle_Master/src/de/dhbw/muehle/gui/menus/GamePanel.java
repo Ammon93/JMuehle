@@ -21,7 +21,7 @@ public class GamePanel extends JPanel {
 	private Image background;
 	private JPanel gameField;
 	private LblGameStone lblGameStone[][][];
-	private LblStoneField lblStonesMe,
+	private LblStoneStack lblStonesMe,
 				   		  lblStonesEnemy;
 	
 	private GamePanelVA vActions;
@@ -71,12 +71,12 @@ public class GamePanel extends JPanel {
 				RowSpec.decode("default:grow(6)"),
 				RowSpec.decode("default:grow"),}));
 		
-		lblStonesEnemy = new LblStoneField();
+		lblStonesEnemy = new LblStoneStack();
 		stoneField.add(lblStonesEnemy, "1, 2, fill, fill");
 		lblStonesEnemy.setImage(theme.getSpielSteinWeiss());
 		lblStonesEnemy.setCountStones(9);
 		
-		lblStonesMe = new LblStoneField();
+		lblStonesMe = new LblStoneStack();
 		stoneField.add(lblStonesMe, "1, 3, fill, fill");
 		lblStonesMe.setImage(theme.getSpielSteinSchwarz());
 		lblStonesMe.setCountStones(9);
@@ -132,7 +132,7 @@ public class GamePanel extends JPanel {
 	 * @param pos Position
 	 */
 	public JLabel getLabel(Position pos){
-		return lblGameStone[pos.getEbene().getValue()][pos.getX().getValue()][pos.getY().getValue()];
+		return lblGameStone[pos.getEbene().getValue()-1][pos.getX().getValue()-1][pos.getY().getValue()-1];
 	}
 	
 	
@@ -188,7 +188,7 @@ class LblGameStone extends JLabel{
 }
 
 
-class LblStoneField extends JLabel{
+class LblStoneStack extends JLabel{
 	
 	private Image gameStoneImage;
 	private int countStones; // Anzahl der noch nicht gesetzten Spielsteine

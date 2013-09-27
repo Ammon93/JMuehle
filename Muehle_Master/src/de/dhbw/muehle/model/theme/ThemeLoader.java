@@ -24,9 +24,21 @@ public class ThemeLoader {
 	
 	/**
 	 * Lädt eine Theme
-	 * @param Index der Theme
+	 * @param index Index der Theme
 	 */
 	public Theme getTheme(int index){
 		return availableThemes[index];
+	}
+	
+	/**
+	 * Lädt eine Theme
+	 * @param name Name der Theme
+	 */
+	public Theme getTheme(String name){
+		for(int i=0;i<availableThemes.length;i++)
+			if(availableThemes[i].getThemeName().equals(name))
+				return availableThemes[i];
+		
+		return null;
 	}
 }
