@@ -26,6 +26,7 @@ public class GamePanelVA {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				vController.stoneClicked((LblGameStone) e.getComponent());
+				
 			}
 
 			@Override

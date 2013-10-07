@@ -16,6 +16,7 @@ public class Core {
 	
 	private Spielstein[] StW, StS;
 	
+	
 	public Core(){
 		vController = new ViewController(this);
 		model = new Model();
@@ -27,18 +28,34 @@ public class Core {
 		vController.initGui();
 	}
 	
+	public Spielstein[] getStW() {
+		return StW;
+	}
+
+	public void setStW(Spielstein[] stW) {
+		StW = stW;
+	}
+
+	public Spielstein[] getStS() {
+		return StS;
+	}
+
+	public void setStS(Spielstein[] stS) {
+		StS = stS;
+	}
+
 	private void run(){
 		Log.log("run() ohne Fehler gestartet",getClass().getSimpleName());
 	}
 	
-	private void erzeugeSpielsteine(){
+	public void erzeugeSpielsteine(){
 		
 		StW = new Spielstein [9];
 		StS = new Spielstein [9];
 		
 		for(int i=0;i<9;i++){
-			StW[i]= new Spielstein(EPositionIndex.Drei,EPositionIndex.Drei,EPositionIndex.Drei,ESpielsteinFarbe.WEISS);
-			StS[i]= new Spielstein(EPositionIndex.Drei,EPositionIndex.Drei,EPositionIndex.Drei,ESpielsteinFarbe.SCHWARZ);
+			StW[i]= new Spielstein(null,null,null,ESpielsteinFarbe.WEISS);
+			StS[i]= new Spielstein(null,null,null,ESpielsteinFarbe.SCHWARZ);
 		}
 	
 		Log.log("Alle Spielsteine wurden erstellt",getClass().getSimpleName());

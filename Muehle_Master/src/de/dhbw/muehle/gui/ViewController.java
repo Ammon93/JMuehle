@@ -11,8 +11,11 @@ import javax.swing.JLabel;
 import de.dhbw.muehle.core.Core;
 import de.dhbw.muehle.gui.menus.GamePanel.LblGameStone;
 import de.dhbw.muehle.gui.viewactions.GamePanelVA.lblGameStoneMouse;
+import de.dhbw.muehle.model.Log;
+import de.dhbw.muehle.model.spielstein.ESpielsteinFarbe;
 import de.dhbw.muehle.model.spielstein.ISpielstein;
 import de.dhbw.muehle.model.spielstein.Position;
+import de.dhbw.muehle.model.spielstein.Spielstein;
 import de.dhbw.muehle.model.theme.Theme;
 import de.dhbw.muehle.model.theme.ThemeLoader;
 
@@ -22,6 +25,7 @@ public class ViewController implements IViewController {
 	private Core core;
 	private ThemeLoader thLoader;
 	private Theme theme;
+	
 	
 	public ViewController(Core _core){
 		thLoader = new ThemeLoader();
@@ -49,9 +53,11 @@ public class ViewController implements IViewController {
 		if(core.postitionFree(stone.getPosition()) && !frame.gamePanel.isStackEmpty(frame.gamePanel.lblStonesMe)){
 			stone.setImage(theme.getSpielSteinSchwarz());
 			frame.gamePanel.updateStack(frame.gamePanel.lblStonesMe, -1);
+			System.out.println(stone.getPosition());
+			core.getStW()[1].setPosition(stone.getPosition().getEbene(), stone.getPosition().getX(), stone.getPosition().getY());
+			System.out.println(core.getStW()[1].getPosition());
 		}
 	}
-	
 	
 
 	@Override

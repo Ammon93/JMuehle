@@ -26,4 +26,10 @@ public class Spielstein implements ISpielstein{
 		return position;
 		
 	}
+	
+	public void setPosition(EPositionIndex ebene,EPositionIndex x,EPositionIndex y) {
+		
+		this.position = new Position(ebene, x, y);
+		
+	}
 }
