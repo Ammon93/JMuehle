@@ -9,8 +9,11 @@ import java.util.List;
 import javax.swing.JLabel;
 
 import de.dhbw.muehle.core.Core;
+import de.dhbw.muehle.gui.menus.GamePanel.LblGameStone;
+import de.dhbw.muehle.gui.viewactions.GamePanelVA.lblGameStoneMouse;
 import de.dhbw.muehle.model.spielstein.ISpielstein;
 import de.dhbw.muehle.model.spielstein.Position;
+import de.dhbw.muehle.model.theme.Theme;
 import de.dhbw.muehle.model.theme.ThemeLoader;
 
 public class ViewController implements IViewController {
@@ -18,11 +21,13 @@ public class ViewController implements IViewController {
 	private View frame;
 	private Core core;
 	private ThemeLoader thLoader;
+	private Theme theme;
 	
 	public ViewController(Core _core){
 		thLoader = new ThemeLoader();
+		theme = thLoader.getTheme("Wooden Mill");
 		
-		frame = new View(this, thLoader.getTheme("Wooden Mill"));
+		frame = new View(this, theme);
 		core = _core;
 	}
 		
@@ -39,8 +44,12 @@ public class ViewController implements IViewController {
 		//hier der Code um das Einstellungspanel anzuzeigen
 	}
 	
-	public void stoneClicked(JLabel stone) {
-		
+	public void stoneClicked(LblGameStone stone) {
+		// Core fragen, ob Stein gesetzt werden darf
+		if(core.postitionFree(stone.getPosition()) && !frame.gamePanel.isStackEmpty(frame.gamePanel.lblStonesMe)){
+			stone.setImage(theme.getSpielSteinSchwarz());
+			frame.gamePanel.updateStack(frame.gamePanel.lblStonesMe, -1);
+		}
 	}
 	
 	

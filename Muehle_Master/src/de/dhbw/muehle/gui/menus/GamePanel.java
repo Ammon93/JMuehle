@@ -22,8 +22,8 @@ public class GamePanel extends JPanel {
 	private Image background;
 	private JPanel gameField;
 	private LblGameStone lblGameStone[][][];
-	private LblStoneStack lblStonesMe,
-				   		  lblStonesEnemy;
+	public LblStoneStack lblStonesMe,
+				   		 lblStonesEnemy;
 	
 	private GamePanelVA vActions;
 	
@@ -137,6 +137,32 @@ public class GamePanel extends JPanel {
 	}
 	
 	
+	/**
+	 * Prüft, ob Stack leer ist
+	 * @param stach Zu überprüfender Stack
+	 * @return true/false
+	 */
+	public boolean isStackEmpty(LblStoneStack stack){
+		if(stack.getCountStones() == 0)
+			return true;
+		else
+			return false;
+	}
+	
+	
+	/**
+	 * Erhöht oder veringert einen Stack
+	 * @param stack Zu ändernder Stack
+	 * @param change Nur 1 und -1 erlaubt
+	 */
+	public void updateStack(LblStoneStack stack, int change){
+		if(change >= 1)
+			stack.setCountStones(stack.getCountStones() + 1);
+		else
+			stack.setCountStones(stack.getCountStones() - 1);
+	}
+	
+	
 	
 	/**
 	 * Spielbrettbild dynamisch auf das GamePanel zeichnen
@@ -147,108 +173,119 @@ public class GamePanel extends JPanel {
     	// Hintergrundbild dynamisch zeichnen
         g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
     }
-}
 
 
 
 
-class LblGameStone extends JLabel{
-	
-	private Image image;
-	private Position pos;
-	
-	public LblGameStone(int ebene, int x, int y) {	
-		pos = new Position(ebene, x, y);
-	}
-	
-	
-	/**
-	 * Liefert die Position des Labels auf dem Spielbrett
-	 * @return Position
-	 */
-	public Position getPosition(){
-		return pos;
-	}
-	
-	
-	/**
-	 * Weist dem Stein ein bestimmtes Bild zu
-	 * <br/>Dadurch wird der Stein sichtbar
-	 * @param image Bild, das auf dem Label gezeichnet werden soll
-	 */
-	public void setImage(Image image){
-		this.image = image;
-		repaint();
-	}
-	
-	
-	/**
-	 * Entfernt das aktuelle Bild vom Label
-	 * <br/>Dadurch wird es unsichtbar
-	 */
-	public void removeImage(){
-		this.image = null;
-		repaint();
-	}
-	
-	
-	/**
-	 * Bild dynamisch auf den Stein zeichnen
-	 */
-	@Override
-	public void paintComponent(Graphics g) {
-		// Bild dynamisch zeichnen
-		g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
-	}
-}
 
-
-class LblStoneStack extends JLabel{
-	
-	private Image gameStoneImage;
-	private int countStones; // Anzahl der noch nicht gesetzten Spielsteine
-	
-	
-	/**
-	 * Die Farbe für den Spielsteinstapel setzen
-	 * @param gameStoneImage Bild (Farbe) des Spielsteins
-	 */
-	public void setImage(Image gameStoneImage){
-		this.gameStoneImage = gameStoneImage;
-		repaint();
+	public class LblGameStone extends JLabel{
+		
+		private Image image;
+		private Position pos;
+		
+		public LblGameStone(int ebene, int x, int y) {	
+			pos = new Position(ebene, x, y);
+		}
+		
+		
+		/**
+		 * Liefert die Position des Labels auf dem Spielbrett
+		 * @return Position
+		 */
+		public Position getPosition(){
+			return pos;
+		}
+		
+		
+		/**
+		 * Weist dem Stein ein bestimmtes Bild zu
+		 * <br/>Dadurch wird der Stein sichtbar
+		 * @param image Bild, das auf dem Label gezeichnet werden soll
+		 */
+		public void setImage(Image image){
+			this.image = image;
+			repaint();
+		}
+		
+		
+		/**
+		 * Entfernt das aktuelle Bild vom Label
+		 * <br/>Dadurch wird es unsichtbar
+		 */
+		public void removeImage(){
+			this.image = null;
+			repaint();
+		}
+		
+		
+		/**
+		 * Bild dynamisch auf den Stein zeichnen
+		 */
+		@Override
+		public void paintComponent(Graphics g) {
+			// Bild dynamisch zeichnen
+			g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+		}
 	}
 	
 	
-	/**
-	 * Setzt die Anzahl der noch nicht gesetzten Spielsteine
-	 * @param count Anzehl der noch nicht gestzten Spielsteine
-	 */
-	public void setCountStones(int count){
-		this.countStones = count;
-		repaint(); // Zeichnung updaten
-	}
-	
-	
-	/**
-	 * Stapel an noch nicht gesetzten Steinen zeichnen
-	 */
-	@Override
-	public void paintComponent(Graphics g) {
-		// Höhe und Breite berechnen
-		int h = getHeight()/4;
-		int w = (int) (getWidth()*0.6);
-		// Bild dynamisch zeichnen
-		for(int i=0;i<=countStones;i++){
-			if(i>4 && i<=7){
-				g.drawImage(gameStoneImage, getWidth()*15/100, ((i-5)*h)+h/2, w, h, this);
-				continue;
+	public class LblStoneStack extends JLabel{
+		
+		private Image gameStoneImage;
+		private int countStones; // Anzahl der noch nicht gesetzten Spielsteine
+		
+		
+		/**
+		 * Die Farbe für den Spielsteinstapel setzen
+		 * @param gameStoneImage Bild (Farbe) des Spielsteins
+		 */
+		public void setImage(Image gameStoneImage){
+			this.gameStoneImage = gameStoneImage;
+			repaint();
+		}
+		
+		
+		/**
+		 * Setzt die Anzahl der noch nicht gesetzten Spielsteine
+		 * @param count Anzehl der noch nicht gestzten Spielsteine
+		 */
+		public void setCountStones(int count){
+			this.countStones = count;
+			repaint(); // Zeichnung updaten
+		}
+		
+		
+		/**
+		 * Liefert die Anzahl der noch nicht gesetzten Spielsteine
+		 * @return count Anzehl der noch nicht gestzten Spielsteine
+		 */
+		public int getCountStones(){
+			return countStones;
+		}
+		
+		
+		/**
+		 * Stapel an noch nicht gesetzten Steinen zeichnen
+		 */
+		@Override
+		public void paintComponent(Graphics g) {
+			// Höhe und Breite berechnen
+			int h = getHeight()/4;
+			int w = (int) (getWidth()*0.6);
+			// Bild dynamisch zeichnen
+			for(int i=0;i<countStones;i++){
+				if(i>=4 && i<7){
+					g.drawImage(gameStoneImage, getWidth()*15/100, ((i-4)*h)+h/2, w, h, this);
+					continue;
+				}
+				
+				if(i>=7){
+					g.drawImage(gameStoneImage, getWidth()*15/100, ((i-7)*h)+h/2+h/2, w, h, this);
+					continue;
+				}
+				
+				g.drawImage(gameStoneImage, getWidth()*15/100, i*h, w, h, this);
 			}
-			if(i>7){
-				g.drawImage(gameStoneImage, getWidth()*15/100, ((i-8)*h)+h/2+h/2, w, h, this);
-				continue;
-			}
-			
-			g.drawImage(gameStoneImage, getWidth()*15/100, i*h, w, h, this);
 		}
 	}
 }

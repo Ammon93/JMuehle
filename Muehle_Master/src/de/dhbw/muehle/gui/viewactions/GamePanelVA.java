@@ -6,6 +6,7 @@ import java.awt.event.MouseListener;
 import javax.swing.JLabel;
 
 import de.dhbw.muehle.gui.ViewController;
+import de.dhbw.muehle.gui.menus.GamePanel.LblGameStone;
 
 public class GamePanelVA {
 	
@@ -24,7 +25,7 @@ public class GamePanelVA {
 		public class lblGameStoneMouse implements MouseListener{
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				vController.stoneClicked((JLabel) e.getComponent());
+				vController.stoneClicked((LblGameStone) e.getComponent());
 			}
 
 			@Override

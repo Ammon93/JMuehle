@@ -5,6 +5,7 @@ import de.dhbw.muehle.model.Log;
 import de.dhbw.muehle.model.Model;
 import de.dhbw.muehle.model.spielstein.EPositionIndex;
 import de.dhbw.muehle.model.spielstein.ESpielsteinFarbe;
+import de.dhbw.muehle.model.spielstein.Position;
 import de.dhbw.muehle.model.spielstein.Spielstein;
 
 public class Core {
@@ -42,6 +43,11 @@ public class Core {
 	
 		Log.log("Alle Spielsteine wurden erstellt",getClass().getSimpleName());
 		
+	}
+	
+	public boolean postitionFree(Position pos){
+		
+		return true;
 	}
 }
 
