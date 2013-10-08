@@ -48,18 +48,18 @@ public class ViewController implements IViewController {
 		//hier der Code um das Einstellungspanel anzuzeigen
 	}
 	
-	public void stoneClicked(LblGameStone stone) {
+	public void weisseSteine_setzen(LblGameStone stone) {
 		// Core fragen, ob Stein gesetzt werden darf
 		if(core.postitionFree(stone.getPosition()) && !frame.gamePanel.isStackEmpty(frame.gamePanel.lblStonesMe)){
 			stone.setImage(theme.getSpielSteinSchwarz());
 			frame.gamePanel.updateStack(frame.gamePanel.lblStonesMe, -1);
 			System.out.println(stone.getPosition());
-			core.getStW()[1].setPosition(stone.getPosition().getEbene(), stone.getPosition().getX(), stone.getPosition().getY());
+			core.getStW()[9-frame.gamePanel.lblStonesMe.getCountStones()].setPosition(stone.getPosition().getEbene(), stone.getPosition().getX(), stone.getPosition().getY());
 			System.out.println(core.getStW()[1].getPosition());
+			System.out.println(core.getStW()[9-frame.gamePanel.lblStonesMe.getCountStones()].getPosition());
 		}
 	}
 	
-
 	@Override
 	public Position getPosition(ISpielstein spielStein) {
 		// TODO Auto-generated method stub

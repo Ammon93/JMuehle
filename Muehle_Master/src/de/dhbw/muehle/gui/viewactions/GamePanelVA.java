@@ -25,7 +25,7 @@ public class GamePanelVA {
 		public class lblGameStoneMouse implements MouseListener{
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				vController.stoneClicked((LblGameStone) e.getComponent());
+				vController.weisseSteine_setzen((LblGameStone) e.getComponent());
 				
 			}
 

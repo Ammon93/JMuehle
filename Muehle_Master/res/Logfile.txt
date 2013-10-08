@@ -299,3 +299,10 @@ ViewController: 2013-10-07T13:48:46.008+02:00: Alle Spielsteine wurden erstellt
 ViewController: 2013-10-07T13:49:36.330+02:00: Alle Spielsteine wurden erstellt
 Core: 2013-10-07T14:03:29.707+02:00: Alle Spielsteine wurden erstellt
 Core: 2013-10-07T14:05:31.859+02:00: Alle Spielsteine wurden erstellt
+Core: 2013-10-07T14:15:28.046+02:00: Alle Spielsteine wurden erstellt
+Core: 2013-10-07T14:17:29.610+02:00: Alle Spielsteine wurden erstellt
+Core: 2013-10-07T14:19:03.608+02:00: Alle Spielsteine wurden erstellt
+Core: 2013-10-07T14:20:23.591+02:00: Alle Spielsteine wurden erstellt
+Core: 2013-10-07T14:25:20.062+02:00: Alle Spielsteine wurden erstellt
+Core: 2013-10-07T14:34:08.210+02:00: Alle Spielsteine wurden erstellt
+Core: 2013-10-07T14:34:55.541+02:00: Alle Spielsteine wurden erstellt
