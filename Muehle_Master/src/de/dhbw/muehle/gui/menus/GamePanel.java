@@ -19,7 +19,6 @@ import de.dhbw.muehle.model.theme.Theme;
 
 public class GamePanel extends JPanel {
 
-	private Image background;
 	private JPanel gameField;
 	private LblGameStone lblGameStone[][][];
 	public LblStoneStack schwarzeSteine,
@@ -27,7 +26,12 @@ public class GamePanel extends JPanel {
 	
 	private GamePanelVA vActions;
 	
+	private Theme theme;
+	
+	
 	public GamePanel(ViewController vController, Theme theme) {
+		this.theme = theme;
+		
 		// Listener initialisieren
 		vActions = new GamePanelVA(vController);
 		
@@ -89,9 +93,6 @@ public class GamePanel extends JPanel {
 		
 		// Labels für die Spielsteine einfügen
 		generateJLabels();
-		
-		// Theme anwenden
-		this.setTheme(theme);
 	}
 	
 	
@@ -121,9 +122,9 @@ public class GamePanel extends JPanel {
 	 * @param theme Theme
 	 */
 	public void setTheme(Theme theme){
-		// Hintergrundbild laden
-		background = theme.getSpielBrett();
-		
+		this.theme = theme;	
+		weisseSteine.setImage(theme.getSpielSteinWeiss());
+		schwarzeSteine.setImage(theme.getSpielSteinSchwarz());
 		repaint();
 	}
 	
@@ -171,7 +172,7 @@ public class GamePanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
     	// Hintergrundbild dynamisch zeichnen
-        g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
+        g.drawImage(theme.getSpielBrett(), 0, 0, getWidth(), getHeight(), this);
     }
 
 

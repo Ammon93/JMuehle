@@ -30,7 +30,7 @@ import java.awt.Dimension;
  */
 public class MainMenu extends JPanel {
 
-	private JButton btnPvE, btnPvP, btnSettings, btnQuit, btnHilfe;
+	private MillButton btnPvE, btnPvP, btnSettings, btnQuit, btnHilfe;
 	private MainMenuVA vActions;
 	
 	private Theme theme;
@@ -65,52 +65,37 @@ public class MainMenu extends JPanel {
 				FormFactory.UNRELATED_GAP_ROWSPEC,}));
 		
 		
-		btnPvE = new JButton(){
-			@Override
-			public void paintComponent(Graphics g){
-				g.drawImage(theme.getBtnPvE(), 0, 0, getWidth(), getHeight(), this);
-			}
-		};
+		btnPvE = new MillButton(theme, "Einzelspieler");
 		btnPvE.addActionListener(vActions.new btnPvEAction());
 		add(btnPvE, "2, 5, fill, fill");
 		
-		btnHilfe = new JButton(){
-			@Override
-			public void paintComponent(Graphics g){
-				g.drawImage(theme.getBtnHilfe(), 0, 0, getWidth(), getHeight(), this);
-			}
-		};
+		btnHilfe = new MillButton(theme, "Hilfe");
 		btnHilfe.setPreferredSize(new Dimension(40, 40));
 		add(btnHilfe, "8, 2, right, top");
 		
-		btnPvP = new JButton(){
-			@Override
-			public void paintComponent(Graphics g){
-				g.drawImage(theme.getBtnPvP(), 0, 0, getWidth(), getHeight(), this);
-			}
-		};
+		btnPvP = new MillButton(theme, "Mehrspieler");
 		btnPvP.addActionListener(vActions.new btnPvPAction());
 		add(btnPvP, "4, 5, fill, fill");
 		
-		btnSettings = new JButton(){
-			@Override
-			public void paintComponent(Graphics g){
-				g.drawImage(theme.getBtnEinstellungen(), 0, 0, getWidth(), getHeight(), this);
-			}
-		};
+		btnSettings = new MillButton(theme, "Einstellungen");
 		btnSettings.addActionListener(vActions.new btnSettingsAction());
 		add(btnSettings, "6, 5, fill, fill");
 		
-		btnQuit = new JButton(){
-			@Override
-			public void paintComponent(Graphics g){
-				g.drawImage(theme.getBtnBeenden(), 0, 0, getWidth(), getHeight(), this);
-			}
-		};
+		btnQuit = new MillButton(theme, "Beenden");
 		btnQuit.addActionListener(vActions.new btnQuitAction());
 		add(btnQuit, "8, 5, fill, fill");
 	}
 	
+	
+	public void setTheme(Theme theme){
+		this.theme = theme;
+		btnHilfe.setTheme(theme);
+		btnPvE.setTheme(theme);
+		btnPvP.setTheme(theme);
+		btnQuit.setTheme(theme);
+		btnSettings.setTheme(theme);
+		repaint();
+	}
 	
 	
 	@Override

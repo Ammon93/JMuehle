@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 
 import de.dhbw.muehle.gui.menus.GamePanel;
 import de.dhbw.muehle.gui.menus.MainMenu;
+import de.dhbw.muehle.gui.menus.SettingsPanel;
 import de.dhbw.muehle.model.theme.Theme;
 
 
@@ -24,6 +25,7 @@ public class View extends JFrame{
 
 	protected MainMenu mainMenu;
 	protected GamePanel gamePanel;
+	protected SettingsPanel settingsPanel;
 	private ViewController vController;
 	
 	
@@ -42,6 +44,9 @@ public class View extends JFrame{
 		
 		// gamePanel initialisieren
 		gamePanel = new GamePanel(vController, theme);
+		
+		// setingsPanel initialisieren
+		settingsPanel = new SettingsPanel(vController, theme);
 	}
 	
 	
@@ -52,6 +57,9 @@ public class View extends JFrame{
 	 */
 	public void setTheme(Theme theme){
 		this.theme = theme;
+		mainMenu.setTheme(theme);
+		gamePanel.setTheme(theme);
+		settingsPanel.setTheme(theme);
 		repaint();
 	}
 	

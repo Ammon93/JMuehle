@@ -40,12 +40,16 @@ public class ViewController implements IViewController {
 		frame.setVisible(true); // Frame anzeigen
 	}
 	
+	public void displayMainMenu(){
+		frame.setContentPane(frame.mainMenu);
+	}
+	
 	public void startPvE() {
 		frame.setContentPane(frame.gamePanel); // GamePanel (Spielbrett) anzeigen
 	}
 	
 	public void displaySettings() {
-		//hier der Code um das Einstellungspanel anzuzeigen
+		frame.setContentPane(frame.settingsPanel);
 	}
 	
 	
@@ -71,6 +75,11 @@ public class ViewController implements IViewController {
 				frame.gamePanel.updateStack(frame.gamePanel.schwarzeSteine, -1);
 				System.out.println(core.getStW().size());
 			}
+	}
+	
+	public void setTheme(String theme){
+		this.theme = thLoader.getTheme(theme);
+		frame.setTheme(this.theme);
 	}
 	
 	@Override
