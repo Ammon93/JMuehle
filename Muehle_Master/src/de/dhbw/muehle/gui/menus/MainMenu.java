@@ -1,11 +1,14 @@
 package de.dhbw.muehle.gui.menus;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import java.awt.GridBagLayout;
 
 import javax.swing.JLabel;
 
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.Font;
 
@@ -16,71 +19,102 @@ import de.dhbw.muehle.gui.viewactions.MainMenuVA;
 import de.dhbw.muehle.model.theme.Theme;
 
 import java.awt.Insets;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
+import com.jgoodies.forms.factories.FormFactory;
+import java.awt.Dimension;
 
 /**
  * Dieses Panel ist das Hauptmenüpanel, das zuerst im Frame angezeigt wird.
  */
 public class MainMenu extends JPanel {
 
-	private JButton btnPvE, btnPvP, btnSettings, btnQuit;
+	private JButton btnPvE, btnPvP, btnSettings, btnQuit, btnHilfe;
 	private MainMenuVA vActions;
 	
-	public MainMenu(ViewController vController, Theme theme) {
+	private Theme theme;
+	
+	
+	public MainMenu(ViewController vController, final Theme theme) {
+		this.theme = theme;
+		
 		// Listener initialisieren
 		vActions = new MainMenuVA(vController);
 		
 		// Panelgröße festlegen
-		setSize(300,140);
+		setSize(705, 600);
 		
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 29, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		setLayout(gridBagLayout);
 		
-		JLabel lblTitle = new JLabel("JMuehle");
-		lblTitle.setFont(new Font("Lucida Grande", Font.PLAIN, 28));
-		GridBagConstraints gbc_lblTitle = new GridBagConstraints();
-		gbc_lblTitle.gridwidth = 2;
-		gbc_lblTitle.insets = new Insets(0, 0, 5, 0);
-		gbc_lblTitle.gridx = 0;
-		gbc_lblTitle.gridy = 0;
-		add(lblTitle, gbc_lblTitle);
+		setLayout(new FormLayout(new ColumnSpec[] {
+				FormFactory.UNRELATED_GAP_COLSPEC,
+				ColumnSpec.decode("default:grow"),
+				FormFactory.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("default:grow"),
+				FormFactory.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("default:grow"),
+				FormFactory.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("default:grow"),
+				FormFactory.UNRELATED_GAP_COLSPEC,},
+			new RowSpec[] {
+				FormFactory.UNRELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				RowSpec.decode("default:grow"),
+				FormFactory.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("fill:max(52px;min)"),
+				FormFactory.UNRELATED_GAP_ROWSPEC,}));
 		
-		btnPvE = new JButton("PvE");
+		
+		btnPvE = new JButton(){
+			@Override
+			public void paintComponent(Graphics g){
+				g.drawImage(theme.getBtnPvE(), 0, 0, getWidth(), getHeight(), this);
+			}
+		};
 		btnPvE.addActionListener(vActions.new btnPvEAction());
-		GridBagConstraints gbc_btnPvE = new GridBagConstraints();
-		gbc_btnPvE.gridwidth = 2;
-		gbc_btnPvE.insets = new Insets(0, 0, 5, 0);
-		gbc_btnPvE.gridx = 0;
-		gbc_btnPvE.gridy = 1;
-		add(btnPvE, gbc_btnPvE);
+		add(btnPvE, "2, 5, fill, fill");
 		
-		btnPvP = new JButton("PvP");
+		btnHilfe = new JButton(){
+			@Override
+			public void paintComponent(Graphics g){
+				g.drawImage(theme.getBtnHilfe(), 0, 0, getWidth(), getHeight(), this);
+			}
+		};
+		btnHilfe.setPreferredSize(new Dimension(40, 40));
+		add(btnHilfe, "8, 2, right, top");
+		
+		btnPvP = new JButton(){
+			@Override
+			public void paintComponent(Graphics g){
+				g.drawImage(theme.getBtnPvP(), 0, 0, getWidth(), getHeight(), this);
+			}
+		};
 		btnPvP.addActionListener(vActions.new btnPvPAction());
-		GridBagConstraints gbc_btnPvP = new GridBagConstraints();
-		gbc_btnPvP.gridwidth = 2;
-		gbc_btnPvP.insets = new Insets(0, 0, 5, 0);
-		gbc_btnPvP.gridx = 0;
-		gbc_btnPvP.gridy = 2;
-		add(btnPvP, gbc_btnPvP);
+		add(btnPvP, "4, 5, fill, fill");
 		
-		btnQuit = new JButton("Beenden");
-		btnQuit.addActionListener(vActions.new btnQuitAction());
-		GridBagConstraints gbc_btnQuit = new GridBagConstraints();
-		gbc_btnQuit.anchor = GridBagConstraints.WEST;
-		gbc_btnQuit.insets = new Insets(0, 0, 0, 5);
-		gbc_btnQuit.gridx = 0;
-		gbc_btnQuit.gridy = 3;
-		add(btnQuit, gbc_btnQuit);
-		
-		btnSettings = new JButton("Einstellungen");
+		btnSettings = new JButton(){
+			@Override
+			public void paintComponent(Graphics g){
+				g.drawImage(theme.getBtnEinstellungen(), 0, 0, getWidth(), getHeight(), this);
+			}
+		};
 		btnSettings.addActionListener(vActions.new btnSettingsAction());
-		GridBagConstraints gbc_btnSettings = new GridBagConstraints();
-		gbc_btnSettings.anchor = GridBagConstraints.EAST;
-		gbc_btnSettings.gridx = 1;
-		gbc_btnSettings.gridy = 3;
-		add(btnSettings, gbc_btnSettings);
+		add(btnSettings, "6, 5, fill, fill");
+		
+		btnQuit = new JButton(){
+			@Override
+			public void paintComponent(Graphics g){
+				g.drawImage(theme.getBtnBeenden(), 0, 0, getWidth(), getHeight(), this);
+			}
+		};
+		btnQuit.addActionListener(vActions.new btnQuitAction());
+		add(btnQuit, "8, 5, fill, fill");
+	}
+	
+	
+	
+	@Override
+	public void paintComponent(Graphics g){
+		g.drawImage(theme.getMenueHintergrund(), 0, 0, getWidth(), getHeight(), this);
 	}
 }
