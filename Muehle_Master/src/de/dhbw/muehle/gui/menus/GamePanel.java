@@ -22,8 +22,8 @@ public class GamePanel extends JPanel {
 	private Image background;
 	private JPanel gameField;
 	private LblGameStone lblGameStone[][][];
-	public LblStoneStack lblStonesMe,
-				   		 lblStonesEnemy;
+	public LblStoneStack schwarzeSteine,
+				   		 weisseSteine;
 	
 	private GamePanelVA vActions;
 	
@@ -72,15 +72,15 @@ public class GamePanel extends JPanel {
 				RowSpec.decode("default:grow(6)"),
 				RowSpec.decode("default:grow"),}));
 		
-		lblStonesEnemy = new LblStoneStack();
-		stoneField.add(lblStonesEnemy, "1, 2, fill, fill");
-		lblStonesEnemy.setImage(theme.getSpielSteinWeiss());
-		lblStonesEnemy.setCountStones(9);
+		weisseSteine = new LblStoneStack();
+		stoneField.add(weisseSteine, "1, 2, fill, fill");
+		weisseSteine.setImage(theme.getSpielSteinWeiss());
+		weisseSteine.setCountStones(9);
 		
-		lblStonesMe = new LblStoneStack();
-		stoneField.add(lblStonesMe, "1, 3, fill, fill");
-		lblStonesMe.setImage(theme.getSpielSteinSchwarz());
-		lblStonesMe.setCountStones(9);
+		schwarzeSteine = new LblStoneStack();
+		stoneField.add(schwarzeSteine, "1, 3, fill, fill");
+		schwarzeSteine.setImage(theme.getSpielSteinSchwarz());
+		schwarzeSteine.setCountStones(9);
 		
 		
 		

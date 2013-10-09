@@ -55,20 +55,20 @@ public class ViewController implements IViewController {
 	
 	public void weisseSteine_setzen(LblGameStone stone) {
 		
-		if(core.postitionFree(stone.getPosition()) && !frame.gamePanel.isStackEmpty(frame.gamePanel.lblStonesMe)){
+		if(core.postitionFree(stone.getPosition()) && !frame.gamePanel.isStackEmpty(frame.gamePanel.weisseSteine)){
 			core.erzeugeSpielsteinweiss(stone.getPosition().getEbene(), stone.getPosition().getX(),stone.getPosition().getY(),stone.getPosition());
 			stone.setImage(theme.getSpielSteinWeiss());
-			frame.gamePanel.updateStack(frame.gamePanel.lblStonesEnemy, -1);
+			frame.gamePanel.updateStack(frame.gamePanel.weisseSteine, -1);
 			System.out.println(core.getStW().size());
 		}
 		
 	}
 	public void schwarzeSteine_setzen(LblGameStone stone) {
 			
-			if(core.postitionFree(stone.getPosition()) && !frame.gamePanel.isStackEmpty(frame.gamePanel.lblStonesEnemy)){
+			if(core.postitionFree(stone.getPosition()) && !frame.gamePanel.isStackEmpty(frame.gamePanel.schwarzeSteine)){
 				core.erzeugeSpielsteinschwarz(stone.getPosition().getEbene(), stone.getPosition().getX(),stone.getPosition().getY(),stone.getPosition());
 				stone.setImage(theme.getSpielSteinSchwarz());
-				frame.gamePanel.updateStack(frame.gamePanel.lblStonesMe, -1);
+				frame.gamePanel.updateStack(frame.gamePanel.schwarzeSteine, -1);
 				System.out.println(core.getStW().size());
 			}
 	}
