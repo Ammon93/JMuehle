@@ -48,6 +48,11 @@ public class ViewController implements IViewController {
 		//hier der Code um das Einstellungspanel anzuzeigen
 	}
 	
+	
+	public void clickedLabel(LblGameStone stone){
+		
+	}
+	
 	public void weisseSteine_setzen(LblGameStone stone) {
 		// Core fragen, ob Stein gesetzt werden darf
 		if(core.postitionFree(stone.getPosition()) && !frame.gamePanel.isStackEmpty(frame.gamePanel.lblStonesMe)){
@@ -67,8 +72,7 @@ public class ViewController implements IViewController {
 	}
 
 	@Override
-	public List<ISpielstein> setPosition(ISpielstein spielStein,
-			Position position) {
+	public List<ISpielstein> setPosition(ISpielstein spielStein, Position position) {
 		// TODO Auto-generated method stub
 		return null;
 	}
