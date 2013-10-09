@@ -21,7 +21,7 @@ import de.dhbw.muehle.model.theme.ThemeLoader;
 
 public class ViewController implements IViewController {
 
-	private View frame;
+	public View frame;
 	private Core core;
 	private ThemeLoader thLoader;
 	private Theme theme;
@@ -54,15 +54,23 @@ public class ViewController implements IViewController {
 	}
 	
 	public void weisseSteine_setzen(LblGameStone stone) {
-		// Core fragen, ob Stein gesetzt werden darf
+		
 		if(core.postitionFree(stone.getPosition()) && !frame.gamePanel.isStackEmpty(frame.gamePanel.lblStonesMe)){
-			stone.setImage(theme.getSpielSteinSchwarz());
-			frame.gamePanel.updateStack(frame.gamePanel.lblStonesMe, -1);
-			System.out.println(stone.getPosition());
-			core.getStW()[9-frame.gamePanel.lblStonesMe.getCountStones()].setPosition(stone.getPosition().getEbene(), stone.getPosition().getX(), stone.getPosition().getY());
-			System.out.println(core.getStW()[1].getPosition());
-			System.out.println(core.getStW()[9-frame.gamePanel.lblStonesMe.getCountStones()].getPosition());
+			core.erzeugeSpielsteinweiss(stone.getPosition().getEbene(), stone.getPosition().getX(),stone.getPosition().getY(),stone.getPosition());
+			stone.setImage(theme.getSpielSteinWeiss());
+			frame.gamePanel.updateStack(frame.gamePanel.lblStonesEnemy, -1);
+			System.out.println(core.getStW().size());
 		}
+		
+	}
+	public void schwarzeSteine_setzen(LblGameStone stone) {
+			
+			if(core.postitionFree(stone.getPosition()) && !frame.gamePanel.isStackEmpty(frame.gamePanel.lblStonesEnemy)){
+				core.erzeugeSpielsteinschwarz(stone.getPosition().getEbene(), stone.getPosition().getX(),stone.getPosition().getY(),stone.getPosition());
+				stone.setImage(theme.getSpielSteinSchwarz());
+				frame.gamePanel.updateStack(frame.gamePanel.lblStonesMe, -1);
+				System.out.println(core.getStW().size());
+			}
 	}
 	
 	@Override
