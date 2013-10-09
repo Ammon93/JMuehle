@@ -57,29 +57,50 @@ public class ViewController implements IViewController {
 		
 	}
 	
-	public void weisseSteine_setzen(LblGameStone stone) {
+public void weisseSteine_setzen(LblGameStone stone) {
 		
 		if(core.postitionFree(stone.getPosition()) && !frame.gamePanel.isStackEmpty(frame.gamePanel.weisseSteine)){
 			core.erzeugeSpielsteinweiss(stone.getPosition().getEbene(), stone.getPosition().getX(),stone.getPosition().getY(),stone.getPosition());
 			stone.setImage(theme.getSpielSteinWeiss());
 			frame.gamePanel.updateStack(frame.gamePanel.weisseSteine, -1);
 			System.out.println(core.getStW().size());
+			core.ueberpruefen_Muehele_weiss(stone.getPosition());
+			core.setSchwarzDran(true);
+			core.setWeissDran(false);
+			
 		}
 		
 	}
+	
 	public void schwarzeSteine_setzen(LblGameStone stone) {
 			
 			if(core.postitionFree(stone.getPosition()) && !frame.gamePanel.isStackEmpty(frame.gamePanel.schwarzeSteine)){
 				core.erzeugeSpielsteinschwarz(stone.getPosition().getEbene(), stone.getPosition().getX(),stone.getPosition().getY(),stone.getPosition());
 				stone.setImage(theme.getSpielSteinSchwarz());
 				frame.gamePanel.updateStack(frame.gamePanel.schwarzeSteine, -1);
-				System.out.println(core.getStW().size());
+				System.out.println(core.getStS().size());
+				core.ueberpruefen_Muehele_schwarz(stone.getPosition());
+				core.setWeissDran(true);
+				core.setSchwarzDran(false);
+				core.setMuehle_weiss(true);
+				
 			}
 	}
 	
-	public void setTheme(String theme){
-		this.theme = thLoader.getTheme(theme);
-		frame.setTheme(this.theme);
+	public void entferneStein(LblGameStone stone){
+		
+		
+			stone.removeImage();
+	
+		
+	}
+	
+	public Core getCore() {
+		return core;
+	}
+
+	public void setCore(Core core) {
+		this.core = core;
 	}
 	
 	@Override
@@ -105,4 +126,14 @@ public class ViewController implements IViewController {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public Theme getTheme() {
+		return theme;
+	}
+
+	public void setTheme(String theme){
+		    this.theme = thLoader.getTheme(theme);
+		   frame.setTheme(this.theme);
+		 }
+
 }
