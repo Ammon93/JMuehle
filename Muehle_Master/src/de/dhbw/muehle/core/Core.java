@@ -209,11 +209,11 @@ public class Core {
 
 	}
 	
-	public void setzenSteingültig(Position pos){
-		//Prüfen ob Stein an Eckposition
+	public void setzenSteingueltig(Position pos){
+		//Prï¿½fen ob Stein an Eckposition
 		if(pos.getX().getValue()+pos.getY().getValue()%2==0){
-			// Ermitteln gültiger Züge
-			//Änderung der X Position 
+			// Ermitteln gï¿½ltiger Zï¿½ge
+			//ï¿½nderung der X Position 
 		}
 	}
 
