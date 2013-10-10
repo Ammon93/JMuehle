@@ -161,7 +161,7 @@ public class Core {
 				zaehler2++;
 			}
 			if (posX == StW.get(i).getPosition().getX().getValue()
-					&& posY == StW.get(i).getPosition().getY().getValue() && posX+posY==3) {
+					&& posY == StW.get(i).getPosition().getY().getValue() && posX+posY==3 || posX+posY==5) {
 				zaehler3++;
 			}
 
@@ -196,7 +196,7 @@ public class Core {
 			zaehler2++;
 			}
 			if (posX == StS.get(i).getPosition().getX().getValue()
-					&& posY == StS.get(i).getPosition().getY().getValue()&& posX+posY==3) {
+					&& posY == StS.get(i).getPosition().getY().getValue()&& posX+posY==3  || posX+posY==5) {
 				zaehler3++;
 			}
 
@@ -207,6 +207,14 @@ public class Core {
 			Muehle_schwarz=true;
 		}
 
+	}
+	
+	public void setzenSteingültig(Position pos){
+		//Prüfen ob Stein an Eckposition
+		if(pos.getX().getValue()+pos.getY().getValue()%2==0){
+			// Ermitteln gültiger Züge
+			//Änderung der X Position 
+		}
 	}
 
 }
