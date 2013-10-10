@@ -82,7 +82,6 @@ public void weisseSteine_setzen(LblGameStone stone) {
 				core.ueberpruefen_Muehele_schwarz(stone.getPosition());
 				core.setWeissDran(true);
 				core.setSchwarzDran(false);
-				core.setMuehle_weiss(true);
 				
 			}
 	}

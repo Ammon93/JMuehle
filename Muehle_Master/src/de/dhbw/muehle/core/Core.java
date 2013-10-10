@@ -119,7 +119,7 @@ public class Core {
 	}
 
 	public void ueberpruefen_Muehele_weiss(Position pos) {
-
+		Muehle_weiss=false;
 		int zaehler1 = 0;
 		int zaehler2 = 0;
 		int zaehler3 = 0;
@@ -152,7 +152,7 @@ public class Core {
 	}
 
 	public void ueberpruefen_Muehele_schwarz(Position pos) {
-
+		Muehle_schwarz=false;
 		int zaehler1 = 0;
 		int zaehler2 = 0;
 		int zaehler3 = 0;
@@ -179,6 +179,7 @@ public class Core {
 
 		if (zaehler1 == 3 || zaehler2 == 3 || zaehler3 == 3) {
 			System.out.println("Muehle schwarz");
+			Muehle_schwarz=true;
 		}
 
 	}

@@ -27,17 +27,26 @@ public class GamePanelVA {
 			if (vController.getCore().isWeissDran() == true) {
 				vController
 						.weisseSteine_setzen((LblGameStone) e.getComponent());
-//				if (vController.getCore().isMuehle_weiss() == true) {
-//					
-//							
-//					vController.entferneStein((LblGameStone) e.getComponent());
-//				}
+				
 			}
-			if (vController.getCore().isSchwarzDran() == true) {
+			
+			else if (vController.getCore().isMuehle_weiss() == true) {
+				
+				vController.entferneStein((LblGameStone) e.getComponent());
+				vController.getCore().setMuehle_weiss(false);
+			
+		}
+			else if (vController.getCore().isSchwarzDran() == true) {
 				vController
 						.schwarzeSteine_setzen((LblGameStone) e.getComponent());
-				//vController.entferneStein((LblGameStone) e.getComponent());
-			}
+		}
+			
+			else if (vController.getCore().isMuehle_weiss() == true) {
+				
+				vController.entferneStein((LblGameStone) e.getComponent());
+				vController.getCore().setMuehle_schwarz(false);
+			
+		}
 		}
 
 		@Override
