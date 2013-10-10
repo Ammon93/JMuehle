@@ -65,8 +65,14 @@ public void weisseSteine_setzen(LblGameStone stone) {
 			frame.gamePanel.updateStack(frame.gamePanel.weisseSteine, -1);
 			System.out.println(core.getStW().size());
 			core.ueberpruefen_Muehele_weiss(stone.getPosition());
+			if(core.isMuehle_weiss()==true){
+				core.setWeissDran(true);
+				core.setSchwarzDran(false);
+			}
+			else{
 			core.setSchwarzDran(true);
 			core.setWeissDran(false);
+			}
 			
 		}
 		
@@ -80,17 +86,42 @@ public void weisseSteine_setzen(LblGameStone stone) {
 				frame.gamePanel.updateStack(frame.gamePanel.schwarzeSteine, -1);
 				System.out.println(core.getStS().size());
 				core.ueberpruefen_Muehele_schwarz(stone.getPosition());
-				core.setWeissDran(true);
+				if(core.isMuehle_schwarz()==true){
+					core.setWeissDran(false);
+					core.setSchwarzDran(true);
+				}
+				else{
 				core.setSchwarzDran(false);
+				core.setWeissDran(true);
+				}
 				
 			}
 	}
 	
-	public void entferneStein(LblGameStone stone){
+	public void entferneSteinWeiss(LblGameStone stone){
 		
-		
-			stone.removeImage();
-	
+			if(core.isMuehle_weiss()==true){
+				if(core.getHashliste_Weiss().contains(stone.getPosition().hashCode())){
+					
+				}
+				
+				else{
+					stone.removeImage();
+				}
+			}
+	}
+
+	public void entferneSteinSchwarz(LblGameStone stone){
+				
+				if(core.isMuehle_weiss()==true){
+					if(core.getHashliste_Weiss().contains(stone.getPosition().hashCode())){
+						
+					}
+					
+					else{
+						stone.removeImage();
+					}
+				}
 		
 	}
 	

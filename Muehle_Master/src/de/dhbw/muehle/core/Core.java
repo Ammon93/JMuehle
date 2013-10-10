@@ -15,7 +15,8 @@ public class Core {
 
 	private ViewController vController;
 	private Model model;
-	private List<Integer> Hashliste;
+	private List<Integer> Hashliste_Weiss;
+	private List<Integer> Hashliste_Schwarz;
 	private List<Spielstein> StW, StS;
 	private boolean schwarzDran;
 	private boolean weissDran;
@@ -60,9 +61,26 @@ public class Core {
 		model = new Model();
 		StW = new ArrayList<Spielstein>();
 		StS = new ArrayList<Spielstein>();
-		Hashliste = new ArrayList<Integer>();
+		Hashliste_Weiss = new ArrayList<Integer>();
+		Hashliste_Schwarz = new ArrayList<Integer>();
 		weissDran = true;
 
+	}
+
+	public List<Integer> getHashliste_Weiss() {
+		return Hashliste_Weiss;
+	}
+
+	public void setHashliste_Weiss(List<Integer> hashliste_Weiss) {
+		Hashliste_Weiss = hashliste_Weiss;
+	}
+
+	public List<Integer> getHashliste_Schwarz() {
+		return Hashliste_Schwarz;
+	}
+
+	public void setHashliste_Schwarz(List<Integer> hashliste_Schwarz) {
+		Hashliste_Schwarz = hashliste_Schwarz;
 	}
 
 	public void initGame() {
@@ -93,7 +111,7 @@ public class Core {
 			EPositionIndex y, Position pos) {
 
 		StW.add(new Spielstein(ebene, x, y, ESpielsteinFarbe.WEISS));
-		Hashliste.add(pos.hashCode());
+		Hashliste_Weiss.add(pos.hashCode());
 
 	}
 
@@ -101,15 +119,20 @@ public class Core {
 			EPositionIndex x, EPositionIndex y, Position pos) {
 
 		StS.add(new Spielstein(ebene, x, y, ESpielsteinFarbe.SCHWARZ));
-		Hashliste.add(pos.hashCode());
+		Hashliste_Schwarz.add(pos.hashCode());
 
 	}
 
 	public boolean postitionFree(Position pos) {
 		boolean posfree = true;
-		if (Hashliste.contains(pos.hashCode())) {
+		if (Hashliste_Weiss.contains(pos.hashCode())) {
 			posfree = false;
 		}
+		
+		else if (Hashliste_Schwarz.contains(pos.hashCode())){
+			posfree=false;
+		}
+		
 		return posfree;
 
 	}

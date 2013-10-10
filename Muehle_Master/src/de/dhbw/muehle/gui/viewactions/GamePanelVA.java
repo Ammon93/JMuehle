@@ -24,7 +24,7 @@ public class GamePanelVA {
 	public class lblGameStoneMouse implements MouseListener {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			if (vController.getCore().isWeissDran() == true) {
+			if (vController.getCore().isWeissDran() == true && vController.getCore().isMuehle_weiss() == false) {
 				vController
 						.weisseSteine_setzen((LblGameStone) e.getComponent());
 				System.out.println(vController.getCore().isWeissDran());
@@ -34,17 +34,19 @@ public class GamePanelVA {
 				
 			}
 			
-			else if (vController.getCore().isMuehle_weiss() == true) {
+			else if (vController.getCore().isMuehle_weiss() == true && vController.getCore().isWeissDran() == true) {
 				
-				vController.entferneStein((LblGameStone) e.getComponent());
+				vController.entferneSteinSchwarz((LblGameStone) e.getComponent());
 				vController.getCore().setMuehle_weiss(false);
+				vController.getCore().setWeissDran(false);
+				vController.getCore().setSchwarzDran(true);
 				System.out.println(vController.getCore().isWeissDran());
 				System.out.println(vController.getCore().isSchwarzDran());
 				System.out.println(vController.getCore().isMuehle_weiss());
 				System.out.println(vController.getCore().isMuehle_schwarz());
 			
 		}
-			else if (vController.getCore().isSchwarzDran() == true) {
+			else if (vController.getCore().isSchwarzDran() == true && vController.getCore().isMuehle_schwarz() == false) {
 				vController
 						.schwarzeSteine_setzen((LblGameStone) e.getComponent());
 				System.out.println(vController.getCore().isWeissDran());
@@ -53,10 +55,12 @@ public class GamePanelVA {
 				System.out.println(vController.getCore().isMuehle_schwarz());
 		}
 			
-			else if (vController.getCore().isMuehle_schwarz() == true) {
+			else if (vController.getCore().isMuehle_schwarz() == true && vController.getCore().isSchwarzDran() == true) {
 				
-				vController.entferneStein((LblGameStone) e.getComponent());
+				vController.entferneSteinWeiss((LblGameStone) e.getComponent());
 				vController.getCore().setMuehle_schwarz(false);
+				vController.getCore().setSchwarzDran(false);
+				vController.getCore().setWeissDran(true);
 				System.out.println(vController.getCore().isWeissDran());
 				System.out.println(vController.getCore().isSchwarzDran());
 				System.out.println(vController.getCore().isMuehle_weiss());
