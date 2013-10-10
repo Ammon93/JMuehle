@@ -1,4 +1,4 @@
-package de.dhbw.muehle.gui.menus;
+package de.dhbw.muehle.gui;
 
 import java.awt.Graphics;
 import java.awt.Image;

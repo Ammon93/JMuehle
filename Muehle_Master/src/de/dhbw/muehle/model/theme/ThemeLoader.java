@@ -21,6 +21,12 @@ public class ThemeLoader {
 	}
 	
 	
+	private void flushAllThemes(){
+		for(int i=0;i<availableThemes.length;i++)
+			availableThemes[i].flushThemeImages();
+	}
+	
+	
 	
 	/**
 	 * Lädt eine Theme
@@ -35,10 +41,12 @@ public class ThemeLoader {
 	 * @param name Name der Theme
 	 */
 	public Theme getTheme(String name){
-		for(int i=0;i<availableThemes.length;i++)
+		flushAllThemes();
+		
+		for(int i=0;i<availableThemes.length;i++){
 			if(availableThemes[i].getThemeName().equals(name))
 				return availableThemes[i];
-		
+		}
 		return null;
 	}
 }

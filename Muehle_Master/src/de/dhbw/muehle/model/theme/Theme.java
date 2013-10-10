@@ -2,8 +2,9 @@ package de.dhbw.muehle.model.theme;
 
 import java.awt.Image;
 import java.io.File;
+import java.io.IOException;
 
-import javax.swing.ImageIcon;
+import javax.imageio.ImageIO;
 
 
 public class Theme {
@@ -11,7 +12,8 @@ public class Theme {
 	private File themePath;
 	
 	
-	private Image menueHintergrund;
+	private Image menueHintergrund,
+				  einstellungsHintergrund;
 	
 	private Image logo;
 	
@@ -40,32 +42,6 @@ public class Theme {
 	
 	public Theme(File themePath){
 		this.themePath = themePath;
-		
-		// Bilder aus Theme-Ordner laden
-		menueHintergrund = getImgae("/Menuebild/Menuehintergrundbild.png");
-		
-		logo = getImgae("/Logo/Logo.png");
-		
-		spielBrett = getImgae("/Spielbrett/Spielbrett.png");
-		
-		spielSteinWeiss = getImgae("/Steine/WeisserStein.png");
-		spielSteinWeissGewaehlt = getImgae("/Steine/WeisserSteinAusgewaehlt.png");
-		spielSteinWeissTransparent = getImgae("/Steine/WeisserSteinTransparent.png");
-		spielSteinSchwarz = getImgae("/Steine/SchwarzerStein.png");
-		spielSteinSchwarzGewaehlt = getImgae("/Steine/SchwarzerSteinAusgewaehlt.png");
-		spielSteinSchwarzTransparent = getImgae("/Steine/SchwarzerSteinTransparent.png");
-		
-		btnAbbrechen = getImgae("/Buttons/Abbrechen.png");
-		btnBeenden = getImgae("/Buttons/Beenden.png");
-		btnEinstellungen = getImgae("/Buttons/Einstellungen.png");
-		btnHilfe = getImgae("/Buttons/Hilfe.png");
-		btnOK = getImgae("/Buttons/OK.png");
-		btnPvE = getImgae("/Buttons/Einzelspieler.png");
-		btnPvP = getImgae("/Buttons/Mehrspieler.png");
-		
-		siegerPvE = getImgae("/SiegerbildVerliererbild/Siegerbild/SiegerHumanvshumanschwarz.png");
-		siegerPvP = getImgae("/SiegerbildVerliererbild/Siegerbild/SiegerHumanvspcschwarz.png");
-		verlierer = getImgae("/SiegerbildVerliererbild/Verliererbild/Verlierer.png");
 	}
 	
 	
@@ -74,8 +50,45 @@ public class Theme {
 	 * @param relPfad relativer Pfad zum Bild
 	 * @return Image
 	 */
-	private Image getImgae(String relPfad){
-		return new ImageIcon(themePath.getPath()+relPfad).getImage();
+	private Image getImage(String relPfad){
+		try {
+			return ImageIO.read(new File(themePath.getPath()+relPfad));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	/**
+	 * Löscht alle Bilder
+	 */
+	public void flushThemeImages(){
+		menueHintergrund = null;
+		einstellungsHintergrund = null;
+
+		logo = null;
+
+		spielBrett = null;
+
+		spielSteinWeiss = null;
+		spielSteinWeissGewaehlt = null;
+		spielSteinWeissTransparent = null;
+		spielSteinSchwarz = null;
+		spielSteinSchwarzGewaehlt = null;
+		spielSteinSchwarzTransparent = null;
+
+		btnAbbrechen = null;
+		btnBeenden = null;
+		btnEinstellungen = null;
+		btnPvE = null;
+		btnPvP = null;
+		btnHilfe = null;
+		btnOK = null;
+
+		siegerPvE = null;
+		siegerPvP = null;
+		verlierer = null;
 	}
 	
 	
@@ -106,7 +119,21 @@ public class Theme {
 		 * @return menueHintergrund
 		 */
 		public Image getMenueHintergrund() {
-			return menueHintergrund;
+			if(menueHintergrund != null)
+				return menueHintergrund;
+			else
+				return menueHintergrund = getImage("/Menuebild/Menuehintergrundbild.png");
+		}
+		
+		
+		/**
+		 * @return einstellungsHintergrund
+		 */
+		public Image getEinstellungsHintergrund() {
+			if(einstellungsHintergrund != null)
+				return einstellungsHintergrund;
+			else
+				return einstellungsHintergrund = getImage("/Einstellungen/EinstellungenHintergrundbild.png");
 		}
 		
 		
@@ -114,7 +141,10 @@ public class Theme {
 		 * @return logo
 		 */
 		public Image getLogo(){
-			return logo;
+			if(logo != null)
+				return logo;
+			else
+				return logo = getImage("/Logo/Logo.png");
 		}
 		
 	
@@ -122,7 +152,10 @@ public class Theme {
 		 * @return spielBrett
 		 */
 		public Image getSpielBrett() {
-			return spielBrett;
+			if(spielBrett != null)
+				return spielBrett;
+			else
+				return spielBrett = getImage("/Spielbrett/Spielbrett.png");
 		}
 	
 	
@@ -130,7 +163,10 @@ public class Theme {
 		 * @return spielSteinWeiss
 		 */
 		public Image getSpielSteinWeiss() {
-			return spielSteinWeiss;
+			if(spielSteinWeiss != null)
+				return spielSteinWeiss;
+			else
+				return spielSteinWeiss = getImage("/Steine/WeisserStein.png");
 		}
 	
 	
@@ -138,7 +174,10 @@ public class Theme {
 		 * @return spielSteinWeissGewaehlt
 		 */
 		public Image getSpielSteinWeissGewaehlt() {
-			return spielSteinWeissGewaehlt;
+			if(spielSteinWeissGewaehlt != null)
+				return spielSteinWeissGewaehlt;
+			else
+				return spielSteinWeissGewaehlt = getImage("/Steine/WeisserSteinAusgewaehlt.png");
 		}
 	
 	
@@ -146,7 +185,10 @@ public class Theme {
 		 * @return spielSteinWeissTransparent
 		 */
 		public Image getSpielSteinWeissTransparent() {
-			return spielSteinWeissTransparent;
+			if(spielSteinWeissTransparent != null)
+				return spielSteinWeissTransparent;
+			else
+				return spielSteinWeissTransparent = getImage("/Steine/WeisserSteinTransparent.png");
 		}
 	
 	
@@ -154,7 +196,10 @@ public class Theme {
 		 * @return spielSteinSchwarz
 		 */
 		public Image getSpielSteinSchwarz() {
-			return spielSteinSchwarz;
+			if(spielSteinSchwarz != null)
+				return spielSteinSchwarz;
+			else
+				return spielSteinSchwarz = getImage("/Steine/SchwarzerStein.png");
 		}
 	
 	
@@ -162,7 +207,10 @@ public class Theme {
 		 * @return spielSteinSchwarzGewaehlt
 		 */
 		public Image getSpielSteinSchwarzGewaehlt() {
-			return spielSteinSchwarzGewaehlt;
+			if(spielSteinSchwarzGewaehlt != null)
+				return spielSteinSchwarzGewaehlt;
+			else
+				return spielSteinSchwarzGewaehlt = getImage("/Steine/SchwarzerSteinAusgewaehlt.png");
 		}
 	
 	
@@ -170,7 +218,10 @@ public class Theme {
 		 * @return spielSteinSchwarzTransparent
 		 */
 		public Image getSpielSteinSchwarzTransparent() {
-			return spielSteinSchwarzTransparent;
+			if(spielSteinSchwarzTransparent != null)
+				return spielSteinSchwarzTransparent;
+			else
+				return spielSteinSchwarzTransparent = getImage("/Steine/SchwarzerSteinTransparent.png");
 		}
 	
 	
@@ -178,7 +229,10 @@ public class Theme {
 		 * @return btnAbbrechen
 		 */
 		public Image getBtnAbbrechen() {
-			return btnAbbrechen;
+			if(btnAbbrechen != null)
+				return btnAbbrechen;
+			else
+				return btnAbbrechen = getImage("/Buttons/Abbrechen.png");
 		}
 	
 	
@@ -186,7 +240,10 @@ public class Theme {
 		 * @return btnBeenden
 		 */
 		public Image getBtnBeenden() {
-			return btnBeenden;
+			if(btnBeenden != null)
+				return btnBeenden;
+			else
+				return btnBeenden = getImage("/Buttons/Beenden.png");
 		}
 	
 	
@@ -194,7 +251,10 @@ public class Theme {
 		 * @return btnEinstellungen
 		 */
 		public Image getBtnEinstellungen() {
-			return btnEinstellungen;
+			if(btnEinstellungen != null)
+				return btnEinstellungen;
+			else
+				return btnEinstellungen = getImage("/Buttons/Einstellungen.png");
 		}
 	
 	
@@ -202,7 +262,10 @@ public class Theme {
 		 * @return btnPvE
 		 */
 		public Image getBtnPvE() {
-			return btnPvE;
+			if(btnPvE != null)
+				return btnPvE;
+			else
+				return btnPvE = getImage("/Buttons/Einzelspieler.png");
 		}
 	
 	
@@ -210,7 +273,10 @@ public class Theme {
 		 * @return btnPvP
 		 */
 		public Image getBtnPvP() {
-			return btnPvP;
+			if(btnPvP != null)
+				return btnPvP;
+			else
+				return btnPvP = getImage("/Buttons/Mehrspieler.png");
 		}
 	
 	
@@ -218,7 +284,10 @@ public class Theme {
 		 * @return btnHilfe
 		 */
 		public Image getBtnHilfe() {
-			return btnHilfe;
+			if(btnHilfe!= null)
+				return btnHilfe;
+			else
+				return btnHilfe = getImage("/Buttons/Hilfe.png");
 		}
 	
 	
@@ -226,7 +295,10 @@ public class Theme {
 		 * @return btnOK
 		 */
 		public Image getBtnOK() {
-			return btnOK;
+			if(btnOK != null)
+				return btnOK;
+			else
+				return btnOK = getImage("/Buttons/OK.png");
 		}
 	
 	
@@ -234,7 +306,10 @@ public class Theme {
 		 * @return siegerPvE
 		 */
 		public Image getSiegerPvE() {
-			return siegerPvE;
+			if(siegerPvE != null)
+				return siegerPvE;
+			else
+				return siegerPvE = getImage("/SiegerbildVerliererbild/Siegerbild/SiegerHumanvspcschwarz.png");
 		}
 	
 	
@@ -242,7 +317,10 @@ public class Theme {
 		 * @return siegerPvP
 		 */
 		public Image getSiegerPvP() {
-			return siegerPvP;
+			if(siegerPvP != null)
+				return siegerPvP;
+			else
+				return siegerPvP = getImage("/SiegerbildVerliererbild/Siegerbild/SiegerHumanvshumanschwarz.png");
 		}
 	
 	
@@ -250,6 +328,9 @@ public class Theme {
 		 * @return verlierer
 		 */
 		public Image getVerlierer() {
-			return verlierer;
+			if(verlierer != null)
+				return verlierer;
+			else
+				return verlierer = getImage("/SiegerbildVerliererbild/Verliererbild/Verlierer.png");
 		}
 }

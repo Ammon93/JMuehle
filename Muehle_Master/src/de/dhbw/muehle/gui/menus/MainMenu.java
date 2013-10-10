@@ -14,15 +14,18 @@ import java.awt.Font;
 
 import javax.swing.JButton;
 
+import de.dhbw.muehle.gui.MillButton;
 import de.dhbw.muehle.gui.ViewController;
 import de.dhbw.muehle.gui.viewactions.MainMenuVA;
 import de.dhbw.muehle.model.theme.Theme;
 
 import java.awt.Insets;
+
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
+
 import java.awt.Dimension;
 
 /**
@@ -48,13 +51,13 @@ public class MainMenu extends JPanel {
 		
 		setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.UNRELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
-				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
-				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
-				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
+				ColumnSpec.decode("max(159px;min)"),
+				ColumnSpec.decode("4dlu:grow"),
+				ColumnSpec.decode("max(149px;min)"),
+				ColumnSpec.decode("4dlu:grow"),
+				ColumnSpec.decode("max(149px;min)"),
+				ColumnSpec.decode("4dlu:grow"),
+				ColumnSpec.decode("max(149px;min)"),
 				FormFactory.UNRELATED_GAP_COLSPEC,},
 			new RowSpec[] {
 				FormFactory.UNRELATED_GAP_ROWSPEC,
