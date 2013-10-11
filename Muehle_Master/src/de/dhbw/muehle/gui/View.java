@@ -81,7 +81,14 @@ public class View extends JFrame{
 		// Framegröße auf Panelgröße anpassen
 		getContentPane().setPreferredSize(container.getSize());
 		
+		
 		pack();
+		
+		
+		//Frameminimumgröße auf Panelgröße festlegen
+		setMinimumSize(getSize());
+		
+		
 		repaint();
 	}
 }

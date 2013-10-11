@@ -39,21 +39,25 @@ public class SettingsPanel extends JPanel {
 				
 		// Panelgröße festlegen
 		setSize(705, 600);
+		
+		
 		setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.UNRELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
+				ColumnSpec.decode("max(22px;min):grow"),
+				FormFactory.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("max(51px;min)"),
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(149px;min)"),
 				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(101px;min)"),
+				ColumnSpec.decode("max(51px;min)"),
 				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
+				ColumnSpec.decode("max(210px;min):grow(3)"),
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(149px;min)"),
 				FormFactory.UNRELATED_GAP_COLSPEC,},
 			new RowSpec[] {
 				FormFactory.UNRELATED_GAP_ROWSPEC,
-				RowSpec.decode("default:grow"),
+				RowSpec.decode("max(125px;min):grow"),
 				FormFactory.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("max(52px;min)"),
 				RowSpec.decode("25px"),
@@ -62,7 +66,7 @@ public class SettingsPanel extends JPanel {
 				RowSpec.decode("max(88px;min)"),
 				RowSpec.decode("15px"),
 				RowSpec.decode("max(88px;min)"),
-				RowSpec.decode("15px"),
+				RowSpec.decode("15px:grow(3)"),
 				RowSpec.decode("max(52px;min)"),
 				FormFactory.UNRELATED_GAP_ROWSPEC,}));
 		
@@ -70,7 +74,7 @@ public class SettingsPanel extends JPanel {
 		btnBack.addActionListener(vActions.new btnBack());
 		
 		lblTheme = new MillLabel(theme);
-		add(lblTheme, "4, 4, fill, fill");
+		add(lblTheme, "6, 4, fill, fill");
 		
 		
 		MillButton btn8bitMill = new MillButton(new ThemeLoader().getTheme("8bit Mill"), "Logo");
@@ -78,13 +82,13 @@ public class SettingsPanel extends JPanel {
 		
 		MillButton btnWoodenMill = new MillButton(new ThemeLoader().getTheme("Wooden Mill"), "Logo");
 		btnWoodenMill.addActionListener(vActions.new btnWoodenMill());
-		add(btnWoodenMill, "4, 6, 3, 1, fill, fill");
-		add(btn8bitMill, "4, 8, 3, 1, fill, fill");
+		add(btnWoodenMill, "4, 6, 5, 1, fill, fill");
+		add(btn8bitMill, "4, 8, 5, 1, fill, fill");
 		
 		MillButton btnDirtyMill = new MillButton(new ThemeLoader().getTheme("Dirty Mill"), "Logo");
 		btnDirtyMill.addActionListener(vActions.new btnDirtyMill());
-		add(btnDirtyMill, "4, 10, 3, 1, fill, fill");
-		add(btnBack, "10, 12, fill, fill");
+		add(btnDirtyMill, "4, 10, 5, 1, fill, fill");
+		add(btnBack, "12, 12, fill, fill");
 	}
 
 	
