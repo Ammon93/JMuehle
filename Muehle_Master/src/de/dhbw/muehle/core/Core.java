@@ -161,13 +161,13 @@ public class Core {
 				zaehler2++;
 			}
 			if (posX == StW.get(i).getPosition().getX().getValue()
-					&& posY == StW.get(i).getPosition().getY().getValue() && posX+posY==3 || posX+posY==5) {
+					&& posY == StW.get(i).getPosition().getY().getValue() && (posX+posY==3 || posX+posY==5)) {
 				zaehler3++;
 			}
 
 		}
 
-		if (zaehler1 == 3 || zaehler2 == 3 || zaehler3 == 3) {
+		if (zaehler1 == 3|| zaehler2 == 3|| zaehler3 == 3) {
 			System.out.println("Muehle weiss");
 			Muehle_weiss=true;
 		}
@@ -196,7 +196,7 @@ public class Core {
 			zaehler2++;
 			}
 			if (posX == StS.get(i).getPosition().getX().getValue()
-					&& posY == StS.get(i).getPosition().getY().getValue()&& posX+posY==3  || posX+posY==5) {
+					&& posY == StS.get(i).getPosition().getY().getValue()&& (posX+posY==3  || posX+posY==5)) {
 				zaehler3++;
 			}
 
