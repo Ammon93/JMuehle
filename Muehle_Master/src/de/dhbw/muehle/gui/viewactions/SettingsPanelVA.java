@@ -32,6 +32,27 @@ public class SettingsPanelVA {
 				vController.displayMainMenu();
 			}
 		}
+		
+		public class btnWoodenMill implements ActionListener{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				vController.setTheme("Wooden Mill");
+			}
+		}
+		
+		public class btn8bitMill implements ActionListener{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				vController.setTheme("8bit Mill");
+			}
+		}
+		
+		public class btnDirtyMill implements ActionListener{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				vController.setTheme("Dirty Mill");
+			}
+		}
 //	}
 		
 		

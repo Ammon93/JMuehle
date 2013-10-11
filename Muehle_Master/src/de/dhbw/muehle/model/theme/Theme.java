@@ -32,7 +32,11 @@ public class Theme {
 				  btnPvE,
 				  btnPvP,
 				  btnHilfe,
-				  btnOK;
+				  btnOK,
+				  btnZumMenue,
+				  btnTheme,
+				  btnX,
+				  btnZurueck;
 	
 	private Image siegerPvE,
 				  siegerPvP,
@@ -300,8 +304,52 @@ public class Theme {
 			else
 				return btnOK = getImage("/Buttons/OK.png");
 		}
+		
+		
+		/**
+		 * @return btnZumMenue
+		 */
+		public Image getBtnZumMenue() {
+			if(btnZumMenue != null)
+				return btnZumMenue;
+			else
+				return btnZumMenue = getImage("/Buttons/ZumMenue.png");
+		}
 	
 	
+		/**
+		 * @return the btnTheme
+		 */
+		public Image getBtnTheme() {
+			if(btnTheme != null)
+				return btnTheme;
+			else
+				return btnTheme = getImage("/Buttons/Theme.png");
+		}
+
+
+		/**
+		 * @return the btnX
+		 */
+		public Image getBtnX() {
+			if(btnX != null)
+				return btnX;
+			else
+				return btnX = getImage("/Buttons/x.png");
+		}
+
+
+		/**
+		 * @return the btnZurueck
+		 */
+		public Image getBtnZurueck() {
+			if(btnZurueck != null)
+				return btnZurueck;
+			else
+				return btnZurueck = getImage("/Buttons/zurueck.png");
+		}
+
+
 		/**
 		 * @return siegerPvE
 		 */

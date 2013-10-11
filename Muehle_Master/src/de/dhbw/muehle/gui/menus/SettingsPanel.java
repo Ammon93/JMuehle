@@ -18,6 +18,7 @@ import de.dhbw.muehle.gui.MillButton;
 import de.dhbw.muehle.gui.ViewController;
 import de.dhbw.muehle.gui.viewactions.SettingsPanelVA;
 import de.dhbw.muehle.model.theme.Theme;
+import de.dhbw.muehle.model.theme.ThemeLoader;
 
 import java.awt.Dimension;
 
@@ -27,6 +28,7 @@ public class SettingsPanel extends JPanel {
 	private Theme theme;
 	
 	private MillButton btnBack;
+	private MillLabel lblTheme;
 	
 	
 	public SettingsPanel(ViewController vController, Theme theme) {
@@ -41,7 +43,9 @@ public class SettingsPanel extends JPanel {
 				FormFactory.UNRELATED_GAP_COLSPEC,
 				ColumnSpec.decode("default:grow"),
 				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(250px;min)"),
+				ColumnSpec.decode("max(149px;min)"),
+				FormFactory.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("max(101px;min)"),
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("default:grow"),
 				FormFactory.RELATED_GAP_COLSPEC,
@@ -51,40 +55,43 @@ public class SettingsPanel extends JPanel {
 				FormFactory.UNRELATED_GAP_ROWSPEC,
 				RowSpec.decode("default:grow"),
 				FormFactory.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("max(88px;min)"),
+				RowSpec.decode("max(52px;min)"),
 				FormFactory.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("max(88px;min)"),
-				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.UNRELATED_GAP_ROWSPEC,
 				RowSpec.decode("max(88px;min)"),
-				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.UNRELATED_GAP_ROWSPEC,
 				RowSpec.decode("max(88px;min)"),
-				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.UNRELATED_GAP_ROWSPEC,
 				RowSpec.decode("max(52px;min)"),
 				FormFactory.UNRELATED_GAP_ROWSPEC,}));
 		
-		JComboBox<String> themeSelector = new JComboBox<String>();
-		themeSelector.setModel(new DefaultComboBoxModel<String>(new String[] {"Wooden Mill", "8bit Mill", "Dirty Mill"}));
-		themeSelector.addItemListener(vActions.new themeSelector());
-		add(themeSelector, "8, 2, fill, default");
-		
-		btnBack = new MillButton(theme, "Abbrechen");
+		btnBack = new MillButton(theme, "ZumMenue");
 		btnBack.addActionListener(vActions.new btnBack());
 		
-		JButton btnWoodenMill = new JButton();
-		add(btnWoodenMill, "4, 4, fill, fill");
+		lblTheme = new MillLabel(theme);
+		add(lblTheme, "4, 4, fill, fill");
 		
-		JButton btn8bitMill = new JButton();
-		add(btn8bitMill, "4, 6, fill, fill");
 		
-		JButton btnDirtyMill = new JButton();
-		add(btnDirtyMill, "4, 8, fill, fill");
-		add(btnBack, "8, 12, fill, fill");
+		MillButton btn8bitMill = new MillButton(new ThemeLoader().getTheme("8bit Mill"), "Logo");
+		btn8bitMill.addActionListener(vActions.new btn8bitMill());
+		
+		MillButton btnWoodenMill = new MillButton(new ThemeLoader().getTheme("Wooden Mill"), "Logo");
+		btnWoodenMill.addActionListener(vActions.new btnWoodenMill());
+		add(btnWoodenMill, "4, 6, 3, 1, fill, fill");
+		add(btn8bitMill, "4, 8, 3, 1, fill, fill");
+		
+		MillButton btnDirtyMill = new MillButton(new ThemeLoader().getTheme("Dirty Mill"), "Logo");
+		btnDirtyMill.addActionListener(vActions.new btnDirtyMill());
+		add(btnDirtyMill, "4, 10, 3, 1, fill, fill");
+		add(btnBack, "10, 12, fill, fill");
 	}
 
 	
 	public void setTheme(Theme theme){
 		this.theme = theme;
 		btnBack.setTheme(theme);
+		lblTheme.setTheme(theme);
 		repaint();
 	}
 	
@@ -93,5 +100,30 @@ public class SettingsPanel extends JPanel {
 	@Override
 	public void paintComponent(Graphics g){
 		g.drawImage(theme.getEinstellungsHintergrund(), 0, 0, getWidth(), getHeight(), this);
+	}
+	
+	
+	
+	private class MillLabel extends JLabel{
+		
+		private Theme theme;
+		
+		
+		public MillLabel(Theme theme){
+			this.theme = theme;
+		}
+		
+		
+		public void setTheme(Theme theme){
+			this.theme = theme;
+			repaint();
+		}
+		
+		
+		
+		@Override
+		public void paintComponent(Graphics g){
+			g.drawImage(theme.getBtnTheme(), 0, 0, getWidth(), getHeight(), this);
+		}
 	}
 }

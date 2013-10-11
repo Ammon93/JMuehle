@@ -52,6 +52,21 @@ public class MillButton extends JButton{
 		case "OK":
 			background = theme.getBtnOK();
 			break;
+		case "Theme":
+			background = theme.getBtnTheme();
+			break;
+		case "X":
+			background = theme.getBtnX();
+			break;
+		case "ZumMenue":
+			background = theme.getBtnZumMenue();
+			break;
+		case "Zurueck":
+			background = theme.getBtnZurueck();
+			break;
+		case "Logo":
+			background = theme.getLogo();
+			break;
 		}
 	}
 	
