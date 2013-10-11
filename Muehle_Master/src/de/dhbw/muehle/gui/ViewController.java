@@ -43,9 +43,8 @@ public class ViewController implements IViewController {
 		frame.setContentPane(frame.mainMenu);
 	}
 
-	public void startPvE() {
+	public void startPvP() {
 		frame.setContentPane(frame.gamePanel); // GamePanel (Spielbrett)
-												// anzeigen
 	}
 
 	public void displaySettings() {

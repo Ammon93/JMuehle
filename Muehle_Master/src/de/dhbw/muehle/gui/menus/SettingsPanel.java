@@ -56,13 +56,13 @@ public class SettingsPanel extends JPanel {
 				RowSpec.decode("default:grow"),
 				FormFactory.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("max(52px;min)"),
-				FormFactory.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("25px"),
 				RowSpec.decode("max(88px;min)"),
-				FormFactory.UNRELATED_GAP_ROWSPEC,
+				RowSpec.decode("15px"),
 				RowSpec.decode("max(88px;min)"),
-				FormFactory.UNRELATED_GAP_ROWSPEC,
+				RowSpec.decode("15px"),
 				RowSpec.decode("max(88px;min)"),
-				FormFactory.UNRELATED_GAP_ROWSPEC,
+				RowSpec.decode("15px"),
 				RowSpec.decode("max(52px;min)"),
 				FormFactory.UNRELATED_GAP_ROWSPEC,}));
 		

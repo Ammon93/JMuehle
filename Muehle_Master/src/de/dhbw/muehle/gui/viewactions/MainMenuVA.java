@@ -30,7 +30,7 @@ public class MainMenuVA {
 		public class btnPvEAction implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				vController.startPvE();
+				
 			}
 		}
 		
@@ -38,7 +38,7 @@ public class MainMenuVA {
 		public class btnPvPAction implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				vController.startPvP();
 			}
 		}
 		
