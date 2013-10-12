@@ -13,7 +13,7 @@ import de.dhbw.muehle.gui.ViewController;
 
 public class MainMenuVA {
 	
-	ViewController vController;
+	private ViewController vController;
 	
 	
 	public MainMenuVA(ViewController vController) {

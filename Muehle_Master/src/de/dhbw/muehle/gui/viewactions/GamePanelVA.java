@@ -10,7 +10,7 @@ import de.dhbw.muehle.gui.menus.GamePanel.LblGameStone;
 
 public class GamePanelVA {
 
-	ViewController vController;
+	private ViewController vController;
 
 	public GamePanelVA(ViewController vController) {
 		this.vController = vController;

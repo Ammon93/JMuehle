@@ -15,6 +15,7 @@ import java.awt.Font;
 import javax.swing.JButton;
 
 import de.dhbw.muehle.gui.MillButton;
+import de.dhbw.muehle.gui.View;
 import de.dhbw.muehle.gui.ViewController;
 import de.dhbw.muehle.gui.viewactions.MainMenuVA;
 import de.dhbw.muehle.model.theme.Theme;
@@ -31,78 +32,71 @@ import java.awt.Dimension;
 /**
  * Dieses Panel ist das Hauptmenüpanel, das zuerst im Frame angezeigt wird.
  */
-public class MainMenu extends JPanel {
+public class MainMenu extends Menu {
+	
+	public final Dimension Size = new Dimension(705, 600);
 
 	private MillButton btnPvE, btnPvP, btnSettings, btnQuit, btnHilfe;
 	private MainMenuVA vActions;
 	
-	private Theme theme;
+	private View view;
 	
 	
-	public MainMenu(ViewController vController, final Theme theme) {
-		this.theme = theme;
+	public MainMenu(ViewController vController, View view) {
+		super(view);
+		this.view = view;
 		
 		// Listener initialisieren
 		vActions = new MainMenuVA(vController);
 		
 		// Panelgröße festlegen
-		setSize(705, 600);
+		setSize(Size);
 		
 		
 		setLayout(new FormLayout(new ColumnSpec[] {
-				FormFactory.UNRELATED_GAP_COLSPEC,
+				ColumnSpec.decode("25px"),
 				ColumnSpec.decode("max(159px;min)"),
-				ColumnSpec.decode("4dlu:grow"),
+				ColumnSpec.decode("default:grow"),
 				ColumnSpec.decode("max(149px;min)"),
-				ColumnSpec.decode("4dlu:grow"),
+				ColumnSpec.decode("default:grow"),
 				ColumnSpec.decode("max(149px;min)"),
-				ColumnSpec.decode("4dlu:grow"),
+				ColumnSpec.decode("default:grow"),
 				ColumnSpec.decode("max(149px;min)"),
-				FormFactory.UNRELATED_GAP_COLSPEC,},
+				ColumnSpec.decode("25px"),},
 			new RowSpec[] {
-				FormFactory.UNRELATED_GAP_ROWSPEC,
+				RowSpec.decode("25px"),
 				FormFactory.DEFAULT_ROWSPEC,
 				RowSpec.decode("default:grow"),
 				FormFactory.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("fill:max(52px;min)"),
-				FormFactory.UNRELATED_GAP_ROWSPEC,}));
+				RowSpec.decode("25px"),}));
 		
 		
-		btnPvE = new MillButton(theme, "Einzelspieler");
+		btnPvE = new MillButton(view, "Einzelspieler");
 		btnPvE.addActionListener(vActions.new btnPvEAction());
 		add(btnPvE, "2, 5, fill, fill");
 		
-		btnHilfe = new MillButton(theme, "Hilfe");
+		btnHilfe = new MillButton(view, "Hilfe");
 		btnHilfe.setPreferredSize(new Dimension(40, 40));
 		add(btnHilfe, "8, 2, right, top");
 		
-		btnPvP = new MillButton(theme, "Mehrspieler");
+		btnPvP = new MillButton(view, "Mehrspieler");
 		btnPvP.addActionListener(vActions.new btnPvPAction());
 		add(btnPvP, "4, 5, fill, fill");
 		
-		btnSettings = new MillButton(theme, "Einstellungen");
+		btnSettings = new MillButton(view, "Einstellungen");
 		btnSettings.addActionListener(vActions.new btnSettingsAction());
 		add(btnSettings, "6, 5, fill, fill");
 		
-		btnQuit = new MillButton(theme, "Beenden");
+		btnQuit = new MillButton(view, "Beenden");
 		btnQuit.addActionListener(vActions.new btnQuitAction());
 		add(btnQuit, "8, 5, fill, fill");
 	}
 	
 	
-	public void setTheme(Theme theme){
-		this.theme = theme;
-		btnHilfe.setTheme(theme);
-		btnPvE.setTheme(theme);
-		btnPvP.setTheme(theme);
-		btnQuit.setTheme(theme);
-		btnSettings.setTheme(theme);
-		repaint();
-	}
-	
 	
 	@Override
 	public void paintComponent(Graphics g){
-		g.drawImage(theme.getMenueHintergrund(), 0, 0, getWidth(), getHeight(), this);
+		g.drawImage(view.getTheme().getMenueHintergrund(), 0, 0, getWidth(), getHeight(), this);
 	}
 }

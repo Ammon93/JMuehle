@@ -14,7 +14,7 @@ import de.dhbw.muehle.gui.menus.GamePanel.LblGameStone;
 
 public class SettingsPanelVA {
 	
-	ViewController vController;
+	private ViewController vController;
 	
 	
 	public SettingsPanelVA(ViewController vController) {
@@ -51,21 +51,6 @@ public class SettingsPanelVA {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				vController.setTheme("Dirty Mill");
-			}
-		}
-//	}
-		
-		
-		
-	/**
-	 * ItemListener
-	 */
-//	{
-		//themeSelector
-		public class themeSelector implements ItemListener{
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				vController.setTheme((String) e.getItem());
 			}
 		}
 //	}

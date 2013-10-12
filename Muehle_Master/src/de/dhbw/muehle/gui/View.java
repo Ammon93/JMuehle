@@ -2,11 +2,13 @@ package de.dhbw.muehle.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.Graphics;
 
 import javax.swing.JFrame;
 
 import de.dhbw.muehle.gui.menus.GamePanel;
 import de.dhbw.muehle.gui.menus.MainMenu;
+import de.dhbw.muehle.gui.menus.Menu;
 import de.dhbw.muehle.gui.menus.SettingsPanel;
 import de.dhbw.muehle.model.theme.Theme;
 
@@ -40,13 +42,13 @@ public class View extends JFrame{
 		
 		
 		// mainMenu initialisieren
-		mainMenu = new MainMenu(vController, theme);
+		mainMenu = new MainMenu(vController, this);
 		
 		// gamePanel initialisieren
-		gamePanel = new GamePanel(vController, theme);
+		gamePanel = new GamePanel(vController, this);
 		
 		// setingsPanel initialisieren
-		settingsPanel = new SettingsPanel(vController, theme);
+		settingsPanel = new SettingsPanel(vController, this);
 	}
 	
 	
@@ -57,19 +59,24 @@ public class View extends JFrame{
 	 */
 	public void setTheme(Theme theme){
 		this.theme = theme;
-		mainMenu.setTheme(theme);
-		gamePanel.setTheme(theme);
-		settingsPanel.setTheme(theme);
 		repaint();
 	}
+	
+	/**
+	 * Liefert das aktuell verwendete Theme
+	 * @return Theme
+	 */
+	public Theme getTheme(){
+		return theme;
+	}
+	
 	
 	
 	/**
 	 * Setzt das Hauptpanel des Frames
 	 * @param container Container (In diesem Fall das JPanel)
 	 */
-	@Override
-	public void setContentPane(Container container){
+	public void setContentPane(Menu container){
 		
 		// aktuelles Panel entfernen, sofern vorhanden
 		if(getContentPane() != null)
@@ -79,16 +86,15 @@ public class View extends JFrame{
 		super.setContentPane(container);
 		
 		// Framegröße auf Panelgröße anpassen
-		getContentPane().setPreferredSize(container.getSize());
+		if(container.getOriginalSize().height > getHeight() || container.getOriginalSize().width > getWidth()){
+			getContentPane().setPreferredSize(container.getOriginalSize());
+			pack();
+			
+			//Frameminimumgröße auf Panelgröße festlegen
+			setMinimumSize(getSize());
+		}
 		
-		
-		pack();
-		
-		
-		//Frameminimumgröße auf Panelgröße festlegen
-		setMinimumSize(getSize());
-		
-		
+		validate();
 		repaint();
 	}
 }

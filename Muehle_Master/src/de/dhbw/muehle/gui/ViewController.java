@@ -161,7 +161,19 @@ public class ViewController implements IViewController {
 	public void setCore(Core core) {
 		this.core = core;
 	}
+	
+	
+	public Theme getTheme(String theme) {
+		return thLoader.getTheme(theme);
+	}
 
+	public void setTheme(String theme) {
+		this.theme = thLoader.getTheme(theme);
+		frame.setTheme(this.theme);
+	}
+
+	
+	
 	@Override
 	public Position getPosition(ISpielstein spielStein) {
 		// TODO Auto-generated method stub
@@ -186,14 +198,4 @@ public class ViewController implements IViewController {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	public Theme getTheme() {
-		return theme;
-	}
-
-	public void setTheme(String theme) {
-		this.theme = thLoader.getTheme(theme);
-		frame.setTheme(this.theme);
-	}
-
 }

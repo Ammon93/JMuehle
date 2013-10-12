@@ -1,6 +1,7 @@
 package de.dhbw.muehle.gui.menus;
 
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 
@@ -11,13 +12,16 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 
+import de.dhbw.muehle.gui.View;
 import de.dhbw.muehle.gui.ViewController;
 import de.dhbw.muehle.gui.viewactions.GamePanelVA;
 import de.dhbw.muehle.model.spielstein.EPositionIndex;
 import de.dhbw.muehle.model.spielstein.Position;
 import de.dhbw.muehle.model.theme.Theme;
 
-public class GamePanel extends JPanel {
+public class GamePanel extends Menu {
+	
+	public final Dimension Size = new Dimension(705, 600);
 
 	private JPanel gameField;
 	private LblGameStone lblGameStone[][][];
@@ -26,17 +30,15 @@ public class GamePanel extends JPanel {
 	
 	private GamePanelVA vActions;
 	
-	private Theme theme;
+	private View view;
 	
 	
-	public GamePanel(ViewController vController, Theme theme) {
-		this.theme = theme;
+	public GamePanel(ViewController vController, View view) {
+		super(view);
+		this.view = view;
 		
 		// Listener initialisieren
 		vActions = new GamePanelVA(vController);
-		
-		// Panelgröße festlegen
-		setSize(705, 600);
 		
 		
 		setLayout(new FormLayout(new ColumnSpec[] {
@@ -76,15 +78,11 @@ public class GamePanel extends JPanel {
 				RowSpec.decode("default:grow(6)"),
 				RowSpec.decode("default:grow"),}));
 		
-		weisseSteine = new LblStoneStack();
+		weisseSteine = new LblStoneStack(view, "weiss", 9);
 		stoneField.add(weisseSteine, "1, 2, fill, fill");
-		weisseSteine.setImage(theme.getSpielSteinWeiss());
-		weisseSteine.setCountStones(9);
 		
-		schwarzeSteine = new LblStoneStack();
+		schwarzeSteine = new LblStoneStack(view, "schwarz", 9);
 		stoneField.add(schwarzeSteine, "1, 3, fill, fill");
-		schwarzeSteine.setImage(theme.getSpielSteinSchwarz());
-		schwarzeSteine.setCountStones(9);
 		
 		
 		
@@ -105,27 +103,13 @@ public class GamePanel extends JPanel {
 			for(int x=0;x<3;x++){
 				for(int y=0;y<3;y++){
 					if(! (x==1 && y==1)){
-						lblGameStone[e][x][y] = new LblGameStone(e+1, x+1, y+1);
-						lblGameStone[e][x][y].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-						lblGameStone[e][x][y].addMouseListener(vActions.new lblGameStoneMouse());
+						lblGameStone[e][x][y] = new LblGameStone(e+1, x+1, y+1, vActions);
 						gameField.add(lblGameStone[e][x][y], (x*i+e+1)+", "+(y*i+e+1)+", fill, fill");
 					}
 				}
 			}
 			i--;
 		}
-	}
-	
-	
-	/**
-	 * Setzt das Theme
-	 * @param theme Theme
-	 */
-	public void setTheme(Theme theme){
-		this.theme = theme;	
-		weisseSteine.setImage(theme.getSpielSteinWeiss());
-		schwarzeSteine.setImage(theme.getSpielSteinSchwarz());
-		repaint();
 	}
 	
 	
@@ -172,7 +156,7 @@ public class GamePanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
     	// Hintergrundbild dynamisch zeichnen
-        g.drawImage(theme.getSpielBrett(), 0, 0, getWidth(), getHeight(), this);
+        g.drawImage(view.getTheme().getSpielBrett(), 0, 0, getWidth(), getHeight(), this);
     }
 
 
@@ -184,8 +168,11 @@ public class GamePanel extends JPanel {
 		private Image image;
 		private Position pos;
 		
-		public LblGameStone(int ebene, int x, int y) {	
+		public LblGameStone(int ebene, int x, int y, GamePanelVA vActions) {	
 			pos = new Position(ebene, x, y);
+			
+			setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			addMouseListener(vActions.new lblGameStoneMouse());
 		}
 		
 		
@@ -233,15 +220,33 @@ public class GamePanel extends JPanel {
 	public class LblStoneStack extends JLabel{
 		
 		private Image gameStoneImage;
-		private int countStones; // Anzahl der noch nicht gesetzten Spielsteine
+		private int remainingStones; // Anzahl der noch nicht gesetzten Spielsteine
+		private String type;
+		
+		private View view;
+		
+		
+		public LblStoneStack() {
+			this(null, null, 0);
+		}
+		
+		public LblStoneStack(View view, String type, int remainingStones) {
+			this.view = view;
+			this.type = type;
+			setImage(type);
+			setCountStones(remainingStones);
+		}
 		
 		
 		/**
 		 * Die Farbe für den Spielsteinstapel setzen
-		 * @param gameStoneImage Bild (Farbe) des Spielsteins
+		 * @param type Typ des Spielsteins ("schwarz" oder "weiß")
 		 */
-		public void setImage(Image gameStoneImage){
-			this.gameStoneImage = gameStoneImage;
+		public void setImage(String type){
+			if(type.equals("weiss"))
+				gameStoneImage = view.getTheme().getSpielSteinWeiss();
+			else if(type.equals("schwarz"))
+				gameStoneImage = view.getTheme().getSpielSteinSchwarz();
 			repaint();
 		}
 		
@@ -251,7 +256,7 @@ public class GamePanel extends JPanel {
 		 * @param count Anzehl der noch nicht gestzten Spielsteine
 		 */
 		public void setCountStones(int count){
-			this.countStones = count;
+			this.remainingStones = count;
 			repaint(); // Zeichnung updaten
 		}
 		
@@ -261,7 +266,7 @@ public class GamePanel extends JPanel {
 		 * @return count Anzehl der noch nicht gestzten Spielsteine
 		 */
 		public int getCountStones(){
-			return countStones;
+			return remainingStones;
 		}
 		
 		
@@ -270,11 +275,14 @@ public class GamePanel extends JPanel {
 		 */
 		@Override
 		public void paintComponent(Graphics g) {
+			// Bild auf aktuelle Theme aktualisieren
+			setImage(type);
+			
 			// Höhe und Breite berechnen
 			int h = getHeight()/4;
 			int w = (int) (getWidth()*0.6);
 			// Bild dynamisch zeichnen
-			for(int i=0;i<countStones;i++){
+			for(int i=0;i<remainingStones;i++){
 				if(i>=4 && i<7){
 					g.drawImage(gameStoneImage, getWidth()*15/100, ((i-4)*h)+h/2, w, h, this);
 					continue;
