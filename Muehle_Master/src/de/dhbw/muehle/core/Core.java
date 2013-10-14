@@ -22,10 +22,37 @@ public class Core {
 	private boolean weissDran;
 	private boolean Muehle_weiss;
 	private boolean Muehle_schwarz;
+	List<Spielstein> index1;
+	List<Spielstein> index2; 
+	List<Spielstein> index3; 
 
 
 	public boolean isMuehle_weiss() {
 		return Muehle_weiss;
+	}
+
+	public List<Spielstein> getIndex1() {
+		return index1;
+	}
+
+	public void setIndex1(List<Spielstein> index1) {
+		this.index1 = index1;
+	}
+
+	public List<Spielstein> getIndex2() {
+		return index2;
+	}
+
+	public void setIndex2(List<Spielstein> index2) {
+		this.index2 = index2;
+	}
+
+	public List<Spielstein> getIndex3() {
+		return index3;
+	}
+
+	public void setIndex3(List<Spielstein> index3) {
+		this.index3 = index3;
 	}
 
 	public void setMuehle_weiss(boolean muehle_weiss) {
@@ -64,6 +91,9 @@ public class Core {
 		Hashliste_Weiss = new ArrayList<Integer>();
 		Hashliste_Schwarz = new ArrayList<Integer>();
 		weissDran = true;
+		index1=new ArrayList<Spielstein>();
+		index2=new ArrayList<Spielstein>();
+		index3=new ArrayList<Spielstein>();
 
 	}
 
@@ -146,6 +176,11 @@ public class Core {
 		int zaehler1 = 0;
 		int zaehler2 = 0;
 		int zaehler3 = 0;
+		
+		index1.clear();
+		index2.clear();
+		index3.clear();
+
 
 		int posEbene = pos.getEbene().getValue();
 		int posX = pos.getX().getValue();
@@ -155,21 +190,41 @@ public class Core {
 			if (posEbene == StW.get(i).getPosition().getEbene().getValue()
 					&& posX == StW.get(i).getPosition().getX().getValue()) {
 				zaehler1++;
+				index1.add(StW.get(i));
+				
 			}
 			if (posEbene == StW.get(i).getPosition().getEbene().getValue()
 					&& posY == StW.get(i).getPosition().getY().getValue()) {
 				zaehler2++;
+				index2.add(StW.get(i));
 			}
 			if (posX == StW.get(i).getPosition().getX().getValue()
 					&& posY == StW.get(i).getPosition().getY().getValue() && (posX+posY==3 || posX+posY==5)) {
 				zaehler3++;
+				index3.add(StW.get(i));
 			}
 
 		}
 
 		if (zaehler1 == 3|| zaehler2 == 3|| zaehler3 == 3) {
+			if(zaehler1==3){
+				for(int z = 0; z<index1.size();z++){
+					index1.get(z).setInMuehle(true);
+				}
+			}
+			if(zaehler2==3){
+				for(int z = 0; z<index2.size();z++){
+					index2.get(z).setInMuehle(true);
+				}
+			}
+			if(zaehler3==3){
+				for(int z = 0; z<index3.size();z++){
+					index3.get(z).setInMuehle(true);
+				}
+			}
 			System.out.println("Muehle weiss");
 			Muehle_weiss=true;
+			
 		}
 
 	}
@@ -179,6 +234,9 @@ public class Core {
 		int zaehler1 = 0;
 		int zaehler2 = 0;
 		int zaehler3 = 0;
+		index1.clear();
+		index2.clear();
+		index3.clear();
 
 		int posEbene = pos.getEbene().getValue();
 		int posX = pos.getX().getValue();
@@ -190,19 +248,37 @@ public class Core {
 			if (posEbene == StS.get(i).getPosition().getEbene().getValue()
 					&& posX == StS.get(i).getPosition().getX().getValue()) {
 				zaehler1++;
+				index1.add(StS.get(i));
 			}
 			if (posEbene == StS.get(i).getPosition().getEbene().getValue()
 					&& posY == StS.get(i).getPosition().getY().getValue()) {
 			zaehler2++;
+			index1.add(StS.get(i));
 			}
 			if (posX == StS.get(i).getPosition().getX().getValue()
 					&& posY == StS.get(i).getPosition().getY().getValue()&& (posX+posY==3  || posX+posY==5)) {
 				zaehler3++;
+				index1.add(StS.get(i));
 			}
 
 		}
 
 		if (zaehler1 == 3 || zaehler2 == 3 || zaehler3 == 3) {
+			if(zaehler1==3){
+				for(int z = 0; z<index1.size();z++){
+					index1.get(z).setInMuehle(true);
+				}
+			}
+			if(zaehler2==3){
+				for(int z = 0; z<index2.size();z++){
+					index2.get(z).setInMuehle(true);
+				}
+			}
+			if(zaehler3==3){
+				for(int z = 0; z<index3.size();z++){
+					index3.get(z).setInMuehle(true);
+				}
+			}
 			System.out.println("Muehle schwarz");
 			Muehle_schwarz=true;
 		}

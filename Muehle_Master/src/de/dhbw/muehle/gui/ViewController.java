@@ -103,22 +103,25 @@ public class ViewController implements IViewController {
 
 	public void entferneSteinWeiss(LblGameStone stone) {
 
-		if (core.isMuehle_schwarz() == true) {
+		while (core.isMuehle_schwarz() == true) {
 			if (!core.getHashliste_Schwarz().contains(
 					stone.getPosition().hashCode())) {
-				stone.removeImage();
-				for (int j = 0; j < core.getHashliste_Weiss().size(); j++) {
-					if (core.getHashliste_Weiss().get(j) == stone.getPosition()
-							.hashCode()) {
-						core.getHashliste_Weiss().remove(j);
-					}
-				}
+				
 				for (int i = 0; i < core.getStW().size(); i++) {
 					if (core.getStW().get(i).getPosition().hashCode() == stone
-							.getPosition().hashCode()) {
-						core.getStW().remove(i);
+							.getPosition().hashCode()&& core.getStW().get(i).isInMuehle()==false) {
+						for (int j = 0; j < core.getHashliste_Weiss().size(); j++) {
+							if (core.getHashliste_Weiss().get(j) == stone.getPosition()
+									.hashCode()) {
+								core.getHashliste_Weiss().remove(j);
+								core.getStW().remove(i);
+								stone.removeImage();
+								core.setMuehle_schwarz(false);
+							}
+						}
 					}
 				}
+				
 			}
 
 			else {
@@ -128,22 +131,25 @@ public class ViewController implements IViewController {
 	}
 
 	public void entferneSteinSchwarz(LblGameStone stone) {
-
-		if (core.isMuehle_weiss() == true) {
+		while (core.isMuehle_weiss() == true) {
 			if (!core.getHashliste_Weiss().contains(
 					stone.getPosition().hashCode())) {
-				stone.removeImage();
-				for (int j = 0; j < core.getHashliste_Schwarz().size(); j++) {
-					if (core.getHashliste_Schwarz().get(j) == stone
-							.getPosition().hashCode()) {
-						core.getHashliste_Schwarz().remove(j);
-					}
-					for (int i = 0; i < core.getStS().size(); i++) {
-						if (core.getStS().get(i).getPosition().hashCode() == stone
-								.getPosition().hashCode()) {
-							core.getStS().remove(i);
+				for (int i = 0; i < core.getStS().size(); i++) {
+					if (core.getStS().get(i).getPosition().hashCode() == stone
+							.getPosition().hashCode() && core.getStS().get(i).isInMuehle()==false) {
+						for (int j = 0; j < core.getHashliste_Schwarz().size(); j++) {
+							if (core.getHashliste_Schwarz().get(j) == stone
+									.getPosition().hashCode()) {
+								core.getHashliste_Schwarz().remove(j);
+								core.getStS().remove(i);
+								stone.removeImage();
+								core.setMuehle_weiss(false);
+							}
+								
+							}
+							
 						}
-					}
+						
 				}
 			}
 
