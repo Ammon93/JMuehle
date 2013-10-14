@@ -22,7 +22,7 @@ public class Spielstein implements ISpielstein{
 		
 		position = new Position(ebene, x, y);
 		this.farbe = farbe;
-		inMuehle=false;
+	//	inMuehle=false;
 	}
 	
 	

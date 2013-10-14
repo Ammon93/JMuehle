@@ -103,13 +103,15 @@ public class ViewController implements IViewController {
 
 	public void entferneSteinWeiss(LblGameStone stone) {
 
-		while (core.isMuehle_schwarz() == true) {
+		if (core.isMuehle_schwarz() == true) {
 			if (!core.getHashliste_Schwarz().contains(
 					stone.getPosition().hashCode())) {
 				
 				for (int i = 0; i < core.getStW().size(); i++) {
+					System.out.println(" Weisser Stein " + i + core.getStW().get(i).isInMuehle());
 					if (core.getStW().get(i).getPosition().hashCode() == stone
 							.getPosition().hashCode()&& core.getStW().get(i).isInMuehle()==false) {
+						
 						for (int j = 0; j < core.getHashliste_Weiss().size(); j++) {
 							if (core.getHashliste_Weiss().get(j) == stone.getPosition()
 									.hashCode()) {
@@ -117,6 +119,8 @@ public class ViewController implements IViewController {
 								core.getStW().remove(i);
 								stone.removeImage();
 								core.setMuehle_schwarz(false);
+								core.setWeissDran(true);
+								core.setSchwarzDran(false);
 							}
 						}
 					}
@@ -125,16 +129,19 @@ public class ViewController implements IViewController {
 			}
 
 			else {
-
+				
+				core.setMuehle_schwarz(true);
+				core.setSchwarzDran(true);
 			}
 		}
 	}
 
 	public void entferneSteinSchwarz(LblGameStone stone) {
-		while (core.isMuehle_weiss() == true) {
+		if (core.isMuehle_weiss() == true) {
 			if (!core.getHashliste_Weiss().contains(
 					stone.getPosition().hashCode())) {
 				for (int i = 0; i < core.getStS().size(); i++) {
+					System.out.println(" Schwarzer Stein " + i + core.getStS().get(i).isInMuehle());
 					if (core.getStS().get(i).getPosition().hashCode() == stone
 							.getPosition().hashCode() && core.getStS().get(i).isInMuehle()==false) {
 						for (int j = 0; j < core.getHashliste_Schwarz().size(); j++) {
@@ -144,6 +151,8 @@ public class ViewController implements IViewController {
 								core.getStS().remove(i);
 								stone.removeImage();
 								core.setMuehle_weiss(false);
+								core.setSchwarzDran(true);
+								core.setWeissDran(false);
 							}
 								
 							}
@@ -153,9 +162,11 @@ public class ViewController implements IViewController {
 				}
 			}
 
-			else {
-
-			}
+			
+		}
+		else {
+			core.setMuehle_weiss(true);
+			core.setWeissDran(true);
 		}
 
 	}

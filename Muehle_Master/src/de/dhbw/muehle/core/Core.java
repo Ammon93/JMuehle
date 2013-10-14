@@ -22,37 +22,16 @@ public class Core {
 	private boolean weissDran;
 	private boolean Muehle_weiss;
 	private boolean Muehle_schwarz;
-	List<Spielstein> index1;
-	List<Spielstein> index2; 
-	List<Spielstein> index3; 
+	List<Spielstein> index1s;
+	List<Spielstein> index2s; 
+	List<Spielstein> index3s; 
+	List<Spielstein> index1w;
+	List<Spielstein> index2w; 
+	List<Spielstein> index3w; 
 
 
 	public boolean isMuehle_weiss() {
 		return Muehle_weiss;
-	}
-
-	public List<Spielstein> getIndex1() {
-		return index1;
-	}
-
-	public void setIndex1(List<Spielstein> index1) {
-		this.index1 = index1;
-	}
-
-	public List<Spielstein> getIndex2() {
-		return index2;
-	}
-
-	public void setIndex2(List<Spielstein> index2) {
-		this.index2 = index2;
-	}
-
-	public List<Spielstein> getIndex3() {
-		return index3;
-	}
-
-	public void setIndex3(List<Spielstein> index3) {
-		this.index3 = index3;
 	}
 
 	public void setMuehle_weiss(boolean muehle_weiss) {
@@ -91,9 +70,12 @@ public class Core {
 		Hashliste_Weiss = new ArrayList<Integer>();
 		Hashliste_Schwarz = new ArrayList<Integer>();
 		weissDran = true;
-		index1=new ArrayList<Spielstein>();
-		index2=new ArrayList<Spielstein>();
-		index3=new ArrayList<Spielstein>();
+		index1w=new ArrayList<Spielstein>();
+		index2w=new ArrayList<Spielstein>();
+		index3w=new ArrayList<Spielstein>();
+		index1s=new ArrayList<Spielstein>();
+		index2s=new ArrayList<Spielstein>();
+		index3s=new ArrayList<Spielstein>();
 
 	}
 
@@ -177,9 +159,9 @@ public class Core {
 		int zaehler2 = 0;
 		int zaehler3 = 0;
 		
-		index1.clear();
-		index2.clear();
-		index3.clear();
+		index1w.clear();
+		index2w.clear();
+		index3w.clear();
 
 
 		int posEbene = pos.getEbene().getValue();
@@ -190,36 +172,36 @@ public class Core {
 			if (posEbene == StW.get(i).getPosition().getEbene().getValue()
 					&& posX == StW.get(i).getPosition().getX().getValue()) {
 				zaehler1++;
-				index1.add(StW.get(i));
+				index1w.add(StW.get(i));
 				
 			}
 			if (posEbene == StW.get(i).getPosition().getEbene().getValue()
 					&& posY == StW.get(i).getPosition().getY().getValue()) {
 				zaehler2++;
-				index2.add(StW.get(i));
+				index2w.add(StW.get(i));
 			}
 			if (posX == StW.get(i).getPosition().getX().getValue()
 					&& posY == StW.get(i).getPosition().getY().getValue() && (posX+posY==3 || posX+posY==5)) {
 				zaehler3++;
-				index3.add(StW.get(i));
+				index3w.add(StW.get(i));
 			}
 
 		}
 
 		if (zaehler1 == 3|| zaehler2 == 3|| zaehler3 == 3) {
 			if(zaehler1==3){
-				for(int z = 0; z<index1.size();z++){
-					index1.get(z).setInMuehle(true);
+				for(int z = 0; z<index1w.size();z++){
+					index1w.get(z).setInMuehle(true);
 				}
 			}
 			if(zaehler2==3){
-				for(int z = 0; z<index2.size();z++){
-					index2.get(z).setInMuehle(true);
+				for(int z = 0; z<index2w.size();z++){
+					index2w.get(z).setInMuehle(true);
 				}
 			}
 			if(zaehler3==3){
-				for(int z = 0; z<index3.size();z++){
-					index3.get(z).setInMuehle(true);
+				for(int z = 0; z<index3w.size();z++){
+					index3w.get(z).setInMuehle(true);
 				}
 			}
 			System.out.println("Muehle weiss");
@@ -234,9 +216,10 @@ public class Core {
 		int zaehler1 = 0;
 		int zaehler2 = 0;
 		int zaehler3 = 0;
-		index1.clear();
-		index2.clear();
-		index3.clear();
+		
+		index1s.clear();
+		index2s.clear();
+		index3s.clear();
 
 		int posEbene = pos.getEbene().getValue();
 		int posX = pos.getX().getValue();
@@ -248,35 +231,35 @@ public class Core {
 			if (posEbene == StS.get(i).getPosition().getEbene().getValue()
 					&& posX == StS.get(i).getPosition().getX().getValue()) {
 				zaehler1++;
-				index1.add(StS.get(i));
+				index1s.add(StS.get(i));
 			}
 			if (posEbene == StS.get(i).getPosition().getEbene().getValue()
 					&& posY == StS.get(i).getPosition().getY().getValue()) {
 			zaehler2++;
-			index1.add(StS.get(i));
+			index2s.add(StS.get(i));
 			}
 			if (posX == StS.get(i).getPosition().getX().getValue()
 					&& posY == StS.get(i).getPosition().getY().getValue()&& (posX+posY==3  || posX+posY==5)) {
 				zaehler3++;
-				index1.add(StS.get(i));
+				index3s.add(StS.get(i));
 			}
 
 		}
 
 		if (zaehler1 == 3 || zaehler2 == 3 || zaehler3 == 3) {
 			if(zaehler1==3){
-				for(int z = 0; z<index1.size();z++){
-					index1.get(z).setInMuehle(true);
+				for(int z = 0; z<index1s.size();z++){
+					index1s.get(z).setInMuehle(true);
 				}
 			}
 			if(zaehler2==3){
-				for(int z = 0; z<index2.size();z++){
-					index2.get(z).setInMuehle(true);
+				for(int z = 0; z<index2s.size();z++){
+					index2s.get(z).setInMuehle(true);
 				}
 			}
 			if(zaehler3==3){
-				for(int z = 0; z<index3.size();z++){
-					index3.get(z).setInMuehle(true);
+				for(int z = 0; z<index3s.size();z++){
+					index3s.get(z).setInMuehle(true);
 				}
 			}
 			System.out.println("Muehle schwarz");
@@ -285,6 +268,54 @@ public class Core {
 
 	}
 	
+	public List<Spielstein> getIndex1s() {
+		return index1s;
+	}
+
+	public void setIndex1s(List<Spielstein> index1s) {
+		this.index1s = index1s;
+	}
+
+	public List<Spielstein> getIndex2s() {
+		return index2s;
+	}
+
+	public void setIndex2s(List<Spielstein> index2s) {
+		this.index2s = index2s;
+	}
+
+	public List<Spielstein> getIndex3s() {
+		return index3s;
+	}
+
+	public void setIndex3s(List<Spielstein> index3s) {
+		this.index3s = index3s;
+	}
+
+	public List<Spielstein> getIndex1w() {
+		return index1w;
+	}
+
+	public void setIndex1w(List<Spielstein> index1w) {
+		this.index1w = index1w;
+	}
+
+	public List<Spielstein> getIndex2w() {
+		return index2w;
+	}
+
+	public void setIndex2w(List<Spielstein> index2w) {
+		this.index2w = index2w;
+	}
+
+	public List<Spielstein> getIndex3w() {
+		return index3w;
+	}
+
+	public void setIndex3w(List<Spielstein> index3w) {
+		this.index3w = index3w;
+	}
+
 	public void setzenSteingueltig(Position pos){
 		//Pr�fen ob Stein an Eckposition
 		if(pos.getX().getValue()+pos.getY().getValue()%2==0){

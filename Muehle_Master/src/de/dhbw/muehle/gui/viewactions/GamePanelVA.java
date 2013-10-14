@@ -37,9 +37,9 @@ public class GamePanelVA {
 			else if (vController.getCore().isMuehle_weiss() == true && vController.getCore().isWeissDran() == true) {
 				
 				vController.entferneSteinSchwarz((LblGameStone) e.getComponent());
-				vController.getCore().setMuehle_weiss(false);
-				vController.getCore().setWeissDran(false);
-				vController.getCore().setSchwarzDran(true);
+//				vController.getCore().setMuehle_weiss(false);
+//				vController.getCore().setWeissDran(false);
+//				vController.getCore().setSchwarzDran(true);
 				System.out.println(vController.getCore().isWeissDran());
 				System.out.println(vController.getCore().isSchwarzDran());
 				System.out.println(vController.getCore().isMuehle_weiss());
@@ -58,9 +58,9 @@ public class GamePanelVA {
 			else if (vController.getCore().isMuehle_schwarz() == true && vController.getCore().isSchwarzDran() == true) {
 				
 				vController.entferneSteinWeiss((LblGameStone) e.getComponent());
-				vController.getCore().setMuehle_schwarz(false);
-				vController.getCore().setSchwarzDran(false);
-				vController.getCore().setWeissDran(true);
+//				vController.getCore().setMuehle_schwarz(false);
+//				vController.getCore().setSchwarzDran(false);
+//				vController.getCore().setWeissDran(true);
 				System.out.println(vController.getCore().isWeissDran());
 				System.out.println(vController.getCore().isSchwarzDran());
 				System.out.println(vController.getCore().isMuehle_weiss());
