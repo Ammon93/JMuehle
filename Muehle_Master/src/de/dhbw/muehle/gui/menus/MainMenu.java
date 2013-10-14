@@ -33,8 +33,6 @@ import java.awt.Dimension;
  * Dieses Panel ist das Hauptmenüpanel, das zuerst im Frame angezeigt wird.
  */
 public class MainMenu extends Menu {
-	
-	public final Dimension Size = new Dimension(705, 600);
 
 	private MillButton btnPvE, btnPvP, btnSettings, btnQuit, btnHilfe;
 	private MainMenuVA vActions;
@@ -48,10 +46,7 @@ public class MainMenu extends Menu {
 		
 		// Listener initialisieren
 		vActions = new MainMenuVA(vController);
-		
-		// Panelgröße festlegen
-		setSize(Size);
-		
+				
 		
 		setLayout(new FormLayout(new ColumnSpec[] {
 				ColumnSpec.decode("25px"),

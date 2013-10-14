@@ -1,10 +1,9 @@
 package de.dhbw.muehle.gui;
 
-import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.Graphics;
+import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import de.dhbw.muehle.gui.menus.GamePanel;
 import de.dhbw.muehle.gui.menus.MainMenu;
@@ -28,16 +27,13 @@ public class View extends JFrame{
 	protected MainMenu mainMenu;
 	protected GamePanel gamePanel;
 	protected SettingsPanel settingsPanel;
-	private ViewController vController;
 	
 	
 	public View(ViewController vController, Theme theme){
-		this.vController = vController;
 		this.theme = theme;
 		
 		setTitle("JMuehle");		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setLayout(new BorderLayout());
 		setBounds(100,100,500,500);
 		
 		
@@ -83,13 +79,16 @@ public class View extends JFrame{
 			remove(getContentPane());
 		
 		// neues Panel setzen
-		super.setContentPane(container);
+		super.setContentPane(new JPanel());
+		getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
+		getContentPane().add(container);
 		
 		// Framegröße auf Panelgröße anpassen
 		if(container.getOriginalSize().height > getHeight() || container.getOriginalSize().width > getWidth()){
-			getContentPane().setPreferredSize(container.getOriginalSize());
-			pack();
+			container.setPreferredSize(container.getOriginalSize());
 			
+			pack();
+						
 			//Frameminimumgröße auf Panelgröße festlegen
 			setMinimumSize(getSize());
 		}
