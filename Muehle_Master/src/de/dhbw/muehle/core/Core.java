@@ -11,17 +11,42 @@ import de.dhbw.muehle.model.spielstein.ESpielsteinFarbe;
 import de.dhbw.muehle.model.spielstein.Position;
 import de.dhbw.muehle.model.spielstein.Spielstein;
 
+/**
+ * 
+ * @author Kreistschen
+ * Die Coreklasse dient als zentrale Fuktionseinheit des Programmes.
+ * Hier werden alle GUI Elemente initalisiert und die meisten Funktionen 
+ * des Programmes bereitgestellt
+ * 
+ */
 public class Core {
 
+	
+	//Deklaration verschiedener Variablen und Objekte
+	
 	private ViewController vController;
 	private Model model;
+	
+	/**
+	 * Diese Hashlisten dienen als Zwischenspeicher der Hashcodes welche die Klasse
+	 * Position erstellt. Sie sind Notwendig um später zu überprüfen ob die jeweilige
+	 * Position schon besetzt ist
+	 */
 	private List<Integer> Hashliste_Weiss;
 	private List<Integer> Hashliste_Schwarz;
+	
+	// In den Listen StW und StS werden alle Spielsteine gespeichert
 	private List<Spielstein> StW, StS;
+	
+	// Durch diese Boolean wird der Spielablauf bestimmt
 	private boolean schwarzDran;
 	private boolean weissDran;
 	private boolean Muehle_weiss;
 	private boolean Muehle_schwarz;
+	
+	/** 
+	 * Diese IndexListen dienen zur Zwischenspeicherung der Steine, welche in einer Muehle stehen. Dies ist notwendig um auszusch
+	 */
 	List<Spielstein> index1s;
 	List<Spielstein> index2s; 
 	List<Spielstein> index3s; 
