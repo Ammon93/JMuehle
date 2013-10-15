@@ -18,10 +18,14 @@ import de.dhbw.muehle.gui.viewactions.GamePanelVA;
 import de.dhbw.muehle.model.spielstein.EPositionIndex;
 import de.dhbw.muehle.model.spielstein.Position;
 import de.dhbw.muehle.model.theme.Theme;
+import javax.swing.SwingConstants;
+import java.awt.Font;
+import java.awt.Color;
 
 public class GamePanel extends Menu {
 	
 	private JPanel gameField;
+	private LblStatus lblStatus;
 	private LblGameStone lblGameStone[][][];
 	public LblStoneStack schwarzeSteine,
 				   		 weisseSteine;
@@ -64,6 +68,10 @@ public class GamePanel extends Menu {
 				RowSpec.decode("default:grow"),
 				RowSpec.decode("default:grow"),
 				RowSpec.decode("default:grow"),}));
+		
+		lblStatus = new LblStatus(view);
+		add(lblStatus, "1, 1, fill, fill");
+		lblStatus.setText(2, "weiss");
 		
 		JPanel stoneField = new JPanel();
 		stoneField.setOpaque(false);
@@ -146,6 +154,11 @@ public class GamePanel extends Menu {
 	}
 	
 	
+	public void setLblStatus(int spielerNr, String type){
+		lblStatus.setText(spielerNr, type);
+	}
+	
+	
 	
 	/**
 	 * Spielbrettbild dynamisch auf das GamePanel zeichnen
@@ -160,7 +173,75 @@ public class GamePanel extends Menu {
 
 
 
-
+    public class LblStatus extends JLabel{
+    	
+    	private View view;
+    	private Image image;
+    	private String type;
+    	
+    	
+    	
+    	public LblStatus(View view) {
+			this(view, "");
+		}
+    	    	
+    	public LblStatus(View view, String type) {
+			this.view = view;
+			this.type = type;
+			setImage(type);
+			
+			setHorizontalAlignment(SwingConstants.CENTER);
+			setFont(new Font("Arial", Font.BOLD, 14));
+		}
+    	
+    	
+    	
+    	/**
+		 * Die Farbe für den Spielstein setzen
+		 * @param type Typ des Spielsteins ("schwarz" oder "weiß")
+		 */
+		public void setImage(String type){
+			switch (type) {
+			case "weiss":
+				setForeground(Color.BLACK);
+				image = view.getTheme().getSpielSteinWeiss();
+				break;
+			case "schwarz":
+				setForeground(Color.WHITE);
+				image = view.getTheme().getSpielSteinSchwarz();
+				break;
+			}
+			repaint();
+		}
+		
+		
+		public void setText(int spielerNr, String type){
+			this.type = type;
+			setImage(type);
+			super.setText("<html><center>"
+					+ "Spieler<br/>"+spielerNr
+					+ "</center></html>");
+		}
+		
+    	
+    	
+    	@Override
+		public void paintComponent(Graphics g){
+    		setImage(type);
+    		
+    		int width = getWidth()/7;
+    		int height = getHeight()/7;
+    		
+    		int x = (getWidth() - width) / 2;
+    		int y = (getHeight() - height) / 2;
+    				
+			g.drawImage(image, x, y, width, height, this);
+			
+			super.paintComponent(g);
+		}
+    }
+    
+    
 	public class LblGameStone extends JLabel{
 		
 		private Image image;
@@ -241,10 +322,14 @@ public class GamePanel extends Menu {
 		 * @param type Typ des Spielsteins ("schwarz" oder "weiß")
 		 */
 		public void setImage(String type){
-			if(type.equals("weiss"))
+			switch (type) {
+			case "weiss":
 				gameStoneImage = view.getTheme().getSpielSteinWeiss();
-			else if(type.equals("schwarz"))
+				break;
+			case "schwarz":
 				gameStoneImage = view.getTheme().getSpielSteinSchwarz();
+				break;
+			}
 			repaint();
 		}
 		

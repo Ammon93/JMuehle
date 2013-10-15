@@ -28,7 +28,7 @@ public class Core {
 
 	/**
 	 * Diese Hashlisten dienen als Zwischenspeicher der Hashcodes welche die
-	 * Klasse Position erstellt. Sie sind Notwendig um später zu überprüfen ob
+	 * Klasse Position erstellt. Sie sind Notwendig um spï¿½ter zu ï¿½berprï¿½fen ob
 	 * die jeweilige Position schon besetzt ist
 	 */
 	private List<Integer> Hashliste_Weiss;
@@ -122,6 +122,8 @@ public class Core {
 
 	public void setSchwarzDran(boolean schwarzDran) {
 		this.schwarzDran = schwarzDran;
+		if(schwarzDran)
+			vController.changePlayer(1, "schwarz");
 	}
 
 	public boolean isWeissDran() {
@@ -130,6 +132,8 @@ public class Core {
 
 	public void setWeissDran(boolean weissDran) {
 		this.weissDran = weissDran;
+		if(weissDran)
+			vController.changePlayer(2, "weiss");
 	}
 
 	public List<Integer> getHashliste_Weiss() {
@@ -428,7 +432,7 @@ public class Core {
 		setSchwarzDran(true);
 		
 		
-		// Prüft Steine an den Eckpositionen
+		// Prï¿½ft Steine an den Eckpositionen
 //		if (pos.getX().getValue() + pos.getY().getValue() % 2 == 0) {
 //			//Dann modulo 0 heist dass der Stein an einer Ecke steht
 //			System.out.println("Eckstein");
