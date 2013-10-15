@@ -19,8 +19,6 @@ import de.dhbw.muehle.model.theme.Theme;
 import de.dhbw.muehle.model.theme.ThemeLoader;
 
 public class SettingsPanel extends Menu {
-	
-	public final Dimension Size = new Dimension(705, 600);
 
 	private SettingsPanelVA vActions;
 	private View view;

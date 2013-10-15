@@ -81,7 +81,7 @@ public class View extends JFrame{
 		
 		// neues Panel setzen
 		super.setContentPane(new JPanel());
-		getContentPane().setLayout(new FlowLayout());
+		getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		getContentPane().add(container);
 		
 		// Framegröße auf Panelgröße anpassen

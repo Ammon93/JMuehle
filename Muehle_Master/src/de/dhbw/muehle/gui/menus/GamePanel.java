@@ -21,8 +21,6 @@ import de.dhbw.muehle.model.theme.Theme;
 
 public class GamePanel extends Menu {
 	
-	public final Dimension Size = new Dimension(705, 600);
-
 	private JPanel gameField;
 	private LblGameStone lblGameStone[][][];
 	public LblStoneStack schwarzeSteine,
