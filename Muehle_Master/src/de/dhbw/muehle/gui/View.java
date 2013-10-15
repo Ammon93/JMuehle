@@ -26,6 +26,18 @@ public class View extends JFrame{
 
 	protected MainMenu mainMenu;
 	protected GamePanel gamePanel;
+	public GamePanel getGamePanel() {
+		return gamePanel;
+	}
+
+
+
+	public void setGamePanel(GamePanel gamePanel) {
+		this.gamePanel = gamePanel;
+	}
+
+
+
 	protected SettingsPanel settingsPanel;
 	
 	

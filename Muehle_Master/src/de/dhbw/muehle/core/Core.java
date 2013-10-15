@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.dhbw.muehle.gui.ViewController;
+import de.dhbw.muehle.gui.menus.GamePanel.LblGameStone;
 import de.dhbw.muehle.model.Log;
 import de.dhbw.muehle.model.Model;
 import de.dhbw.muehle.model.spielstein.EPositionIndex;
@@ -13,47 +14,91 @@ import de.dhbw.muehle.model.spielstein.Spielstein;
 
 /**
  * 
- * @author Kreistschen
- * Die Coreklasse dient als zentrale Fuktionseinheit des Programmes.
- * Hier werden alle GUI Elemente initalisiert und die meisten Funktionen 
- * des Programmes bereitgestellt
+ * @author Kreistschen Die Coreklasse dient als zentrale Fuktionseinheit des
+ *         Programmes. Hier werden alle GUI Elemente initalisiert und die
+ *         meisten Funktionen des Programmes bereitgestellt
  * 
  */
 public class Core {
 
-	
-	//Deklaration verschiedener Variablen und Objekte
-	
+	// Deklaration verschiedener Variablen und Objekte
+
 	private ViewController vController;
 	private Model model;
-	
+
 	/**
-	 * Diese Hashlisten dienen als Zwischenspeicher der Hashcodes welche die Klasse
-	 * Position erstellt. Sie sind Notwendig um später zu überprüfen ob die jeweilige
-	 * Position schon besetzt ist
+	 * Diese Hashlisten dienen als Zwischenspeicher der Hashcodes welche die
+	 * Klasse Position erstellt. Sie sind Notwendig um später zu überprüfen ob
+	 * die jeweilige Position schon besetzt ist
 	 */
 	private List<Integer> Hashliste_Weiss;
 	private List<Integer> Hashliste_Schwarz;
 	
+	
 	// In den Listen StW und StS werden alle Spielsteine gespeichert
 	private List<Spielstein> StW, StS;
-	
+
 	// Durch diese Boolean wird der Spielablauf bestimmt
 	private boolean schwarzDran;
 	private boolean weissDran;
 	private boolean Muehle_weiss;
 	private boolean Muehle_schwarz;
+	private boolean schwarzerStein_angeklickt;
+	private boolean weisserStein_angeklickt;
 	
-	/** 
-	 * Diese IndexListen dienen zur Zwischenspeicherung der Steine, welche in einer Muehle stehen. Dies ist notwendig um auszusch
+	private int Spielphase = 1;
+	
+	private LblGameStone angeklickterStein;
+
+	
+
+	
+
+	/**
+	 * Diese IndexListen dienen zur Zwischenspeicherung der Steine, welche in
+	 * einer Muehle stehen. Dies ist notwendig um festzustellen welche Steine in
+	 * einer Muehele stehen und nicht entfernt werden duerfen
 	 */
 	List<Spielstein> index1s;
-	List<Spielstein> index2s; 
-	List<Spielstein> index3s; 
+	List<Spielstein> index2s;
+	List<Spielstein> index3s;
 	List<Spielstein> index1w;
-	List<Spielstein> index2w; 
-	List<Spielstein> index3w; 
+	List<Spielstein> index2w;
+	List<Spielstein> index3w;
 
+	// Getter und Setter Methoden
+	
+	public LblGameStone getAngeklickterStein() {
+		return angeklickterStein;
+	}
+
+	public void setAngeklickterStein(LblGameStone angeklickterStein) {
+		this.angeklickterStein = angeklickterStein;
+	}
+	
+	public boolean isSchwarzerStein_angeklickt() {
+		return schwarzerStein_angeklickt;
+	}
+
+	public void setSchwarzerStein_angeklickt(boolean schwarzerStein_angeklickt) {
+		this.schwarzerStein_angeklickt = schwarzerStein_angeklickt;
+	}
+
+	public boolean isWeisserStein_angeklickt() {
+		return weisserStein_angeklickt;
+	}
+
+	public void setWeisserStein_angeklickt(boolean weisserStein_angeklickt) {
+		this.weisserStein_angeklickt = weisserStein_angeklickt;
+	}
+	
+	public int getSpielphase() {
+		return Spielphase;
+	}
+
+	public void setSpielphase(int spielphase) {
+		Spielphase = spielphase;
+	}
 
 	public boolean isMuehle_weiss() {
 		return Muehle_weiss;
@@ -87,23 +132,6 @@ public class Core {
 		this.weissDran = weissDran;
 	}
 
-	public Core() {
-		vController = new ViewController(this);
-		model = new Model();
-		StW = new ArrayList<Spielstein>();
-		StS = new ArrayList<Spielstein>();
-		Hashliste_Weiss = new ArrayList<Integer>();
-		Hashliste_Schwarz = new ArrayList<Integer>();
-		weissDran = true;
-		index1w=new ArrayList<Spielstein>();
-		index2w=new ArrayList<Spielstein>();
-		index3w=new ArrayList<Spielstein>();
-		index1s=new ArrayList<Spielstein>();
-		index2s=new ArrayList<Spielstein>();
-		index3s=new ArrayList<Spielstein>();
-
-	}
-
 	public List<Integer> getHashliste_Weiss() {
 		return Hashliste_Weiss;
 	}
@@ -118,10 +146,6 @@ public class Core {
 
 	public void setHashliste_Schwarz(List<Integer> hashliste_Schwarz) {
 		Hashliste_Schwarz = hashliste_Schwarz;
-	}
-
-	public void initGame() {
-		vController.initGui();
 	}
 
 	public List<Spielstein> getStW() {
@@ -140,159 +164,6 @@ public class Core {
 		StS = stS;
 	}
 
-	private void run() {
-		Log.log("run() ohne Fehler gestartet", getClass().getSimpleName());
-	}
-
-	public void erzeugeSpielsteinweiss(EPositionIndex ebene, EPositionIndex x,
-			EPositionIndex y, Position pos) {
-
-		StW.add(new Spielstein(ebene, x, y, ESpielsteinFarbe.WEISS));
-		Hashliste_Weiss.add(pos.hashCode());
-
-	}
-
-	public void erzeugeSpielsteinschwarz(EPositionIndex ebene,
-			EPositionIndex x, EPositionIndex y, Position pos) {
-
-		StS.add(new Spielstein(ebene, x, y, ESpielsteinFarbe.SCHWARZ));
-		Hashliste_Schwarz.add(pos.hashCode());
-
-	}
-
-	public boolean postitionFree(Position pos) {
-		boolean posfree = true;
-		if (Hashliste_Weiss.contains(pos.hashCode())) {
-			posfree = false;
-		}
-		
-		else if (Hashliste_Schwarz.contains(pos.hashCode())){
-			posfree=false;
-		}
-		
-		return posfree;
-
-	}
-
-	public void start_Spielphase1() {
-
-	}
-
-	public void ueberpruefen_Muehele_weiss(Position pos) {
-		Muehle_weiss=false;
-		int zaehler1 = 0;
-		int zaehler2 = 0;
-		int zaehler3 = 0;
-		
-		index1w.clear();
-		index2w.clear();
-		index3w.clear();
-
-
-		int posEbene = pos.getEbene().getValue();
-		int posX = pos.getX().getValue();
-		int posY = pos.getY().getValue();
-
-		for (int i = 0; i < StW.size(); i++) {
-			if (posEbene == StW.get(i).getPosition().getEbene().getValue()
-					&& posX == StW.get(i).getPosition().getX().getValue()) {
-				zaehler1++;
-				index1w.add(StW.get(i));
-				
-			}
-			if (posEbene == StW.get(i).getPosition().getEbene().getValue()
-					&& posY == StW.get(i).getPosition().getY().getValue()) {
-				zaehler2++;
-				index2w.add(StW.get(i));
-			}
-			if (posX == StW.get(i).getPosition().getX().getValue()
-					&& posY == StW.get(i).getPosition().getY().getValue() && (posX+posY==3 || posX+posY==5)) {
-				zaehler3++;
-				index3w.add(StW.get(i));
-			}
-
-		}
-
-		if (zaehler1 == 3|| zaehler2 == 3|| zaehler3 == 3) {
-			if(zaehler1==3){
-				for(int z = 0; z<index1w.size();z++){
-					index1w.get(z).setInMuehle(true);
-				}
-			}
-			if(zaehler2==3){
-				for(int z = 0; z<index2w.size();z++){
-					index2w.get(z).setInMuehle(true);
-				}
-			}
-			if(zaehler3==3){
-				for(int z = 0; z<index3w.size();z++){
-					index3w.get(z).setInMuehle(true);
-				}
-			}
-			System.out.println("Muehle weiss");
-			Muehle_weiss=true;
-			
-		}
-
-	}
-
-	public void ueberpruefen_Muehele_schwarz(Position pos) {
-		Muehle_schwarz=false;
-		int zaehler1 = 0;
-		int zaehler2 = 0;
-		int zaehler3 = 0;
-		
-		index1s.clear();
-		index2s.clear();
-		index3s.clear();
-
-		int posEbene = pos.getEbene().getValue();
-		int posX = pos.getX().getValue();
-		int posY = pos.getY().getValue();
-
-		for (int i = 0; i < StS.size(); i++) {
-			
-			
-			if (posEbene == StS.get(i).getPosition().getEbene().getValue()
-					&& posX == StS.get(i).getPosition().getX().getValue()) {
-				zaehler1++;
-				index1s.add(StS.get(i));
-			}
-			if (posEbene == StS.get(i).getPosition().getEbene().getValue()
-					&& posY == StS.get(i).getPosition().getY().getValue()) {
-			zaehler2++;
-			index2s.add(StS.get(i));
-			}
-			if (posX == StS.get(i).getPosition().getX().getValue()
-					&& posY == StS.get(i).getPosition().getY().getValue()&& (posX+posY==3  || posX+posY==5)) {
-				zaehler3++;
-				index3s.add(StS.get(i));
-			}
-
-		}
-
-		if (zaehler1 == 3 || zaehler2 == 3 || zaehler3 == 3) {
-			if(zaehler1==3){
-				for(int z = 0; z<index1s.size();z++){
-					index1s.get(z).setInMuehle(true);
-				}
-			}
-			if(zaehler2==3){
-				for(int z = 0; z<index2s.size();z++){
-					index2s.get(z).setInMuehle(true);
-				}
-			}
-			if(zaehler3==3){
-				for(int z = 0; z<index3s.size();z++){
-					index3s.get(z).setInMuehle(true);
-				}
-			}
-			System.out.println("Muehle schwarz");
-			Muehle_schwarz=true;
-		}
-
-	}
-	
 	public List<Spielstein> getIndex1s() {
 		return index1s;
 	}
@@ -341,12 +212,241 @@ public class Core {
 		this.index3w = index3w;
 	}
 
-	public void setzenSteingueltig(Position pos){
-		//Prï¿½fen ob Stein an Eckposition
-		if(pos.getX().getValue()+pos.getY().getValue()%2==0){
-			// Ermitteln gï¿½ltiger Zï¿½ge
-			//ï¿½nderung der X Position 
-		}
+	// Konstruktor
+
+	public Core() {
+		vController = new ViewController(this);
+		model = new Model();
+		StW = new ArrayList<Spielstein>();
+		StS = new ArrayList<Spielstein>();
+		Hashliste_Weiss = new ArrayList<Integer>();
+		Hashliste_Schwarz = new ArrayList<Integer>();
+		weissDran = true;
+		index1w = new ArrayList<Spielstein>();
+		index2w = new ArrayList<Spielstein>();
+		index3w = new ArrayList<Spielstein>();
+		index1s = new ArrayList<Spielstein>();
+		index2s = new ArrayList<Spielstein>();
+		index3s = new ArrayList<Spielstein>();
+
 	}
 
-}
+	// private void run() {
+	// Log.log("run() ohne Fehler gestartet", getClass().getSimpleName());
+	// }
+
+	
+	//Zentrale Methode zur initalisierung der GUI und allen weiteren Fenstern
+	public void initGame() {
+		vController.initGui();
+	}
+
+	public void erzeugeSpielsteinweiss(EPositionIndex ebene, EPositionIndex x,
+			EPositionIndex y, Position pos) {
+
+		StW.add(new Spielstein(ebene, x, y, ESpielsteinFarbe.WEISS));
+		Hashliste_Weiss.add(pos.hashCode());
+
+	}
+
+	public void erzeugeSpielsteinschwarz(EPositionIndex ebene,
+			EPositionIndex x, EPositionIndex y, Position pos) {
+
+		StS.add(new Spielstein(ebene, x, y, ESpielsteinFarbe.SCHWARZ));
+		Hashliste_Schwarz.add(pos.hashCode());
+
+	}
+
+	public boolean postitionFree(Position pos) {
+		boolean posfree = true;
+		if (Hashliste_Weiss.contains(pos.hashCode())) {
+			posfree = false;
+		}
+
+		else if (Hashliste_Schwarz.contains(pos.hashCode())) {
+			posfree = false;
+		}
+
+		return posfree;
+
+	}
+
+	public void start_Spielphase1() {
+
+	}
+
+	public void ueberpruefen_Muehele_weiss(Position pos) {
+		Muehle_weiss = false;
+		int zaehler1 = 0;
+		int zaehler2 = 0;
+		int zaehler3 = 0;
+
+		index1w.clear();
+		index2w.clear();
+		index3w.clear();
+
+		int posEbene = pos.getEbene().getValue();
+		int posX = pos.getX().getValue();
+		int posY = pos.getY().getValue();
+
+		for (int i = 0; i < StW.size(); i++) {
+			if (posEbene == StW.get(i).getPosition().getEbene().getValue()
+					&& posX == StW.get(i).getPosition().getX().getValue()) {
+				zaehler1++;
+				index1w.add(StW.get(i));
+
+			}
+			if (posEbene == StW.get(i).getPosition().getEbene().getValue()
+					&& posY == StW.get(i).getPosition().getY().getValue()) {
+				zaehler2++;
+				index2w.add(StW.get(i));
+			}
+			if (posX == StW.get(i).getPosition().getX().getValue()
+					&& posY == StW.get(i).getPosition().getY().getValue()
+					&& (posX + posY == 3 || posX + posY == 5)) {
+				zaehler3++;
+				index3w.add(StW.get(i));
+			}
+
+		}
+
+		if (zaehler1 == 3 || zaehler2 == 3 || zaehler3 == 3) {
+			if (zaehler1 == 3) {
+				for (int z = 0; z < index1w.size(); z++) {
+					index1w.get(z).setInMuehle(true);
+				}
+			}
+			if (zaehler2 == 3) {
+				for (int z = 0; z < index2w.size(); z++) {
+					index2w.get(z).setInMuehle(true);
+				}
+			}
+			if (zaehler3 == 3) {
+				for (int z = 0; z < index3w.size(); z++) {
+					index3w.get(z).setInMuehle(true);
+				}
+			}
+			System.out.println("Muehle weiss");
+			Muehle_weiss = true;
+
+		}
+
+	}
+
+	public void ueberpruefen_Muehele_schwarz(Position pos) {
+		Muehle_schwarz = false;
+		int zaehler1 = 0;
+		int zaehler2 = 0;
+		int zaehler3 = 0;
+
+		index1s.clear();
+		index2s.clear();
+		index3s.clear();
+
+		int posEbene = pos.getEbene().getValue();
+		int posX = pos.getX().getValue();
+		int posY = pos.getY().getValue();
+
+		for (int i = 0; i < StS.size(); i++) {
+
+			if (posEbene == StS.get(i).getPosition().getEbene().getValue()
+					&& posX == StS.get(i).getPosition().getX().getValue()) {
+				zaehler1++;
+				index1s.add(StS.get(i));
+			}
+			if (posEbene == StS.get(i).getPosition().getEbene().getValue()
+					&& posY == StS.get(i).getPosition().getY().getValue()) {
+				zaehler2++;
+				index2s.add(StS.get(i));
+			}
+			if (posX == StS.get(i).getPosition().getX().getValue()
+					&& posY == StS.get(i).getPosition().getY().getValue()
+					&& (posX + posY == 3 || posX + posY == 5)) {
+				zaehler3++;
+				index3s.add(StS.get(i));
+			}
+
+		}
+
+		if (zaehler1 == 3 || zaehler2 == 3 || zaehler3 == 3) {
+			if (zaehler1 == 3) {
+				for (int z = 0; z < index1s.size(); z++) {
+					index1s.get(z).setInMuehle(true);
+				}
+			}
+			if (zaehler2 == 3) {
+				for (int z = 0; z < index2s.size(); z++) {
+					index2s.get(z).setInMuehle(true);
+				}
+			}
+			if (zaehler3 == 3) {
+				for (int z = 0; z < index3s.size(); z++) {
+					index3s.get(z).setInMuehle(true);
+				}
+			}
+			System.out.println("Muehle schwarz");
+			Muehle_schwarz = true;
+		}
+
+	}
+	
+	public void angeklicktSetzen_weiss(LblGameStone stone){
+		if(getHashliste_Weiss().contains(stone.getPosition().hashCode())){
+			stone.setImage(vController.getTheme().getSpielSteinWeissGewaehlt());
+			setWeisserStein_angeklickt(true);
+			setWeissDran(true);
+		}		
+	}
+	
+	public void angeklicktSetzen_schwarz(LblGameStone stone){
+		if(getHashliste_Schwarz().contains(stone.getPosition().hashCode())){
+		stone.setImage(vController.getTheme().getSpielSteinSchwarzGewaehlt());
+		setSchwarzerStein_angeklickt(true);
+		setSchwarzDran(true);
+		}
+	}
+	
+	public void entferneStein_ziehen(){
+		angeklickterStein.removeImage();
+		
+	}
+	
+	public void setzeStein_ziehen_weiss(LblGameStone stone){
+		stone.setImage(vController.getTheme().getSpielSteinWeiss());
+	}
+	
+	public void setzeStein_ziehen_schwarz(LblGameStone stone){
+		stone.setImage(vController.getTheme().getSpielSteinSchwarz());
+	}
+	
+	public void zieheSteinWeiss(LblGameStone stone) {
+		
+		entferneStein_ziehen();
+		setzeStein_ziehen_weiss(stone);
+		setWeisserStein_angeklickt(false);
+		setWeissDran(false);
+		setSchwarzDran(true);
+		
+		
+		// Prüft Steine an den Eckpositionen
+//		if (pos.getX().getValue() + pos.getY().getValue() % 2 == 0) {
+//			//Dann modulo 0 heist dass der Stein an einer Ecke steht
+//			System.out.println("Eckstein");
+//			
+			
+		}
+	public void zieheSteinSchwarz(LblGameStone stone) {
+		
+		entferneStein_ziehen();
+		setzeStein_ziehen_schwarz(stone);
+		setSchwarzerStein_angeklickt(true);
+		setSchwarzDran(true);
+		setWeissDran(true);
+			
+		}
+	}
+	
+	
+
+
+
