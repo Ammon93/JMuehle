@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
 	<name>Muehle_Master</name>
@@ -17,6 +18,8 @@
 	</natures>
 </projectDescription>
 =======
+=======
+>>>>>>> 285547ac4bcb192596cd6c8332ce5d2a723c9b24
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
 	<name>Muehle_Master</name>
@@ -34,4 +37,7 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
 </projectDescription>
+<<<<<<< HEAD
+>>>>>>> 285547ac4bcb192596cd6c8332ce5d2a723c9b24
+=======
 >>>>>>> 285547ac4bcb192596cd6c8332ce5d2a723c9b24
