@@ -1,5 +1,6 @@
 package de.dhbw.muehle.gui;
 
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
@@ -80,7 +81,7 @@ public class View extends JFrame{
 		
 		// neues Panel setzen
 		super.setContentPane(new JPanel());
-		getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
+		getContentPane().setLayout(new FlowLayout());
 		getContentPane().add(container);
 		
 		// Framegröße auf Panelgröße anpassen

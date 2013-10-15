@@ -33,9 +33,19 @@ public abstract class Menu extends JPanel{
 	            Insets insets = parent.getInsets();
 	            int width = parent.getWidth() - insets.left - insets.right;
 	            int height = parent.getHeight() - insets.top - insets.bottom;
+	            
+	            int vCenter = height;
+	            int hCenter = width;
+	            
+	            
 	            width = (int) Math.min(width, height / proportion);
 	            height = (int) Math.min(width * proportion, height);
+	            
+	            vCenter = (vCenter - height) / 2;
+	            hCenter = (hCenter - width) / 2;
+	            
 	            setPreferredSize(new Dimension(width, height));
+	            setLocation(hCenter, vCenter);
 	            
 	            validate();
 	            repaint();
