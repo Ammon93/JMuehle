@@ -439,8 +439,8 @@ public class Core {
 		
 		entferneStein_ziehen();
 		setzeStein_ziehen_schwarz(stone);
-		setSchwarzerStein_angeklickt(true);
-		setSchwarzDran(true);
+		setSchwarzerStein_angeklickt(false);
+		setSchwarzDran(false);
 		setWeissDran(true);
 			
 		}

@@ -97,8 +97,8 @@ public class GamePanelVA {
 							(LblGameStone) e.getComponent());
 					vController.getCore().angeklicktSetzen_schwarz(
 							(LblGameStone) e.getComponent());
-					vController.getCore().setSchwarzerStein_angeklickt(true);
-					vController.getCore().setSchwarzDran(true);
+//					vController.getCore().setSchwarzerStein_angeklickt(true);
+//					vController.getCore().setSchwarzDran(true);
 					System.out.println("Schwarzer Stein angeklickt"
 							+ vController.getCore()
 									.isSchwarzerStein_angeklickt());
