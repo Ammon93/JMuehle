@@ -22,6 +22,15 @@ import de.dhbw.muehle.model.theme.ThemeLoader;
 public class ViewController implements IViewController {
 
 	public View frame;
+	
+	public View getFrame() {
+		return frame;
+	}
+
+	public void setFrame(View frame) {
+		this.frame = frame;
+	}
+
 	private Core core;
 	private ThemeLoader thLoader;
 	private Theme theme;
@@ -52,11 +61,10 @@ public class ViewController implements IViewController {
 	}
 
 	public void clickedLabel(LblGameStone stone) {
-
+		
 	}
 
 	public void weisseSteine_setzen(LblGameStone stone) {
-
 		if (core.postitionFree(stone.getPosition())
 				&& !frame.gamePanel.isStackEmpty(frame.gamePanel.weisseSteine)) {
 			core.erzeugeSpielsteinweiss(stone.getPosition().getEbene(), stone
@@ -76,6 +84,14 @@ public class ViewController implements IViewController {
 
 		}
 
+	}
+
+	public Theme getTheme() {
+		return theme;
+	}
+
+	public void setTheme(Theme theme) {
+		this.theme = theme;
 	}
 
 	public void schwarzeSteine_setzen(LblGameStone stone) {
@@ -99,6 +115,15 @@ public class ViewController implements IViewController {
 			}
 
 		}
+		
+		if(core.getStS().size()==2 && core.getStW().size()==2){
+			core.setSpielphase(2);
+			System.out.println(core.isWeissDran());
+			System.out.println(core.isSchwarzDran());
+		}
+//		if(frame.gamePanel.isStackEmpty(frame.gamePanel.weisseSteine)&& frame.gamePanel.isStackEmpty(frame.gamePanel.schwarzeSteine)){
+//			core.setSpielphase(2);
+//			}
 	}
 
 	public void entferneSteinWeiss(LblGameStone stone) {
@@ -170,6 +195,12 @@ public class ViewController implements IViewController {
 		}
 
 	}
+	
+	public void angeklickter_Stein_speichern(LblGameStone stone){
+		
+	}
+	
+
 
 	public Core getCore() {
 		return core;
