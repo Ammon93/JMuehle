@@ -1,6 +1,8 @@
 package de.dhbw.muehle;
 
+
 import de.dhbw.muehle.core.Core;
+
 
 public class Main {
 
@@ -13,6 +15,7 @@ public class Main {
 		
 		Core muehle = new Core();
 		muehle.initGame();
+
 	}
 
 }
