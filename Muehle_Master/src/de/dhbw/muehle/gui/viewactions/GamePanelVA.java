@@ -78,7 +78,7 @@ public class GamePanelVA {
 			} else if (vController.getCore().getSpielphase() == 2) {
 
 				if (vController.getCore().isWeissDran() == true
-						&& vController.getCore().isWeisserStein_angeklickt() == false) {
+						&& vController.getCore().isWeisserStein_angeklickt() == false && vController.getCore().isMuehle_weiss() == false) {
 					vController.getCore().setAngeklickterStein(
 							(LblGameStone) e.getComponent());
 					vController.getCore().angeklicktSetzen_weiss(
@@ -91,7 +91,7 @@ public class GamePanelVA {
 				}
 
 				else if (vController.getCore().isSchwarzDran() == true
-						&& vController.getCore().isSchwarzerStein_angeklickt() == false) {
+						&& vController.getCore().isSchwarzerStein_angeklickt() == false && vController.getCore().isMuehle_schwarz() == false) {
 					vController.getCore().setAngeklickterStein(
 							(LblGameStone) e.getComponent());
 					vController.getCore().angeklicktSetzen_schwarz(
@@ -114,6 +114,34 @@ public class GamePanelVA {
 					System.out.println("Jetzt kannst du ziehen Schwarz");
 					vController.getCore().zieheSteinSchwarz(
 							(LblGameStone) e.getComponent());
+				}
+				
+				else if (vController.getCore().isMuehle_weiss() == true
+						&& vController.getCore().isWeissDran() == true && vController.getCore().isWeisserStein_angeklickt() == false) {
+
+					vController.entferneSteinSchwarz((LblGameStone) e
+							.getComponent());
+					System.out.println(vController.getCore().isWeissDran());
+					System.out.println(vController.getCore().isSchwarzDran());
+					System.out.println(vController.getCore().isMuehle_weiss());
+					System.out
+							.println(vController.getCore().isMuehle_schwarz());
+				
+
+				}
+				
+				else if (vController.getCore().isMuehle_schwarz() == true
+						&& vController.getCore().isSchwarzDran() == true && vController.getCore().isSchwarzerStein_angeklickt() == false ) {
+
+					vController.entferneSteinWeiss((LblGameStone) e
+							.getComponent());
+					System.out.println(vController.getCore().isWeissDran());
+					System.out.println(vController.getCore().isSchwarzDran());
+					System.out.println(vController.getCore().isMuehle_weiss());
+					System.out
+							.println(vController.getCore().isMuehle_schwarz());
+				
+
 				}
 			}
 		}

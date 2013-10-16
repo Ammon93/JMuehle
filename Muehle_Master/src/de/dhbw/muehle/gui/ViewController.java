@@ -22,7 +22,7 @@ import de.dhbw.muehle.model.theme.ThemeLoader;
 public class ViewController implements IViewController {
 
 	public View frame;
-	
+
 	public View getFrame() {
 		return frame;
 	}
@@ -115,15 +115,18 @@ public class ViewController implements IViewController {
 			}
 
 		}
-		
-		if(core.getStS().size()==2 && core.getStW().size()==2){
+
+		// if(core.getStS().size()==5 && core.getStW().size()==5){
+		// core.setSpielphase(2);
+		// }
+
+		// System.out.println(core.isWeissDran());
+		// System.out.println(core.isSchwarzDran());
+		// }
+		if (frame.gamePanel.isStackEmpty(frame.gamePanel.weisseSteine)
+				&& frame.gamePanel.isStackEmpty(frame.gamePanel.schwarzeSteine)) {
 			core.setSpielphase(2);
-			System.out.println(core.isWeissDran());
-			System.out.println(core.isSchwarzDran());
 		}
-//		if(frame.gamePanel.isStackEmpty(frame.gamePanel.weisseSteine)&& frame.gamePanel.isStackEmpty(frame.gamePanel.schwarzeSteine)){
-//			core.setSpielphase(2);
-//			}
 	}
 
 	public void entferneSteinWeiss(LblGameStone stone) {
@@ -131,15 +134,17 @@ public class ViewController implements IViewController {
 		if (core.isMuehle_schwarz() == true) {
 			if (!core.getHashliste_Schwarz().contains(
 					stone.getPosition().hashCode())) {
-				
+
 				for (int i = 0; i < core.getStW().size(); i++) {
-					System.out.println(" Weisser Stein " + i + core.getStW().get(i).isInMuehle());
+					System.out.println(" Weisser Stein " + i
+							+ core.getStW().get(i).isInMuehle());
 					if (core.getStW().get(i).getPosition().hashCode() == stone
-							.getPosition().hashCode()&& core.getStW().get(i).isInMuehle()==false) {
-						
+							.getPosition().hashCode()
+							&& core.getStW().get(i).isInMuehle() == false) {
+
 						for (int j = 0; j < core.getHashliste_Weiss().size(); j++) {
-							if (core.getHashliste_Weiss().get(j) == stone.getPosition()
-									.hashCode()) {
+							if (core.getHashliste_Weiss().get(j) == stone
+									.getPosition().hashCode()) {
 								core.getHashliste_Weiss().remove(j);
 								core.getStW().remove(i);
 								stone.removeImage();
@@ -150,11 +155,11 @@ public class ViewController implements IViewController {
 						}
 					}
 				}
-				
+
 			}
 
 			else {
-				
+
 				core.setMuehle_schwarz(true);
 				core.setSchwarzDran(true);
 			}
@@ -166,9 +171,11 @@ public class ViewController implements IViewController {
 			if (!core.getHashliste_Weiss().contains(
 					stone.getPosition().hashCode())) {
 				for (int i = 0; i < core.getStS().size(); i++) {
-					System.out.println(" Schwarzer Stein " + i + core.getStS().get(i).isInMuehle());
+					System.out.println(" Schwarzer Stein " + i
+							+ core.getStS().get(i).isInMuehle());
 					if (core.getStS().get(i).getPosition().hashCode() == stone
-							.getPosition().hashCode() && core.getStS().get(i).isInMuehle()==false) {
+							.getPosition().hashCode()
+							&& core.getStS().get(i).isInMuehle() == false) {
 						for (int j = 0; j < core.getHashliste_Schwarz().size(); j++) {
 							if (core.getHashliste_Schwarz().get(j) == stone
 									.getPosition().hashCode()) {
@@ -179,28 +186,24 @@ public class ViewController implements IViewController {
 								core.setSchwarzDran(true);
 								core.setWeissDran(false);
 							}
-								
-							}
-							
+
 						}
-						
+
+					}
+
 				}
 			}
 
-			
-		}
-		else {
+		} else {
 			core.setMuehle_weiss(true);
 			core.setWeissDran(true);
 		}
 
 	}
-	
-	public void angeklickter_Stein_speichern(LblGameStone stone){
-		
-	}
-	
 
+	public void angeklickter_Stein_speichern(LblGameStone stone) {
+
+	}
 
 	public Core getCore() {
 		return core;
@@ -209,8 +212,7 @@ public class ViewController implements IViewController {
 	public void setCore(Core core) {
 		this.core = core;
 	}
-	
-	
+
 	public Theme getTheme(String theme) {
 		return thLoader.getTheme(theme);
 	}
@@ -220,8 +222,6 @@ public class ViewController implements IViewController {
 		frame.setTheme(this.theme);
 	}
 
-	
-	
 	@Override
 	public Position getPosition(ISpielstein spielStein) {
 		// TODO Auto-generated method stub
