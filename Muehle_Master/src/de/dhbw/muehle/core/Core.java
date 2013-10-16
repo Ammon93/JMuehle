@@ -586,7 +586,7 @@ public class Core {
 						StS.get(i).setPosition(PosEbene, PosX, PosY);
 						System.out.println(StS.get(i).getPosition());
 						System.out.println(StS.get(i).getPosition().hashCode());
-						Hashliste_Weiss
+						Hashliste_Schwarz
 								.add(StS.get(i).getPosition().hashCode());
 						stone.setImage(vController.getTheme()
 								.getSpielSteinSchwarz());
@@ -603,10 +603,15 @@ public class Core {
 		pruefeZug(angeklickterStein);
 		if (postitionFree(stone.getPosition())) {
 			if(Hashliste_gueltige_Zuege.contains(stone.getPosition().hashCode())){
-				entferneStein_ziehen_weiss();
+				
 				setzeStein_ziehen_weiss(stone);
 				setWeisserStein_angeklickt(false);
+				for(int i=0;i<StW.size();i++){
+					ueberpruefen_Muehele_weiss(StW.get(i).getPosition());
+				}
+				
 				ueberpruefen_Muehele_weiss(stone.getPosition());
+				entferneStein_ziehen_weiss();
 				
 				if (isMuehle_weiss() == true) {
 				setWeissDran(true);
@@ -639,10 +644,14 @@ public class Core {
 		pruefeZug(angeklickterStein);
 		if (postitionFree(stone.getPosition())) {
 			if(Hashliste_gueltige_Zuege.contains(stone.getPosition().hashCode())){
-			entferneStein_ziehen_schwarz();
 			setzeStein_ziehen_schwarz(stone);
 			setSchwarzerStein_angeklickt(false);
+			for(int i=0;i<StS.size();i++){
+				ueberpruefen_Muehele_schwarz(StS.get(i).getPosition());
+			}
 			ueberpruefen_Muehele_schwarz(stone.getPosition());
+			entferneStein_ziehen_schwarz();
+			
 			if (isMuehle_schwarz() == true) {
 				setWeissDran(false);
 				setSchwarzDran(true);

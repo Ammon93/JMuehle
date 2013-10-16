@@ -116,17 +116,17 @@ public class ViewController implements IViewController {
 
 		}
 
-		if (core.getStS().size() == 5 && core.getStW().size() == 5) {
+		if (core.getStS().size() + core.getStW().size() >=12) {
 			core.setSpielphase(2);
 		}
 
 		// System.out.println(core.isWeissDran());
 		// System.out.println(core.isSchwarzDran());
 		// }
-		// if (frame.gamePanel.isStackEmpty(frame.gamePanel.weisseSteine)
-		// && frame.gamePanel.isStackEmpty(frame.gamePanel.schwarzeSteine)) {
-		// core.setSpielphase(2);
-		// }
+//		 if (frame.gamePanel.isStackEmpty(frame.gamePanel.weisseSteine)
+//		 && frame.gamePanel.isStackEmpty(frame.gamePanel.schwarzeSteine)) {
+//		 core.setSpielphase(2);
+//		 }
 	}
 
 	public void entferneSteinWeiss(LblGameStone stone) {
