@@ -211,7 +211,6 @@ public class GamePanel extends Menu {
 				image = view.getTheme().getSpielSteinSchwarz();
 				break;
 			}
-			repaint();
 		}
 		
 		
@@ -330,7 +329,6 @@ public class GamePanel extends Menu {
 				gameStoneImage = view.getTheme().getSpielSteinSchwarz();
 				break;
 			}
-			repaint();
 		}
 		
 		
