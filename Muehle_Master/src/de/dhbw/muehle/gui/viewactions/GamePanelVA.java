@@ -83,8 +83,7 @@ public class GamePanelVA {
 							(LblGameStone) e.getComponent());
 					vController.getCore().angeklicktSetzen_weiss(
 							(LblGameStone) e.getComponent());
-//					vController.getCore().setWeisserStein_angeklickt(true);
-//					vController.getCore().setWeissDran(true);
+
 					System.out
 							.println("Weisser Stein angeklickt"
 									+ vController.getCore()
@@ -97,8 +96,7 @@ public class GamePanelVA {
 							(LblGameStone) e.getComponent());
 					vController.getCore().angeklicktSetzen_schwarz(
 							(LblGameStone) e.getComponent());
-//					vController.getCore().setSchwarzerStein_angeklickt(true);
-//					vController.getCore().setSchwarzDran(true);
+
 					System.out.println("Schwarzer Stein angeklickt"
 							+ vController.getCore()
 									.isSchwarzerStein_angeklickt());
