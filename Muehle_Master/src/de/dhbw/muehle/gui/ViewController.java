@@ -116,7 +116,7 @@ public class ViewController implements IViewController {
 
 		}
 
-		if (core.getStS().size() + core.getStW().size() >=12) {
+		if (core.getStS().size() + core.getStW().size() >=8) {
 			core.setSpielphase(2);
 		}
 

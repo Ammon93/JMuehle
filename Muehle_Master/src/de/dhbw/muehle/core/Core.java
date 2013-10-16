@@ -46,6 +46,8 @@ public class Core {
 	private boolean Muehle_schwarz;
 	private boolean schwarzerStein_angeklickt;
 	private boolean weisserStein_angeklickt;
+	private boolean weiss_Sprungphase;
+	private boolean schwarz_Sprungphase;
 
 	private int Spielphase = 1;
 
@@ -333,8 +335,9 @@ public class Core {
 		}
 
 	}
-	
-	//Um Muehleninfos aus den Spielsteinen zu löschen wenn Muehele geoeffnet wird
+
+	// Um Muehleninfos aus den Spielsteinen zu löschen wenn Muehele geoeffnet
+	// wird
 	public void ueberpruefen_Muehele_weiss_vorZug(Position pos) {
 		Muehle_weiss = false;
 		int zaehler1 = 0;
@@ -449,8 +452,9 @@ public class Core {
 		}
 
 	}
-	
-	//Um Muehleninfos aus den Spielsteinen zu löschen wenn Muehele geoeffnet wird
+
+	// Um Muehleninfos aus den Spielsteinen zu löschen wenn Muehele geoeffnet
+	// wird
 	public void ueberpruefen_Muehele_schwarz_vorZug(Position pos) {
 		Muehle_schwarz = false;
 		int zaehler1 = 0;
@@ -559,7 +563,10 @@ public class Core {
 								.add(StW.get(i).getPosition().hashCode());
 						stone.setImage(vController.getTheme()
 								.getSpielSteinWeiss());
-						
+						if (StW.size() <= 3) {
+							weiss_Sprungphase = true;
+						}
+
 					}
 
 				}
@@ -586,11 +593,14 @@ public class Core {
 						StS.get(i).setPosition(PosEbene, PosX, PosY);
 						System.out.println(StS.get(i).getPosition());
 						System.out.println(StS.get(i).getPosition().hashCode());
-						Hashliste_Schwarz
-								.add(StS.get(i).getPosition().hashCode());
+						Hashliste_Schwarz.add(StS.get(i).getPosition()
+								.hashCode());
 						stone.setImage(vController.getTheme()
 								.getSpielSteinSchwarz());
-						
+						if (StS.size() <= 3) {
+							schwarz_Sprungphase = true;
+						}
+
 					}
 
 				}
@@ -601,36 +611,69 @@ public class Core {
 
 	public void zieheSteinWeiss(LblGameStone stone) {
 		pruefeZug(angeklickterStein);
+		if (weiss_Sprungphase = false) {
 		if (postitionFree(stone.getPosition())) {
-			if(Hashliste_gueltige_Zuege.contains(stone.getPosition().hashCode())){
-				
+			if (Hashliste_gueltige_Zuege.contains(stone.getPosition()
+					.hashCode())) {
+
 				setzeStein_ziehen_weiss(stone);
 				setWeisserStein_angeklickt(false);
-				for(int i=0;i<StW.size();i++){
+				for (int i = 0; i < StW.size(); i++) {
 					ueberpruefen_Muehele_weiss(StW.get(i).getPosition());
 				}
-				
+
 				ueberpruefen_Muehele_weiss(stone.getPosition());
 				entferneStein_ziehen_weiss();
-				
+
 				if (isMuehle_weiss() == true) {
-				setWeissDran(true);
-				setSchwarzDran(false);
+					setWeissDran(true);
+					setSchwarzDran(false);
 				} else {
-				setSchwarzDran(true);
-				setWeissDran(false);
-				setMuehle_weiss(false);
+					setSchwarzDran(true);
+					setWeissDran(false);
+					setMuehle_weiss(false);
 				}
-				
-				
-//				setWeissDran(false);
-//				setSchwarzDran(true);
+
+				// setWeissDran(false);
+				// setSchwarzDran(true);
 			}
-			
+
 		} else {
 			setWeissDran(true);
 			setWeisserStein_angeklickt(true);
 		}
+		}
+		else{
+			if (postitionFree(stone.getPosition())) {
+					setzeStein_ziehen_weiss(stone);
+					setWeisserStein_angeklickt(false);
+					for (int i = 0; i < StW.size(); i++) {
+						ueberpruefen_Muehele_weiss(StW.get(i).getPosition());
+					}
+
+					ueberpruefen_Muehele_weiss(stone.getPosition());
+					entferneStein_ziehen_weiss();
+
+					if (isMuehle_weiss() == true) {
+						setWeissDran(true);
+						setSchwarzDran(false);
+					} else {
+						setSchwarzDran(true);
+						setWeissDran(false);
+						setMuehle_weiss(false);
+					}
+
+					// setWeissDran(false);
+					// setSchwarzDran(true);
+				}
+
+			 else {
+				setWeissDran(true);
+				setWeisserStein_angeklickt(true);
+			}
+		}
+	}
+		
 
 		// Prï¿½ft Steine an den Eckpositionen
 		// if (pos.getX().getValue() + pos.getY().getValue() % 2 == 0) {
@@ -638,36 +681,65 @@ public class Core {
 		// System.out.println("Eckstein");
 		//
 
-	}
+	
 
 	public void zieheSteinSchwarz(LblGameStone stone) {
 		pruefeZug(angeklickterStein);
-		if (postitionFree(stone.getPosition())) {
-			if(Hashliste_gueltige_Zuege.contains(stone.getPosition().hashCode())){
-			setzeStein_ziehen_schwarz(stone);
-			setSchwarzerStein_angeklickt(false);
-			for(int i=0;i<StS.size();i++){
-				ueberpruefen_Muehele_schwarz(StS.get(i).getPosition());
-			}
-			ueberpruefen_Muehele_schwarz(stone.getPosition());
-			entferneStein_ziehen_schwarz();
-			
-			if (isMuehle_schwarz() == true) {
-				setWeissDran(false);
-				setSchwarzDran(true);
+
+		if (schwarz_Sprungphase = false) {
+			if (postitionFree(stone.getPosition())) {
+				if (Hashliste_gueltige_Zuege.contains(stone.getPosition()
+						.hashCode())) {
+					setzeStein_ziehen_schwarz(stone);
+					setSchwarzerStein_angeklickt(false);
+					for (int i = 0; i < StS.size(); i++) {
+						ueberpruefen_Muehele_schwarz(StS.get(i).getPosition());
+					}
+					ueberpruefen_Muehele_schwarz(stone.getPosition());
+					entferneStein_ziehen_schwarz();
+
+					if (isMuehle_schwarz() == true) {
+						setWeissDran(false);
+						setSchwarzDran(true);
+					} else {
+						setSchwarzDran(false);
+						setWeissDran(true);
+						setMuehle_schwarz(false);
+					}
+
+					// setSchwarzDran(false);
+					// setWeissDran(true);
+				}
 			} else {
-				setSchwarzDran(false);
-				setWeissDran(true);
-				setMuehle_schwarz(false);
-			}
-			
-			
-//			setSchwarzDran(false);
-//			setWeissDran(true);
+				setSchwarzDran(true);
+				setSchwarzerStein_angeklickt(true);
 			}
 		} else {
-			setSchwarzDran(true);
-			setSchwarzerStein_angeklickt(true);
+			if (postitionFree(stone.getPosition())) {
+					setzeStein_ziehen_schwarz(stone);
+					setSchwarzerStein_angeklickt(false);
+					for (int i = 0; i < StS.size(); i++) {
+						ueberpruefen_Muehele_schwarz(StS.get(i).getPosition());
+					}
+					ueberpruefen_Muehele_schwarz(stone.getPosition());
+					entferneStein_ziehen_schwarz();
+
+					if (isMuehle_schwarz() == true) {
+						setWeissDran(false);
+						setSchwarzDran(true);
+					} else {
+						setSchwarzDran(false);
+						setWeissDran(true);
+						setMuehle_schwarz(false);
+					}
+
+					// setSchwarzDran(false);
+					// setWeissDran(true);
+				}
+			 else {
+				setSchwarzDran(true);
+				setSchwarzerStein_angeklickt(true);
+			}
 		}
 
 	}
@@ -697,7 +769,8 @@ public class Core {
 				Hashcode = 31 * Hashcode + (PosY + 1);
 				Hashliste_gueltige_Zuege.add(Hashcode);
 				Hashcode = 0;
-			}  if (PosX == 3 && PosY == 1) {
+			}
+			if (PosX == 3 && PosY == 1) {
 				Hashcode = 31 + PosEbene;
 				Hashcode = 31 * Hashcode + (PosX - 1);
 				Hashcode = 31 * Hashcode + PosY;
@@ -708,7 +781,8 @@ public class Core {
 				Hashcode = 31 * Hashcode + (PosY + 1);
 				Hashliste_gueltige_Zuege.add(Hashcode);
 				Hashcode = 0;
-			}  if (PosX == 1 && PosY == 3) {
+			}
+			if (PosX == 1 && PosY == 3) {
 				Hashcode = 31 + PosEbene;
 				Hashcode = 31 * Hashcode + (PosX + 1);
 				Hashcode = 31 * Hashcode + PosY;
@@ -719,7 +793,8 @@ public class Core {
 				Hashcode = 31 * Hashcode + (PosY - 1);
 				Hashliste_gueltige_Zuege.add(Hashcode);
 				Hashcode = 0;
-			}  if (PosX == 3 && PosY == 3) {
+			}
+			if (PosX == 3 && PosY == 3) {
 				Hashcode = 31 + PosEbene;
 				Hashcode = 31 * Hashcode + (PosX - 1);
 				Hashcode = 31 * Hashcode + PosY;
@@ -732,25 +807,25 @@ public class Core {
 				Hashcode = 0;
 			}
 		}
-		//Pruefen ob Mittelpos
-		else if((PosX + PosY) % 2 == 1){
-			//Verschiebung auf gleicher Ebene
-			if(PosX==2){
+		// Pruefen ob Mittelpos
+		else if ((PosX + PosY) % 2 == 1) {
+			// Verschiebung auf gleicher Ebene
+			if (PosX == 2) {
 				Hashcode = 31 + PosEbene;
 				Hashcode = 31 * Hashcode + (PosX + 1);
 				Hashcode = 31 * Hashcode + PosY;
 				Hashliste_gueltige_Zuege.add(Hashcode);
 				Hashcode = 0;
 				Hashcode = 31 + PosEbene;
-				Hashcode = 31 * Hashcode + (PosX-1);
+				Hashcode = 31 * Hashcode + (PosX - 1);
 				Hashcode = 31 * Hashcode + PosY;
 				Hashliste_gueltige_Zuege.add(Hashcode);
 				Hashcode = 0;
 			}
-			 if (PosY==2) {
+			if (PosY == 2) {
 				Hashcode = 31 + PosEbene;
 				Hashcode = 31 * Hashcode + PosX;
-				Hashcode = 31 * Hashcode + (PosY-1);
+				Hashcode = 31 * Hashcode + (PosY - 1);
 				Hashliste_gueltige_Zuege.add(Hashcode);
 				Hashcode = 0;
 				Hashcode = 31 + PosEbene;
@@ -759,28 +834,28 @@ public class Core {
 				Hashliste_gueltige_Zuege.add(Hashcode);
 				Hashcode = 0;
 			}
-			//Aenderung der Ebene
-			 if (PosEbene==1) {
-				Hashcode = 31 + (PosEbene+1);
+			// Aenderung der Ebene
+			if (PosEbene == 1) {
+				Hashcode = 31 + (PosEbene + 1);
 				Hashcode = 31 * Hashcode + PosX;
 				Hashcode = 31 * Hashcode + PosY;
 				Hashliste_gueltige_Zuege.add(Hashcode);
 				Hashcode = 0;
 			}
-			 if (PosEbene==2) {
-				Hashcode = 31 + (PosEbene+1);
+			if (PosEbene == 2) {
+				Hashcode = 31 + (PosEbene + 1);
 				Hashcode = 31 * Hashcode + PosX;
 				Hashcode = 31 * Hashcode + PosY;
 				Hashliste_gueltige_Zuege.add(Hashcode);
 				Hashcode = 0;
-				Hashcode = 31 + (PosEbene-1);
+				Hashcode = 31 + (PosEbene - 1);
 				Hashcode = 31 * Hashcode + PosX;
 				Hashcode = 31 * Hashcode + PosY;
 				Hashliste_gueltige_Zuege.add(Hashcode);
 				Hashcode = 0;
 			}
-			 if (PosEbene==3) {
-				Hashcode = 31 + (PosEbene-1);
+			if (PosEbene == 3) {
+				Hashcode = 31 + (PosEbene - 1);
 				Hashcode = 31 * Hashcode + PosX;
 				Hashcode = 31 * Hashcode + PosY;
 				Hashliste_gueltige_Zuege.add(Hashcode);
