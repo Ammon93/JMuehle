@@ -333,6 +333,65 @@ public class Core {
 		}
 
 	}
+	
+	//Um Muehleninfos aus den Spielsteinen zu löschen wenn Muehele geoeffnet wird
+	public void ueberpruefen_Muehele_weiss_vorZug(Position pos) {
+		Muehle_weiss = false;
+		int zaehler1 = 0;
+		int zaehler2 = 0;
+		int zaehler3 = 0;
+
+		index1w.clear();
+		index2w.clear();
+		index3w.clear();
+
+		int posEbene = pos.getEbene().getValue();
+		int posX = pos.getX().getValue();
+		int posY = pos.getY().getValue();
+
+		for (int i = 0; i < StW.size(); i++) {
+			if (posEbene == StW.get(i).getPosition().getEbene().getValue()
+					&& posX == StW.get(i).getPosition().getX().getValue()) {
+				zaehler1++;
+				index1w.add(StW.get(i));
+
+			}
+			if (posEbene == StW.get(i).getPosition().getEbene().getValue()
+					&& posY == StW.get(i).getPosition().getY().getValue()) {
+				zaehler2++;
+				index2w.add(StW.get(i));
+			}
+			if (posX == StW.get(i).getPosition().getX().getValue()
+					&& posY == StW.get(i).getPosition().getY().getValue()
+					&& (posX + posY == 3 || posX + posY == 5)) {
+				zaehler3++;
+				index3w.add(StW.get(i));
+			}
+
+		}
+
+		if (zaehler1 == 3 || zaehler2 == 3 || zaehler3 == 3) {
+			if (zaehler1 == 3) {
+				for (int z = 0; z < index1w.size(); z++) {
+					index1w.get(z).setInMuehle(false);
+				}
+			}
+			if (zaehler2 == 3) {
+				for (int z = 0; z < index2w.size(); z++) {
+					index2w.get(z).setInMuehle(false);
+				}
+			}
+			if (zaehler3 == 3) {
+				for (int z = 0; z < index3w.size(); z++) {
+					index3w.get(z).setInMuehle(false);
+				}
+			}
+			System.out.println("Muehle weiss geöffnet");
+			Muehle_weiss = false;
+
+		}
+
+	}
 
 	public void ueberpruefen_Muehele_schwarz(Position pos) {
 		Muehle_schwarz = false;
@@ -390,10 +449,69 @@ public class Core {
 		}
 
 	}
+	
+	//Um Muehleninfos aus den Spielsteinen zu löschen wenn Muehele geoeffnet wird
+	public void ueberpruefen_Muehele_schwarz_vorZug(Position pos) {
+		Muehle_schwarz = false;
+		int zaehler1 = 0;
+		int zaehler2 = 0;
+		int zaehler3 = 0;
+
+		index1s.clear();
+		index2s.clear();
+		index3s.clear();
+
+		int posEbene = pos.getEbene().getValue();
+		int posX = pos.getX().getValue();
+		int posY = pos.getY().getValue();
+
+		for (int i = 0; i < StS.size(); i++) {
+
+			if (posEbene == StS.get(i).getPosition().getEbene().getValue()
+					&& posX == StS.get(i).getPosition().getX().getValue()) {
+				zaehler1++;
+				index1s.add(StS.get(i));
+			}
+			if (posEbene == StS.get(i).getPosition().getEbene().getValue()
+					&& posY == StS.get(i).getPosition().getY().getValue()) {
+				zaehler2++;
+				index2s.add(StS.get(i));
+			}
+			if (posX == StS.get(i).getPosition().getX().getValue()
+					&& posY == StS.get(i).getPosition().getY().getValue()
+					&& (posX + posY == 3 || posX + posY == 5)) {
+				zaehler3++;
+				index3s.add(StS.get(i));
+			}
+
+		}
+
+		if (zaehler1 == 3 || zaehler2 == 3 || zaehler3 == 3) {
+			if (zaehler1 == 3) {
+				for (int z = 0; z < index1s.size(); z++) {
+					index1s.get(z).setInMuehle(false);
+				}
+			}
+			if (zaehler2 == 3) {
+				for (int z = 0; z < index2s.size(); z++) {
+					index2s.get(z).setInMuehle(false);
+				}
+			}
+			if (zaehler3 == 3) {
+				for (int z = 0; z < index3s.size(); z++) {
+					index3s.get(z).setInMuehle(false);
+				}
+			}
+			System.out.println("Muehle schwarz geöffnet");
+			Muehle_schwarz = false;
+		}
+
+	}
 
 	public void angeklicktSetzen_weiss(LblGameStone stone) {
 		if (getHashliste_Weiss().contains(stone.getPosition().hashCode())) {
 			stone.setImage(vController.getTheme().getSpielSteinWeissGewaehlt());
+			ueberpruefen_Muehele_weiss_vorZug(stone.getPosition());
 			setWeisserStein_angeklickt(true);
 			setWeissDran(true);
 		}
@@ -403,6 +521,7 @@ public class Core {
 		if (getHashliste_Schwarz().contains(stone.getPosition().hashCode())) {
 			stone.setImage(vController.getTheme()
 					.getSpielSteinSchwarzGewaehlt());
+			ueberpruefen_Muehele_schwarz_vorZug(stone.getPosition());
 			setSchwarzerStein_angeklickt(true);
 			setSchwarzDran(true);
 		}

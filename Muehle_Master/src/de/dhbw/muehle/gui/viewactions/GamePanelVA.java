@@ -21,6 +21,14 @@ public class GamePanelVA {
 	 */
 	// {
 	// gameStone[][][]
+	
+	/**
+	 * 
+	 * @author Kreistschen
+	 * Diese Mouselistener steuert den kompletten Spielablauf
+	 * Je nach gesetzten booleans werden jeweilige Funktionen ausgeführt
+	 */
+	
 	public class lblGameStoneMouse implements MouseListener {
 		@Override
 		public void mouseClicked(MouseEvent e) {
