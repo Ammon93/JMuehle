@@ -36,7 +36,7 @@ public class GamePanel extends Menu {
 	
 	
 	public GamePanel(ViewController vController, View view) {
-		super(view);
+		super(vController, view);
 		this.view = view;
 		
 		// Listener initialisieren

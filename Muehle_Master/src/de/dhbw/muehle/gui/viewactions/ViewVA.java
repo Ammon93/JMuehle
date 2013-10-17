@@ -1,7 +1,6 @@
 package de.dhbw.muehle.gui.viewactions;
 
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
@@ -12,8 +11,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
@@ -108,8 +105,6 @@ public class ViewVA {
 				if (prevX != -1 && prevY != -1 && resizing) {
 					Window w = SwingUtilities.getWindowAncestor(e.getComponent());
 					Rectangle rect = w.getBounds();
-
-					Dimension dim;
 					
 					// Checking for minimal width and height
 					int xInc = e.getXOnScreen() - prevX;

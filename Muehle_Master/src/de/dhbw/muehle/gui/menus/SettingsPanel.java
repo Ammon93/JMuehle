@@ -28,7 +28,7 @@ public class SettingsPanel extends Menu {
 	
 	
 	public SettingsPanel(ViewController vController, View view) {
-		super(view);
+		super(vController, view);
 		this.view = view;
 		
 		// Listener initialisieren

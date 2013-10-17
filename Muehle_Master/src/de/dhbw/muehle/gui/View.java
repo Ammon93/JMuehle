@@ -38,6 +38,7 @@ public class View extends JFrame{
 	private JPanel contentPane;
 	private JPanel content;
 	
+	private ViewController vController;
 	private ViewVA vActions;
 
 	protected MainMenu mainMenu;
@@ -47,6 +48,7 @@ public class View extends JFrame{
 	
 	public View(ViewController vController, Theme theme){
 		this.theme = theme;
+		this.vController = vController;
 		
 		// Listener initialisieren
 		vActions = new ViewVA(vController);
@@ -211,6 +213,8 @@ public class View extends JFrame{
 						
 			//Frameminimumgröße auf Panelgröße festlegen
 			setMinimumSize(getSize());
+		}else{
+			vController.resizePanel(container);
 		}
 		
 		validate();

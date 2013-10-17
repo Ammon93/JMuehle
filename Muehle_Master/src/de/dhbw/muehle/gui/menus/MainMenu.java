@@ -41,7 +41,7 @@ public class MainMenu extends Menu {
 	
 	
 	public MainMenu(ViewController vController, View view) {
-		super(view);
+		super(vController, view);
 		this.view = view;
 		
 		// Listener initialisieren
