@@ -51,8 +51,6 @@ public class Core {
 	private boolean alleWeissenSteineinMuehle;
 	private boolean alleSchwarzenSteineinMuehle;
 
-	
-
 	private int Spielphase = 1;
 
 	private LblGameStone angeklickterStein;
@@ -70,7 +68,7 @@ public class Core {
 	List<Spielstein> index3w;
 
 	// Getter und Setter Methoden
-	
+
 	public boolean isAlleWeissenSteineinMuehle() {
 		return alleWeissenSteineinMuehle;
 	}
@@ -83,7 +81,8 @@ public class Core {
 		return alleSchwarzenSteineinMuehle;
 	}
 
-	public void setAlleSchwarzenSteineinMuehle(boolean alleSchwarzenSteineinMuehle) {
+	public void setAlleSchwarzenSteineinMuehle(
+			boolean alleSchwarzenSteineinMuehle) {
 		this.alleSchwarzenSteineinMuehle = alleSchwarzenSteineinMuehle;
 	}
 
@@ -533,26 +532,57 @@ public class Core {
 	}
 
 	public void angeklicktSetzen_weiss(LblGameStone stone) {
-		
-		if (getHashliste_Weiss().contains(stone.getPosition().hashCode())) {
+		int zaehler = 0;
+		pruefeZug(angeklickterStein);
+		for (int i = 0; i < getStW().size(); i++) {
+			if (Hashliste_gueltige_Zuege.contains(StW.get(i).getPosition()
+					.hashCode())) {
+				zaehler++;
+			}
+		}
+		for (int z = 0; z < getStS().size(); z++) {
+			if (Hashliste_gueltige_Zuege.contains(StS.get(z).getPosition()
+					.hashCode())) {
+				zaehler++;
+			}
+
+		}
+
+		if (getHashliste_Weiss().contains(stone.getPosition().hashCode())
+				&& zaehler < Hashliste_gueltige_Zuege.size()) {
 			stone.setImage(vController.getTheme().getSpielSteinWeissGewaehlt());
 			ueberpruefen_Muehele_weiss_vorZug(stone.getPosition());
 			setWeisserStein_angeklickt(true);
 			setWeissDran(true);
 		}
-		}
-	
+	}
 
 	public void angeklicktSetzen_schwarz(LblGameStone stone) {
-		if (getHashliste_Schwarz().contains(stone.getPosition().hashCode())) {
+		int zaehler = 0;
+		pruefeZug(angeklickterStein);
+		for (int i = 0; i < getStW().size(); i++) {
+			if (Hashliste_gueltige_Zuege.contains(StW.get(i).getPosition()
+					.hashCode())) {
+				zaehler++;
+			}
+		}
+		for (int z = 0; z < getStS().size(); z++) {
+			if (Hashliste_gueltige_Zuege.contains(StS.get(z).getPosition()
+					.hashCode())) {
+				zaehler++;
+			}
+
+		}
+
+		if (getHashliste_Schwarz().contains(stone.getPosition().hashCode())
+				&& zaehler < Hashliste_gueltige_Zuege.size()) {
 			stone.setImage(vController.getTheme()
 					.getSpielSteinSchwarzGewaehlt());
 			ueberpruefen_Muehele_schwarz_vorZug(stone.getPosition());
 			setSchwarzerStein_angeklickt(true);
 			setSchwarzDran(true);
 		}
-		}
-	
+	}
 
 	public void entferneStein_ziehen_weiss() {
 		angeklickterStein.removeImage();
@@ -602,7 +632,6 @@ public class Core {
 								.add(StW.get(i).getPosition().hashCode());
 						stone.setImage(vController.getTheme()
 								.getSpielSteinWeiss());
-						
 
 					}
 
@@ -643,12 +672,9 @@ public class Core {
 	}
 
 	public void zieheSteinWeiss(LblGameStone stone) {
-		int zaehler=0;
+		int zaehler = 0;
 		pruefeZug(angeklickterStein);
-		for(int j=0;j<Hashliste_gueltige_Zuege.size();j++){
-			System.out.println(Hashliste_gueltige_Zuege.get(j));
-		}
-		
+
 		if (weiss_Sprungphase == false) {
 			if (postitionFree(stone.getPosition())) {
 				if (Hashliste_gueltige_Zuege.contains(stone.getPosition()
@@ -658,11 +684,13 @@ public class Core {
 					setWeisserStein_angeklickt(false);
 					for (int i = 0; i < StW.size(); i++) {
 						ueberpruefen_Muehele_weiss(StW.get(i).getPosition());
-						if(StW.get(i).isInMuehle()==true){
+						if (StW.get(i).isInMuehle() == true) {
 							zaehler++;
 						}
 					}
-					if(zaehler==StW.size());{
+					if (zaehler == StW.size())
+						;
+					{
 						setAlleWeissenSteineinMuehle(true);
 					}
 					ueberpruefen_Muehele_weiss(stone.getPosition());
@@ -685,20 +713,22 @@ public class Core {
 				setWeissDran(true);
 				setWeisserStein_angeklickt(true);
 			}
-	}
-			
-		 else {
-			
+		}
+
+		else {
+
 			if (postitionFree(stone.getPosition())) {
 				setzeStein_ziehen_weiss(stone);
 				setWeisserStein_angeklickt(false);
 				for (int i = 0; i < StW.size(); i++) {
 					ueberpruefen_Muehele_weiss(StW.get(i).getPosition());
-					if(StW.get(i).isInMuehle()==true){
+					if (StW.get(i).isInMuehle() == true) {
 						zaehler++;
 					}
 				}
-				if(zaehler==StW.size());{
+				if (zaehler == StW.size())
+					;
+				{
 					setAlleWeissenSteineinMuehle(true);
 				}
 
@@ -725,23 +755,17 @@ public class Core {
 		}
 	}
 
-
-		// Pr�ft Steine an den Eckpositionen
-		// if (pos.getX().getValue() + pos.getY().getValue() % 2 == 0) {
-		// //Dann modulo 0 heist dass der Stein an einer Ecke steht
-		// System.out.println("Eckstein");
-		//
-
-	
+	// Pr�ft Steine an den Eckpositionen
+	// if (pos.getX().getValue() + pos.getY().getValue() % 2 == 0) {
+	// //Dann modulo 0 heist dass der Stein an einer Ecke steht
+	// System.out.println("Eckstein");
+	//
 
 	public void zieheSteinSchwarz(LblGameStone stone) {
-		int zaehler=0;
+		int zaehler = 0;
 		pruefeZug(angeklickterStein);
-		for(int j=0;j<Hashliste_gueltige_Zuege.size();j++){
-			System.out.println(Hashliste_gueltige_Zuege.get(j));
-		}
 		if (schwarz_Sprungphase == false) {
-			
+
 			if (postitionFree(stone.getPosition())) {
 				if (Hashliste_gueltige_Zuege.contains(stone.getPosition()
 						.hashCode())) {
@@ -749,11 +773,13 @@ public class Core {
 					setSchwarzerStein_angeklickt(false);
 					for (int i = 0; i < StS.size(); i++) {
 						ueberpruefen_Muehele_schwarz(StS.get(i).getPosition());
-						if(StS.get(i).isInMuehle()==true){
+						if (StS.get(i).isInMuehle() == true) {
 							zaehler++;
 						}
 					}
-					if(zaehler==StW.size());{
+					if (zaehler == StW.size())
+						;
+					{
 						setAlleSchwarzenSteineinMuehle(true);
 					}
 					ueberpruefen_Muehele_schwarz(stone.getPosition());
@@ -775,29 +801,29 @@ public class Core {
 				setSchwarzDran(true);
 				setSchwarzerStein_angeklickt(true);
 			}
-		} 
-		else {
+		} else {
 			if (postitionFree(stone.getPosition())) {
 				setzeStein_ziehen_schwarz(stone);
 				setSchwarzerStein_angeklickt(false);
 				for (int i = 0; i < StS.size(); i++) {
 					ueberpruefen_Muehele_schwarz(StS.get(i).getPosition());
-					if(StS.get(i).isInMuehle()==true){
+					if (StS.get(i).isInMuehle() == true) {
 						zaehler++;
 					}
 				}
-				if(zaehler==StW.size());{
+				if (zaehler == StW.size())
+					;
+				{
 					setAlleSchwarzenSteineinMuehle(true);
 				}
-				
-			
+
 				ueberpruefen_Muehele_schwarz(stone.getPosition());
 				entferneStein_ziehen_schwarz();
 
 				if (isMuehle_schwarz() == true) {
 					setWeissDran(false);
 					setSchwarzDran(true);
-			} else {
+				} else {
 					setSchwarzDran(false);
 					setWeissDran(true);
 					setMuehle_schwarz(false);
@@ -809,13 +835,10 @@ public class Core {
 				setSchwarzDran(true);
 				setSchwarzerStein_angeklickt(true);
 			}
+		}
 	}
-	}
-		
-			
-	
 
-//	}
+	// }
 
 	public void pruefeZug(LblGameStone stone) {
 		Hashliste_gueltige_Zuege.clear();
@@ -936,15 +959,17 @@ public class Core {
 			}
 		}
 	}
-	
+
 	public void weisseSteine_setzen(LblGameStone stone) {
 		if (postitionFree(stone.getPosition())
-				&& !vController.frame.gamePanel.isStackEmpty(vController.frame.gamePanel.weisseSteine)) {
+				&& !vController.frame.gamePanel
+						.isStackEmpty(vController.frame.gamePanel.weisseSteine)) {
 			erzeugeSpielsteinweiss(stone.getPosition().getEbene(), stone
-					.getPosition().getX(), stone.getPosition().getY(), stone
-					.getPosition());
+					.getPosition().getX(), stone.getPosition().getY(),
+					stone.getPosition());
 			stone.setImage(vController.getTheme().getSpielSteinWeiss());
-			vController.frame.gamePanel.updateStack(vController.frame.gamePanel.weisseSteine, -1);
+			vController.frame.gamePanel.updateStack(
+					vController.frame.gamePanel.weisseSteine, -1);
 			System.out.println(getStW().size());
 			ueberpruefen_Muehele_weiss(stone.getPosition());
 			if (isMuehle_weiss() == true) {
@@ -958,17 +983,18 @@ public class Core {
 		}
 
 	}
-	
+
 	public void schwarzeSteine_setzen(LblGameStone stone) {
 
 		if (postitionFree(stone.getPosition())
 				&& !vController.frame.gamePanel
 						.isStackEmpty(vController.frame.gamePanel.schwarzeSteine)) {
 			erzeugeSpielsteinschwarz(stone.getPosition().getEbene(), stone
-					.getPosition().getX(), stone.getPosition().getY(), stone
-					.getPosition());
+					.getPosition().getX(), stone.getPosition().getY(),
+					stone.getPosition());
 			stone.setImage(vController.getTheme().getSpielSteinSchwarz());
-			vController.frame.gamePanel.updateStack(vController.frame.gamePanel.schwarzeSteine, -1);
+			vController.frame.gamePanel.updateStack(
+					vController.frame.gamePanel.schwarzeSteine, -1);
 			System.out.println(getStS().size());
 			ueberpruefen_Muehele_schwarz(stone.getPosition());
 			if (isMuehle_schwarz() == true) {
@@ -980,25 +1006,58 @@ public class Core {
 			}
 
 		}
-//		if (getStS().size() + getStW().size() >=8) {
-//			setSpielphase(2);
-//			}
+		// if (getStS().size() + getStW().size() >=8) {
+		// setSpielphase(2);
+		// }
 
 		// System.out.println(core.isWeissDran());
 		// System.out.println(core.isSchwarzDran());
 		// }
-		if (vController.frame.gamePanel.isStackEmpty(vController.frame.gamePanel.weisseSteine)
-			&& vController.frame.gamePanel.isStackEmpty(vController.frame.gamePanel.schwarzeSteine)) {
-		setSpielphase(2);
+		if (vController.frame.gamePanel
+				.isStackEmpty(vController.frame.gamePanel.weisseSteine)
+				&& vController.frame.gamePanel
+						.isStackEmpty(vController.frame.gamePanel.schwarzeSteine)) {
+			setSpielphase(2);
 		}
 	}
-	
+
 	public void entferneSteinWeiss(LblGameStone stone) {
 
 		if (isMuehle_schwarz() == true) {
-			if(isAlleWeissenSteineinMuehle()==false){
-			if (!getHashliste_Schwarz().contains(
-					stone.getPosition().hashCode())) {
+			if (isAlleWeissenSteineinMuehle() == false) {
+				if (!getHashliste_Schwarz().contains(
+						stone.getPosition().hashCode())) {
+
+					for (int i = 0; i < getStW().size(); i++) {
+						System.out.println(" Weisser Stein " + i
+								+ getStW().get(i).isInMuehle());
+						if (getStW().get(i).getPosition().hashCode() == stone
+								.getPosition().hashCode()
+								&& getStW().get(i).isInMuehle() == false) {
+
+							for (int j = 0; j < getHashliste_Weiss().size(); j++) {
+								if (getHashliste_Weiss().get(j) == stone
+										.getPosition().hashCode()) {
+									getHashliste_Weiss().remove(j);
+									getStW().remove(i);
+									stone.removeImage();
+									setMuehle_schwarz(false);
+									setWeissDran(true);
+									setSchwarzDran(false);
+								}
+							}
+						}
+					}
+
+				}
+
+				else {
+
+					setMuehle_schwarz(true);
+					setSchwarzDran(true);
+				}
+
+			} else {
 
 				for (int i = 0; i < getStW().size(); i++) {
 					System.out.println(" Weisser Stein " + i
@@ -1021,55 +1080,53 @@ public class Core {
 					}
 				}
 
-			}
-
-			else {
-
-				setMuehle_schwarz(true);
-				setSchwarzDran(true);
-			}
-			
-			}
-			else{
-				
-				for (int i = 0; i < getStW().size(); i++) {
-					System.out.println(" Weisser Stein " + i
-							+ getStW().get(i).isInMuehle());
-					if (getStW().get(i).getPosition().hashCode() == stone
-							.getPosition().hashCode()
-							&& getStW().get(i).isInMuehle() == false) {
-
-						for (int j = 0; j < getHashliste_Weiss().size(); j++) {
-							if (getHashliste_Weiss().get(j) == stone
-									.getPosition().hashCode()) {
-								getHashliste_Weiss().remove(j);
-								getStW().remove(i);
-								stone.removeImage();
-								setMuehle_schwarz(false);
-								setWeissDran(true);
-								setSchwarzDran(false);
-							}
-						}
-					}
-				}
-				
 			}
 		}
-		
+
 		if (getStW().size() <= 3) {
 			setWeiss_Sprungphase(true);
 		}
-		
-	    if(getStW().size()<=2){
+
+		if (getStW().size() <= 2) {
 			System.out.println("Spieler Schwarz gewinnt");
 		}
 	}
-	
+
 	public void entferneSteinSchwarz(LblGameStone stone) {
 		if (isMuehle_weiss() == true) {
-			if(isAlleSchwarzenSteineinMuehle()==false){
-			if (!getHashliste_Weiss().contains(
-					stone.getPosition().hashCode())) {
+			if (isAlleSchwarzenSteineinMuehle() == false) {
+				if (!getHashliste_Weiss().contains(
+						stone.getPosition().hashCode())) {
+					for (int i = 0; i < getStS().size(); i++) {
+						System.out.println(" Schwarzer Stein " + i
+								+ getStS().get(i).isInMuehle());
+						if (getStS().get(i).getPosition().hashCode() == stone
+								.getPosition().hashCode()
+								&& getStS().get(i).isInMuehle() == false) {
+							for (int j = 0; j < getHashliste_Schwarz().size(); j++) {
+								if (getHashliste_Schwarz().get(j) == stone
+										.getPosition().hashCode()) {
+									getHashliste_Schwarz().remove(j);
+									getStS().remove(i);
+									stone.removeImage();
+									setMuehle_weiss(false);
+									setSchwarzDran(true);
+									setWeissDran(false);
+								}
+
+							}
+
+						}
+
+					}
+				}
+
+				else {
+					setMuehle_weiss(true);
+					setWeissDran(true);
+				}
+			} else {
+
 				for (int i = 0; i < getStS().size(); i++) {
 					System.out.println(" Schwarzer Stein " + i
 							+ getStS().get(i).isInMuehle());
@@ -1092,49 +1149,17 @@ public class Core {
 					}
 
 				}
-			}
-
-		else {
-			setMuehle_weiss(true);
-			setWeissDran(true);
-		}
-	}
-		else{
-			
-			for (int i = 0; i < getStS().size(); i++) {
-				System.out.println(" Schwarzer Stein " + i
-						+ getStS().get(i).isInMuehle());
-				if (getStS().get(i).getPosition().hashCode() == stone
-						.getPosition().hashCode()
-						&& getStS().get(i).isInMuehle() == false) {
-					for (int j = 0; j < getHashliste_Schwarz().size(); j++) {
-						if (getHashliste_Schwarz().get(j) == stone
-								.getPosition().hashCode()) {
-							getHashliste_Schwarz().remove(j);
-							getStS().remove(i);
-							stone.removeImage();
-							setMuehle_weiss(false);
-							setSchwarzDran(true);
-							setWeissDran(false);
-						}
-
-					}
-
-				}
 
 			}
-			
 		}
-		}
-		
+
 		if (getStS().size() <= 3) {
 			setSchwarz_Sprungphase(true);
 		}
-		
-	    if(getStS().size()<=2){
+
+		if (getStS().size() <= 2) {
 			System.out.println("Spieler Weiss gewinnt");
 		}
 
-	
-}
+	}
 }
