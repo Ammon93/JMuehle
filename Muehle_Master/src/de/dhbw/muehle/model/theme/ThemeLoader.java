@@ -1,6 +1,7 @@
 package de.dhbw.muehle.model.theme;
 
 import java.io.File;
+import java.net.URISyntaxException;
 
 public class ThemeLoader {
 
@@ -10,7 +11,10 @@ public class ThemeLoader {
 
 	public ThemeLoader(){
 		//Hauptordner für die Themes
-		themeFolder = new File("res/themes/");
+		try {
+			themeFolder = new File(getClass().getClassLoader().getResource("themes").toURI());
+		} catch (URISyntaxException e) {e.printStackTrace();}
+		
 		
 		availableThemes = new Theme[themeFolder.list().length];
 		int i = 0;
