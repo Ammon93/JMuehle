@@ -64,27 +64,7 @@ public class ViewController implements IViewController {
 		frame.gamePanel.setLblStatus(spielerNr, type);
 	}
 
-	public void weisseSteine_setzen(LblGameStone stone) {
-		if (core.postitionFree(stone.getPosition())
-				&& !frame.gamePanel.isStackEmpty(frame.gamePanel.weisseSteine)) {
-			core.erzeugeSpielsteinweiss(stone.getPosition().getEbene(), stone
-					.getPosition().getX(), stone.getPosition().getY(), stone
-					.getPosition());
-			stone.setImage(theme.getSpielSteinWeiss());
-			frame.gamePanel.updateStack(frame.gamePanel.weisseSteine, -1);
-			System.out.println(core.getStW().size());
-			core.ueberpruefen_Muehele_weiss(stone.getPosition());
-			if (core.isMuehle_weiss() == true) {
-				core.setWeissDran(true);
-				core.setSchwarzDran(false);
-			} else {
-				core.setSchwarzDran(true);
-				core.setWeissDran(false);
-			}
 
-		}
-
-	}
 
 	public Theme getTheme() {
 		return theme;
@@ -94,111 +74,6 @@ public class ViewController implements IViewController {
 		this.theme = theme;
 	}
 
-	public void schwarzeSteine_setzen(LblGameStone stone) {
-
-		if (core.postitionFree(stone.getPosition())
-				&& !frame.gamePanel
-						.isStackEmpty(frame.gamePanel.schwarzeSteine)) {
-			core.erzeugeSpielsteinschwarz(stone.getPosition().getEbene(), stone
-					.getPosition().getX(), stone.getPosition().getY(), stone
-					.getPosition());
-			stone.setImage(theme.getSpielSteinSchwarz());
-			frame.gamePanel.updateStack(frame.gamePanel.schwarzeSteine, -1);
-			System.out.println(core.getStS().size());
-			core.ueberpruefen_Muehele_schwarz(stone.getPosition());
-			if (core.isMuehle_schwarz() == true) {
-				core.setWeissDran(false);
-				core.setSchwarzDran(true);
-			} else {
-				core.setSchwarzDran(false);
-				core.setWeissDran(true);
-			}
-
-		}
-//		if (core.getStS().size() + core.getStW().size() >=8) {
-//			core.setSpielphase(2);
-//			}
-
-		// System.out.println(core.isWeissDran());
-		// System.out.println(core.isSchwarzDran());
-		// }
-		if (frame.gamePanel.isStackEmpty(frame.gamePanel.weisseSteine)
-				&& frame.gamePanel.isStackEmpty(frame.gamePanel.schwarzeSteine)) {
-			core.setSpielphase(2);
-		}
-	}
-
-	public void entferneSteinWeiss(LblGameStone stone) {
-
-		if (core.isMuehle_schwarz() == true) {
-			if (!core.getHashliste_Schwarz().contains(
-					stone.getPosition().hashCode())) {
-
-				for (int i = 0; i < core.getStW().size(); i++) {
-					System.out.println(" Weisser Stein " + i
-							+ core.getStW().get(i).isInMuehle());
-					if (core.getStW().get(i).getPosition().hashCode() == stone
-							.getPosition().hashCode()
-							&& core.getStW().get(i).isInMuehle() == false) {
-
-						for (int j = 0; j < core.getHashliste_Weiss().size(); j++) {
-							if (core.getHashliste_Weiss().get(j) == stone
-									.getPosition().hashCode()) {
-								core.getHashliste_Weiss().remove(j);
-								core.getStW().remove(i);
-								stone.removeImage();
-								core.setMuehle_schwarz(false);
-								core.setWeissDran(true);
-								core.setSchwarzDran(false);
-							}
-						}
-					}
-				}
-
-			}
-
-			else {
-
-				core.setMuehle_schwarz(true);
-				core.setSchwarzDran(true);
-			}
-		}
-	}
-
-	public void entferneSteinSchwarz(LblGameStone stone) {
-		if (core.isMuehle_weiss() == true) {
-			if (!core.getHashliste_Weiss().contains(
-					stone.getPosition().hashCode())) {
-				for (int i = 0; i < core.getStS().size(); i++) {
-					System.out.println(" Schwarzer Stein " + i
-							+ core.getStS().get(i).isInMuehle());
-					if (core.getStS().get(i).getPosition().hashCode() == stone
-							.getPosition().hashCode()
-							&& core.getStS().get(i).isInMuehle() == false) {
-						for (int j = 0; j < core.getHashliste_Schwarz().size(); j++) {
-							if (core.getHashliste_Schwarz().get(j) == stone
-									.getPosition().hashCode()) {
-								core.getHashliste_Schwarz().remove(j);
-								core.getStS().remove(i);
-								stone.removeImage();
-								core.setMuehle_weiss(false);
-								core.setSchwarzDran(true);
-								core.setWeissDran(false);
-							}
-
-						}
-
-					}
-
-				}
-			}
-
-		} else {
-			core.setMuehle_weiss(true);
-			core.setWeissDran(true);
-		}
-
-	}
 
 	public void angeklickter_Stein_speichern(LblGameStone stone) {
 
