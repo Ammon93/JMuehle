@@ -115,10 +115,9 @@ public class ViewController implements IViewController {
 			}
 
 		}
-
 //		if (core.getStS().size() + core.getStW().size() >=8) {
 //			core.setSpielphase(2);
-//		}
+//			}
 
 		// System.out.println(core.isWeissDran());
 		// System.out.println(core.isSchwarzDran());

@@ -563,7 +563,7 @@ public class Core {
 								.add(StW.get(i).getPosition().hashCode());
 						stone.setImage(vController.getTheme()
 								.getSpielSteinWeiss());
-						if (StW.size() <= 3) {
+						if (StW.size() <= 2) {
 							weiss_Sprungphase = true;
 						}
 
@@ -597,7 +597,7 @@ public class Core {
 								.hashCode());
 						stone.setImage(vController.getTheme()
 								.getSpielSteinSchwarz());
-						if (StS.size() <= 3) {
+						if (StS.size() <= 2) {
 							schwarz_Sprungphase = true;
 						}
 
@@ -611,7 +611,7 @@ public class Core {
 
 	public void zieheSteinWeiss(LblGameStone stone) {
 		pruefeZug(angeklickterStein);
-		if (weiss_Sprungphase = false) {
+		if (weiss_Sprungphase == false) {
 		if (postitionFree(stone.getPosition())) {
 			if (Hashliste_gueltige_Zuege.contains(stone.getPosition()
 					.hashCode())) {
@@ -686,7 +686,7 @@ public class Core {
 	public void zieheSteinSchwarz(LblGameStone stone) {
 		pruefeZug(angeklickterStein);
 
-		if (schwarz_Sprungphase = false) {
+		if (schwarz_Sprungphase == false) {
 			if (postitionFree(stone.getPosition())) {
 				if (Hashliste_gueltige_Zuege.contains(stone.getPosition()
 						.hashCode())) {
