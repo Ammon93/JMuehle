@@ -1,15 +1,13 @@
 package de.dhbw.muehle.model.theme;
 
 import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 
 public class Theme {
 	
-	private File themePath;
+	private String themePath;
 	
 	
 	private Image leiste,
@@ -49,30 +47,28 @@ public class Theme {
 	
 	
 	
-	public Theme(File themePath){
+	public Theme(String themePath){
 		this.themePath = themePath;
 	}
 	
 	
 	/**
-	 * Liefert das Image
+	 * Liefert das Image zurück
 	 * @param relPfad relativer Pfad zum Bild
 	 * @return Image
 	 */
-	private Image getImage(String relPfad){
-		try {
-			return ImageIO.read(new File(themePath.getPath()+relPfad));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
+	private Image returnImage(String relPfad, Image destImage){
+		if(destImage != null)
+			return destImage;
+		else
+			return new ImageIcon(getClass().getClassLoader().getResource(themePath + relPfad)).getImage();
 	}
 	
 	
 	/**
 	 * Löscht alle Bilder
 	 */
-	public void flushThemeImages(){
+	protected void flushThemeImages(){
 		leiste = null;
 		leisteClose = null;
 		leisteMaximize = null;
@@ -111,14 +107,14 @@ public class Theme {
 	 * @return name
 	 */
 	public String getThemeName(){
-		return themePath.getName();
+		return themePath.split("/")[1];
 	}
 	
 	
 	/**
 	 * @return themePath
 	 */
-	public File getThemePath() {
+	public String getThemePfad() {
 		return themePath;
 	}
 	
@@ -133,10 +129,7 @@ public class Theme {
 		 * @return the leiste
 		 */
 		public Image getLeiste() {
-			if(leiste != null)
-				return leiste;
-			else
-				return leiste = getImage("/Leiste/Leiste.png");
+			return leiste = returnImage("/Leiste/Leiste.png", leiste);
 		}
 	
 	
@@ -144,10 +137,7 @@ public class Theme {
 		 * @return the leisteClose
 		 */
 		public Image getLeisteClose() {
-			if(leisteClose != null)
-				return leisteClose;
-			else
-				return leisteClose = getImage("/Leiste/close.png");
+			return leisteClose = returnImage("/Leiste/close.png", leisteClose);
 		}
 	
 	
@@ -155,10 +145,7 @@ public class Theme {
 		 * @return the leisteMaximize
 		 */
 		public Image getLeisteMaximize() {
-			if(leisteMaximize!= null)
-				return leisteMaximize;
-			else
-				return leisteMaximize = getImage("/Leiste/maximize.png");
+			return leisteMaximize = returnImage("/Leiste/maximize.png", leisteMaximize);
 		}
 	
 	
@@ -166,10 +153,7 @@ public class Theme {
 		 * @return the leisteMinimize
 		 */
 		public Image getLeisteMinimize() {
-			if(leisteMinimize != null)
-				return leisteMinimize;
-			else
-				return leisteMinimize = getImage("/Leiste/minimize.png");
+			return leisteMinimize = returnImage("/Leiste/minimize.png", leisteMinimize);
 		}
 
 
@@ -177,10 +161,7 @@ public class Theme {
 		 * @return menueHintergrund
 		 */
 		public Image getMenueHintergrund() {
-			if(menueHintergrund != null)
-				return menueHintergrund;
-			else
-				return menueHintergrund = getImage("/Menuebild/Menuehintergrundbild.png");
+			return menueHintergrund = returnImage("/Menuebild/Menuehintergrundbild.png", menueHintergrund);
 		}
 		
 		
@@ -188,10 +169,7 @@ public class Theme {
 		 * @return einstellungsHintergrund
 		 */
 		public Image getEinstellungsHintergrund() {
-			if(einstellungsHintergrund != null)
-				return einstellungsHintergrund;
-			else
-				return einstellungsHintergrund = getImage("/Einstellungen/EinstellungenHintergrundbild.png");
+			return einstellungsHintergrund = returnImage("/Einstellungen/EinstellungenHintergrundbild.png", einstellungsHintergrund);
 		}
 		
 		
@@ -199,10 +177,7 @@ public class Theme {
 		 * @return logo
 		 */
 		public Image getLogo(){
-			if(logo != null)
-				return logo;
-			else
-				return logo = getImage("/Logo/Logo.png");
+			return logo = returnImage("/Logo/Logo.png", logo);
 		}
 		
 	
@@ -210,10 +185,7 @@ public class Theme {
 		 * @return spielBrett
 		 */
 		public Image getSpielBrett() {
-			if(spielBrett != null)
-				return spielBrett;
-			else
-				return spielBrett = getImage("/Spielbrett/Spielbrett.png");
+			return spielBrett = returnImage("/Spielbrett/Spielbrett.png", spielBrett);
 		}
 	
 	
@@ -221,10 +193,7 @@ public class Theme {
 		 * @return spielSteinWeiss
 		 */
 		public Image getSpielSteinWeiss() {
-			if(spielSteinWeiss != null)
-				return spielSteinWeiss;
-			else
-				return spielSteinWeiss = getImage("/Steine/WeisserStein.png");
+			return spielSteinWeiss = returnImage("/Steine/WeisserStein.png", spielSteinWeiss);
 		}
 	
 	
@@ -232,10 +201,7 @@ public class Theme {
 		 * @return spielSteinWeissGewaehlt
 		 */
 		public Image getSpielSteinWeissGewaehlt() {
-			if(spielSteinWeissGewaehlt != null)
-				return spielSteinWeissGewaehlt;
-			else
-				return spielSteinWeissGewaehlt = getImage("/Steine/WeisserSteinAusgewaehlt.png");
+			return spielSteinWeissGewaehlt = returnImage("/Steine/WeisserSteinAusgewaehlt.png", spielSteinWeissGewaehlt);
 		}
 	
 	
@@ -243,10 +209,7 @@ public class Theme {
 		 * @return spielSteinWeissTransparent
 		 */
 		public Image getSpielSteinWeissTransparent() {
-			if(spielSteinWeissTransparent != null)
-				return spielSteinWeissTransparent;
-			else
-				return spielSteinWeissTransparent = getImage("/Steine/WeisserSteinTransparent.png");
+			return spielSteinWeissTransparent = returnImage("/Steine/WeisserSteinTransparent.png", spielSteinWeissTransparent);
 		}
 	
 	
@@ -254,10 +217,7 @@ public class Theme {
 		 * @return spielSteinSchwarz
 		 */
 		public Image getSpielSteinSchwarz() {
-			if(spielSteinSchwarz != null)
-				return spielSteinSchwarz;
-			else
-				return spielSteinSchwarz = getImage("/Steine/SchwarzerStein.png");
+			return spielSteinSchwarz = returnImage("/Steine/SchwarzerStein.png", spielSteinSchwarz);
 		}
 	
 	
@@ -265,10 +225,7 @@ public class Theme {
 		 * @return spielSteinSchwarzGewaehlt
 		 */
 		public Image getSpielSteinSchwarzGewaehlt() {
-			if(spielSteinSchwarzGewaehlt != null)
-				return spielSteinSchwarzGewaehlt;
-			else
-				return spielSteinSchwarzGewaehlt = getImage("/Steine/SchwarzerSteinAusgewaehlt.png");
+			return spielSteinSchwarzGewaehlt = returnImage("/Steine/SchwarzerSteinAusgewaehlt.png", spielSteinSchwarzGewaehlt);
 		}
 	
 	
@@ -276,10 +233,7 @@ public class Theme {
 		 * @return spielSteinSchwarzTransparent
 		 */
 		public Image getSpielSteinSchwarzTransparent() {
-			if(spielSteinSchwarzTransparent != null)
-				return spielSteinSchwarzTransparent;
-			else
-				return spielSteinSchwarzTransparent = getImage("/Steine/SchwarzerSteinTransparent.png");
+			return spielSteinSchwarzTransparent = returnImage("/Steine/SchwarzerSteinTransparent.png", spielSteinSchwarzTransparent);
 		}
 	
 	
@@ -287,10 +241,7 @@ public class Theme {
 		 * @return btnAbbrechen
 		 */
 		public Image getBtnAbbrechen() {
-			if(btnAbbrechen != null)
-				return btnAbbrechen;
-			else
-				return btnAbbrechen = getImage("/Buttons/Abbrechen.png");
+			return btnAbbrechen = returnImage("/Buttons/Abbrechen.png", btnAbbrechen);
 		}
 	
 	
@@ -298,10 +249,7 @@ public class Theme {
 		 * @return btnBeenden
 		 */
 		public Image getBtnBeenden() {
-			if(btnBeenden != null)
-				return btnBeenden;
-			else
-				return btnBeenden = getImage("/Buttons/Beenden.png");
+			return btnBeenden = returnImage("/Buttons/Beenden.png", btnBeenden);
 		}
 	
 	
@@ -309,10 +257,7 @@ public class Theme {
 		 * @return btnEinstellungen
 		 */
 		public Image getBtnEinstellungen() {
-			if(btnEinstellungen != null)
-				return btnEinstellungen;
-			else
-				return btnEinstellungen = getImage("/Buttons/Einstellungen.png");
+			return btnEinstellungen = returnImage("/Buttons/Einstellungen.png", btnEinstellungen);
 		}
 	
 	
@@ -320,10 +265,7 @@ public class Theme {
 		 * @return btnPvE
 		 */
 		public Image getBtnPvE() {
-			if(btnPvE != null)
-				return btnPvE;
-			else
-				return btnPvE = getImage("/Buttons/Einzelspieler.png");
+			return btnPvE = returnImage("/Buttons/Einzelspieler.png", btnPvE);
 		}
 	
 	
@@ -331,10 +273,7 @@ public class Theme {
 		 * @return btnPvP
 		 */
 		public Image getBtnPvP() {
-			if(btnPvP != null)
-				return btnPvP;
-			else
-				return btnPvP = getImage("/Buttons/Mehrspieler.png");
+			return btnPvP = returnImage("/Buttons/Mehrspieler.png", btnPvP);
 		}
 	
 	
@@ -342,10 +281,7 @@ public class Theme {
 		 * @return btnHilfe
 		 */
 		public Image getBtnHilfe() {
-			if(btnHilfe!= null)
-				return btnHilfe;
-			else
-				return btnHilfe = getImage("/Buttons/Hilfe.png");
+			return btnHilfe = returnImage("/Buttons/Hilfe.png", btnHilfe);
 		}
 	
 	
@@ -353,10 +289,7 @@ public class Theme {
 		 * @return btnOK
 		 */
 		public Image getBtnOK() {
-			if(btnOK != null)
-				return btnOK;
-			else
-				return btnOK = getImage("/Buttons/OK.png");
+			return btnOK = returnImage("/Buttons/Ok.png", btnOK);
 		}
 		
 		
@@ -364,10 +297,7 @@ public class Theme {
 		 * @return btnZumMenue
 		 */
 		public Image getBtnZumMenue() {
-			if(btnZumMenue != null)
-				return btnZumMenue;
-			else
-				return btnZumMenue = getImage("/Buttons/ZumMenue.png");
+			return btnZumMenue= returnImage("/Buttons/ZumMenue.png", btnZumMenue);
 		}
 	
 	
@@ -375,10 +305,7 @@ public class Theme {
 		 * @return the btnTheme
 		 */
 		public Image getBtnTheme() {
-			if(btnTheme != null)
-				return btnTheme;
-			else
-				return btnTheme = getImage("/Buttons/Theme.png");
+			return btnTheme = returnImage("/Buttons/Theme.png", btnTheme);
 		}
 
 
@@ -386,10 +313,7 @@ public class Theme {
 		 * @return the btnX
 		 */
 		public Image getBtnX() {
-			if(btnX != null)
-				return btnX;
-			else
-				return btnX = getImage("/Buttons/x.png");
+			return btnX = returnImage("/Buttons/x.png", btnX);
 		}
 
 
@@ -397,10 +321,7 @@ public class Theme {
 		 * @return the btnZurueck
 		 */
 		public Image getBtnZurueck() {
-			if(btnZurueck != null)
-				return btnZurueck;
-			else
-				return btnZurueck = getImage("/Buttons/zurueck.png");
+			return btnZurueck = returnImage("/Buttons/zurueck.png", btnZurueck);
 		}
 
 
@@ -408,10 +329,7 @@ public class Theme {
 		 * @return siegerPvE
 		 */
 		public Image getSiegerPvE() {
-			if(siegerPvE != null)
-				return siegerPvE;
-			else
-				return siegerPvE = getImage("/SiegerbildVerliererbild/Siegerbild/SiegerHumanvspcschwarz.png");
+			return siegerPvE = returnImage("/SiegerbildVerliererbild/Siegerbild/SiegerHumanvspcschwarz.png", siegerPvE);
 		}
 	
 	
@@ -419,10 +337,7 @@ public class Theme {
 		 * @return siegerPvP
 		 */
 		public Image getSiegerPvP() {
-			if(siegerPvP != null)
-				return siegerPvP;
-			else
-				return siegerPvP = getImage("/SiegerbildVerliererbild/Siegerbild/SiegerHumanvshumanschwarz.png");
+			return siegerPvP = returnImage("/SiegerbildVerliererbild/Siegerbild/SiegerHumanvshumanschwarz.png", siegerPvP);
 		}
 	
 	
@@ -430,9 +345,6 @@ public class Theme {
 		 * @return verlierer
 		 */
 		public Image getVerlierer() {
-			if(verlierer != null)
-				return verlierer;
-			else
-				return verlierer = getImage("/SiegerbildVerliererbild/Verliererbild/Verlierer.png");
+			return verlierer = returnImage("/SiegerbildVerliererbild/Verliererbild/Verlierer.png", verlierer);
 		}
 }
