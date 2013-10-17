@@ -92,6 +92,7 @@ public class MainMenu extends Menu {
 	
 	@Override
 	public void paintComponent(Graphics g){
+		super.paintComponent(g);
 		g.drawImage(view.getTheme().getMenueHintergrund(), 0, 0, getWidth(), getHeight(), this);
 	}
 }

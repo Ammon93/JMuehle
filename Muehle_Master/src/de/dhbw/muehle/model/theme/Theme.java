@@ -12,6 +12,11 @@ public class Theme {
 	private File themePath;
 	
 	
+	private Image leiste,
+				  leisteClose,
+				  leisteMaximize,
+				  leisteMinimize;
+	
 	private Image menueHintergrund,
 				  einstellungsHintergrund;
 	
@@ -68,6 +73,11 @@ public class Theme {
 	 * Löscht alle Bilder
 	 */
 	public void flushThemeImages(){
+		leiste = null;
+		leisteClose = null;
+		leisteMaximize = null;
+		leisteMinimize = null;
+		
 		menueHintergrund = null;
 		einstellungsHintergrund = null;
 
@@ -119,6 +129,50 @@ public class Theme {
 	 * Getter für die einzelnen Bilder
 	 */
 	
+		/**
+		 * @return the leiste
+		 */
+		public Image getLeiste() {
+			if(leiste != null)
+				return leiste;
+			else
+				return leiste = getImage("/Leiste/Leiste.png");
+		}
+	
+	
+		/**
+		 * @return the leisteClose
+		 */
+		public Image getLeisteClose() {
+			if(leisteClose != null)
+				return leisteClose;
+			else
+				return leisteClose = getImage("/Leiste/close.png");
+		}
+	
+	
+		/**
+		 * @return the leisteMaximize
+		 */
+		public Image getLeisteMaximize() {
+			if(leisteMaximize!= null)
+				return leisteMaximize;
+			else
+				return leisteMaximize = getImage("/Leiste/maximize.png");
+		}
+	
+	
+		/**
+		 * @return the leisteMinimize
+		 */
+		public Image getLeisteMinimize() {
+			if(leisteMinimize != null)
+				return leisteMinimize;
+			else
+				return leisteMinimize = getImage("/Leiste/minimize.png");
+		}
+
+
 		/**
 		 * @return menueHintergrund
 		 */

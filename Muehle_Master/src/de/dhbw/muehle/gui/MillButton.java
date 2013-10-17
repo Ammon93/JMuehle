@@ -70,6 +70,15 @@ public class MillButton extends JButton{
 		case "Logo":
 			background = theme.getLogo();
 			break;
+		case "Close":
+			background = theme.getLeisteClose();
+			break;
+		case "Maximize":
+			background = theme.getLeisteMaximize();
+			break;
+		case "Minimize":
+			background = theme.getLeisteMinimize();
+			break;
 		}
 	}
 	
