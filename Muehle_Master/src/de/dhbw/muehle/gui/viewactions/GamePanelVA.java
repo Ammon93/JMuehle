@@ -51,7 +51,7 @@ public class GamePanelVA {
 						&& vController.getCore().isMuehle_weiss() == false) {
 
 					// Methode zum setzen weisser Steine
-					vController.weisseSteine_setzen((LblGameStone) e
+					vController.getCore().weisseSteine_setzen((LblGameStone) e
 							.getComponent());
 
 					System.out.println("Weiss hat einen Stein gesetzt");
@@ -72,7 +72,7 @@ public class GamePanelVA {
 						&& vController.getCore().isMuehle_schwarz() == false) {
 
 					// Methode zum Schwarze Steine setzen
-					vController.schwarzeSteine_setzen((LblGameStone) e
+					vController.getCore().schwarzeSteine_setzen((LblGameStone) e
 							.getComponent());
 
 					System.out.println("Schwarz hat einen Stein gesetzt");
@@ -93,7 +93,7 @@ public class GamePanelVA {
 						&& vController.getCore().isWeissDran() == true) {
 
 					// Methode zum entfernen eines schwarzen Steines
-					vController.entferneSteinSchwarz((LblGameStone) e
+					vController.getCore().entferneSteinSchwarz((LblGameStone) e
 							.getComponent());
 
 					System.out
@@ -114,7 +114,7 @@ public class GamePanelVA {
 						&& vController.getCore().isSchwarzDran() == true) {
 
 					// Methode zum entfernen eines weissen Steines
-					vController.entferneSteinWeiss((LblGameStone) e
+					vController.getCore().entferneSteinWeiss((LblGameStone) e
 							.getComponent());
 
 					System.out
@@ -249,7 +249,7 @@ public class GamePanelVA {
 						&& vController.getCore().isWeissDran() == true) {
 
 					// Methode zum entfernen eines schwarzen Steines
-					vController.entferneSteinSchwarz((LblGameStone) e
+					vController.getCore().entferneSteinSchwarz((LblGameStone) e
 							.getComponent());
 
 					System.out.println("Ist Weiss dran "
@@ -271,7 +271,7 @@ public class GamePanelVA {
 						&& vController.getCore().isSchwarzDran() == true) {
 
 					// Methode zum entfernen eines weissen Steines
-					vController.entferneSteinWeiss((LblGameStone) e
+					vController.getCore().entferneSteinWeiss((LblGameStone) e
 							.getComponent());
 
 					System.out.println("Ist Weiss dran "

@@ -26,7 +26,7 @@ public class View extends JFrame{
 	private Theme theme;
 
 	protected MainMenu mainMenu;
-	protected GamePanel gamePanel;
+	public GamePanel gamePanel;
 	public GamePanel getGamePanel() {
 		return gamePanel;
 	}
