@@ -513,11 +513,7 @@ public class Core {
 	}
 
 	public void angeklicktSetzen_weiss(LblGameStone stone) {
-		if(StW.size()<=1){
-			System.out.println("Spieler Schwarz gewinnt");
-		}
-		else
-		{
+		
 		if (getHashliste_Weiss().contains(stone.getPosition().hashCode())) {
 			stone.setImage(vController.getTheme().getSpielSteinWeissGewaehlt());
 			ueberpruefen_Muehele_weiss_vorZug(stone.getPosition());
@@ -525,14 +521,9 @@ public class Core {
 			setWeissDran(true);
 		}
 		}
-	}
+	
 
 	public void angeklicktSetzen_schwarz(LblGameStone stone) {
-		if(StS.size()<=1){
-			System.out.println("Spieler Schwarz gewinnt");
-		}
-		else
-		{
 		if (getHashliste_Schwarz().contains(stone.getPosition().hashCode())) {
 			stone.setImage(vController.getTheme()
 					.getSpielSteinSchwarzGewaehlt());
@@ -541,11 +532,27 @@ public class Core {
 			setSchwarzDran(true);
 		}
 		}
-	}
+	
 
 	public void entferneStein_ziehen_weiss() {
 		angeklickterStein.removeImage();
 
+	}
+
+	public boolean isWeiss_Sprungphase() {
+		return weiss_Sprungphase;
+	}
+
+	public void setWeiss_Sprungphase(boolean weiss_Sprungphase) {
+		this.weiss_Sprungphase = weiss_Sprungphase;
+	}
+
+	public boolean isSchwarz_Sprungphase() {
+		return schwarz_Sprungphase;
+	}
+
+	public void setSchwarz_Sprungphase(boolean schwarz_Sprungphase) {
+		this.schwarz_Sprungphase = schwarz_Sprungphase;
 	}
 
 	public void entferneStein_ziehen_schwarz() {
@@ -575,9 +582,7 @@ public class Core {
 								.add(StW.get(i).getPosition().hashCode());
 						stone.setImage(vController.getTheme()
 								.getSpielSteinWeiss());
-						if (StW.size() <= 3) {
-							weiss_Sprungphase = true;
-						}
+						
 
 					}
 

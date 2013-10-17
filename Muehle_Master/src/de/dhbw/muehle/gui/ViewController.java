@@ -163,6 +163,14 @@ public class ViewController implements IViewController {
 				core.setSchwarzDran(true);
 			}
 		}
+		
+		if (core.getStW().size() <= 3) {
+			core.setWeiss_Sprungphase(true);
+		}
+		
+	    if(core.getStW().size()<=2){
+			System.out.println("Spieler Schwarz gewinnt");
+		}
 	}
 
 	public void entferneSteinSchwarz(LblGameStone stone) {
@@ -196,6 +204,14 @@ public class ViewController implements IViewController {
 		} else {
 			core.setMuehle_weiss(true);
 			core.setWeissDran(true);
+		}
+		
+		if (core.getStS().size() <= 3) {
+			core.setSchwarz_Sprungphase(true);
+		}
+		
+	    if(core.getStS().size()<=2){
+			System.out.println("Spieler Weiss gewinnt");
 		}
 
 	}
