@@ -25,8 +25,19 @@ public class GamePanel extends Menu {
 	private JPanel gameField;
 	private LblStatus lblStatus;
 	private LblGameStone lblGameStone[][][];
-	private LblStoneStack schwarzeSteine,
-				   		 weisseSteine;
+	public LblStoneStack schwarzeSteine;
+	
+	public ArrayList<LblGameStone> getPanelList() {
+		return panelList;
+	}
+
+
+	public void setPanelList(ArrayList<LblGameStone> panelList) {
+		this.panelList = panelList;
+	}
+
+
+	public LblStoneStack weisseSteine;
 	
 	private GamePanelVA vActions;
 	
@@ -145,9 +156,10 @@ public class GamePanel extends Menu {
 	/**
 	 * Prüft, ob Stack leer ist
 	 * @param type Typ des Stacks ("schwarz" oder "weiss")
+	 * @param weisseSteine2 
 	 * @return true/false
 	 */
-	public boolean isStackEmpty(String type){
+	public boolean isStackEmpty(String type, LblStoneStack weisseSteine2){
 		switch (type) {
 		case "schwarz":
 			if(schwarzeSteine.getCountStones() == 0)
@@ -168,9 +180,10 @@ public class GamePanel extends Menu {
 	/**
 	 * Erhöht oder veringert einen Stack
 	 * @param type Typ des Stacks ("schwarz" oder "weiss")
+	 * @param weisseSteine2 
 	 * @param change Nur 1 und -1 erlaubt
 	 */
-	public void updateStack(String type, int change){
+	public void updateStack(String type, LblStoneStack weisseSteine2, int change){
 		switch (type){
 		case "schwarz":
 			if(change >= 1)
