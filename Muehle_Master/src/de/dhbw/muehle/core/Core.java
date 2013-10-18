@@ -559,7 +559,7 @@ public class Core {
 						&& !Hashliste_Schwarz.contains(Hashliste_gueltige_Zuege
 								.get(j))
 						&& !Hashliste_Weiss.contains(Hashliste_gueltige_Zuege
-								.get(j))) {
+								.get(j)) && Hashliste_Weiss.contains(stone.getPosition().hashCode())) {
 					Transparent_Spielsteine.add(vController.getFrame().getGamePanel().getPanelList().get(z));
 					vController
 							.getFrame()
@@ -607,7 +607,7 @@ public class Core {
 						&& !Hashliste_Schwarz.contains(Hashliste_gueltige_Zuege
 								.get(j))
 						&& !Hashliste_Weiss.contains(Hashliste_gueltige_Zuege
-								.get(j))) {
+								.get(j)) && Hashliste_Schwarz.contains(stone.getPosition().hashCode())) {
 					Transparent_Spielsteine.add(vController.getFrame().getGamePanel().getPanelList().get(z));
 					vController
 							.getFrame()
