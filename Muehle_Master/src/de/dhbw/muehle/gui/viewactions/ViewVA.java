@@ -1,6 +1,5 @@
 package de.dhbw.muehle.gui.viewactions;
 
-import java.awt.Component;
 import java.awt.Frame;
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
@@ -11,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JComponent;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
@@ -75,22 +75,19 @@ public class ViewVA {
 	 * ResizeAdapter
 	 */
 //	{
-		public static class ResizeAdapter extends MouseAdapter implements SwingConstants {
+		public class ResizeAdapter extends MouseAdapter implements SwingConstants {
 			private boolean resizing = false;
 			private int prevX = -1;
 			private int prevY = -1;
 
 			private int resizeSide = 0;
+			
 
-			public static void install(Component component, int resizeSide) {
-				ResizeAdapter wra = new ResizeAdapter(resizeSide);
-				component.addMouseListener(wra);
-				component.addMouseMotionListener(wra);
-			}
-
-			public ResizeAdapter(int resizeSide) {
+			public ResizeAdapter(JComponent component, int resizeSide) {
 				super();
 				this.resizeSide = resizeSide;
+				component.addMouseListener(this);
+				component.addMouseMotionListener(this);
 			}
 
 			public void mousePressed(MouseEvent e) {
@@ -144,6 +141,7 @@ public class ViewVA {
 
 			public void mouseReleased(MouseEvent e) {
 				resizing = false;
+				vController.resizePanel(vController.frame.getActualPanel());
 			}
 		}
 //	}
@@ -154,15 +152,14 @@ public class ViewVA {
 	 * MoveAdapter
 	 */
 //	{
-		public static class MoveAdapter extends MouseAdapter{
+		public class MoveAdapter extends MouseAdapter{
 			
 			private Point initialClick;
 			
 			
-			public static void install(Component component) {
-				MoveAdapter wra = new MoveAdapter();
-				component.addMouseListener(wra);
-				component.addMouseMotionListener(wra);
+			public MoveAdapter(JComponent component) {
+				component.addMouseListener(this);
+				component.addMouseMotionListener(this);
 			}
 			
 			

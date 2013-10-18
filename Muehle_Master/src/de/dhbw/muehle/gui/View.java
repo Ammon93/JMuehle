@@ -18,7 +18,6 @@ import de.dhbw.muehle.gui.menus.MainMenu;
 import de.dhbw.muehle.gui.menus.Menu;
 import de.dhbw.muehle.gui.menus.SettingsPanel;
 import de.dhbw.muehle.gui.viewactions.ViewVA;
-import de.dhbw.muehle.gui.viewactions.ViewVA.MoveAdapter;
 import de.dhbw.muehle.gui.viewactions.ViewVA.ResizeAdapter;
 import de.dhbw.muehle.model.theme.Theme;
 
@@ -82,17 +81,17 @@ public class View extends JFrame{
 				
 				JLabel lblUpLeft = new JLabel();
 				lblUpLeft.setCursor(Cursor.getPredefinedCursor(Cursor.NW_RESIZE_CURSOR));
-				ResizeAdapter.install(lblUpLeft, ResizeAdapter.NORTH_WEST);
+				vActions.new ResizeAdapter(lblUpLeft, ResizeAdapter.NORTH_WEST);
 				top.add(lblUpLeft, "1, 1, 1, 2, fill, fill");
 				
 				JLabel lblUp = new JLabel();
 				lblUp.setCursor(Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR));
-				ResizeAdapter.install(lblUp, ResizeAdapter.NORTH);
+				vActions.new ResizeAdapter(lblUp, ResizeAdapter.NORTH);
 				top.add(lblUp, "2, 1, fill, fill");
 				
 				JLabel lblUpRight = new JLabel();
 				lblUpRight.setCursor(Cursor.getPredefinedCursor(Cursor.NE_RESIZE_CURSOR));
-				ResizeAdapter.install(lblUpRight, ResizeAdapter.NORTH_EAST);
+				vActions.new ResizeAdapter(lblUpRight, ResizeAdapter.NORTH_EAST);
 				top.add(lblUpRight, "3, 1, 1, 2, fill, fill");
 				
 				JPanel topBar = new JPanel(){
@@ -101,7 +100,7 @@ public class View extends JFrame{
 						g.drawImage(getTheme().getLeiste(), 0, 0, getWidth(), getHeight(), this);
 					}
 				};
-				MoveAdapter.install(topBar);
+				vActions.new MoveAdapter(topBar);
 				top.add(topBar, "1, 1, 3, 2, fill, fill");
 				topBar.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
 				
@@ -123,27 +122,27 @@ public class View extends JFrame{
 		
 		JLabel lblLeft = new JLabel();
 		lblLeft.setCursor(Cursor.getPredefinedCursor(Cursor.W_RESIZE_CURSOR));
-		ResizeAdapter.install(lblLeft, ResizeAdapter.WEST);
+		vActions.new ResizeAdapter(lblLeft, ResizeAdapter.WEST);
 		contentPane.add(lblLeft, "1, 2, fill, fill");
 		
 		JLabel lblRight = new JLabel();
 		lblRight.setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));
-		ResizeAdapter.install(lblRight, ResizeAdapter.EAST);
+		vActions.new ResizeAdapter(lblRight, ResizeAdapter.EAST);
 		contentPane.add(lblRight, "3, 2, fill, fill");
 		
 		JLabel lblDownLeft = new JLabel();
 		lblDownLeft.setCursor(Cursor.getPredefinedCursor(Cursor.SW_RESIZE_CURSOR));
-		ResizeAdapter.install(lblDownLeft, ResizeAdapter.SOUTH_WEST);
+		vActions.new ResizeAdapter(lblDownLeft, ResizeAdapter.SOUTH_WEST);
 		contentPane.add(lblDownLeft, "1, 3, fill, fill");
 		
 		JLabel lblDown = new JLabel();
 		lblDown.setCursor(Cursor.getPredefinedCursor(Cursor.S_RESIZE_CURSOR));
-		ResizeAdapter.install(lblDown, ResizeAdapter.SOUTH);
+		vActions.new ResizeAdapter(lblDown, ResizeAdapter.SOUTH);
 		contentPane.add(lblDown, "2, 3, fill, fill");
 		
 		JLabel lblDownRight = new JLabel();
 		lblDownRight.setCursor(Cursor.getPredefinedCursor(Cursor.SE_RESIZE_CURSOR));
-		ResizeAdapter.install(lblDownRight, ResizeAdapter.SOUTH_EAST);
+		vActions.new ResizeAdapter(lblDownRight, ResizeAdapter.SOUTH_EAST);
 		contentPane.add(lblDownRight, "3, 3, fill, fill");
 		
 		content = new JPanel();
@@ -189,7 +188,12 @@ public class View extends JFrame{
 
 	public void setGamePanel(GamePanel gamePanel) {
 		this.gamePanel = gamePanel;
-	}	
+	}
+	
+	
+	public Menu getActualPanel(){
+		return (Menu) content.getComponent(0);
+	}
 	
 	
 	/**

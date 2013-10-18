@@ -5,6 +5,7 @@ package de.dhbw.muehle.gui;
  */
 
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Insets;
 import java.util.List;
 
@@ -71,6 +72,7 @@ public class ViewController implements IViewController {
 
 	public void setTheme(Theme theme) {
 		this.theme = theme;
+		frame.setTheme(theme);
 	}
 
 
@@ -115,7 +117,7 @@ public class ViewController implements IViewController {
         hCenter = (hCenter - width) / 2;
         
         panel.setPreferredSize(new Dimension(width, height));
-        panel.setLocation(hCenter, vCenter);
+        ((FlowLayout) parent.getLayout()).setVgap(vCenter);
         
         panel.validate();
         panel.repaint();

@@ -10,7 +10,7 @@ import de.dhbw.muehle.gui.viewactions.MenuVA;
 
 public abstract class Menu extends JPanel{
 	
-	public final Dimension Size = new Dimension(705, 605);
+	public final Dimension Size = new Dimension(1000, 600);
 	
 	private View view;
 	private MenuVA vActions;
