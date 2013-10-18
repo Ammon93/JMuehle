@@ -35,6 +35,8 @@ public class Core {
 	private List<Integer> Hashliste_Schwarz;
 
 	private List<Integer> Hashliste_gueltige_Zuege;
+	
+	private List<LblGameStone>Steinliste_gueltige_Zuege;
 
 	// In den Listen StW und StS werden alle Spielsteine gespeichert
 	private List<Spielstein> StW, StS;
@@ -244,6 +246,7 @@ public class Core {
 		Hashliste_Weiss = new ArrayList<Integer>();
 		Hashliste_Schwarz = new ArrayList<Integer>();
 		Hashliste_gueltige_Zuege = new ArrayList<Integer>();
+		Steinliste_gueltige_Zuege = new ArrayList<LblGameStone>();
 		weissDran = true;
 		index1w = new ArrayList<Spielstein>();
 		index2w = new ArrayList<Spielstein>();
@@ -257,6 +260,15 @@ public class Core {
 	// private void run() {
 	// Log.log("run() ohne Fehler gestartet", getClass().getSimpleName());
 	// }
+
+	public List<LblGameStone> getPositionsliste_gueltige_Zuege() {
+		return Steinliste_gueltige_Zuege;
+	}
+
+	public void setPositionsliste_gueltige_Zuege(
+			List<LblGameStone> positionsliste_gueltige_Zuege) {
+		Steinliste_gueltige_Zuege = positionsliste_gueltige_Zuege;
+	}
 
 	// Zentrale Methode zur initalisierung der GUI und allen weiteren Fenstern
 	public void initGame() {
@@ -550,6 +562,9 @@ public class Core {
 
 		if (getHashliste_Weiss().contains(stone.getPosition().hashCode())
 				&& zaehler < Hashliste_gueltige_Zuege.size()) {
+			for(int j =0; j<Steinliste_gueltige_Zuege.size();j++){
+				Steinliste_gueltige_Zuege.get(j).setImage(vController.getTheme().getSpielSteinWeissGewaehlt());
+			}
 			stone.setImage(vController.getTheme().getSpielSteinWeissGewaehlt());
 			ueberpruefen_Muehele_weiss_vorZug(stone.getPosition());
 			setWeisserStein_angeklickt(true);
@@ -576,6 +591,9 @@ public class Core {
 
 		if (getHashliste_Schwarz().contains(stone.getPosition().hashCode())
 				&& zaehler < Hashliste_gueltige_Zuege.size()) {
+			for(int j =0; j<Steinliste_gueltige_Zuege.size();j++){
+				Steinliste_gueltige_Zuege.get(j).setImage(vController.getTheme().getSpielSteinSchwarzTransparent());
+			}
 			stone.setImage(vController.getTheme()
 					.getSpielSteinSchwarzGewaehlt());
 			ueberpruefen_Muehele_schwarz_vorZug(stone.getPosition());
@@ -681,6 +699,9 @@ public class Core {
 						.hashCode())) {
 
 					setzeStein_ziehen_weiss(stone);
+//					for(int j =0; j<Steinliste_gueltige_Zuege.size();j++){
+//						Steinliste_gueltige_Zuege.get(j).removeImage();
+//					}
 					setWeisserStein_angeklickt(false);
 					for (int i = 0; i < StW.size(); i++) {
 						ueberpruefen_Muehele_weiss(StW.get(i).getPosition());
@@ -770,6 +791,9 @@ public class Core {
 				if (Hashliste_gueltige_Zuege.contains(stone.getPosition()
 						.hashCode())) {
 					setzeStein_ziehen_schwarz(stone);
+//					for(int j =0; j<Steinliste_gueltige_Zuege.size();j++){
+//						Steinliste_gueltige_Zuege.get(j).removeImage();
+//					}
 					setSchwarzerStein_angeklickt(false);
 					for (int i = 0; i < StS.size(); i++) {
 						ueberpruefen_Muehele_schwarz(StS.get(i).getPosition());
@@ -842,6 +866,7 @@ public class Core {
 
 	public void pruefeZug(LblGameStone stone) {
 		Hashliste_gueltige_Zuege.clear();
+		Steinliste_gueltige_Zuege.clear();
 		int PosEbene = stone.getPosition().getEbene().getValue();
 		int PosX = stone.getPosition().getX().getValue();
 		int PosY = stone.getPosition().getY().getValue();
@@ -859,11 +884,13 @@ public class Core {
 				Hashcode = 31 * Hashcode + (PosX + 1);
 				Hashcode = 31 * Hashcode + PosY;
 				Hashliste_gueltige_Zuege.add(Hashcode);
+				Steinliste_gueltige_Zuege.add(stone);
 				Hashcode = 0;
 				Hashcode = 31 + PosEbene;
 				Hashcode = 31 * Hashcode + PosX;
 				Hashcode = 31 * Hashcode + (PosY + 1);
 				Hashliste_gueltige_Zuege.add(Hashcode);
+				Steinliste_gueltige_Zuege.add(stone);
 				Hashcode = 0;
 			}
 			if (PosX == 3 && PosY == 1) {
@@ -871,11 +898,13 @@ public class Core {
 				Hashcode = 31 * Hashcode + (PosX - 1);
 				Hashcode = 31 * Hashcode + PosY;
 				Hashliste_gueltige_Zuege.add(Hashcode);
+				Steinliste_gueltige_Zuege.add(stone);
 				Hashcode = 0;
 				Hashcode = 31 + PosEbene;
 				Hashcode = 31 * Hashcode + PosX;
 				Hashcode = 31 * Hashcode + (PosY + 1);
 				Hashliste_gueltige_Zuege.add(Hashcode);
+				Steinliste_gueltige_Zuege.add(stone);
 				Hashcode = 0;
 			}
 			if (PosX == 1 && PosY == 3) {
@@ -883,11 +912,13 @@ public class Core {
 				Hashcode = 31 * Hashcode + (PosX + 1);
 				Hashcode = 31 * Hashcode + PosY;
 				Hashliste_gueltige_Zuege.add(Hashcode);
+				Steinliste_gueltige_Zuege.add(stone);
 				Hashcode = 0;
 				Hashcode = 31 + PosEbene;
 				Hashcode = 31 * Hashcode + PosX;
 				Hashcode = 31 * Hashcode + (PosY - 1);
 				Hashliste_gueltige_Zuege.add(Hashcode);
+				Steinliste_gueltige_Zuege.add(stone);
 				Hashcode = 0;
 			}
 			if (PosX == 3 && PosY == 3) {
@@ -895,11 +926,13 @@ public class Core {
 				Hashcode = 31 * Hashcode + (PosX - 1);
 				Hashcode = 31 * Hashcode + PosY;
 				Hashliste_gueltige_Zuege.add(Hashcode);
+				Steinliste_gueltige_Zuege.add(stone);
 				Hashcode = 0;
 				Hashcode = 31 + PosEbene;
 				Hashcode = 31 * Hashcode + PosX;
 				Hashcode = 31 * Hashcode + (PosY - 1);
 				Hashliste_gueltige_Zuege.add(Hashcode);
+				Steinliste_gueltige_Zuege.add(stone);
 				Hashcode = 0;
 			}
 		}
@@ -911,11 +944,13 @@ public class Core {
 				Hashcode = 31 * Hashcode + (PosX + 1);
 				Hashcode = 31 * Hashcode + PosY;
 				Hashliste_gueltige_Zuege.add(Hashcode);
+				Steinliste_gueltige_Zuege.add(stone);
 				Hashcode = 0;
 				Hashcode = 31 + PosEbene;
 				Hashcode = 31 * Hashcode + (PosX - 1);
 				Hashcode = 31 * Hashcode + PosY;
 				Hashliste_gueltige_Zuege.add(Hashcode);
+				Steinliste_gueltige_Zuege.add(stone);
 				Hashcode = 0;
 			}
 			if (PosY == 2) {
@@ -923,11 +958,13 @@ public class Core {
 				Hashcode = 31 * Hashcode + PosX;
 				Hashcode = 31 * Hashcode + (PosY - 1);
 				Hashliste_gueltige_Zuege.add(Hashcode);
+				Steinliste_gueltige_Zuege.add(stone);
 				Hashcode = 0;
 				Hashcode = 31 + PosEbene;
 				Hashcode = 31 * Hashcode + PosX;
 				Hashcode = 31 * Hashcode + (PosY + 1);
 				Hashliste_gueltige_Zuege.add(Hashcode);
+				Steinliste_gueltige_Zuege.add(stone);
 				Hashcode = 0;
 			}
 			// Aenderung der Ebene
@@ -936,6 +973,7 @@ public class Core {
 				Hashcode = 31 * Hashcode + PosX;
 				Hashcode = 31 * Hashcode + PosY;
 				Hashliste_gueltige_Zuege.add(Hashcode);
+				Steinliste_gueltige_Zuege.add(stone);
 				Hashcode = 0;
 			}
 			if (PosEbene == 2) {
@@ -943,11 +981,13 @@ public class Core {
 				Hashcode = 31 * Hashcode + PosX;
 				Hashcode = 31 * Hashcode + PosY;
 				Hashliste_gueltige_Zuege.add(Hashcode);
+				Steinliste_gueltige_Zuege.add(stone);
 				Hashcode = 0;
 				Hashcode = 31 + (PosEbene - 1);
 				Hashcode = 31 * Hashcode + PosX;
 				Hashcode = 31 * Hashcode + PosY;
 				Hashliste_gueltige_Zuege.add(Hashcode);
+				Steinliste_gueltige_Zuege.add(stone);
 				Hashcode = 0;
 			}
 			if (PosEbene == 3) {
@@ -955,6 +995,7 @@ public class Core {
 				Hashcode = 31 * Hashcode + PosX;
 				Hashcode = 31 * Hashcode + PosY;
 				Hashliste_gueltige_Zuege.add(Hashcode);
+				Steinliste_gueltige_Zuege.add(stone);
 				Hashcode = 0;
 			}
 		}
