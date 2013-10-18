@@ -1,12 +1,15 @@
 package de.dhbw.muehle.gui.menus;
 
+import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
@@ -15,24 +18,21 @@ import com.jgoodies.forms.layout.RowSpec;
 import de.dhbw.muehle.gui.View;
 import de.dhbw.muehle.gui.ViewController;
 import de.dhbw.muehle.gui.viewactions.GamePanelVA;
-import de.dhbw.muehle.model.spielstein.EPositionIndex;
 import de.dhbw.muehle.model.spielstein.Position;
-import de.dhbw.muehle.model.theme.Theme;
-import javax.swing.SwingConstants;
-import java.awt.Font;
-import java.awt.Color;
 
 public class GamePanel extends Menu {
 	
 	private JPanel gameField;
 	private LblStatus lblStatus;
 	private LblGameStone lblGameStone[][][];
-	public LblStoneStack schwarzeSteine,
+	private LblStoneStack schwarzeSteine,
 				   		 weisseSteine;
 	
 	private GamePanelVA vActions;
 	
 	private View view;
+	
+	private ArrayList<LblGameStone> panelList;
 	
 	
 	public GamePanel(ViewController vController, View view) {
@@ -44,8 +44,9 @@ public class GamePanel extends Menu {
 		
 		
 		setLayout(new FormLayout(new ColumnSpec[] {
-				ColumnSpec.decode("1dlu:grow(6)"),
-				ColumnSpec.decode("1dlu:grow"),},
+				ColumnSpec.decode("1dlu:grow(48)"),
+				ColumnSpec.decode("1dlu:grow(8)"),
+				ColumnSpec.decode("default:grow(23)"),},
 			new RowSpec[] {
 				RowSpec.decode("default:grow"),}));
 		
@@ -90,10 +91,17 @@ public class GamePanel extends Menu {
 		schwarzeSteine = new LblStoneStack(view, "schwarz", 9);
 		stoneField.add(schwarzeSteine, "1, 3, fill, fill");
 		
+		JPanel panel = new JPanel();
+		panel.setOpaque(false);
+		add(panel, "3, 1, fill, fill");
+		
 		
 		
 		// Spielsteine initialisieren
 		lblGameStone = new LblGameStone[3][3][3];
+		
+		// Liste für die Spielsteine initialisieren
+		panelList = new ArrayList<LblGameStone>();
 		
 		// Labels für die Spielsteine einfügen
 		generateJLabels();
@@ -110,6 +118,7 @@ public class GamePanel extends Menu {
 				for(int y=0;y<3;y++){
 					if(! (x==1 && y==1)){
 						lblGameStone[e][x][y] = new LblGameStone(e+1, x+1, y+1, vActions);
+						panelList.add(lblGameStone[e][x][y]);
 						gameField.add(lblGameStone[e][x][y], (x*i+e+1)+", "+(y*i+e+1)+", fill, fill");
 					}
 				}
@@ -128,29 +137,54 @@ public class GamePanel extends Menu {
 	}
 	
 	
+	public ArrayList<LblGameStone> getpanelList(){
+		return panelList;
+	}
+	
+	
 	/**
 	 * Prüft, ob Stack leer ist
-	 * @param stach Zu überprüfender Stack
+	 * @param type Typ des Stacks ("schwarz" oder "weiss")
 	 * @return true/false
 	 */
-	public boolean isStackEmpty(LblStoneStack stack){
-		if(stack.getCountStones() == 0)
-			return true;
-		else
+	public boolean isStackEmpty(String type){
+		switch (type) {
+		case "schwarz":
+			if(schwarzeSteine.getCountStones() == 0)
+				return true;
+			else
+				return false;
+		case "weiss":
+			if(weisseSteine.getCountStones() == 0)
+				return true;
+			else
+				return false;
+		default:
 			return false;
+		}
 	}
 	
 	
 	/**
 	 * Erhöht oder veringert einen Stack
-	 * @param stack Zu ändernder Stack
+	 * @param type Typ des Stacks ("schwarz" oder "weiss")
 	 * @param change Nur 1 und -1 erlaubt
 	 */
-	public void updateStack(LblStoneStack stack, int change){
-		if(change >= 1)
-			stack.setCountStones(stack.getCountStones() + 1);
-		else
-			stack.setCountStones(stack.getCountStones() - 1);
+	public void updateStack(String type, int change){
+		switch (type){
+		case "schwarz":
+			if(change >= 1)
+				schwarzeSteine.setCountStones(schwarzeSteine.getCountStones() + 1);
+			else
+				schwarzeSteine.setCountStones(schwarzeSteine.getCountStones() - 1);
+			break;
+		case "weiss":
+			if(change >= 1)
+				weisseSteine.setCountStones(weisseSteine.getCountStones() + 1);
+			else
+				weisseSteine.setCountStones(weisseSteine.getCountStones() - 1);
+			break;
+		}
 	}
 	
 	
