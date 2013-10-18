@@ -55,9 +55,9 @@ public class GamePanel extends Menu {
 		
 		
 		setLayout(new FormLayout(new ColumnSpec[] {
-				ColumnSpec.decode("1dlu:grow(48)"),
-				ColumnSpec.decode("1dlu:grow(8)"),
-				ColumnSpec.decode("default:grow(23)"),},
+				ColumnSpec.decode("1dlu:grow(62)"),
+				ColumnSpec.decode("1dlu:grow(12)"),
+				ColumnSpec.decode("default:grow(29)"),},
 			new RowSpec[] {
 				RowSpec.decode("default:grow"),}));
 		
@@ -408,20 +408,21 @@ public class GamePanel extends Menu {
 			
 			// Höhe und Breite berechnen
 			int h = getHeight()/4;
-			int w = (int) (getWidth()*0.6);
+			int w = (int) (getWidth()*((double) h / (double) getWidth()));
+			
 			// Bild dynamisch zeichnen
 			for(int i=0;i<remainingStones;i++){
 				if(i>=4 && i<7){
-					g.drawImage(gameStoneImage, getWidth()*15/100, ((i-4)*h)+h/2, w, h, this);
+					g.drawImage(gameStoneImage, getWidth()*15/100 +7, ((i-4)*h)+h/2, w-10, h-10, this);
 					continue;
 				}
 				
 				if(i>=7){
-					g.drawImage(gameStoneImage, getWidth()*15/100, ((i-7)*h)+h/2+h/2, w, h, this);
+					g.drawImage(gameStoneImage, getWidth()*15/100 +7, ((i-7)*h)+h/2+h/2, w-10, h-10, this);
 					continue;
 				}
 				
-				g.drawImage(gameStoneImage, getWidth()*15/100, i*h, w, h, this);
+				g.drawImage(gameStoneImage, getWidth()*15/100 +7, i*h, w-10, h-10, this);
 			}
 		}
 	}
