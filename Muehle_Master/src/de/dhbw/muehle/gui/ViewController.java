@@ -16,6 +16,8 @@ import de.dhbw.muehle.gui.menus.GamePanel.LblGameStone;
 import de.dhbw.muehle.gui.menus.Menu;
 import de.dhbw.muehle.model.spielstein.ISpielstein;
 import de.dhbw.muehle.model.spielstein.Position;
+import de.dhbw.muehle.model.theme.Sound;
+import de.dhbw.muehle.model.theme.Sound.Sounds;
 import de.dhbw.muehle.model.theme.Theme;
 import de.dhbw.muehle.model.theme.ThemeLoader;
 
@@ -37,7 +39,7 @@ public class ViewController implements IViewController {
 
 	public ViewController(Core _core) {
 		thLoader = new ThemeLoader();
-		theme = thLoader.getTheme("Wooden Mill");
+		setTheme("8bit Mill");
 
 		frame = new View(this, theme);
 		core = _core;
@@ -46,6 +48,7 @@ public class ViewController implements IViewController {
 	public void initGui() {
 		frame.setContentPane(frame.mainMenu); // Hauptmenü anzeigen
 		frame.setVisible(true); // Frame anzeigen
+		getTheme().playSound(Sounds.menue); // Hauptmenümusik abspielen
 	}
 
 	public void displayMainMenu() {
@@ -53,6 +56,7 @@ public class ViewController implements IViewController {
 	}
 
 	public void startPvP() {
+		getTheme().stopSound();
 		frame.setContentPane(frame.gamePanel); // GamePanel (Spielbrett)
 	}
 
@@ -69,10 +73,23 @@ public class ViewController implements IViewController {
 	public Theme getTheme() {
 		return theme;
 	}
+	
+	public Theme getTheme(String theme) {
+		return thLoader.getTheme(theme);
+	}
 
+	
 	public void setTheme(Theme theme) {
 		this.theme = theme;
-		frame.setTheme(theme);
+		
+		if(frame != null)
+			frame.setTheme(theme);
+		
+		Sound.setSoundPfad(theme.getSoundPfad());
+	}
+	
+	public void setTheme(String theme) {
+		setTheme(thLoader.getTheme(theme));
 	}
 
 
@@ -86,15 +103,6 @@ public class ViewController implements IViewController {
 
 	public void setCore(Core core) {
 		this.core = core;
-	}
-
-	public Theme getTheme(String theme) {
-		return thLoader.getTheme(theme);
-	}
-
-	public void setTheme(String theme) {
-		this.theme = thLoader.getTheme(theme);
-		frame.setTheme(this.theme);
 	}
 	
 	

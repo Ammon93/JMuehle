@@ -4,10 +4,15 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
+import de.dhbw.muehle.model.theme.Sound.Sounds;
+
 
 public class Theme {
 	
 	private String themePath;
+	
+	private Sound sound;
+	private String soundPath;
 	
 	
 	private Image leiste,
@@ -49,6 +54,9 @@ public class Theme {
 	
 	public Theme(String themePath){
 		this.themePath = themePath;
+		
+		soundPath = themePath + "/Sounds";
+		sound = new Sound();
 	}
 	
 	
@@ -102,6 +110,20 @@ public class Theme {
 	}
 	
 	
+	public void playSound(Sounds sound){
+		if(sound.equals(Sounds.menue))
+			this.sound.playMusic(sound);
+		else
+			this.sound.playSound(sound);
+	}
+	
+	
+	public void stopSound(){
+		this.sound.stopMusic();
+	}
+	
+	
+	
 	/**
 	 * Liefert den Namen der Theme
 	 * @return name
@@ -116,6 +138,14 @@ public class Theme {
 	 */
 	public String getThemePfad() {
 		return themePath;
+	}
+	
+	
+	/**
+	 * @return themePath
+	 */
+	public String getSoundPfad() {
+		return soundPath;
 	}
 	
 	

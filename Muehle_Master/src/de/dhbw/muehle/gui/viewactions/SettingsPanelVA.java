@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 
 import de.dhbw.muehle.gui.ViewController;
 import de.dhbw.muehle.gui.menus.GamePanel.LblGameStone;
+import de.dhbw.muehle.model.theme.Sound.Sounds;
 
 public class SettingsPanelVA {
 	
@@ -37,6 +38,7 @@ public class SettingsPanelVA {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				vController.setTheme("Wooden Mill");
+				vController.getTheme().playSound(Sounds.menue);
 			}
 		}
 		
@@ -44,6 +46,7 @@ public class SettingsPanelVA {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				vController.setTheme("8bit Mill");
+				vController.getTheme().playSound(Sounds.menue);
 			}
 		}
 		
@@ -51,6 +54,7 @@ public class SettingsPanelVA {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				vController.setTheme("Dirty Mill");
+				vController.getTheme().playSound(Sounds.menue);
 			}
 		}
 //	}
