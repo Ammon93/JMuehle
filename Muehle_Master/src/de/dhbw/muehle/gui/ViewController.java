@@ -39,7 +39,7 @@ public class ViewController implements IViewController {
 
 	public ViewController(Core _core) {
 		thLoader = new ThemeLoader();
-		setTheme("8bit Mill");
+		setTheme("Wooden Mill");
 
 		frame = new View(this, theme);
 		core = _core;

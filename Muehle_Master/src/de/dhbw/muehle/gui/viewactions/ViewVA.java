@@ -22,6 +22,8 @@ public class ViewVA {
 	
 	private Rectangle bounds;
 	
+	private boolean maximized;
+	
 	
 	
 	public ViewVA(ViewController vController) {
@@ -42,18 +44,15 @@ public class ViewVA {
 		}
 		
 		public class btnMax implements ActionListener{
-			
-			private boolean max;
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(max){
+				if(maximized){
 					vController.frame.setBounds(bounds);
-					max = false;
+					maximized = false;
 				}else{
 					bounds = vController.frame.getBounds();
 					vController.frame.setBounds(GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds());
-					max = true;
+					maximized = true;
 				}
 				vController.frame.validate();
 				vController.frame.repaint();
@@ -136,6 +135,9 @@ public class ViewVA {
 						prevX = e.getXOnScreen();
 						prevY = e.getYOnScreen();
 					}
+					
+					if(maximized)
+						maximized = false;
 				}
 			}
 

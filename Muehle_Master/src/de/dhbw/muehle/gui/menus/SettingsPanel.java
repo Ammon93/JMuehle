@@ -35,12 +35,12 @@ public class SettingsPanel extends Menu {
 		vActions = new SettingsPanelVA(vController);
 				
 		// Panelgröße festlegen
-		setSize(Size);
+		setSize(1000,600);
 		
 		
 		setLayout(new FormLayout(new ColumnSpec[] {
 				ColumnSpec.decode("25px"),
-				ColumnSpec.decode("max(13px;min):grow(3)"),
+				ColumnSpec.decode("min:grow"),
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(51px;min)"),
 				FormFactory.RELATED_GAP_COLSPEC,
@@ -48,13 +48,13 @@ public class SettingsPanel extends Menu {
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(51px;min)"),
 				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(192px;min):grow(10)"),
+				ColumnSpec.decode("max(390px;min):grow(4)"),
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(149px;min)"),
 				ColumnSpec.decode("25px"),},
 			new RowSpec[] {
 				RowSpec.decode("25px"),
-				RowSpec.decode("max(95px;min):grow"),
+				RowSpec.decode("max(110px;min):grow"),
 				RowSpec.decode("15px"),
 				RowSpec.decode("max(52px;min)"),
 				RowSpec.decode("15px"),
@@ -63,7 +63,7 @@ public class SettingsPanel extends Menu {
 				RowSpec.decode("max(88px;min)"),
 				RowSpec.decode("15px"),
 				RowSpec.decode("max(88px;min)"),
-				RowSpec.decode("15px:grow(3)"),
+				RowSpec.decode("default:grow(3)"),
 				RowSpec.decode("max(52px;min)"),
 				RowSpec.decode("25px"),}));
 		
