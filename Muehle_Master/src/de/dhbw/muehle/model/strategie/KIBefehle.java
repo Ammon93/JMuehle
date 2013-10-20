@@ -391,5 +391,19 @@ public class KIBefehle {
 		//Am Ende wird die Max-Wertigkeit ermittelt und der Zug voll
 		
 	}
+	public void ermittleBesteSetzmöglichkeit(){
+		
+		//Durchlauf der einzelnen Positionen auf dem Spielfeld
+		for(int z=1;z<=3;z++){
+			for (int x=1; x<=3;x++){
+				for(int y=1; y<=3; y++){
+					//überprüfe ob die Position der jeweiligen Zählvariablen frei ist
+					//ÜBerprüfung kann durch die Hashcodes, die in STW und STS gespeichert sind laufen
+					//Man kann selbigen mit den Zählvariablen errechnen
+					//überprüfe welche Wertigkeit an der aktuellen Position für die Zählvariablen erreicht wird
+				}
+			}
+		}
+	}
 	
 }
