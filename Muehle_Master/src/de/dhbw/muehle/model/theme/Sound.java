@@ -14,7 +14,10 @@ public class Sound implements BasicPlayerListener{
 	private static BasicPlayer player;
 	
 	private static String soundPfad;
+	
 	private static boolean musicPlayed;
+	private static boolean fading,
+						   fadingExt;
 	
 	
 	public Sound() {		
@@ -22,6 +25,7 @@ public class Sound implements BasicPlayerListener{
 		player.setSleepTime(1);
 		player.addBasicPlayerListener(this);
 	}
+	
 	
 	
 	private void setEnum(String soundPfad){
@@ -32,6 +36,8 @@ public class Sound implements BasicPlayerListener{
 	
 	
 	private void fade(final String type){
+		fading = fadingExt = true;
+		
 		switch (type) {
 		case "in":
 			try {
@@ -40,22 +46,29 @@ public class Sound implements BasicPlayerListener{
 				Thread.sleep(100);
 				
 				musicPlayed = true;
-				for(double i=0;i<=1;i+=0.01){
+				for(double i=0;i<=1.414;i+=0.001){
+					if(!fadingExt)
+						break;
+					
 					player.setGain(Math.round(i*100d)/100d);
-					Thread.sleep(30);
+					Thread.sleep(1);
 				}
 			} catch (BasicPlayerException | InterruptedException e) {e.printStackTrace();}
 			break;
+		
 		case "out":
-			try {							
-				for(double i=1;i>=0;i-=0.01){
+			try {
+				double actualGain = Math.round((((player.getGainValue()+80d)/86.0206)*1000d)/1000d);
+				for(double i=actualGain;i>=0;i-=0.001){
 					player.setGain(Math.round(i*100d)/100d);
-					Thread.sleep(30);
+					Thread.sleep(1);
 				}
 				player.stop();
 			} catch (BasicPlayerException | InterruptedException e) {e.printStackTrace();}
 			break;
 		}
+		
+		fading = false;
 	}
 	
 	
@@ -64,11 +77,19 @@ public class Sound implements BasicPlayerListener{
 		new Thread(){
 			public void run(){
 				if(player.getStatus()==BasicPlayer.PLAYING){
+					if(fading)
+						fadingExt = false;
+					
+					while(fading)
+						try {
+							Thread.sleep(1);
+						} catch (InterruptedException e) {e.printStackTrace();}
+					
 					musicPlayed = false;
 					fade("out");
 				}
 				
-				try {
+				try {					
 					player.open(ClassLoader.getSystemResource(enumeration.getSound()));
 					fade("in");
 				} catch (BasicPlayerException e) {e.printStackTrace();}
