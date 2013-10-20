@@ -32,4 +32,5 @@ public interface ISpielzug
      * @see IBewegung
      */
     public IBewegung bewegeSpielStein();
+    
 }

@@ -11,6 +11,7 @@ import de.dhbw.muehle.model.spielstein.EPositionIndex;
 import de.dhbw.muehle.model.spielstein.ESpielsteinFarbe;
 import de.dhbw.muehle.model.spielstein.Position;
 import de.dhbw.muehle.model.spielstein.Spielstein;
+import de.dhbw.muehle.model.theme.Sound.Sounds;
 
 /**
  * 
@@ -568,7 +569,7 @@ public class Core {
 							.get(z)
 							.setImage(
 									vController.getTheme()
-											.getSpielSteinWeissTransparent());
+											.getSpielSteinWeissTransparent());				
 				}
 			}
 		}
@@ -749,6 +750,7 @@ public class Core {
 					}
 					ueberpruefen_Muehele_weiss(stone.getPosition());
 					entferneStein_ziehen_weiss();
+					vController.getTheme().playSound(Sounds.steinSetzen);
 
 					if (isMuehle_weiss() == true) {
 						setWeissDran(true);
@@ -788,6 +790,7 @@ public class Core {
 
 				ueberpruefen_Muehele_weiss(stone.getPosition());
 				entferneStein_ziehen_weiss();
+				vController.getTheme().playSound(Sounds.steinSetzen);
 
 				if (isMuehle_weiss() == true) {
 					setWeissDran(true);
@@ -841,6 +844,7 @@ public class Core {
 					}
 					ueberpruefen_Muehele_schwarz(stone.getPosition());
 					entferneStein_ziehen_schwarz();
+					vController.getTheme().playSound(Sounds.steinSetzen);
 
 					if (isMuehle_schwarz() == true) {
 						setWeissDran(false);
@@ -876,6 +880,7 @@ public class Core {
 
 				ueberpruefen_Muehele_schwarz(stone.getPosition());
 				entferneStein_ziehen_schwarz();
+				vController.getTheme().playSound(Sounds.steinSetzen);
 
 				if (isMuehle_schwarz() == true) {
 					setWeissDran(false);
@@ -1029,6 +1034,7 @@ public class Core {
 					vController.frame.gamePanel.weisseSteine, -1);
 			System.out.println(getStW().size());
 			ueberpruefen_Muehele_weiss(stone.getPosition());
+			vController.getTheme().playSound(Sounds.steinSetzen);
 			if (isMuehle_weiss() == true) {
 				setWeissDran(true);
 				setSchwarzDran(false);
@@ -1054,6 +1060,7 @@ public class Core {
 					vController.frame.gamePanel.schwarzeSteine, -1);
 			System.out.println(getStS().size());
 			ueberpruefen_Muehele_schwarz(stone.getPosition());
+			vController.getTheme().playSound(Sounds.steinSetzen);
 			if (isMuehle_schwarz() == true) {
 				setWeissDran(false);
 				setSchwarzDran(true);
