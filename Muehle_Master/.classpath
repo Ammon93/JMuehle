@@ -13,12 +13,8 @@
 	<classpathentry kind="lib" path="lib/sqlite/sqlite-jdbc-3.7.2.jar"/>
 	<classpathentry kind="lib" path="lib/BasicPlayer3.0/lib/commons-logging-api-1.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/BasicPlayer3.0/lib/jl1.0.1.jar"/>
-	<classpathentry kind="lib" path="lib/BasicPlayer3.0/lib/jogg-0.0.7.jar"/>
-	<classpathentry kind="lib" path="lib/BasicPlayer3.0/lib/jorbis-0.0.15.jar"/>
-	<classpathentry kind="lib" path="lib/BasicPlayer3.0/lib/jspeex0.9.7.jar"/>
 	<classpathentry kind="lib" path="lib/BasicPlayer3.0/lib/mp3spi1.9.5.jar"/>
+	<classpathentry kind="lib" path="lib/BasicPlayer3.0/basicplayer3.0.jar" sourcepath="lib/BasicPlayer3.0/src/javazoom/jlgui/basicplayer"/>
 	<classpathentry kind="lib" path="lib/BasicPlayer3.0/lib/tritonus_share.jar"/>
-	<classpathentry kind="lib" path="lib/BasicPlayer3.0/lib/vorbisspi1.0.2.jar"/>
-	<classpathentry kind="lib" path="lib/BasicPlayer3.0/basicplayer3.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

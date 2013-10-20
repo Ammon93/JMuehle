@@ -1,5 +1,7 @@
 package de.dhbw.muehle.model.theme;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Map;
 
 import javazoom.jlgui.basicplayer.BasicController;
@@ -23,7 +25,7 @@ public class Sound implements BasicPlayerListener{
 	public Sound() {		
 		player = new BasicPlayer();
 		player.setSleepTime(1);
-		player.addBasicPlayerListener(this);
+		player.addBasicPlayerListener(this);;
 	}
 	
 	
@@ -53,7 +55,7 @@ public class Sound implements BasicPlayerListener{
 					player.setGain(Math.round(i*100d)/100d);
 					Thread.sleep(1);
 				}
-			} catch (BasicPlayerException | InterruptedException e) {e.printStackTrace();}
+			} catch (InterruptedException | BasicPlayerException e) {e.printStackTrace();}
 			break;
 		
 		case "out":
@@ -64,12 +66,19 @@ public class Sound implements BasicPlayerListener{
 					Thread.sleep(1);
 				}
 				player.stop();
-			} catch (BasicPlayerException | InterruptedException e) {e.printStackTrace();}
+			} catch (InterruptedException | BasicPlayerException e) {e.printStackTrace();}
 			break;
 		}
 		
 		fading = false;
 	}
+	
+	
+	private URL getSoundLocation(Sounds enumeration) throws MalformedURLException{
+		String urlString=ClassLoader.getSystemResource(enumeration.getSound()).toString(); 
+		return new URL(urlString.replaceFirst("file:/", "file:///"));
+	}
+	
 	
 	
 	protected void playMusic(final Sounds enumeration){
@@ -89,10 +98,10 @@ public class Sound implements BasicPlayerListener{
 					fade("out");
 				}
 				
-				try {					
-					player.open(ClassLoader.getSystemResource(enumeration.getSound()));
+				try {
+					player.open(getSoundLocation(enumeration));
 					fade("in");
-				} catch (BasicPlayerException e) {e.printStackTrace();}
+				} catch (BasicPlayerException | MalformedURLException e) {e.printStackTrace();}
 		}}.start();
 	}
 	
@@ -112,9 +121,9 @@ public class Sound implements BasicPlayerListener{
 		musicPlayed = false;
 		
 		try {
-			player.open(ClassLoader.getSystemResource(enumeration.getSound()));
+			player.open(getSoundLocation(enumeration));
 			player.play();
-		} catch (BasicPlayerException e) {
+		} catch (BasicPlayerException | MalformedURLException e) {
 			e.printStackTrace();
 		}
 	}
