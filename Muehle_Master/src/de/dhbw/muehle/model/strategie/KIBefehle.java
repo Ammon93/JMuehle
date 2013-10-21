@@ -1,104 +1,116 @@
 package de.dhbw.muehle.model.strategie;
+import java.util.ArrayList;
 import java.util.List;
+
+import de.dhbw.muehle.core.Core;
+import de.dhbw.muehle.gui.ViewController;
+import de.dhbw.muehle.gui.menus.GamePanel.LblGameStone;
+import de.dhbw.muehle.model.spielstein.Position;
 
 
 public class KIBefehle {
 
-	private boolean bvierSteineSpieler;
-	private boolean bfuenfSteineSpieler;
-	private boolean bsechsSteineSpieler;
-	private boolean bsiebenSteineSpieler;
-	private boolean bachtSteineSpieler;
-	private boolean bneunSteineSpieler;
+	Core core = new Core();
+	List<LblGameStone> StonelistWhite = new ArrayList();
+	List<LblGameStone> StonelistBlack = new ArrayList();
+	private int zugmoeglichkeiten_weiss;
+	private List<Integer> Hashliste_gueltige_Zuege_gesamt_Weiß ;
 	
-	private boolean bvierSteineGegner;
-	private boolean bfuenfSteineGegner;
-	private boolean bsechsSteineGegner;
-	private boolean bsiebenSteineGegner;
-	private boolean bachtSteineGegner;
-	private boolean bneunSteineGegner;
+	private boolean bvierSteineschwarz;
+	private boolean bfuenfSteineschwarz;
+	private boolean bsechsSteineschwarz;
+	private boolean bsiebenSteineschwarz;
+	private boolean bachtSteineschwarz;
+	private boolean bneunSteineschwarz;
+	
+	private boolean bvierSteineweiss;
+	private boolean bfuenfSteineweiss;
+	private boolean bsechsSteineweiss;
+	private boolean bsiebenSteineweiss;
+	private boolean bachtSteineweiss;
+	private boolean bneunSteineweiss;
 
-	private boolean bZweiOderDreiZugmoeglichkeitenSpieler;
-	private boolean bVierOderFuenfZugmoeglichkeitenSpieler;
-	private boolean bSechsOderSiebenZugmoeglichkeitenSpieler;
-	private boolean bAchtOderNeunZugmoeglichkeitenSpieler;
-	private boolean bMehralsZehnZugmoeglichkeitenSpieler;
+	private boolean bZweiOderDreiZugmoeglichkeitenschwarz;
+	private boolean bVierOderFuenfZugmoeglichkeitenschwarz;
+	private boolean bSechsOderSiebenZugmoeglichkeitenschwarz;
+	private boolean bAchtOderNeunZugmoeglichkeitenschwarz;
+	private boolean bMehralsZehnZugmoeglichkeitenschwarz;
 	
-	private boolean bZweiOderDreiZugmoeglichkeitenGegner;
-	private boolean bVierOderFuenfZugmoeglichkeitenGegner;
-	private boolean bSechsOderSiebenZugmoeglichkeitenGegner;
-	private boolean bAchtOderNeunZugmoeglichkeitenGegner;
-	private boolean bMehralsZehnZugmoeglichkeitenGegner;
+	private boolean bZweiOderDreiZugmoeglichkeitenweiss;
+	private boolean bVierOderFuenfZugmoeglichkeitenweiss;
+	private boolean bSechsOderSiebenZugmoeglichkeitenweiss;
+	private boolean bAchtOderNeunZugmoeglichkeitenweiss;
+	private boolean bMehralsZehnZugmoeglichkeitenweiss;
 	
-	private boolean bEineGeschlosseneMuehleSpieler;
-	private boolean bMehrAlsEineGeschlosseneMuehleSpieler;
+	private boolean bEineGeschlosseneMuehleschwarz;
+	private boolean bMehrAlsEineGeschlosseneMuehleschwarz;
 	
-	private boolean bEineGeschlosseneMuehleGegner;
-	private boolean bMehrAlsEineGeschlosseneMuehleGegner;
+	private boolean bEineGeschlosseneMuehleweiss;
+	private boolean bMehrAlsEineGeschlosseneMuehleweiss;
 	
-	private boolean bEineOffeneMuehleSpieler;
-	private boolean bMehrAlsEineOffeneMuehleSpieler;
+	private boolean bEineOffeneMuehleschwarz;
+	private boolean bMehrAlsEineOffeneMuehleschwarz;
 	
-	private boolean bEineOffeneMuehleGegner;
-	private boolean bMehrAlsEineOffeneMuehleGegner;
+	private boolean bEineOffeneMuehleweiss;
+	private boolean bMehrAlsEineOffeneMuehleweiss;
 	
-	private boolean bMehrAlsSiebenPotentielleBewegungenWenigeralsGegnerSpieler;
-	private boolean bZwischenVierUndSechsPotentielleBewegungenWenigeralsGegnerSpieler;
-	private boolean bZwischenZweiBisDreiPotentielleBewegungenWenigeralsGegnerSpieler;
-	private boolean bEinePotentielleBewegungWenigerAlsGegnerSpieler;
-	private boolean bGenauGleichVieleBewegungenGegnerSpieler;
-	private boolean bMehrAlsSiebenPotentielleBewegungenMehralsGegnerSpieler;
-	private boolean bZwischenVierUndSechsPotentielleBewegungenMehralsGegnerSpieler;
-	private boolean bZwischenZweiBisDreiPotentielleBewegungenMehralsGegnerSpieler;
-	private boolean bEinePotentielleBewegungWenigerAlsMehrSpieler;
+	private boolean bMehrAlsSiebenPotentielleBewegungenWenigeralsweissschwarz;
+	private boolean bZwischenVierUndSechsPotentielleBewegungenWenigeralsweissschwarz;
+	private boolean bZwischenZweiBisDreiPotentielleBewegungenWenigeralsweissschwarz;
+	private boolean bEinePotentielleBewegungWenigerAlsweissschwarz;
+	private boolean bGenauGleichVieleBewegungenweissschwarz;
+	private boolean bMehrAlsSiebenPotentielleBewegungenMehralsweissschwarz;
+	private boolean bZwischenVierUndSechsPotentielleBewegungenMehralsweissschwarz;
+	private boolean bZwischenZweiBisDreiPotentielleBewegungenMehralsweissschwarz;
+	private boolean bEinePotentielleBewegungWenigerAlsMehrschwarz;
 	
-	final int ivierSteineSpieler = 10;
-	final int ifuenfSteineSpieler = 15;
-	final int isechsSteineSpieler = 20;
-	final int isiebenSteineSpieler = 25;
-	final int iachtSteineSpieler = 30;
-	final int ineunSteineSpieler = 35;
+	final int ivierSteineschwarz = 10;
+	final int ifuenfSteineschwarz = 15;
+	final int isechsSteineschwarz = 20;
+	final int isiebenSteineschwarz = 25;
+	final int iachtSteineschwarz = 30;
+	final int ineunSteineschwarz = 35;
 	
-	final int ivierSteineGegner = -10;
-	final int ifuenfSteineGegner = -15;
-	final int isechsSteineGegner = -20;
-	final int isiebenSteineGegner = -25;
-	final int iachtSteineGegner = -30;
-	final int ineunSteineGegner = -35;
+	final int ivierSteineweiss = -10;
+	final int ifuenfSteineweiss = -15;
+	final int isechsSteineweiss = -20;
+	final int isiebenSteineweiss = -25;
+	final int iachtSteineweiss = -30;
+	final int ineunSteineweiss = -35;
 
-	final int iZweiOderDreiZugmoeglichkeitenSpieler = 10;
-	final int iVierOderFuenfZugmoeglichkeitenSpieler = 15;
-	final int iSechsOderSiebenZugmoeglichkeitenSpieler = 20;
-	final int iAchtOderNeunZugmoeglichkeitenSpieler = 25;
-	final int iMehralsZehnZugmoeglichkeitenSpieler = 30;
+	final int iZweiOderDreiZugmoeglichkeitenschwarz = 10;
+	final int iVierOderFuenfZugmoeglichkeitenschwarz = 15;
+	final int iSechsOderSiebenZugmoeglichkeitenschwarz = 20;
+	final int iAchtOderNeunZugmoeglichkeitenschwarz = 25;
+	final int iMehralsZehnZugmoeglichkeitenschwarz = 30;
 	
-	final int iZweiOderDreiZugmoeglichkeitenGegner = -10;
-	final int iVierOderFuenfZugmoeglichkeitenGegner = -15;
-	final int iSechsOderSiebenZugmoeglichkeitenGegner = -20;
-	final int iAchtOderNeunZugmoeglichkeitenGegner = -25;
-	final int iMehralsZehnZugmoeglichkeitenGegner = -30;
+	final int iZweiOderDreiZugmoeglichkeitenweiss = -10;
+	final int iVierOderFuenfZugmoeglichkeitenweiss = -15;
+	final int iSechsOderSiebenZugmoeglichkeitenweiss = -20;
+	final int iAchtOderNeunZugmoeglichkeitenweiss = -25;
+	final int iMehralsZehnZugmoeglichkeitenweiss = -30;
 	
-	final int iEineGeschlosseneMuehleSpieler = 1;
-	final int iMehrAlsEineGeschlosseneMuehleSpieler = 2;
+	final int iEineGeschlosseneMuehleschwarz = 1;
+	final int iMehrAlsEineGeschlosseneMuehleschwarz = 2;
 	
-	final int iEineGeschlosseneMuehleGegner = -1;
-	final int iMehrAlsEineGeschlosseneMuehleGegner = -2;
+	final int iEineGeschlosseneMuehleweiss = -1;
+	final int iMehrAlsEineGeschlosseneMuehleweiss = -2;
 	
-	final int iEineOffeneMuehleSpieler = 2;
-	final int iMehrAlsEineOffeneMuehleSpieler = 4;
+	final int iEineOffeneMuehleschwarz = 2;
+	final int iMehrAlsEineOffeneMuehleschwarz = 4;
 	
-	final int iEineOffeneMuehleGegner = -2;
-	final int iMehrAlsEineOffeneMuehleGegner = -4;
+	final int iEineOffeneMuehleweiss = -2;
+	final int iMehrAlsEineOffeneMuehleweiss = -4;
 	
-	final int iMehrAlsSiebenPotentielleBewegungenWenigeralsGegnerSpieler = 16;
-	final int iZwischenVierUndSechsPotentielleBewegungenWenigeralsGegnerSpieler = 8;
-	final int iZwischenZweiBisDreiPotentielleBewegungenWenigeralsGegnerSpieler = 4;
-	final int iEinePotentielleBewegungWenigerAlsGegnerSpieler = 2;
-	final int iGenauGleichVieleBewegungenGegnerSpieler = 0;
-	final int iMehrAlsSiebenPotentielleBewegungenMehralsGegnerSpieler = -16;
-	final int iZwischenVierUndSechsPotentielleBewegungenMehralsGegnerSpieler = -8;
-	final int iZwischenZweiBisDreiPotentielleBewegungenMehralsGegnerSpieler = -4;
-	final int iEinePotentielleBewegungWenigerAlsMehrSpieler = 2;
+	final int iMehrAlsSiebenPotentielleBewegungenWenigeralsweissschwarz = 16;
+	final int iZwischenVierUndSechsPotentielleBewegungenWenigeralsweissschwarz = 8;
+	final int iZwischenZweiBisDreiPotentielleBewegungenWenigeralsweissschwarz = 4;
+	final int iEinePotentielleBewegungWenigerAlsweissschwarz = 2;
+	final int iGenauGleichVieleBewegungenweissschwarz = 0;
+	final int iMehrAlsSiebenPotentielleBewegungenMehralsweissschwarz = -16;
+	final int iZwischenVierUndSechsPotentielleBewegungenMehralsweissschwarz = -8;
+	final int iZwischenZweiBisDreiPotentielleBewegungenMehralsweissschwarz = -4;
+	final int iEinePotentielleBewegungWenigerAlsMehrschwarz = 2;
 	
 	
 	private List<Boolean> Spielzustaende;
@@ -108,278 +120,311 @@ public class KIBefehle {
 	
 	//Listen füllen
 	public void fillList(){
-		Spielzustaende.add(bvierSteineSpieler);
-		Spielzustaende.add(bfuenfSteineSpieler);
-		Spielzustaende.add(bsechsSteineSpieler);	
-		Spielzustaende.add(bsiebenSteineSpieler);
-		Spielzustaende.add(bachtSteineSpieler);
-		Spielzustaende.add(bneunSteineSpieler);
-		Spielzustaende.add(bvierSteineGegner);
-		Spielzustaende.add(bfuenfSteineGegner);
-		Spielzustaende.add(bsechsSteineGegner);	
-		Spielzustaende.add(bsiebenSteineGegner);
-		Spielzustaende.add(bachtSteineGegner);
-		Spielzustaende.add(bneunSteineGegner);
+		Spielzustaende.add(bvierSteineschwarz);
+		Spielzustaende.add(bfuenfSteineschwarz);
+		Spielzustaende.add(bsechsSteineschwarz);	
+		Spielzustaende.add(bsiebenSteineschwarz);
+		Spielzustaende.add(bachtSteineschwarz);
+		Spielzustaende.add(bneunSteineschwarz);
+		Spielzustaende.add(bvierSteineweiss);
+		Spielzustaende.add(bfuenfSteineweiss);
+		Spielzustaende.add(bsechsSteineweiss);	
+		Spielzustaende.add(bsiebenSteineweiss);
+		Spielzustaende.add(bachtSteineweiss);
+		Spielzustaende.add(bneunSteineweiss);
 		
-		Spielzustaende.add(bZweiOderDreiZugmoeglichkeitenSpieler);
-		Spielzustaende.add(bVierOderFuenfZugmoeglichkeitenSpieler);
-		Spielzustaende.add(bSechsOderSiebenZugmoeglichkeitenSpieler);
-		Spielzustaende.add(bAchtOderNeunZugmoeglichkeitenSpieler);
-		Spielzustaende.add(bMehralsZehnZugmoeglichkeitenSpieler);
+		Spielzustaende.add(bZweiOderDreiZugmoeglichkeitenschwarz);
+		Spielzustaende.add(bVierOderFuenfZugmoeglichkeitenschwarz);
+		Spielzustaende.add(bSechsOderSiebenZugmoeglichkeitenschwarz);
+		Spielzustaende.add(bAchtOderNeunZugmoeglichkeitenschwarz);
+		Spielzustaende.add(bMehralsZehnZugmoeglichkeitenschwarz);
 		
-		Spielzustaende.add(bZweiOderDreiZugmoeglichkeitenGegner);
-		Spielzustaende.add(bVierOderFuenfZugmoeglichkeitenGegner);
-		Spielzustaende.add(bSechsOderSiebenZugmoeglichkeitenGegner);
-		Spielzustaende.add(bAchtOderNeunZugmoeglichkeitenGegner);
-		Spielzustaende.add(bMehralsZehnZugmoeglichkeitenGegner);
+		Spielzustaende.add(bZweiOderDreiZugmoeglichkeitenweiss);
+		Spielzustaende.add(bVierOderFuenfZugmoeglichkeitenweiss);
+		Spielzustaende.add(bSechsOderSiebenZugmoeglichkeitenweiss);
+		Spielzustaende.add(bAchtOderNeunZugmoeglichkeitenweiss);
+		Spielzustaende.add(bMehralsZehnZugmoeglichkeitenweiss);
 		
-		Spielzustaende.add(bEineGeschlosseneMuehleSpieler);
-		Spielzustaende.add(bMehrAlsEineGeschlosseneMuehleSpieler);
+		Spielzustaende.add(bEineGeschlosseneMuehleschwarz);
+		Spielzustaende.add(bMehrAlsEineGeschlosseneMuehleschwarz);
 		
-		Spielzustaende.add(bEineGeschlosseneMuehleGegner);
-		Spielzustaende.add(bMehrAlsEineGeschlosseneMuehleGegner);
+		Spielzustaende.add(bEineGeschlosseneMuehleweiss);
+		Spielzustaende.add(bMehrAlsEineGeschlosseneMuehleweiss);
 		
-		Spielzustaende.add(bEineOffeneMuehleSpieler);
-		Spielzustaende.add(bMehrAlsEineOffeneMuehleSpieler);
+		Spielzustaende.add(bEineOffeneMuehleschwarz);
+		Spielzustaende.add(bMehrAlsEineOffeneMuehleschwarz);
 
-		Spielzustaende.add(bEineOffeneMuehleGegner);
-		Spielzustaende.add(bMehrAlsEineOffeneMuehleGegner);
+		Spielzustaende.add(bEineOffeneMuehleweiss);
+		Spielzustaende.add(bMehrAlsEineOffeneMuehleweiss);
 		
-		Spielzustaende.add(bMehrAlsSiebenPotentielleBewegungenWenigeralsGegnerSpieler);
-		Spielzustaende.add(bZwischenVierUndSechsPotentielleBewegungenWenigeralsGegnerSpieler);
-		Spielzustaende.add(bZwischenZweiBisDreiPotentielleBewegungenWenigeralsGegnerSpieler);
-		Spielzustaende.add(bEinePotentielleBewegungWenigerAlsGegnerSpieler);
-		Spielzustaende.add(bGenauGleichVieleBewegungenGegnerSpieler);
-		Spielzustaende.add(bMehrAlsSiebenPotentielleBewegungenMehralsGegnerSpieler);
-		Spielzustaende.add(bZwischenVierUndSechsPotentielleBewegungenMehralsGegnerSpieler);
-		Spielzustaende.add(bZwischenZweiBisDreiPotentielleBewegungenMehralsGegnerSpieler);
-		Spielzustaende.add(bEinePotentielleBewegungWenigerAlsMehrSpieler);
+		Spielzustaende.add(bMehrAlsSiebenPotentielleBewegungenWenigeralsweissschwarz);
+		Spielzustaende.add(bZwischenVierUndSechsPotentielleBewegungenWenigeralsweissschwarz);
+		Spielzustaende.add(bZwischenZweiBisDreiPotentielleBewegungenWenigeralsweissschwarz);
+		Spielzustaende.add(bEinePotentielleBewegungWenigerAlsweissschwarz);
+		Spielzustaende.add(bGenauGleichVieleBewegungenweissschwarz);
+		Spielzustaende.add(bMehrAlsSiebenPotentielleBewegungenMehralsweissschwarz);
+		Spielzustaende.add(bZwischenVierUndSechsPotentielleBewegungenMehralsweissschwarz);
+		Spielzustaende.add(bZwischenZweiBisDreiPotentielleBewegungenMehralsweissschwarz);
+		Spielzustaende.add(bEinePotentielleBewegungWenigerAlsMehrschwarz);
 		
-		Spielzustaendewertigkeit.add(ivierSteineSpieler);
-		Spielzustaendewertigkeit.add(ifuenfSteineSpieler);
-		Spielzustaendewertigkeit.add(isechsSteineSpieler);	
-		Spielzustaendewertigkeit.add(isiebenSteineSpieler);
-		Spielzustaendewertigkeit.add(iachtSteineSpieler);
-		Spielzustaendewertigkeit.add(ineunSteineSpieler);
-		Spielzustaendewertigkeit.add(ivierSteineGegner);
-		Spielzustaendewertigkeit.add(ifuenfSteineGegner);
-		Spielzustaendewertigkeit.add(isechsSteineGegner);	
-		Spielzustaendewertigkeit.add(isiebenSteineGegner);
-		Spielzustaendewertigkeit.add(iachtSteineGegner);
-		Spielzustaendewertigkeit.add(ineunSteineGegner);
+		Spielzustaendewertigkeit.add(ivierSteineschwarz);
+		Spielzustaendewertigkeit.add(ifuenfSteineschwarz);
+		Spielzustaendewertigkeit.add(isechsSteineschwarz);	
+		Spielzustaendewertigkeit.add(isiebenSteineschwarz);
+		Spielzustaendewertigkeit.add(iachtSteineschwarz);
+		Spielzustaendewertigkeit.add(ineunSteineschwarz);
+		Spielzustaendewertigkeit.add(ivierSteineweiss);
+		Spielzustaendewertigkeit.add(ifuenfSteineweiss);
+		Spielzustaendewertigkeit.add(isechsSteineweiss);	
+		Spielzustaendewertigkeit.add(isiebenSteineweiss);
+		Spielzustaendewertigkeit.add(iachtSteineweiss);
+		Spielzustaendewertigkeit.add(ineunSteineweiss);
 		
-		Spielzustaendewertigkeit.add(iZweiOderDreiZugmoeglichkeitenSpieler);
-		Spielzustaendewertigkeit.add(iVierOderFuenfZugmoeglichkeitenSpieler);
-		Spielzustaendewertigkeit.add(iSechsOderSiebenZugmoeglichkeitenSpieler);
-		Spielzustaendewertigkeit.add(iAchtOderNeunZugmoeglichkeitenSpieler);
-		Spielzustaendewertigkeit.add(iMehralsZehnZugmoeglichkeitenSpieler);
+		Spielzustaendewertigkeit.add(iZweiOderDreiZugmoeglichkeitenschwarz);
+		Spielzustaendewertigkeit.add(iVierOderFuenfZugmoeglichkeitenschwarz);
+		Spielzustaendewertigkeit.add(iSechsOderSiebenZugmoeglichkeitenschwarz);
+		Spielzustaendewertigkeit.add(iAchtOderNeunZugmoeglichkeitenschwarz);
+		Spielzustaendewertigkeit.add(iMehralsZehnZugmoeglichkeitenschwarz);
 		
-		Spielzustaendewertigkeit.add(iZweiOderDreiZugmoeglichkeitenGegner);
-		Spielzustaendewertigkeit.add(iVierOderFuenfZugmoeglichkeitenGegner);
-		Spielzustaendewertigkeit.add(iSechsOderSiebenZugmoeglichkeitenGegner);
-		Spielzustaendewertigkeit.add(iAchtOderNeunZugmoeglichkeitenGegner);
-		Spielzustaendewertigkeit.add(iMehralsZehnZugmoeglichkeitenGegner);
+		Spielzustaendewertigkeit.add(iZweiOderDreiZugmoeglichkeitenweiss);
+		Spielzustaendewertigkeit.add(iVierOderFuenfZugmoeglichkeitenweiss);
+		Spielzustaendewertigkeit.add(iSechsOderSiebenZugmoeglichkeitenweiss);
+		Spielzustaendewertigkeit.add(iAchtOderNeunZugmoeglichkeitenweiss);
+		Spielzustaendewertigkeit.add(iMehralsZehnZugmoeglichkeitenweiss);
 		
-		Spielzustaendewertigkeit.add(iEineGeschlosseneMuehleSpieler);
-		Spielzustaendewertigkeit.add(iMehrAlsEineGeschlosseneMuehleSpieler);
+		Spielzustaendewertigkeit.add(iEineGeschlosseneMuehleschwarz);
+		Spielzustaendewertigkeit.add(iMehrAlsEineGeschlosseneMuehleschwarz);
 		
-		Spielzustaendewertigkeit.add(iEineGeschlosseneMuehleGegner);
-		Spielzustaendewertigkeit.add(iMehrAlsEineGeschlosseneMuehleGegner);
+		Spielzustaendewertigkeit.add(iEineGeschlosseneMuehleweiss);
+		Spielzustaendewertigkeit.add(iMehrAlsEineGeschlosseneMuehleweiss);
 		
-		Spielzustaendewertigkeit.add(iEineOffeneMuehleSpieler);
-		Spielzustaendewertigkeit.add(iMehrAlsEineOffeneMuehleSpieler);
+		Spielzustaendewertigkeit.add(iEineOffeneMuehleschwarz);
+		Spielzustaendewertigkeit.add(iMehrAlsEineOffeneMuehleschwarz);
 
-		Spielzustaendewertigkeit.add(iEineOffeneMuehleGegner);
-		Spielzustaendewertigkeit.add(iMehrAlsEineOffeneMuehleGegner);
+		Spielzustaendewertigkeit.add(iEineOffeneMuehleweiss);
+		Spielzustaendewertigkeit.add(iMehrAlsEineOffeneMuehleweiss);
 		
-		Spielzustaendewertigkeit.add(iMehrAlsSiebenPotentielleBewegungenWenigeralsGegnerSpieler);
-		Spielzustaendewertigkeit.add(iZwischenVierUndSechsPotentielleBewegungenWenigeralsGegnerSpieler);
-		Spielzustaendewertigkeit.add(iZwischenZweiBisDreiPotentielleBewegungenWenigeralsGegnerSpieler);
-		Spielzustaendewertigkeit.add(iEinePotentielleBewegungWenigerAlsGegnerSpieler);
-		Spielzustaendewertigkeit.add(iGenauGleichVieleBewegungenGegnerSpieler);
-		Spielzustaendewertigkeit.add(iMehrAlsSiebenPotentielleBewegungenMehralsGegnerSpieler);
-		Spielzustaendewertigkeit.add(iZwischenVierUndSechsPotentielleBewegungenMehralsGegnerSpieler);
-		Spielzustaendewertigkeit.add(iZwischenZweiBisDreiPotentielleBewegungenMehralsGegnerSpieler);
-		Spielzustaendewertigkeit.add(iEinePotentielleBewegungWenigerAlsMehrSpieler);
+		Spielzustaendewertigkeit.add(iMehrAlsSiebenPotentielleBewegungenWenigeralsweissschwarz);
+		Spielzustaendewertigkeit.add(iZwischenVierUndSechsPotentielleBewegungenWenigeralsweissschwarz);
+		Spielzustaendewertigkeit.add(iZwischenZweiBisDreiPotentielleBewegungenWenigeralsweissschwarz);
+		Spielzustaendewertigkeit.add(iEinePotentielleBewegungWenigerAlsweissschwarz);
+		Spielzustaendewertigkeit.add(iGenauGleichVieleBewegungenweissschwarz);
+		Spielzustaendewertigkeit.add(iMehrAlsSiebenPotentielleBewegungenMehralsweissschwarz);
+		Spielzustaendewertigkeit.add(iZwischenVierUndSechsPotentielleBewegungenMehralsweissschwarz);
+		Spielzustaendewertigkeit.add(iZwischenZweiBisDreiPotentielleBewegungenMehralsweissschwarz);
+		Spielzustaendewertigkeit.add(iEinePotentielleBewegungWenigerAlsMehrschwarz);
 	}
 	
 	
-	public void anzahlSpielsteineSpielerpruefen(int spielsteineSpieler){
+	public void anzahlSpielsteineschwarzpruefen(int spielsteineschwarz){
 		//Hier muss Spaeter die Anzahl der Spielsteine aus Sts bzw STw ausgelesen werde
-		if (spielsteineSpieler==9){
-			bneunSteineSpieler=true;
+		if (spielsteineschwarz==9){
+			bneunSteineschwarz=true;
 		}
-		else if(spielsteineSpieler==8){
-			bachtSteineSpieler=true;
+		else if(spielsteineschwarz==8){
+			bachtSteineschwarz=true;
 		}
-		else if(spielsteineSpieler==7){
-			bsiebenSteineSpieler=true;
+		else if(spielsteineschwarz==7){
+			bsiebenSteineschwarz=true;
 		}
-		else if(spielsteineSpieler==6){
-			bsechsSteineSpieler=true;
+		else if(spielsteineschwarz==6){
+			bsechsSteineschwarz=true;
 		}
-		else if(spielsteineSpieler==5){
-			bfuenfSteineSpieler=true;
+		else if(spielsteineschwarz==5){
+			bfuenfSteineschwarz=true;
 		}
-		else if(spielsteineSpieler==4){
-			bvierSteineSpieler=true;
+		else if(spielsteineschwarz==4){
+			bvierSteineschwarz=true;
 		}
 		else{
-			System.out.println("Anzahl der Spielsteine erfolglos durchlaufen Spieler");
+			System.out.println("Anzahl der Spielsteine erfolglos durchlaufen schwarz");
 		}
 	}
 	
-
-	public void anzahlSpielsteineGegnerpruefen(int spielsteineGegner){
+	public void anzahlSpielsteineweisspruefen(int spielsteineweiss){
 		//Hier muss Spaeter die Anzahl der Spielsteine aus Sts bzw STw ausgelesen werde
-		if (spielsteineGegner==9){
-			bneunSteineGegner=true;
+		if (spielsteineweiss==9){
+			bneunSteineweiss=true;
 		}
-		else if(spielsteineGegner==8){
-			bachtSteineGegner=true;
+		else if(spielsteineweiss==8){
+			bachtSteineweiss=true;
 		}
-		else if(spielsteineGegner==7){
-			bsiebenSteineGegner=true;
+		else if(spielsteineweiss==7){
+			bsiebenSteineweiss=true;
 		}
-		else if(spielsteineGegner==6){
-			bsechsSteineGegner=true;
+		else if(spielsteineweiss==6){
+			bsechsSteineweiss=true;
 		}
-		else if(spielsteineGegner==5){
-			bfuenfSteineGegner=true;
+		else if(spielsteineweiss==5){
+			bfuenfSteineweiss=true;
 		}
-		else if(spielsteineGegner==4){
-			bvierSteineGegner=true;
+		else if(spielsteineweiss==4){
+			bvierSteineweiss=true;
 		}
 		else{
-			System.out.println("Anzahl der Spielsteine erfolglos durchlaufen Gegner");
+			System.out.println("Anzahl der Spielsteine erfolglos durchlaufen weiss");
 		}
 	}
 	
-	public void anzahlZugmoeglichkeitenSpieler(int ZugmoeglichkeitenSpieler){
+	public void anzahlZugmoeglichkeitenschwarz(int Zugmoeglichkeitenschwarz){
 		//Hier müssen später alle Möglichen Zugmöglichkeiten !ProStein!
 		//ermittelt werden, bestenfalls in einer anderen, evtl. schon vorhandenen Methode
-		if (ZugmoeglichkeitenSpieler<=10){
-			bMehralsZehnZugmoeglichkeitenSpieler=true;
+		if (Zugmoeglichkeitenschwarz<=10){
+			bMehralsZehnZugmoeglichkeitenschwarz=true;
 		}
-		else if(ZugmoeglichkeitenSpieler==8||ZugmoeglichkeitenSpieler==9){
-			bAchtOderNeunZugmoeglichkeitenSpieler=true;
+		else if(Zugmoeglichkeitenschwarz==8||Zugmoeglichkeitenschwarz==9){
+			bAchtOderNeunZugmoeglichkeitenschwarz=true;
 		}
-		else if(ZugmoeglichkeitenSpieler==6||ZugmoeglichkeitenSpieler==7){
-			bSechsOderSiebenZugmoeglichkeitenSpieler=true;
+		else if(Zugmoeglichkeitenschwarz==6||Zugmoeglichkeitenschwarz==7){
+			bSechsOderSiebenZugmoeglichkeitenschwarz=true;
 		}
-		else if(ZugmoeglichkeitenSpieler==4||ZugmoeglichkeitenSpieler==5){
-			bVierOderFuenfZugmoeglichkeitenSpieler=true;
+		else if(Zugmoeglichkeitenschwarz==4||Zugmoeglichkeitenschwarz==5){
+			bVierOderFuenfZugmoeglichkeitenschwarz=true;
 		}
-		else if(ZugmoeglichkeitenSpieler==2||ZugmoeglichkeitenSpieler==3){
-			bZweiOderDreiZugmoeglichkeitenSpieler=true;
-		}
-		else{
-			System.out.println("Zugmöglichkeiten erfolglos durchlaufen Spieler");
-		}
-	}
-	
-	public void anzahlZugmoeglichkeitenGegner(int ZugmoeglichkeitenGegner){
-		if (ZugmoeglichkeitenGegner<=10){
-			bMehralsZehnZugmoeglichkeitenGegner=true;
-		}
-		else if(ZugmoeglichkeitenGegner==8||ZugmoeglichkeitenGegner==9){
-			bAchtOderNeunZugmoeglichkeitenGegner=true;
-		}
-		else if(ZugmoeglichkeitenGegner==6||ZugmoeglichkeitenGegner==7){
-			bSechsOderSiebenZugmoeglichkeitenGegner=true;
-		}
-		else if(ZugmoeglichkeitenGegner==4||ZugmoeglichkeitenGegner==5){
-			bVierOderFuenfZugmoeglichkeitenGegner=true;
-		}
-		else if(ZugmoeglichkeitenGegner==2||ZugmoeglichkeitenGegner==3){
-			bZweiOderDreiZugmoeglichkeitenGegner=true;
+		else if(Zugmoeglichkeitenschwarz==2||Zugmoeglichkeitenschwarz==3){
+			bZweiOderDreiZugmoeglichkeitenschwarz=true;
 		}
 		else{
-			System.out.println("Zugmöglichkeiten erfolglos durchlaufen Gegner");
+			System.out.println("Zugmöglichkeiten erfolglos durchlaufen schwarz");
 		}
 	}
 	
-	public void anzahlgeschlosseneMuehlenSpieler(int geschlosseneMuehlenSpieler){
-		if (geschlosseneMuehlenSpieler <= 1){
-			bMehrAlsEineGeschlosseneMuehleSpieler=true;
+	public void anzahlZugmoeglichkeitenweiss(int Zugmoeglichkeitenweiss){
+		if (Zugmoeglichkeitenweiss<=10){
+			bMehralsZehnZugmoeglichkeitenweiss=true;
 		}
-		else if(geschlosseneMuehlenSpieler == 1){
-			bEineGeschlosseneMuehleSpieler=true;
+		else if(Zugmoeglichkeitenweiss==8||Zugmoeglichkeitenweiss==9){
+			bAchtOderNeunZugmoeglichkeitenweiss=true;
+		}
+		else if(Zugmoeglichkeitenweiss==6||Zugmoeglichkeitenweiss==7){
+			bSechsOderSiebenZugmoeglichkeitenweiss=true;
+		}
+		else if(Zugmoeglichkeitenweiss==4||Zugmoeglichkeitenweiss==5){
+			bVierOderFuenfZugmoeglichkeitenweiss=true;
+		}
+		else if(Zugmoeglichkeitenweiss==2||Zugmoeglichkeitenweiss==3){
+			bZweiOderDreiZugmoeglichkeitenweiss=true;
+		}
+		else{
+			System.out.println("Zugmöglichkeiten erfolglos durchlaufen weiss");
 		}
 	}
 	
-	public void anzahlgeschlosseneMuehlenGegner(int geschlosseneMuehlenGegner){
-		if (geschlosseneMuehlenGegner <= 1){
-			bMehrAlsEineGeschlosseneMuehleGegner=true;
+	public void anzahlgeschlosseneMuehlenschwarz(int geschlosseneMuehlenschwarz){
+		if (geschlosseneMuehlenschwarz <= 1){
+			bMehrAlsEineGeschlosseneMuehleschwarz=true;
 		}
-		else if(geschlosseneMuehlenGegner == 1){
-			bEineGeschlosseneMuehleGegner=true;
+		else if(geschlosseneMuehlenschwarz == 1){
+			bEineGeschlosseneMuehleschwarz=true;
+		}
+	}
+	
+	public void anzahlgeschlosseneMuehlenweiss(int geschlosseneMuehlenweiss){
+		if (geschlosseneMuehlenweiss <= 1){
+			bMehrAlsEineGeschlosseneMuehleweiss=true;
+		}
+		else if(geschlosseneMuehlenweiss == 1){
+			bEineGeschlosseneMuehleweiss=true;
 		}
 	}
 
-	public void anzahloffeneMuehlenSpieler(int offeneMuehlenSpieler){
-		if (offeneMuehlenSpieler <= 1){
-			bMehrAlsEineOffeneMuehleSpieler=true;
+	public void anzahloffeneMuehlenschwarz(int offeneMuehlenschwarz){
+		if (offeneMuehlenschwarz <= 1){
+			bMehrAlsEineOffeneMuehleschwarz=true;
 		}
-		else if(offeneMuehlenSpieler == 1){
-			bEineOffeneMuehleSpieler=true;
+		else if(offeneMuehlenschwarz == 1){
+			bEineOffeneMuehleschwarz=true;
 		}
 	}
 
-	public void anzahloffeneMuehlenGegner(int offeneMuehlenGegner){
-		if (offeneMuehlenGegner <= 1){
-			bMehrAlsEineOffeneMuehleGegner=true;
+	public void anzahloffeneMuehlenweiss(int offeneMuehlenweiss){
+		if (offeneMuehlenweiss <= 1){
+			bMehrAlsEineOffeneMuehleweiss=true;
 		}
-		else if(offeneMuehlenGegner == 1){
-			bEineOffeneMuehleGegner=true;
+		else if(offeneMuehlenweiss == 1){
+			bEineOffeneMuehleweiss=true;
 		}	
 	}
 	
 	public void bewegungsmoeglichkeitendifferenz(int moeglicheBewegungen){
 		if(moeglicheBewegungen >= 7){
-			bMehrAlsSiebenPotentielleBewegungenMehralsGegnerSpieler=true;
+			bMehrAlsSiebenPotentielleBewegungenMehralsweissschwarz=true;
 		}
 		else if(moeglicheBewegungen == 4||moeglicheBewegungen == 5||moeglicheBewegungen == 6){
-			bZwischenVierUndSechsPotentielleBewegungenMehralsGegnerSpieler=true;
+			bZwischenVierUndSechsPotentielleBewegungenMehralsweissschwarz=true;
 		}
 		else if (moeglicheBewegungen ==2||moeglicheBewegungen==3){
-			bZwischenZweiBisDreiPotentielleBewegungenMehralsGegnerSpieler = true;
+			bZwischenZweiBisDreiPotentielleBewegungenMehralsweissschwarz = true;
 		}
 		else if (moeglicheBewegungen ==1){
-			bEinePotentielleBewegungWenigerAlsMehrSpieler = true;
+			bEinePotentielleBewegungWenigerAlsMehrschwarz = true;
 		}
 		else if (moeglicheBewegungen ==0){
-			bGenauGleichVieleBewegungenGegnerSpieler = true;
+			bGenauGleichVieleBewegungenweissschwarz = true;
 		}
 		else if (moeglicheBewegungen ==-1){
-			bEinePotentielleBewegungWenigerAlsGegnerSpieler = true;
+			bEinePotentielleBewegungWenigerAlsweissschwarz = true;
 		}
 		else if (moeglicheBewegungen ==-2||moeglicheBewegungen == -3){
-			bZwischenZweiBisDreiPotentielleBewegungenWenigeralsGegnerSpieler = true;
+			bZwischenZweiBisDreiPotentielleBewegungenWenigeralsweissschwarz = true;
 		}
 		else if(moeglicheBewegungen == -4||moeglicheBewegungen == -5||moeglicheBewegungen == -6){
-			bZwischenVierUndSechsPotentielleBewegungenWenigeralsGegnerSpieler=true;
+			bZwischenVierUndSechsPotentielleBewegungenWenigeralsweissschwarz=true;
 		}
 		else if(moeglicheBewegungen <= -7){
-			bMehrAlsSiebenPotentielleBewegungenWenigeralsGegnerSpieler=true;
+			bMehrAlsSiebenPotentielleBewegungenWenigeralsweissschwarz=true;
 		}
+	}
+	
+	public void pruefeAlle(){
+		anzahlSpielsteineschwarzpruefen(core.getStW().size());
+		anzahlSpielsteineweisspruefen(core.getStS().size());
+		anzahlZugmoeglichkeitenschwarz();
+		anzahlZugmoeglichkeitenweiss();
+		anzahlgeschlosseneMuehlenschwarz();
+		anzahlgeschlosseneMuehlenweiss();
+		anzahloffeneMuehlenschwarz();
+		anzahloffeneMuehlenweiss();
+		bewegungsmoeglichkeitendifferenz();
+		
+		
 	}
 
 
 	
 //Methode um die Aktuelle Wertigkeit zu berechnen
 	
-	public void aktuelleZugwertigkeitberechnen(List <Boolean> booleanlist, List <Integer> integerlist){
+	public int aktuelleZugwertigkeitberechnen(List <Boolean> booleanlist, List <Integer> integerlist){
 		zugwertigkeit = 0;
 		for(int i =0; i<=booleanlist.size(); i++){
 			if(booleanlist.get(i)==true){
 				zugwertigkeit = zugwertigkeit + integerlist.get(i);
 			}
-		}
+		}	
 		System.out.println("Zugwertigkeit: " + zugwertigkeit);
+		return zugwertigkeit;
 	}
 //Methode um den besten Zug zu ermitteln
 	public void ermittleBestenZug(){
+		if (core.getSpielphase()==1){
+			//An dieser Stelle müssen keine Zugmöglichkeiten geprüft werden
+			//Ebenfalls nicht die MöglicheBewegungsdifferenz
+			int Wert = aktuelleZugwertigkeitberechnen(Spielzustaende, Spielzustaendewertigkeit);
+			
+		}
+		else{
+			//Alle Methoden aufrufen
+			int Wert = aktuelleZugwertigkeitberechnen(Spielzustaende, Spielzustaendewertigkeit);
+		}
+		
+		
+		//final int prime = 31;
+		//int result = 1;
+		//result = prime * result + ebene.getValue();  getValue liefert immer 1 2 oder 3
+		//result = prime * result + x.getValue();                 
+		//result = prime * result + y.getValue();
+		//return result;
+		
 		//for-Schleife, die jeden Spielstein durchläuft und prüft, welche Züge mit dem entsprechenden Stein 
 		//möglich sind.
 		//Für jede mögliche neue Position muss die aktuelleZugwertigkeit berechnet werden
@@ -405,5 +450,56 @@ public class KIBefehle {
 			}
 		}
 	}
+	
+	public void entferneSteindesweisss(){
+		//
+	}
+	public void erstelleStoneListWeiss(){
+		for (int i = 0; i<= core.getStW().size(); i++){
+			for (int j = 0; j<= core.getvController().getFrame().getGamePanel().getPanelList().size(); j++){
+			if ( core.getStW().get(i).getPosition().hashCode()==core.getvController().
+					getFrame().getGamePanel().getPanelList().get(j).getPosition().hashCode()){
+				
+				StonelistWhite.add(core.getvController().getFrame().getGamePanel().getPanelList().get(j));
+				//In dieser Liste finden sich alle Labels, die aktuell von weiß besetzt sind
+			}
+			}
+		}
+	}
+	public void erstelleStoneListSchwarz(){
+		for (int i = 0; i<= core.getStS().size(); i++){
+			for (int j = 0; j<= core.getvController().getFrame().getGamePanel().getPanelList().size(); j++){
+			if ( core.getStS().get(i).getPosition().hashCode()==core.getvController().
+					getFrame().getGamePanel().getPanelList().get(j).getPosition().hashCode()){
+				
+				StonelistBlack.add(core.getvController().getFrame().getGamePanel().getPanelList().get(j));
+				//In dieser Liste finden sich alle Labels, die aktuell von schwarz besetzt sind
+			}
+			}
+		}
+	}
+	public void pruefeZugmoeglichkeitenfueralleSteineweiss(){
+		for (int i = 0; (i<StonelistWhite.size()); i++){
+			core.pruefeZug(StonelistWhite.get(i));
+			//Welche Züge für den einen Spielstein (i) möglich sind
+			for (int j= 0; (j< core.getHashliste_gueltige_Zuege().size()); j++){
+			Hashliste_gueltige_Zuege_gesamt_Weiß.add(core.getHashliste_gueltige_Zuege().get(j));
+			}		
+		}
+		// Hashliste gültige Züge gesamt Weiß beinhaltet die Hashcodes aller möglichen Züge
+		// Nun muss noch geprüft werden, welche dieser Felder durch andere Spielsteine belegt sind
+		// Die Informationen über alle anderen Spielsteine stehen in Stonelist Black und Stone list White
+		 for (int i = 0; i<Hashliste_gueltige_Zuege_gesamt_Weiß.size(); i++){
+			 for (int j = 0; j< StonelistWhite.size(); j++){
+				 //if (Hashliste_gueltige_Zuege_gesamt_Weiß.get(i)==StonelistWhite){
+					 
+				// }
+			 }
+		 }
+		
+	}
+	
+	
+	
 	
 }
