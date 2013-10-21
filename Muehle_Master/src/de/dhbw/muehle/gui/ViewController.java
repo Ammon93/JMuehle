@@ -127,7 +127,7 @@ public class ViewController implements IViewController {
         panel.setPreferredSize(new Dimension(width, height));
         ((FlowLayout) parent.getLayout()).setVgap(vCenter);
         
-        panel.validate();
+        panel.revalidate();
         panel.repaint();
 	}
 	

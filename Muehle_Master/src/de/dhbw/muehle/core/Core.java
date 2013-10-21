@@ -578,7 +578,7 @@ public class Core {
 
 	}
 
-	// überprüft ob der Stein überhaupt ziehen kann
+	// ï¿½berprï¿½ft ob der Stein ï¿½berhaupt ziehen kann
 	public int ueberpruefeZugmoeglichkeit() {
 		int zaehler = 0;
 		for (int i = 0; i < getStW().size(); i++) {
@@ -619,9 +619,7 @@ public class Core {
 							.getGamePanel()
 							.getPanelList()
 							.get(z)
-							.setImage(
-									vController.getTheme()
-											.getSpielSteinWeissTransparent());
+							.setImage("weiss", "trasparent");
 				}
 			}
 		}
@@ -638,7 +636,7 @@ public class Core {
 				&& ueberpruefeZugmoeglichkeit() < Hashliste_gueltige_Zuege
 						.size()) {
 
-			stone.setImage(vController.getTheme().getSpielSteinWeissGewaehlt());
+			stone.setImage("weiss", "gewaehlt");
 			ueberpruefen_Muehele_weiss_vorZug(stone.getPosition());
 			setWeisserStein_angeklickt(true);
 			setWeissDran(true);
@@ -666,9 +664,7 @@ public class Core {
 							.getGamePanel()
 							.getPanelList()
 							.get(z)
-							.setImage(
-									vController.getTheme()
-											.getSpielSteinSchwarzTransparent());
+							.setImage("schwarz", "transparent");
 				}
 			}
 		}
@@ -681,8 +677,7 @@ public class Core {
 		if (getHashliste_Schwarz().contains(stone.getPosition().hashCode())
 				&& ueberpruefeZugmoeglichkeit() < Hashliste_gueltige_Zuege
 						.size()) {
-			stone.setImage(vController.getTheme()
-					.getSpielSteinSchwarzGewaehlt());
+			stone.setImage("schwarz", "gewaehlt");
 			ueberpruefen_Muehele_schwarz_vorZug(stone.getPosition());
 			setSchwarzerStein_angeklickt(true);
 			setSchwarzDran(true);
@@ -736,8 +731,7 @@ public class Core {
 						Hashliste_Weiss
 								.add(StW.get(i).getPosition().hashCode());
 						transparenteSteine_entfernen(Transparent_Spielsteine_Weiss);
-						stone.setImage(vController.getTheme()
-								.getSpielSteinWeiss());
+						stone.setImage("weiss");
 
 					}
 
@@ -768,8 +762,7 @@ public class Core {
 						Hashliste_Schwarz.add(StS.get(i).getPosition()
 								.hashCode());
 						transparenteSteine_entfernen(Transparent_Spielsteine_Schwarz);
-						stone.setImage(vController.getTheme()
-								.getSpielSteinSchwarz());
+						stone.setImage("schwarz");
 
 					}
 
@@ -1084,7 +1077,7 @@ public class Core {
 			erzeugeSpielsteinweiss(stone.getPosition().getEbene(), stone
 					.getPosition().getX(), stone.getPosition().getY(),
 					stone.getPosition());
-			stone.setImage(vController.getTheme().getSpielSteinWeiss());
+			stone.setImage("weiss");
 			vController.frame.gamePanel.updateStack("weiss", -1);
 			System.out.println(getStW().size());
 			ueberpruefen_Muehele_weiss(stone.getPosition());
@@ -1108,7 +1101,7 @@ public class Core {
 			erzeugeSpielsteinschwarz(stone.getPosition().getEbene(), stone
 					.getPosition().getX(), stone.getPosition().getY(),
 					stone.getPosition());
-			stone.setImage(vController.getTheme().getSpielSteinSchwarz());
+			stone.setImage("schwarz");
 			vController.frame.gamePanel.updateStack("schwarz", -1);
 			System.out.println(getStS().size());
 			ueberpruefen_Muehele_schwarz(stone.getPosition());

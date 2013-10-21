@@ -3,6 +3,8 @@ package de.dhbw.muehle.gui.viewactions;
 import java.awt.event.HierarchyBoundsListener;
 import java.awt.event.HierarchyEvent;
 
+import javax.sound.sampled.ReverbType;
+
 import de.dhbw.muehle.gui.ViewController;
 import de.dhbw.muehle.gui.menus.Menu;
 

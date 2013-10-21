@@ -123,7 +123,7 @@ public class GamePanel extends Menu {
 			for(int x=0;x<3;x++){
 				for(int y=0;y<3;y++){
 					if(! (x==1 && y==1)){
-						lblGameStone[e][x][y] = new LblGameStone(e+1, x+1, y+1, vActions);
+						lblGameStone[e][x][y] = new LblGameStone(e+1, x+1, y+1, view, vActions);
 						panelList.add(lblGameStone[e][x][y]);
 						gameField.add(lblGameStone[e][x][y], (x*i+e+1)+", "+(y*i+e+1)+", fill, fill");
 					}
@@ -237,18 +237,71 @@ public class GamePanel extends Menu {
     
 	public class LblGameStone extends JLabel{
 		
-		private Image image;
+		private Image steinImage;
 		private Position pos;
 		
+		private View view;
 		
-		public LblGameStone(){}
+		private String color,
+					   type;
 		
-		public LblGameStone(int ebene, int x, int y, GamePanelVA vActions) {	
+		
+		public LblGameStone(String color, View view) {
+			this(color, "", view);
+		}
+		
+		public LblGameStone(String color, String type, View view){
+			this.color = color;
+			this.type = type;
+			this.view = view;
+		}
+		
+		public LblGameStone(int ebene, int x, int y, View view, GamePanelVA vActions) {
+			this.view = view;
 			pos = new Position(ebene, x, y);
 			
 			setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			addMouseListener(vActions.new lblGameStoneMouse());
 		}
+		
+		public LblGameStone(String color, String type, int ebene, int x, int y, View view, GamePanelVA vActions) {
+			this(color, type, view);
+			
+			pos = new Position(ebene, x, y);
+			
+			setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			addMouseListener(vActions.new lblGameStoneMouse());
+		}
+		
+		
+		/**
+		 * dynamisches Update der Bilder
+		 * @param color
+		 * @param type
+		 */
+		private void updateImage(String color, String type){
+			switch (color) {
+			case "weiss":
+				if(type.isEmpty())
+					steinImage = view.getTheme().getSpielSteinWeiss();
+				else if(type.equals("gewaehlt"))
+					steinImage = view.getTheme().getSpielSteinWeissGewaehlt();
+				else if(type.equals("transparent"))
+					steinImage = view.getTheme().getSpielSteinWeissTransparent();
+				break;
+				
+			case "schwarz":
+				if(type.isEmpty())
+					steinImage = view.getTheme().getSpielSteinSchwarz();
+				else if(type.equals("gewaehlt"))
+					steinImage = view.getTheme().getSpielSteinSchwarzGewaehlt();
+				else if(type.equals("transparent"))
+					steinImage = view.getTheme().getSpielSteinSchwarzTransparent();
+				break;
+			}
+		}
+		
+		
 		
 		
 		/**
@@ -265,8 +318,14 @@ public class GamePanel extends Menu {
 		 * <br/>Dadurch wird der Stein sichtbar
 		 * @param image Bild, das auf dem Label gezeichnet werden soll
 		 */
-		public void setImage(Image image){
-			this.image = image;
+		public void setImage(String color){
+			setImage(color, "");
+		}
+		
+		public void setImage(String color, String type){
+			this.color = color;
+			this.type = type;
+			
 			repaint();
 		}
 		
@@ -276,7 +335,7 @@ public class GamePanel extends Menu {
 		 * <br/>Dadurch wird es unsichtbar
 		 */
 		public void removeImage(){
-			this.image = null;
+			this.steinImage = null;
 			repaint();
 		}
 		
@@ -286,8 +345,11 @@ public class GamePanel extends Menu {
 		 */
 		@Override
 		public void paintComponent(Graphics g) {
+			if(!(color == null) || !(type == null))
+				updateImage(color, type);
+			
 			// Bild dynamisch zeichnen
-			g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+			g.drawImage(steinImage, 0, 0, getWidth(), getHeight(), this);
 		}
 	}
 	
@@ -421,10 +483,10 @@ public class GamePanel extends Menu {
 					RowSpec.decode("max(41px;default):grow(50)"),}));
 			add(infoPanel, "1, 1, 3, 1, fill, fill");
 			
-				lblSpielSteinSpieler1 = new LblGameStone();
+				lblSpielSteinSpieler1 = new LblGameStone("weiss", view);
 				infoPanel.add(lblSpielSteinSpieler1, "2, 2, fill, fill");
 				
-				lblSpielSteinSpieler2 = new LblGameStone();
+				lblSpielSteinSpieler2 = new LblGameStone("schwarz", view);
 				infoPanel.add(lblSpielSteinSpieler2, "4, 2, fill, fill");
 				
 				lblSpieler1 = new JLabel();
@@ -505,22 +567,24 @@ public class GamePanel extends Menu {
 		
 		public void changePlayer(){
 			if(weissDran){
-				lblSpielSteinSpieler1.setImage(view.getTheme().getSpielSteinWeiss());
-				lblSpielSteinSpieler2.setImage(view.getTheme().getSpielSteinSchwarzTransparent());
+				lblSpielSteinSpieler1.setImage("weiss");
+				lblSpielSteinSpieler2.setImage("schwarz", "transparent");
 				
 				lblSpieler1.setFont(new Font("Arial", Font.BOLD, 14));
 				lblSpieler2.setFont(new Font("Arial", Font.PLAIN, 14));
 				
 				weissDran = false;
 			}else{
-				lblSpielSteinSpieler1.setImage(view.getTheme().getSpielSteinWeissTransparent());
-				lblSpielSteinSpieler2.setImage(view.getTheme().getSpielSteinSchwarz());
+				lblSpielSteinSpieler1.setImage("weiss", "transparent");
+				lblSpielSteinSpieler2.setImage("schwarz");
 				
 				lblSpieler1.setFont(new Font("Arial", Font.PLAIN, 14));
 				lblSpieler2.setFont(new Font("Arial", Font.BOLD, 14));
 				
 				weissDran = true;
 			}
+			
+			repaint();
 		}
 	}
 	
