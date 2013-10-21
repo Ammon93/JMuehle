@@ -39,7 +39,8 @@ public class Core {
 
 	// In den Listen StW und StS werden alle Spielsteine gespeichert
 	private List<Spielstein> StW, StS;
-	private List<LblGameStone> Transparent_Spielsteine;
+	private List<LblGameStone> Transparent_Spielsteine_Weiss;
+	private List<LblGameStone> Transparent_Spielsteine_Schwarz;
 
 	// Durch diese Boolean wird der Spielablauf bestimmt
 	private boolean schwarzDran;
@@ -243,7 +244,8 @@ public class Core {
 		model = new Model();
 		StW = new ArrayList<Spielstein>();
 		StS = new ArrayList<Spielstein>();
-		Transparent_Spielsteine = new ArrayList<LblGameStone>();
+		Transparent_Spielsteine_Weiss = new ArrayList<LblGameStone>();
+		Transparent_Spielsteine_Schwarz = new ArrayList<LblGameStone>();
 		Hashliste_Weiss = new ArrayList<Integer>();
 		Hashliste_Schwarz = new ArrayList<Integer>();
 		Hashliste_gueltige_Zuege = new ArrayList<Integer>();
@@ -479,7 +481,6 @@ public class Core {
 	// wird
 	public void ueberpruefen_Muehele_schwarz_vorZug(Position pos) {
 		Muehle_schwarz = false;
-		Transparent_Spielsteine.clear();
 		int zaehler1 = 0;
 		int zaehler2 = 0;
 		int zaehler3 = 0;
@@ -536,7 +537,7 @@ public class Core {
 	}
 
 	public void angeklicktSetzen_weiss(LblGameStone stone) {
-		Transparent_Spielsteine.clear();
+		Transparent_Spielsteine_Weiss.clear();
 		int zaehler = 0;
 		pruefeZug(angeklickterStein);
 		for (int i = 0; i < getStW().size(); i++) {
@@ -561,7 +562,7 @@ public class Core {
 								.get(j))
 						&& !Hashliste_Weiss.contains(Hashliste_gueltige_Zuege
 								.get(j)) && Hashliste_Weiss.contains(stone.getPosition().hashCode())) {
-					Transparent_Spielsteine.add(vController.getFrame().getGamePanel().getPanelList().get(z));
+					Transparent_Spielsteine_Weiss.add(vController.getFrame().getGamePanel().getPanelList().get(z));
 					vController
 							.getFrame()
 							.getGamePanel()
@@ -609,7 +610,7 @@ public class Core {
 								.get(j))
 						&& !Hashliste_Weiss.contains(Hashliste_gueltige_Zuege
 								.get(j)) && Hashliste_Schwarz.contains(stone.getPosition().hashCode())) {
-					Transparent_Spielsteine.add(vController.getFrame().getGamePanel().getPanelList().get(z));
+					Transparent_Spielsteine_Schwarz.add(vController.getFrame().getGamePanel().getPanelList().get(z));
 					vController
 							.getFrame()
 							.getGamePanel()
@@ -677,7 +678,7 @@ public class Core {
 						System.out.println(StW.get(i).getPosition().hashCode());
 						Hashliste_Weiss
 								.add(StW.get(i).getPosition().hashCode());
-						transparenteSteine_entfernen(Transparent_Spielsteine);
+						transparenteSteine_entfernen(Transparent_Spielsteine_Weiss);
 						stone.setImage(vController.getTheme()
 								.getSpielSteinWeiss());
 						
@@ -710,7 +711,7 @@ public class Core {
 						System.out.println(StS.get(i).getPosition().hashCode());
 						Hashliste_Schwarz.add(StS.get(i).getPosition()
 								.hashCode());
-						transparenteSteine_entfernen(Transparent_Spielsteine);
+						transparenteSteine_entfernen(Transparent_Spielsteine_Schwarz);
 						stone.setImage(vController.getTheme()
 								.getSpielSteinSchwarz());
 						
