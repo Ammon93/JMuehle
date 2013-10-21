@@ -11,6 +11,7 @@ import de.dhbw.muehle.model.spielstein.EPositionIndex;
 import de.dhbw.muehle.model.spielstein.ESpielsteinFarbe;
 import de.dhbw.muehle.model.spielstein.Position;
 import de.dhbw.muehle.model.spielstein.Spielstein;
+import de.dhbw.muehle.model.strategie.KIBefehle;
 import de.dhbw.muehle.model.theme.Sound.Sounds;
 
 /**
@@ -26,6 +27,7 @@ public class Core {
 
 	private ViewController vController;
 	private Model model;
+	private KIBefehle KI;
 
 	public ViewController getvController() {
 		return vController;
@@ -272,6 +274,7 @@ public class Core {
 		index1s = new ArrayList<Spielstein>();
 		index2s = new ArrayList<Spielstein>();
 		index3s = new ArrayList<Spielstein>();
+		KI = new KIBefehle(this);
 
 	}
 
@@ -606,6 +609,7 @@ public class Core {
 
 		pruefeZug(angeklickterStein);
 		transparentsetzenSteine_weiss(stone);
+		KI.pruefeAlle();
 
 		if (getHashliste_Weiss().contains(stone.getPosition().hashCode())
 				&& ueberpruefeZugmoeglichkeit() < Hashliste_gueltige_Zuege
@@ -650,6 +654,7 @@ public class Core {
 	public void angeklicktSetzen_schwarz(LblGameStone stone) {
 		pruefeZug(angeklickterStein);
 		transparentsetzenSteine_schwarz(stone);
+		KI.pruefeAlle();
 		if (getHashliste_Schwarz().contains(stone.getPosition().hashCode())
 				&& ueberpruefeZugmoeglichkeit() < Hashliste_gueltige_Zuege
 						.size()) {
@@ -1098,19 +1103,19 @@ public class Core {
 			}
 
 		}
-		// if (getStS().size() + getStW().size() >=8) {
-		// setSpielphase(2);
-		// }
+		 if (getStS().size() + getStW().size() >=4) {
+	setSpielphase(2);
+		 }
 
 		// System.out.println(core.isWeissDran());
 		// System.out.println(core.isSchwarzDran());
 		// }
-		if (vController.frame.gamePanel.isStackEmpty("weiss",
-				vController.frame.gamePanel.weisseSteine)
-				&& vController.frame.gamePanel.isStackEmpty("schwarz",
-						vController.frame.gamePanel.schwarzeSteine)) {
-			setSpielphase(2);
-		}
+//		if (vController.frame.gamePanel.isStackEmpty("weiss",
+//				vController.frame.gamePanel.weisseSteine)
+//				&& vController.frame.gamePanel.isStackEmpty("schwarz",
+//						vController.frame.gamePanel.schwarzeSteine)) {
+//			setSpielphase(2);
+//		}
 	}
 
 	public void entferneSteinWeiss(LblGameStone stone) {
