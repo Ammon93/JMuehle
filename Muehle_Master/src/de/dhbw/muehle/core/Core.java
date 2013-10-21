@@ -27,6 +27,14 @@ public class Core {
 	private ViewController vController;
 	private Model model;
 
+	public ViewController getvController() {
+		return vController;
+	}
+
+	public void setvController(ViewController vController) {
+		this.vController = vController;
+	}
+
 	/**
 	 * Diese Hashlisten dienen als Zwischenspeicher der Hashcodes welche die
 	 * Klasse Position erstellt. Sie sind Notwendig um sp�ter zu
@@ -238,6 +246,14 @@ public class Core {
 	}
 
 	// Konstruktor
+
+	public List<Integer> getHashliste_gueltige_Zuege() {
+		return Hashliste_gueltige_Zuege;
+	}
+
+	public void setHashliste_gueltige_Zuege(List<Integer> hashliste_gueltige_Zuege) {
+		Hashliste_gueltige_Zuege = hashliste_gueltige_Zuege;
+	}
 
 	public Core() {
 		vController = new ViewController(this);
