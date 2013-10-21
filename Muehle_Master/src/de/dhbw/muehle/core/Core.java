@@ -554,6 +554,7 @@ public class Core {
 
 		return zaehler;
 	}
+	
 
 	public void transparentsetzenSteine_weiss(LblGameStone stone) {
 		Transparent_Spielsteine_Weiss.clear();
