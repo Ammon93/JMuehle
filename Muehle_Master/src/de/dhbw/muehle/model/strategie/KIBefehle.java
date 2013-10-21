@@ -335,7 +335,7 @@ public class KIBefehle {
 		}	
 	}
 	
-	public void bewegungsmöglichkeitendifferenz(int moeglicheBewegungen){
+	public void bewegungsmoeglichkeitendifferenz(int moeglicheBewegungen){
 		if(moeglicheBewegungen >= 7){
 			bMehrAlsSiebenPotentielleBewegungenMehralsGegnerSpieler=true;
 		}
@@ -391,7 +391,7 @@ public class KIBefehle {
 		//Am Ende wird die Max-Wertigkeit ermittelt und der Zug voll
 		
 	}
-	public void ermittleBesteSetzmöglichkeit(){
+	public void ermittleBesteSetzmoeglichkeit(){
 		
 		//Durchlauf der einzelnen Positionen auf dem Spielfeld
 		for(int z=1;z<=3;z++){
