@@ -64,8 +64,8 @@ public class ViewController implements IViewController {
 		frame.setContentPane(frame.settingsPanel);
 	}
 
-	public void changePlayer(int spielerNr, String type) {
-		frame.gamePanel.setLblStatus(spielerNr, type);
+	public void changePlayer() {
+		frame.gamePanel.changePlayer();
 	}
 
 

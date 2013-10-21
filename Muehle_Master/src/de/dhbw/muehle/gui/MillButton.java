@@ -52,6 +52,9 @@ public class MillButton extends JButton{
 		case "Mehrspieler":
 			background = theme.getBtnPvP();
 			break;
+		case "Neustart":
+			background = theme.getBtnNeustart();
+			break;
 		case "OK":
 			background = theme.getBtnOK();
 			break;

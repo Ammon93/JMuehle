@@ -39,6 +39,7 @@ public class Theme {
 				  btnEinstellungen,
 				  btnPvE,
 				  btnPvP,
+				  btnNeustart,
 				  btnHilfe,
 				  btnOK,
 				  btnZumMenue,
@@ -46,8 +47,10 @@ public class Theme {
 				  btnX,
 				  btnZurueck;
 	
-	private Image siegerPvE,
-				  siegerPvP,
+	private Image siegerPvEWeiss,
+				  siegerPvESchwarz,
+				  siegerPvPWeiss,
+				  siegerPvPSchwarz,
 				  verlierer;
 	
 	
@@ -101,11 +104,18 @@ public class Theme {
 		btnEinstellungen = null;
 		btnPvE = null;
 		btnPvP = null;
+		btnNeustart = null;
 		btnHilfe = null;
 		btnOK = null;
+		btnTheme = null;
+		btnX = null;
+		btnZumMenue = null;
+		btnZurueck = null;
 
-		siegerPvE = null;
-		siegerPvP = null;
+		siegerPvEWeiss = null;
+		siegerPvESchwarz = null;
+		siegerPvPWeiss = null;
+		siegerPvPSchwarz = null;
 		verlierer = null;
 	}
 	
@@ -305,6 +315,14 @@ public class Theme {
 		public Image getBtnPvP() {
 			return btnPvP = returnImage("/Buttons/Mehrspieler.png", btnPvP);
 		}
+		
+		
+		/**
+		 * @return btnNeustart
+		 */
+		public Image getBtnNeustart() {
+			return btnNeustart = returnImage("/Buttons/Neustart.png", btnNeustart);
+		}
 	
 	
 		/**
@@ -356,18 +374,34 @@ public class Theme {
 
 
 		/**
-		 * @return siegerPvE
+		 * @return siegerPvEWeiss
 		 */
-		public Image getSiegerPvE() {
-			return siegerPvE = returnImage("/SiegerbildVerliererbild/Siegerbild/SiegerHumanvspcschwarz.png", siegerPvE);
+		public Image getSiegerPvEWeiss() {
+			return siegerPvEWeiss = returnImage("/SiegerbildVerliererbild/Siegerbild/SiegerHumanvspcschwarz.png", siegerPvEWeiss);
+		}
+		
+		
+		/**
+		 * @return siegerPvESchwarz
+		 */
+		public Image getSiegerPvESchwarz() {
+			return siegerPvESchwarz = returnImage("/SiegerbildVerliererbild/Siegerbild/SiegerHumanvspcschwarz.png", siegerPvESchwarz);
 		}
 	
 	
 		/**
-		 * @return siegerPvP
+		 * @return siegerPvPWeiss
 		 */
-		public Image getSiegerPvP() {
-			return siegerPvP = returnImage("/SiegerbildVerliererbild/Siegerbild/SiegerHumanvshumanschwarz.png", siegerPvP);
+		public Image getSiegerPvPWeiss() {
+			return siegerPvPWeiss = returnImage("/SiegerbildVerliererbild/Siegerbild/SiegerHumanvshumanschwarz.png", siegerPvPWeiss);
+		}
+		
+		
+		/**
+		 * @return siegerPvPSchwarz
+		 */
+		public Image getSiegerPvPSchwarz() {
+			return siegerPvPSchwarz = returnImage("/SiegerbildVerliererbild/Siegerbild/SiegerHumanvshumanschwarz.png", siegerPvPSchwarz);
 		}
 	
 	

@@ -25,7 +25,7 @@ public class Sound implements BasicPlayerListener{
 	public Sound() {		
 		player = new BasicPlayer();
 		player.setSleepTime(1);
-		player.addBasicPlayerListener(this);;
+		player.addBasicPlayerListener(this);
 	}
 	
 	
@@ -76,7 +76,7 @@ public class Sound implements BasicPlayerListener{
 	
 	private URL getSoundLocation(Sounds enumeration) throws MalformedURLException{
 		String urlString=ClassLoader.getSystemResource(enumeration.getSound()).toString(); 
-		return new URL(urlString.replaceFirst("file:/", "file:///"));
+		return new URL(urlString.replaceFirst("file:", "file:///"));
 	}
 	
 	
@@ -163,11 +163,10 @@ public class Sound implements BasicPlayerListener{
 	
 	public enum Sounds{
 		menue("MENUE"),
-		steinSetzen("STEIN"),
-		loser1("LOSER001"),
-		loser2("LOSER002"),
-		winner1("WINNER001"),
-		winner2("WINNER002");
+		steinSetzen("Stein"),
+		loser("Loser"),
+		winner("Winner"),
+		error("Disabled");
 		
 		private String soundVerzeichnis,
 					   mp3DateiName;

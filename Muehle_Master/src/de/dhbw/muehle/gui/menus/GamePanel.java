@@ -1,20 +1,24 @@
 package de.dhbw.muehle.gui.menus;
 
-import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.HierarchyBoundsListener;
+import java.awt.event.HierarchyEvent;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
+import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 
+import de.dhbw.muehle.gui.MillButton;
 import de.dhbw.muehle.gui.View;
 import de.dhbw.muehle.gui.ViewController;
 import de.dhbw.muehle.gui.viewactions.GamePanelVA;
@@ -23,21 +27,12 @@ import de.dhbw.muehle.model.spielstein.Position;
 public class GamePanel extends Menu {
 	
 	private JPanel gameField;
-	private LblStatus lblStatus;
-	private LblGameStone lblGameStone[][][];
-	public LblStoneStack schwarzeSteine;
+	private InfoField infoField;
+	private WinLose winLose;
 	
-	public ArrayList<LblGameStone> getPanelList() {
-		return panelList;
-	}
-
-
-	public void setPanelList(ArrayList<LblGameStone> panelList) {
-		this.panelList = panelList;
-	}
-
-
-	public LblStoneStack weisseSteine;
+	private LblGameStone lblGameStone[][][];
+	private LblStoneStack schwarzeSteine;
+	private LblStoneStack weisseSteine;
 	
 	private GamePanelVA vActions;
 	
@@ -55,11 +50,15 @@ public class GamePanel extends Menu {
 		
 		
 		setLayout(new FormLayout(new ColumnSpec[] {
-				ColumnSpec.decode("1dlu:grow(62)"),
-				ColumnSpec.decode("1dlu:grow(12)"),
-				ColumnSpec.decode("default:grow(29)"),},
+				ColumnSpec.decode("max(597px;default):grow(62)"),
+				ColumnSpec.decode("max(103px;default):grow(12)"),
+				ColumnSpec.decode("max(300px;default):grow(29)"),},
 			new RowSpec[] {
 				RowSpec.decode("default:grow"),}));
+		
+		
+		winLose = new WinLose(view);
+		add(winLose, "1, 1, 3, 1, fill, fill");
 		
 		gameField = new JPanel();
 		gameField.setOpaque(false);
@@ -81,9 +80,6 @@ public class GamePanel extends Menu {
 				RowSpec.decode("default:grow"),
 				RowSpec.decode("default:grow"),}));
 		
-		lblStatus = new LblStatus(view);
-		add(lblStatus, "1, 1, fill, fill");
-		lblStatus.setText(2, "weiss");
 		
 		JPanel stoneField = new JPanel();
 		stoneField.setOpaque(false);
@@ -102,9 +98,8 @@ public class GamePanel extends Menu {
 		schwarzeSteine = new LblStoneStack(view, "schwarz", 9);
 		stoneField.add(schwarzeSteine, "1, 3, fill, fill");
 		
-		JPanel panel = new JPanel();
-		panel.setOpaque(false);
-		add(panel, "3, 1, fill, fill");
+		infoField = new InfoField(view);
+		add(infoField, "3, 1, fill, fill");
 		
 		
 		
@@ -148,7 +143,7 @@ public class GamePanel extends Menu {
 	}
 	
 	
-	public ArrayList<LblGameStone> getpanelList(){
+	public ArrayList<LblGameStone> getPanelList(){
 		return panelList;
 	}
 	
@@ -159,7 +154,7 @@ public class GamePanel extends Menu {
 	 * @param weisseSteine2 
 	 * @return true/false
 	 */
-	public boolean isStackEmpty(String type, LblStoneStack weisseSteine2){
+	public boolean isStackEmpty(String type){
 		switch (type) {
 		case "schwarz":
 			if(schwarzeSteine.getCountStones() == 0)
@@ -183,7 +178,7 @@ public class GamePanel extends Menu {
 	 * @param weisseSteine2 
 	 * @param change Nur 1 und -1 erlaubt
 	 */
-	public void updateStack(String type, LblStoneStack weisseSteine2, int change){
+	public void updateStack(String type, int change){
 		switch (type){
 		case "schwarz":
 			if(change >= 1)
@@ -201,8 +196,26 @@ public class GamePanel extends Menu {
 	}
 	
 	
-	public void setLblStatus(int spielerNr, String type){
-		lblStatus.setText(spielerNr, type);
+	public void changePlayer(){
+		infoField.changePlayer();
+	}
+	
+	
+	public void info(String infoMessage){
+		infoField.info(infoMessage);
+	}
+	
+	
+	/**
+	 * Zeigt den GameOver-Bildschirm an
+	 * 
+	 * @param winLose gibt an, ob gewonnen oder verloren wurde ("win" oder "lose")
+	 * @param color die Farbe, die gewonnen/verloren hat ("weiss" oder "schwarz")
+	 * @param gameMode Spielmodus ("PvE" oder "PvP")
+	 */
+	public void displayGameOver(String winLose, String color, String gameMode){
+		this.winLose.setImage(winLose, color, gameMode);
+		this.winLose.setVisible(true);
 	}
 	
 	
@@ -216,82 +229,19 @@ public class GamePanel extends Menu {
     	// Hintergrundbild dynamisch zeichnen
         g.drawImage(view.getTheme().getSpielBrett(), 0, 0, getWidth(), getHeight(), this);
     }
-
-
-
-
-    public class LblStatus extends JLabel{
-    	
-    	private View view;
-    	private Image image;
-    	private String type;
-    	
-    	
-    	
-    	public LblStatus(View view) {
-			this(view, "");
-		}
-    	    	
-    	public LblStatus(View view, String type) {
-			this.view = view;
-			this.type = type;
-			setImage(type);
-			
-			setHorizontalAlignment(SwingConstants.CENTER);
-			setFont(new Font("Arial", Font.BOLD, 14));
-		}
-    	
-    	
-    	
-    	/**
-		 * Die Farbe für den Spielstein setzen
-		 * @param type Typ des Spielsteins ("schwarz" oder "weiß")
-		 */
-		public void setImage(String type){
-			switch (type) {
-			case "weiss":
-				setForeground(Color.BLACK);
-				image = view.getTheme().getSpielSteinWeiss();
-				break;
-			case "schwarz":
-				setForeground(Color.WHITE);
-				image = view.getTheme().getSpielSteinSchwarz();
-				break;
-			}
-		}
-		
-		
-		public void setText(int spielerNr, String type){
-			this.type = type;
-			setImage(type);
-			super.setText("<html><center>"
-					+ "Spieler<br/>"+spielerNr
-					+ "</center></html>");
-		}
-		
-    	
-    	
-    	@Override
-		public void paintComponent(Graphics g){
-    		setImage(type);
-    		
-    		int width = getWidth()/7;
-    		int height = getHeight()/7;
-    		
-    		int x = (getWidth() - width) / 2;
-    		int y = (getHeight() - height) / 2;
-    				
-			g.drawImage(image, x, y, width, height, this);
-			
-			super.paintComponent(g);
-		}
-    }
+    
+    
+    
+    
     
     
 	public class LblGameStone extends JLabel{
 		
 		private Image image;
 		private Position pos;
+		
+		
+		public LblGameStone(){}
 		
 		public LblGameStone(int ebene, int x, int y, GamePanelVA vActions) {	
 			pos = new Position(ebene, x, y);
@@ -342,7 +292,7 @@ public class GamePanel extends Menu {
 	}
 	
 	
-	public class LblStoneStack extends JLabel{
+	private class LblStoneStack extends JLabel{
 		
 		private Image gameStoneImage;
 		private int remainingStones; // Anzahl der noch nicht gesetzten Spielsteine
@@ -350,10 +300,6 @@ public class GamePanel extends Menu {
 		
 		private View view;
 		
-		
-		public LblStoneStack() {
-			this(null, null, 0);
-		}
 		
 		public LblStoneStack(View view, String type, int remainingStones) {
 			this.view = view;
@@ -424,6 +370,227 @@ public class GamePanel extends Menu {
 				
 				g.drawImage(gameStoneImage, getWidth()*15/100 +7, i*h, w-10, h-10, this);
 			}
+		}
+	}
+	
+	
+	
+	private class InfoField extends JPanel{
+		
+		private View view;
+		
+		private JTextArea logPane;
+		private LblGameStone lblSpielSteinSpieler1,
+							 lblSpielSteinSpieler2;
+		private JLabel lblSpieler1,
+					   lblSpieler2;
+		
+		private String Spieler1Name,
+					   Spieler2Name;
+		
+		private boolean weissDran = true; // Weiß beginnt immer
+		
+		
+		public InfoField(View view) {
+			this.view = view;
+			
+			setOpaque(false);
+			
+			setLayout(new FormLayout(new ColumnSpec[] {
+					ColumnSpec.decode("51px:grow"),
+					ColumnSpec.decode("max(183px;default):grow(6)"),
+					ColumnSpec.decode("66px:grow(2)"),},
+				new RowSpec[] {
+					RowSpec.decode("max(198px;default):grow(3)"),
+					RowSpec.decode("max(183px;default):grow(3)"),
+					RowSpec.decode("max(219px;default):grow(3)"),}));
+			
+			JPanel infoPanel = new JPanel();
+			infoPanel.setOpaque(false);
+			infoPanel.setLayout(new FormLayout(new ColumnSpec[] {
+					ColumnSpec.decode("max(51px;default):grow"),
+					ColumnSpec.decode("max(85px;default):grow"),
+					ColumnSpec.decode("20px"),
+					ColumnSpec.decode("max(85px;default):grow"),
+					ColumnSpec.decode("max(66px;default):grow"),},
+				new RowSpec[] {
+					RowSpec.decode("max(38px;default):grow(2)"),
+					RowSpec.decode("max(85px;default):grow(25)"),
+					FormFactory.UNRELATED_GAP_ROWSPEC,
+					RowSpec.decode("max(20px;default)"),
+					RowSpec.decode("max(41px;default):grow(50)"),}));
+			add(infoPanel, "1, 1, 3, 1, fill, fill");
+			
+				lblSpielSteinSpieler1 = new LblGameStone();
+				infoPanel.add(lblSpielSteinSpieler1, "2, 2, fill, fill");
+				
+				lblSpielSteinSpieler2 = new LblGameStone();
+				infoPanel.add(lblSpielSteinSpieler2, "4, 2, fill, fill");
+				
+				lblSpieler1 = new JLabel();
+				infoPanel.add(lblSpieler1, "2, 4, center, fill");
+				
+				lblSpieler2 = new JLabel();
+				infoPanel.add(lblSpieler2, "4, 4, center, fill");
+				
+				changePlayer();
+			
+				
+			
+			logPane = new JTextArea();
+			logPane.setLineWrap(true);
+			logPane.setWrapStyleWord(true);
+			logPane.setOpaque(false);
+			logPane.setEditable(false);
+			
+			final JScrollPane logScroller = new JScrollPane();
+			
+			logScroller.setOpaque(false);
+			logScroller.getViewport().setOpaque(false);
+			logScroller.setViewportView(logPane);
+			logScroller.setBorder(null);
+			
+			final JPanel logWrapper = new JPanel();
+			logWrapper.addHierarchyBoundsListener(new HierarchyBoundsListener() {
+				@Override
+				public void ancestorResized(HierarchyEvent e) {
+					logScroller.setBounds(5, 0, logWrapper.getWidth()-10, logWrapper.getHeight());
+				}
+				
+				@Override
+				public void ancestorMoved(HierarchyEvent e) {}
+			});
+			logWrapper.setLayout(null);
+			logWrapper.setOpaque(false);
+			logWrapper.add(logScroller);
+			add(logWrapper, "2, 2, fill, fill");
+			
+			
+			
+			JPanel buttonPanel = new JPanel();
+			buttonPanel.setOpaque(false);
+			buttonPanel.setLayout(new FormLayout(new ColumnSpec[] {
+					ColumnSpec.decode("51px"),
+					ColumnSpec.decode("4dlu:grow"),
+					ColumnSpec.decode("max(159px;default)"),
+					ColumnSpec.decode("4dlu:grow"),
+					ColumnSpec.decode("max(66px;default)"),},
+				new RowSpec[] {
+					RowSpec.decode("default:grow(25)"),
+					RowSpec.decode("max(52px;default)"),
+					FormFactory.UNRELATED_GAP_ROWSPEC,
+					RowSpec.decode("max(52px;default)"),
+					RowSpec.decode("max(38px;default):grow"),}));
+			add(buttonPanel, "1, 3, 3, 1, fill, fill");
+			
+				MillButton btnNeustart = new MillButton(view, "Neustart");
+				buttonPanel.add(btnNeustart, "3, 2, fill, fill");
+				
+				MillButton btnBack = new MillButton(view, "ZumMenue");
+				buttonPanel.add(btnBack, "3, 4, fill, fill");
+		}
+		
+		
+		
+		public void setSpielerNamen(String spieler1, String spieler2){
+			lblSpieler1.setText(spieler1);
+			lblSpieler2.setText(spieler2);
+		}
+		
+		
+		public void info(String infoMessage){
+			logPane.append(infoMessage);
+		}
+		
+		
+		public void changePlayer(){
+			if(weissDran){
+				lblSpielSteinSpieler1.setImage(view.getTheme().getSpielSteinWeiss());
+				lblSpielSteinSpieler2.setImage(view.getTheme().getSpielSteinSchwarzTransparent());
+				
+				lblSpieler1.setFont(new Font("Arial", Font.BOLD, 14));
+				lblSpieler2.setFont(new Font("Arial", Font.PLAIN, 14));
+				
+				weissDran = false;
+			}else{
+				lblSpielSteinSpieler1.setImage(view.getTheme().getSpielSteinWeissTransparent());
+				lblSpielSteinSpieler2.setImage(view.getTheme().getSpielSteinSchwarz());
+				
+				lblSpieler1.setFont(new Font("Arial", Font.PLAIN, 14));
+				lblSpieler2.setFont(new Font("Arial", Font.BOLD, 14));
+				
+				weissDran = true;
+			}
+		}
+	}
+	
+	
+	
+	private class WinLose extends JPanel{
+		
+		private View view;
+		
+		private Image winLoseImage;
+		
+		
+		public WinLose(View view) {
+			this.view = view;
+			
+			setOpaque(false);
+			setVisible(false);
+			
+			setLayout(new FormLayout(new ColumnSpec[] {
+					ColumnSpec.decode("4dlu:grow(3)"),
+					ColumnSpec.decode("max(159px;default)"),
+					ColumnSpec.decode("4dlu:grow"),
+					ColumnSpec.decode("max(159px;default)"),
+					ColumnSpec.decode("4dlu:grow(3)"),},
+				new RowSpec[] {
+					RowSpec.decode("3dlu:grow"),
+					RowSpec.decode("max(52px;default)"),
+					RowSpec.decode("20px"),}));
+			
+			MillButton btnBack = new MillButton(view, "ZumMenue");
+			add(btnBack, "2, 2, fill, fill");
+			
+			MillButton btnNeustart = new MillButton(view, "Neustart");
+			add(btnNeustart, "4, 2, fill, fill");
+		}
+		
+		
+		public void setImage(String winLose, String color, String gameMode){
+			switch (winLose) {
+			case "win":
+				switch (color) {
+				case "weiss":
+					if(gameMode.equals("PvE"))
+						winLoseImage = view.getTheme().getSiegerPvEWeiss();
+					else if(gameMode.equals("PvP"))
+						winLoseImage = view.getTheme().getSiegerPvPWeiss();
+					break;
+
+				case "schwarz":
+					if(gameMode.equals("PvE"))
+						winLoseImage = view.getTheme().getSiegerPvESchwarz();
+					else if(gameMode.equals("PvP"))
+						winLoseImage = view.getTheme().getSiegerPvPSchwarz();
+					break;
+				}
+				break;
+			case "lose":
+				winLoseImage = view.getTheme().getVerlierer();
+				break;
+			}
+			
+			repaint();
+		}
+		
+		
+		
+		@Override
+		public void paintComponent(Graphics g) {
+			// Bild dynamisch zeichnen
+			g.drawImage(winLoseImage, 0, 0, getWidth(), getHeight(), this);
 		}
 	}
 }
