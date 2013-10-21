@@ -65,6 +65,8 @@ public class Core {
 	private boolean alleSchwarzenSteineinMuehle;
 
 	private int Spielphase = 1;
+	private int anzahlgeschlosseneMuehlen_schwarz = 0;
+	private int anzahlgeschlosseneMuehlen_weiss = 0;
 
 	private LblGameStone angeklickterStein;
 
@@ -154,7 +156,7 @@ public class Core {
 	public void setSchwarzDran(boolean schwarzDran) {
 		this.schwarzDran = schwarzDran;
 		if (schwarzDran)
-			vController.changePlayer(1, "schwarz");
+			vController.changePlayer();
 	}
 
 	public boolean isWeissDran() {
@@ -164,7 +166,7 @@ public class Core {
 	public void setWeissDran(boolean weissDran) {
 		this.weissDran = weissDran;
 		if (weissDran)
-			vController.changePlayer(2, "weiss");
+			vController.changePlayer();
 	}
 
 	public List<Integer> getHashliste_Weiss() {
@@ -217,6 +219,24 @@ public class Core {
 
 	public List<Spielstein> getIndex3s() {
 		return index3s;
+	}
+
+	public int getAnzahlgeschlosseneMuehlen_schwarz() {
+		return anzahlgeschlosseneMuehlen_schwarz;
+	}
+
+	public void setAnzahlgeschlosseneMuehlen_schwarz(
+			int anzahlgeschlosseneMuehlen_schwarz) {
+		this.anzahlgeschlosseneMuehlen_schwarz = anzahlgeschlosseneMuehlen_schwarz;
+	}
+
+	public int getAnzahlgeschlosseneMuehlen_weiss() {
+		return anzahlgeschlosseneMuehlen_weiss;
+	}
+
+	public void setAnzahlgeschlosseneMuehlen_weiss(
+			int anzahlgeschlosseneMuehlen_weiss) {
+		this.anzahlgeschlosseneMuehlen_weiss = anzahlgeschlosseneMuehlen_weiss;
 	}
 
 	public void setIndex3s(List<Spielstein> index3s) {
@@ -275,7 +295,6 @@ public class Core {
 		index2s = new ArrayList<Spielstein>();
 		index3s = new ArrayList<Spielstein>();
 		KI = new KIBefehle(this);
-
 	}
 
 	// private void run() {
@@ -373,6 +392,7 @@ public class Core {
 				}
 			}
 			System.out.println("Muehle weiss");
+			anzahlgeschlosseneMuehlen_weiss++;
 			Muehle_weiss = true;
 
 		}
@@ -433,6 +453,7 @@ public class Core {
 				}
 			}
 			System.out.println("Muehle weiss ge�ffnet");
+			anzahlgeschlosseneMuehlen_weiss--;
 			Muehle_weiss = false;
 
 		}
@@ -491,6 +512,7 @@ public class Core {
 				}
 			}
 			System.out.println("Muehle schwarz");
+			anzahlgeschlosseneMuehlen_schwarz++;
 			Muehle_schwarz = true;
 		}
 
@@ -528,7 +550,7 @@ public class Core {
 					&& posY == StS.get(i).getPosition().getY().getValue()
 					&& (posX + posY == 3 || posX + posY == 5)) {
 				zaehler3++;
-				index3s.add(StS.get(i));
+				index3s.add(StS.get(i)); 
 			}
 
 		}
@@ -550,6 +572,7 @@ public class Core {
 				}
 			}
 			System.out.println("Muehle schwarz ge�ffnet");
+			anzahlgeschlosseneMuehlen_schwarz--;
 			Muehle_schwarz = false;
 		}
 
@@ -1057,14 +1080,12 @@ public class Core {
 
 	public void weisseSteine_setzen(LblGameStone stone) {
 		if (postitionFree(stone.getPosition())
-				&& !vController.frame.gamePanel.isStackEmpty("weiss",
-						vController.frame.gamePanel.weisseSteine)) {
+				&& !vController.frame.gamePanel.isStackEmpty("weiss")) {
 			erzeugeSpielsteinweiss(stone.getPosition().getEbene(), stone
 					.getPosition().getX(), stone.getPosition().getY(),
 					stone.getPosition());
 			stone.setImage(vController.getTheme().getSpielSteinWeiss());
-			vController.frame.gamePanel.updateStack("weiss",
-					vController.frame.gamePanel.weisseSteine, -1);
+			vController.frame.gamePanel.updateStack("weiss", -1);
 			System.out.println(getStW().size());
 			ueberpruefen_Muehele_weiss(stone.getPosition());
 			vController.getTheme().playSound(Sounds.steinSetzen);
@@ -1083,14 +1104,12 @@ public class Core {
 	public void schwarzeSteine_setzen(LblGameStone stone) {
 
 		if (postitionFree(stone.getPosition())
-				&& !vController.frame.gamePanel.isStackEmpty("schwarz",
-						vController.frame.gamePanel.schwarzeSteine)) {
+				&& !vController.frame.gamePanel.isStackEmpty("schwarz")) {
 			erzeugeSpielsteinschwarz(stone.getPosition().getEbene(), stone
 					.getPosition().getX(), stone.getPosition().getY(),
 					stone.getPosition());
 			stone.setImage(vController.getTheme().getSpielSteinSchwarz());
-			vController.frame.gamePanel.updateStack("schwarz",
-					vController.frame.gamePanel.schwarzeSteine, -1);
+			vController.frame.gamePanel.updateStack("schwarz", -1);
 			System.out.println(getStS().size());
 			ueberpruefen_Muehele_schwarz(stone.getPosition());
 			vController.getTheme().playSound(Sounds.steinSetzen);
@@ -1103,7 +1122,7 @@ public class Core {
 			}
 
 		}
-		 if (getStS().size() + getStW().size() >=4) {
+		 if (getStS().size() + getStW().size() >=9) {
 	setSpielphase(2);
 		 }
 

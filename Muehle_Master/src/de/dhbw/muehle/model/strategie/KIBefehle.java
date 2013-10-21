@@ -16,6 +16,8 @@ public class KIBefehle {
 	private int zugmoeglichkeiten_weiss;
 	private List<Integer> Hashliste_gueltige_Zuege_gesamt_Weiss;
 	private List<Integer> Hashliste_gueltige_Zuege_gesamt_Schwarz;
+	private List<Integer> Hashliste_gueltige_Zuege_gesamt_Weiss_wirklich_gueltig;
+	private List<Integer> Hashliste_gueltige_Zuege_gesamt_Schwarz_wirklich_gueltig;
 
 	private boolean bvierSteineschwarz;
 	private boolean bfuenfSteineschwarz;
@@ -123,6 +125,11 @@ public class KIBefehle {
 		core = _core;
 		Hashliste_gueltige_Zuege_gesamt_Weiss = new ArrayList();
 		Hashliste_gueltige_Zuege_gesamt_Schwarz = new ArrayList();
+		Hashliste_gueltige_Zuege_gesamt_Weiss_wirklich_gueltig = new ArrayList();
+		Hashliste_gueltige_Zuege_gesamt_Schwarz_wirklich_gueltig = new ArrayList();
+		Spielzustaende = new ArrayList();
+		Spielzustaendewertigkeit = new ArrayList();
+		
 	}
 
 	// Listen füllen
@@ -382,13 +389,14 @@ public class KIBefehle {
 		pruefeZugmoeglichkeitenfueralleSteineschwarz();
 		anzahlSpielsteineschwarzpruefen(core.getStW().size());
 		anzahlSpielsteineweisspruefen(core.getStS().size());
-		anzahlZugmoeglichkeitenschwarz(Hashliste_gueltige_Zuege_gesamt_Schwarz.size());
-		anzahlZugmoeglichkeitenweiss(Hashliste_gueltige_Zuege_gesamt_Weiss.size());
-//		anzahlgeschlosseneMuehlenschwarz();
-//		anzahlgeschlosseneMuehlenweiss();
+		anzahlZugmoeglichkeitenschwarz(Hashliste_gueltige_Zuege_gesamt_Weiss_wirklich_gueltig.size());
+		anzahlZugmoeglichkeitenweiss(Hashliste_gueltige_Zuege_gesamt_Weiss_wirklich_gueltig.size());
+		anzahlgeschlosseneMuehlenschwarz(core.getAnzahlgeschlosseneMuehlen_schwarz());
+		anzahlgeschlosseneMuehlenweiss(core.getAnzahlgeschlosseneMuehlen_weiss());
 //		anzahloffeneMuehlenschwarz();
 //		anzahloffeneMuehlenweiss();
-//		bewegungsmoeglichkeitendifferenz();
+		bewegungsmoeglichkeitendifferenz(Hashliste_gueltige_Zuege_gesamt_Weiss_wirklich_gueltig.size()-Hashliste_gueltige_Zuege_gesamt_Weiss_wirklich_gueltig.size());
+		fillList();
 		aktuelleZugwertigkeitberechnen(Spielzustaende, Spielzustaendewertigkeit);
 
 	}
@@ -398,7 +406,7 @@ public class KIBefehle {
 	public int aktuelleZugwertigkeitberechnen(List<Boolean> booleanlist,
 			List<Integer> integerlist) {
 		zugwertigkeit = 0;
-		for (int i = 0; i <= booleanlist.size(); i++) {
+		for (int i = 0; i < booleanlist.size(); i++) {
 			if (booleanlist.get(i) == true) {
 				zugwertigkeit = zugwertigkeit + integerlist.get(i);
 			}
@@ -503,7 +511,7 @@ public class KIBefehle {
 	}
 
 	public void pruefeZugmoeglichkeitenfueralleSteineweiss() {
-		//Hashliste_gueltige_Zuege_gesamt_Weiss.clear();
+		Hashliste_gueltige_Zuege_gesamt_Weiss.clear();
 		for (int i = 0; (i < StonelistWhite.size()); i++) {
 			core.pruefeZug(StonelistWhite.get(i));
 			// Welche Züge für den einen Spielstein (i) möglich sind
@@ -512,26 +520,28 @@ public class KIBefehle {
 						.getHashliste_gueltige_Zuege().get(j));
 			}
 		}
-		// Hashliste gültige Züge gesamt Weiss beinhaltet die Hashcodes aller
-		// möglichen Züge
-		// Nun muss noch geprüft werden, welche dieser Felder durch andere
-		// Spielsteine belegt sind
-		// Die Informationen über alle anderen Spielsteine stehen in Stonelist
-		// Black und Stone list White
-		for (int i = 0; i < Hashliste_gueltige_Zuege_gesamt_Weiss.size(); i++) {
 			for (int j = 0; j < StonelistWhite.size(); j++) {
+				for (int i = 0; i < Hashliste_gueltige_Zuege_gesamt_Weiss.size(); i++) {
 				if (Hashliste_gueltige_Zuege_gesamt_Weiss.get(i) == StonelistWhite
 						.get(j).getPosition().hashCode()) {
-					Hashliste_gueltige_Zuege_gesamt_Weiss.remove(i);
+					Hashliste_gueltige_Zuege_gesamt_Weiss_wirklich_gueltig.add(StonelistWhite.get(j).getPosition().hashCode());
 				}
 			}
+			}
 			for (int k = 0; k < StonelistBlack.size(); k++) {
+				for (int i = 0; i < Hashliste_gueltige_Zuege_gesamt_Weiss.size(); i++) {
 				if (Hashliste_gueltige_Zuege_gesamt_Weiss.get(i) == StonelistBlack
 						.get(k).getPosition().hashCode()) {
-					Hashliste_gueltige_Zuege_gesamt_Weiss.remove(i);
+					Hashliste_gueltige_Zuege_gesamt_Weiss_wirklich_gueltig.add(StonelistBlack.get(k).getPosition().hashCode());
 				}
 			}
 		}
+			// Hashliste gültige Züge gesamt Weiss beinhaltet die Hashcodes aller
+			// möglichen Züge
+			// Nun muss noch geprüft werden, welche dieser Felder durch andere
+			// Spielsteine belegt sind
+			// Die Informationen über alle anderen Spielsteine stehen in Stonelist
+			// Black und Stone list White
 
 	}
 
@@ -545,26 +555,27 @@ public class KIBefehle {
 						.getHashliste_gueltige_Zuege().get(j));
 			}
 			for (int j = 0; j < StonelistWhite.size(); j++) {
-				if (Hashliste_gueltige_Zuege_gesamt_Schwarz.get(i) == StonelistWhite
+				for (int k = 0; k < Hashliste_gueltige_Zuege_gesamt_Schwarz.size(); k++) {
+				if (Hashliste_gueltige_Zuege_gesamt_Schwarz.get(k) == StonelistWhite
 						.get(j).getPosition().hashCode()) {
-					Hashliste_gueltige_Zuege_gesamt_Schwarz.remove(i);
+					Hashliste_gueltige_Zuege_gesamt_Schwarz_wirklich_gueltig.add(StonelistWhite.get(j).getPosition().hashCode());
 				}
 			}
+			}
 		}
+		for (int k = 0; k < StonelistBlack.size(); k++) {
+			for (int i = 0; i < Hashliste_gueltige_Zuege_gesamt_Schwarz.size(); i++) {
+			if (Hashliste_gueltige_Zuege_gesamt_Schwarz.get(i) == StonelistBlack
+					.get(k).getPosition().hashCode()) {
+				Hashliste_gueltige_Zuege_gesamt_Schwarz_wirklich_gueltig.add(StonelistBlack.get(k).getPosition().hashCode());
+			}
+		}
+	}
 		// Hashliste gültige Züge gesamt Weiss beinhaltet die Hashcodes aller
-		// möglichen Züge
-		// Nun muss noch geprüft werden, welche dieser Felder durch andere
-		// Spielsteine belegt sind
-		// Die Informationen über alle anderen Spielsteine stehen in Stonelist
-		// Black und Stone list White
-		for (int i = 0; i < Hashliste_gueltige_Zuege_gesamt_Schwarz.size(); i++) {
-			for (int j = 0; j < StonelistBlack.size(); j++) {
-				if (Hashliste_gueltige_Zuege_gesamt_Schwarz.get(i) == StonelistBlack
-						.get(j).getPosition().hashCode()) {
-					Hashliste_gueltige_Zuege_gesamt_Schwarz.remove(i);
-				}
-			}
-		}
-
+				// möglichen Züge
+				// Nun muss noch geprüft werden, welche dieser Felder durch andere
+				// Spielsteine belegt sind
+				// Die Informationen über alle anderen Spielsteine stehen in Stonelist
+				// Black und Stone list White
 	}
 }
