@@ -23,15 +23,7 @@ import de.dhbw.muehle.model.theme.ThemeLoader;
 
 public class ViewController implements IViewController {
 
-	public View frame;
-
-	public View getFrame() {
-		return frame;
-	}
-
-	public void setFrame(View frame) {
-		this.frame = frame;
-	}
+	private View frame;
 
 	private Core core;
 	private ThemeLoader thLoader;
@@ -46,26 +38,29 @@ public class ViewController implements IViewController {
 	}
 
 	public void initGui() {
-		frame.setContentPane(frame.mainMenu); // Hauptmenü anzeigen
+		displayMainMenu();
 		frame.setVisible(true); // Frame anzeigen
-		getTheme().playSound(Sounds.menue); // Hauptmenümusik abspielen
+		
 	}
 
 	public void displayMainMenu() {
-		frame.setContentPane(frame.mainMenu);
+		if(!theme.isSoundPlaying())
+			getTheme().playSound(Sounds.menue); // Hauptmenümusik abspielen
+		frame.setContentPane(frame.getMainMenu()); // Hauptmenü anzeigen
 	}
 
 	public void startPvP() {
 		getTheme().stopSound();
-		frame.setContentPane(frame.gamePanel); // GamePanel (Spielbrett)
+		frame.setContentPane(frame.getGamePanel()); // GamePanel (Spielbrett)
+		changePlayer(); // Weiß beginnt
 	}
 
 	public void displaySettings() {
-		frame.setContentPane(frame.settingsPanel);
+		frame.setContentPane(frame.getSetingsPanel());
 	}
 
 	public void changePlayer() {
-		frame.gamePanel.changePlayer();
+		frame.getGamePanel().changePlayer();
 	}
 
 
@@ -78,7 +73,6 @@ public class ViewController implements IViewController {
 		return thLoader.getTheme(theme);
 	}
 
-	
 	public void setTheme(Theme theme) {
 		this.theme = theme;
 		
@@ -96,6 +90,12 @@ public class ViewController implements IViewController {
 	public void angeklickter_Stein_speichern(LblGameStone stone) {
 
 	}
+	
+	
+	public View getView(){
+		return frame;
+	}
+	
 
 	public Core getCore() {
 		return core;

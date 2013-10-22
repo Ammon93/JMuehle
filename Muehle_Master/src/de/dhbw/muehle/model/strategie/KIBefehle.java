@@ -132,7 +132,7 @@ public class KIBefehle {
 		
 	}
 
-	// Listen füllen
+	// Listen fï¿½llen
 	public void fillList() {
 		Spielzustaende.add(bvierSteineschwarz);
 		Spielzustaende.add(bfuenfSteineschwarz);
@@ -287,7 +287,7 @@ public class KIBefehle {
 	}
 
 	public void anzahlZugmoeglichkeitenschwarz(int Zugmoeglichkeitenschwarz) {
-		// Hier müssen später alle Möglichen Zugmöglichkeiten !ProStein!
+		// Hier mï¿½ssen spï¿½ter alle Mï¿½glichen Zugmï¿½glichkeiten !ProStein!
 		// ermittelt werden, bestenfalls in einer anderen, evtl. schon
 		// vorhandenen Methode
 		if (Zugmoeglichkeitenschwarz <= 10) {
@@ -306,7 +306,7 @@ public class KIBefehle {
 			bZweiOderDreiZugmoeglichkeitenschwarz = true;
 		} else {
 			System.out
-					.println("Zugmöglichkeiten erfolglos durchlaufen schwarz");
+					.println("Zugmï¿½glichkeiten erfolglos durchlaufen schwarz");
 		}
 	}
 
@@ -322,7 +322,7 @@ public class KIBefehle {
 		} else if (Zugmoeglichkeitenweiss == 2 || Zugmoeglichkeitenweiss == 3) {
 			bZweiOderDreiZugmoeglichkeitenweiss = true;
 		} else {
-			System.out.println("Zugmöglichkeiten erfolglos durchlaufen weiss");
+			System.out.println("Zugmï¿½glichkeiten erfolglos durchlaufen weiss");
 		}
 	}
 
@@ -418,8 +418,8 @@ public class KIBefehle {
 	// Methode um den besten Zug zu ermitteln
 	public void ermittleBestenZug() {
 		if (core.getSpielphase() == 1) {
-			// An dieser Stelle müssen keine Zugmöglichkeiten geprüft werden
-			// Ebenfalls nicht die MöglicheBewegungsdifferenz
+			// An dieser Stelle mï¿½ssen keine Zugmï¿½glichkeiten geprï¿½ft werden
+			// Ebenfalls nicht die Mï¿½glicheBewegungsdifferenz
 			int Wert = aktuelleZugwertigkeitberechnen(Spielzustaende,
 					Spielzustaendewertigkeit);
 
@@ -437,18 +437,18 @@ public class KIBefehle {
 		// result = prime * result + y.getValue();
 		// return result;
 
-		// for-Schleife, die jeden Spielstein durchläuft und prüft, welche Züge
+		// for-Schleife, die jeden Spielstein durchlï¿½uft und prï¿½ft, welche Zï¿½ge
 		// mit dem entsprechenden Stein
-		// möglich sind.
-		// Für jede mögliche neue Position muss die aktuelleZugwertigkeit
+		// mï¿½glich sind.
+		// Fï¿½r jede mï¿½gliche neue Position muss die aktuelleZugwertigkeit
 		// berechnet werden
-		// Hierfür muss jede der Prüfungsmethoden mit der neuen Funktion
+		// Hierfï¿½r muss jede der Prï¿½fungsmethoden mit der neuen Funktion
 		// durchlaufen werden
 		// Die getestete Position wird in ein Array geschrieben (also der
-		// Hashcode o.ä. der die Position
+		// Hashcode o.ï¿½. der die Position
 		// eindeutig bestimmbar macht
 		// In einem anderen Array muss am gleichen Index wie die Position die
-		// Zugwertigkeit für den
+		// Zugwertigkeit fï¿½r den
 		// entsprechenden Zug gespeichert werden.
 		// Am Ende wird die Max-Wertigkeit ermittelt und der Zug voll
 
@@ -460,13 +460,13 @@ public class KIBefehle {
 		for (int z = 1; z <= 3; z++) {
 			for (int x = 1; x <= 3; x++) {
 				for (int y = 1; y <= 3; y++) {
-					// überprüfe ob die Position der jeweiligen Zählvariablen
+					// ï¿½berprï¿½fe ob die Position der jeweiligen Zï¿½hlvariablen
 					// frei ist
-					// ÜBerprüfung kann durch die Hashcodes, die in STW und STS
+					// ï¿½Berprï¿½fung kann durch die Hashcodes, die in STW und STS
 					// gespeichert sind laufen
-					// Man kann selbigen mit den Zählvariablen errechnen
-					// überprüfe welche Wertigkeit an der aktuellen Position für
-					// die Zählvariablen erreicht wird
+					// Man kann selbigen mit den Zï¿½hlvariablen errechnen
+					// ï¿½berprï¿½fe welche Wertigkeit an der aktuellen Position fï¿½r
+					// die Zï¿½hlvariablen erreicht wird
 				}
 			}
 		}
@@ -478,13 +478,13 @@ public class KIBefehle {
 
 	public void erstelleStoneListWeiss() {
 		for (int i = 0; i < core.getStW().size(); i++) {
-			for (int j = 0; j < core.getvController().getFrame()
+			for (int j = 0; j < core.getvController().getView()
 					.getGamePanel().getPanelList().size(); j++) {
 				if (core.getStW().get(i).getPosition().hashCode() == core
-						.getvController().getFrame().getGamePanel()
+						.getvController().getView().getGamePanel()
 						.getPanelList().get(j).getPosition().hashCode()) {
 
-					StonelistWhite.add(core.getvController().getFrame()
+					StonelistWhite.add(core.getvController().getView()
 							.getGamePanel().getPanelList().get(j));
 					// In dieser Liste finden sich alle Labels, die aktuell von
 					// Weiss besetzt sind
@@ -495,13 +495,13 @@ public class KIBefehle {
 
 	public void erstelleStoneListSchwarz() {
 		for (int i = 0; i < core.getStS().size(); i++) {
-			for (int j = 0; j < core.getvController().getFrame()
+			for (int j = 0; j < core.getvController().getView()
 					.getGamePanel().getPanelList().size(); j++) {
 				if (core.getStS().get(i).getPosition().hashCode() == core
-						.getvController().getFrame().getGamePanel()
+						.getvController().getView().getGamePanel()
 						.getPanelList().get(j).getPosition().hashCode()) {
 
-					StonelistBlack.add(core.getvController().getFrame()
+					StonelistBlack.add(core.getvController().getView()
 							.getGamePanel().getPanelList().get(j));
 					// In dieser Liste finden sich alle Labels, die aktuell von
 					// schwarz besetzt sind
@@ -514,7 +514,7 @@ public class KIBefehle {
 		Hashliste_gueltige_Zuege_gesamt_Weiss.clear();
 		for (int i = 0; (i < StonelistWhite.size()); i++) {
 			core.pruefeZug(StonelistWhite.get(i));
-			// Welche Züge für den einen Spielstein (i) möglich sind
+			// Welche Zï¿½ge fï¿½r den einen Spielstein (i) mï¿½glich sind
 			for (int j = 0; (j < core.getHashliste_gueltige_Zuege().size()); j++) {
 				Hashliste_gueltige_Zuege_gesamt_Weiss.add(core
 						.getHashliste_gueltige_Zuege().get(j));
@@ -536,11 +536,11 @@ public class KIBefehle {
 				}
 			}
 		}
-			// Hashliste gültige Züge gesamt Weiss beinhaltet die Hashcodes aller
-			// möglichen Züge
-			// Nun muss noch geprüft werden, welche dieser Felder durch andere
+			// Hashliste gï¿½ltige Zï¿½ge gesamt Weiss beinhaltet die Hashcodes aller
+			// mï¿½glichen Zï¿½ge
+			// Nun muss noch geprï¿½ft werden, welche dieser Felder durch andere
 			// Spielsteine belegt sind
-			// Die Informationen über alle anderen Spielsteine stehen in Stonelist
+			// Die Informationen ï¿½ber alle anderen Spielsteine stehen in Stonelist
 			// Black und Stone list White
 
 	}
@@ -549,7 +549,7 @@ public class KIBefehle {
 		Hashliste_gueltige_Zuege_gesamt_Schwarz.clear();
 		for (int i = 0; (i < StonelistBlack.size()); i++) {
 			core.pruefeZug(StonelistBlack.get(i));
-			// Welche Züge für den einen Spielstein (i) möglich sind
+			// Welche Zï¿½ge fï¿½r den einen Spielstein (i) mï¿½glich sind
 			for (int j = 0; (j < core.getHashliste_gueltige_Zuege().size()); j++) {
 				Hashliste_gueltige_Zuege_gesamt_Schwarz.add(core
 						.getHashliste_gueltige_Zuege().get(j));
@@ -571,11 +571,11 @@ public class KIBefehle {
 			}
 		}
 	}
-		// Hashliste gültige Züge gesamt Weiss beinhaltet die Hashcodes aller
-				// möglichen Züge
-				// Nun muss noch geprüft werden, welche dieser Felder durch andere
+		// Hashliste gï¿½ltige Zï¿½ge gesamt Weiss beinhaltet die Hashcodes aller
+				// mï¿½glichen Zï¿½ge
+				// Nun muss noch geprï¿½ft werden, welche dieser Felder durch andere
 				// Spielsteine belegt sind
-				// Die Informationen über alle anderen Spielsteine stehen in Stonelist
+				// Die Informationen ï¿½ber alle anderen Spielsteine stehen in Stonelist
 				// Black und Stone list White
 	}
 }

@@ -133,6 +133,12 @@ public class Theme {
 	}
 	
 	
+	public boolean isSoundPlaying(){
+		return this.sound.isPlaying();
+	}
+	
+	
+	
 	
 	/**
 	 * Liefert den Namen der Theme

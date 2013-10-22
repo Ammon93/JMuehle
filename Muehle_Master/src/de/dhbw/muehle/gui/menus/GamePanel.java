@@ -92,13 +92,13 @@ public class GamePanel extends Menu {
 				RowSpec.decode("default:grow(6)"),
 				RowSpec.decode("default:grow"),}));
 		
-		weisseSteine = new LblStoneStack(view, "weiss", 9);
+		weisseSteine = new LblStoneStack("weiss", view, 9);
 		stoneField.add(weisseSteine, "1, 2, fill, fill");
 		
-		schwarzeSteine = new LblStoneStack(view, "schwarz", 9);
+		schwarzeSteine = new LblStoneStack("schwarz", view, 9);
 		stoneField.add(schwarzeSteine, "1, 3, fill, fill");
 		
-		infoField = new InfoField(view);
+		infoField = new InfoField(view, vActions);
 		add(infoField, "3, 1, fill, fill");
 		
 		
@@ -132,6 +132,22 @@ public class GamePanel extends Menu {
 			i--;
 		}
 	}
+	
+	
+	
+	protected LblStoneStack getStack(String color){
+		switch (color) {
+		case "weiss":
+			return weisseSteine;
+		
+		case "schwarz":
+			return schwarzeSteine;
+
+		default:
+			return null;
+		}
+	}
+	
 	
 	
 	/**
@@ -358,32 +374,68 @@ public class GamePanel extends Menu {
 		
 		private Image gameStoneImage;
 		private int remainingStones; // Anzahl der noch nicht gesetzten Spielsteine
-		private String type;
+		private String color,
+					   type;
 		
 		private View view;
 		
 		
-		public LblStoneStack(View view, String type, int remainingStones) {
-			this.view = view;
+		public LblStoneStack(String color, View view, int remainingStones) {
+			this(color, "", view, remainingStones);
+		}
+		
+		
+		public LblStoneStack(String color, String type, View view, int remainingStones){
+			this.color = color;
 			this.type = type;
-			setImage(type);
+			this.view = view;
+			updateImage(color, type);
 			setCountStones(remainingStones);
 		}
 		
 		
 		/**
-		 * Die Farbe für den Spielsteinstapel setzen
-		 * @param type Typ des Spielsteins ("schwarz" oder "weiß")
+		 * dynamisches Update der Bilder
+		 * @param color
+		 * @param type
 		 */
-		public void setImage(String type){
-			switch (type) {
+		private void updateImage(String color, String type){
+			switch (color) {
 			case "weiss":
-				gameStoneImage = view.getTheme().getSpielSteinWeiss();
+				if(type.isEmpty())
+					gameStoneImage = view.getTheme().getSpielSteinWeiss();
+				else if(type.equals("gewaehlt"))
+					gameStoneImage = view.getTheme().getSpielSteinWeissGewaehlt();
+				else if(type.equals("transparent"))
+					gameStoneImage = view.getTheme().getSpielSteinWeissTransparent();
 				break;
+				
 			case "schwarz":
-				gameStoneImage = view.getTheme().getSpielSteinSchwarz();
+				if(type.isEmpty())
+					gameStoneImage = view.getTheme().getSpielSteinSchwarz();
+				else if(type.equals("gewaehlt"))
+					gameStoneImage = view.getTheme().getSpielSteinSchwarzGewaehlt();
+				else if(type.equals("transparent"))
+					gameStoneImage = view.getTheme().getSpielSteinSchwarzTransparent();
 				break;
 			}
+		}
+		
+		
+		
+		/**
+		 * Die Farbe für den Spielsteinstapel setzen
+		 * @param color Typ des Spielsteins ("schwarz" oder "weiß")
+		 */
+		public void setImage(String color){
+			setImage(color, "");
+		}
+		
+		public void setImage(String color, String type){
+			this.color = color;
+			this.type = type;
+			
+			repaint();
 		}
 		
 		
@@ -412,7 +464,7 @@ public class GamePanel extends Menu {
 		@Override
 		public void paintComponent(Graphics g) {
 			// Bild auf aktuelle Theme aktualisieren
-			setImage(type);
+			updateImage(color, type);
 			
 			// Höhe und Breite berechnen
 			int h = getHeight()/4;
@@ -453,7 +505,7 @@ public class GamePanel extends Menu {
 		private boolean weissDran = true; // Weiß beginnt immer
 		
 		
-		public InfoField(View view) {
+		public InfoField(View view, GamePanelVA vActions) {
 			this.view = view;
 			
 			setOpaque(false);
@@ -494,8 +546,6 @@ public class GamePanel extends Menu {
 				
 				lblSpieler2 = new JLabel();
 				infoPanel.add(lblSpieler2, "4, 4, center, fill");
-				
-				changePlayer();
 			
 				
 			
@@ -546,9 +596,11 @@ public class GamePanel extends Menu {
 			add(buttonPanel, "1, 3, 3, 1, fill, fill");
 			
 				MillButton btnNeustart = new MillButton(view, "Neustart");
+				btnNeustart.addActionListener(vActions.new infoFieldBtnNeustart());
 				buttonPanel.add(btnNeustart, "3, 2, fill, fill");
 				
 				MillButton btnBack = new MillButton(view, "ZumMenue");
+				btnBack.addActionListener(vActions.new infoFieldBtnBack());
 				buttonPanel.add(btnBack, "3, 4, fill, fill");
 		}
 		

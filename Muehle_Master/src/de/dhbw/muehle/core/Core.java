@@ -601,9 +601,9 @@ public class Core {
 	public void transparentsetzenSteine_weiss(LblGameStone stone) {
 		Transparent_Spielsteine_Weiss.clear();
 		for (int j = 0; j < Hashliste_gueltige_Zuege.size(); j++) {
-			for (int z = 0; z < vController.getFrame().getGamePanel()
+			for (int z = 0; z < vController.getView().getGamePanel()
 					.getPanelList().size(); z++) {
-				if (Hashliste_gueltige_Zuege.get(j) == vController.getFrame()
+				if (Hashliste_gueltige_Zuege.get(j) == vController.getView()
 						.getGamePanel().getPanelList().get(z).getPosition()
 						.hashCode()
 						&& !Hashliste_Schwarz.contains(Hashliste_gueltige_Zuege
@@ -612,10 +612,10 @@ public class Core {
 								.get(j))
 						&& Hashliste_Weiss.contains(stone.getPosition()
 								.hashCode())) {
-					Transparent_Spielsteine_Weiss.add(vController.getFrame()
+					Transparent_Spielsteine_Weiss.add(vController.getView()
 							.getGamePanel().getPanelList().get(z));
 					vController
-							.getFrame()
+							.getView()
 							.getGamePanel()
 							.getPanelList()
 							.get(z)
@@ -646,9 +646,9 @@ public class Core {
 	public void transparentsetzenSteine_schwarz(LblGameStone stone) {
 		Transparent_Spielsteine_Schwarz.clear();
 		for (int j = 0; j < Hashliste_gueltige_Zuege.size(); j++) {
-			for (int z = 0; z < vController.getFrame().getGamePanel()
+			for (int z = 0; z < vController.getView().getGamePanel()
 					.getPanelList().size(); z++) {
-				if (Hashliste_gueltige_Zuege.get(j) == vController.getFrame()
+				if (Hashliste_gueltige_Zuege.get(j) == vController.getView()
 						.getGamePanel().getPanelList().get(z).getPosition()
 						.hashCode()
 						&& !Hashliste_Schwarz.contains(Hashliste_gueltige_Zuege
@@ -657,10 +657,10 @@ public class Core {
 								.get(j))
 						&& Hashliste_Schwarz.contains(stone.getPosition()
 								.hashCode())) {
-					Transparent_Spielsteine_Schwarz.add(vController.getFrame()
+					Transparent_Spielsteine_Schwarz.add(vController.getView()
 							.getGamePanel().getPanelList().get(z));
 					vController
-							.getFrame()
+							.getView()
 							.getGamePanel()
 							.getPanelList()
 							.get(z)
@@ -1073,12 +1073,12 @@ public class Core {
 
 	public void weisseSteine_setzen(LblGameStone stone) {
 		if (postitionFree(stone.getPosition())
-				&& !vController.frame.gamePanel.isStackEmpty("weiss")) {
+				&& !vController.getView().getGamePanel().isStackEmpty("weiss")) {
 			erzeugeSpielsteinweiss(stone.getPosition().getEbene(), stone
 					.getPosition().getX(), stone.getPosition().getY(),
 					stone.getPosition());
 			stone.setImage("weiss");
-			vController.frame.gamePanel.updateStack("weiss", -1);
+			vController.getView().getGamePanel().updateStack("weiss", -1);
 			System.out.println(getStW().size());
 			ueberpruefen_Muehele_weiss(stone.getPosition());
 			vController.getTheme().playSound(Sounds.steinSetzen);
@@ -1097,12 +1097,12 @@ public class Core {
 	public void schwarzeSteine_setzen(LblGameStone stone) {
 
 		if (postitionFree(stone.getPosition())
-				&& !vController.frame.gamePanel.isStackEmpty("schwarz")) {
+				&& !vController.getView().getGamePanel().isStackEmpty("schwarz")) {
 			erzeugeSpielsteinschwarz(stone.getPosition().getEbene(), stone
 					.getPosition().getX(), stone.getPosition().getY(),
 					stone.getPosition());
 			stone.setImage("schwarz");
-			vController.frame.gamePanel.updateStack("schwarz", -1);
+			vController.getView().getGamePanel().updateStack("schwarz", -1);
 			System.out.println(getStS().size());
 			ueberpruefen_Muehele_schwarz(stone.getPosition());
 			vController.getTheme().playSound(Sounds.steinSetzen);

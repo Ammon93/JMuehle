@@ -20,6 +20,7 @@ public class Sound implements BasicPlayerListener{
 	private static boolean musicPlayed;
 	private static boolean fading,
 						   fadingExt;
+	private static boolean playing;
 	
 	
 	public Sound() {		
@@ -42,6 +43,8 @@ public class Sound implements BasicPlayerListener{
 		
 		switch (type) {
 		case "in":
+			playing = true;
+			
 			try {
 				player.play();
 				player.setGain(0d);
@@ -59,6 +62,8 @@ public class Sound implements BasicPlayerListener{
 			break;
 		
 		case "out":
+			playing = false;
+			
 			try {
 				double actualGain = Math.round((((player.getGainValue()+80d)/86.0206)*1000d)/1000d);
 				for(double i=actualGain;i>=0;i-=0.001){
@@ -94,8 +99,10 @@ public class Sound implements BasicPlayerListener{
 							Thread.sleep(1);
 						} catch (InterruptedException e) {e.printStackTrace();}
 					
-					musicPlayed = false;
-					fade("out");
+					if(player.getStatus()==BasicPlayer.PLAYING){
+						musicPlayed = false;
+						fade("out");
+					}
 				}
 				
 				try {
@@ -126,6 +133,11 @@ public class Sound implements BasicPlayerListener{
 		} catch (BasicPlayerException | MalformedURLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	
+	protected boolean isPlaying(){
+		return playing;
 	}
 	
 	

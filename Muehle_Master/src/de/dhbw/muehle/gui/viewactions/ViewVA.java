@@ -47,22 +47,22 @@ public class ViewVA {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(maximized){
-					vController.frame.setBounds(bounds);
+					vController.getView().setBounds(bounds);
 					maximized = false;
 				}else{
-					bounds = vController.frame.getBounds();
-					vController.frame.setBounds(GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds());
+					bounds = vController.getView().getBounds();
+					vController.getView().setBounds(GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds());
 					maximized = true;
 				}
-				vController.frame.validate();
-				vController.frame.repaint();
+				vController.getView().revalidate();
+				vController.getView().repaint();
 			}
 		}
 		
 		public class btnMin implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				vController.frame.setExtendedState(Frame.ICONIFIED);
+				vController.getView().setExtendedState(Frame.ICONIFIED);
 			}
 		}
 //	}
@@ -143,7 +143,7 @@ public class ViewVA {
 
 			public void mouseReleased(MouseEvent e) {
 				resizing = false;
-				vController.resizePanel(vController.frame.getActualPanel());
+				vController.resizePanel(vController.getView().getActualPanel());
 			}
 		}
 //	}

@@ -40,9 +40,9 @@ public class View extends JFrame{
 	private ViewController vController;
 	private ViewVA vActions;
 
-	protected MainMenu mainMenu;
-	public GamePanel gamePanel;
-	protected SettingsPanel settingsPanel;
+	private MainMenu mainMenu;
+	private GamePanel gamePanel;
+	private SettingsPanel settingsPanel;
 	
 	
 	public View(ViewController vController, Theme theme){
@@ -180,14 +180,21 @@ public class View extends JFrame{
 	}
 	
 	
+	
+	public MainMenu getMainMenu() {
+		return mainMenu;
+	}
+	
 	public GamePanel getGamePanel() {
 		return gamePanel;
 	}
-
-
-
-	public void setGamePanel(GamePanel gamePanel) {
+	
+	public void setGamePanel(GamePanel gamePanel){
 		this.gamePanel = gamePanel;
+	}
+	
+	public SettingsPanel getSetingsPanel() {
+		return settingsPanel;
 	}
 	
 	
