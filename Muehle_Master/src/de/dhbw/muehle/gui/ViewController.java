@@ -13,6 +13,7 @@ import javax.swing.JComponent;
 
 import de.dhbw.muehle.core.Core;
 import de.dhbw.muehle.gui.menus.GamePanel.LblGameStone;
+import de.dhbw.muehle.gui.menus.GamePanel;
 import de.dhbw.muehle.gui.menus.Menu;
 import de.dhbw.muehle.model.spielstein.ISpielstein;
 import de.dhbw.muehle.model.spielstein.Position;
@@ -62,7 +63,11 @@ public class ViewController implements IViewController {
 	public void changePlayer() {
 		frame.getGamePanel().changePlayer();
 	}
-
+	
+	
+	public void resetGame(){
+		frame.setGamePanel(new GamePanel(this, frame));
+	}
 
 
 	public Theme getTheme() {

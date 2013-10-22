@@ -1,5 +1,7 @@
 package de.dhbw.muehle.gui.menus;
 
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -57,7 +59,7 @@ public class GamePanel extends Menu {
 				RowSpec.decode("default:grow"),}));
 		
 		
-		winLose = new WinLose(view);
+		winLose = new WinLose(view, vActions);
 		add(winLose, "1, 1, 3, 1, fill, fill");
 		
 		gameField = new JPanel();
@@ -131,6 +133,19 @@ public class GamePanel extends Menu {
 			}
 			i--;
 		}
+	}
+	
+	
+	private void setDeepEnabled(Component component, boolean enabled){
+	    if (component instanceof Container){
+	        Container container = (Container)component;
+	        
+	        for (Component children : container.getComponents()){
+	            setDeepEnabled(children, enabled);
+	        }
+	    }
+
+	    component.setEnabled(enabled);
 	}
 	
 	
@@ -232,7 +247,16 @@ public class GamePanel extends Menu {
 	public void displayGameOver(String winLose, String color, String gameMode){
 		this.winLose.setImage(winLose, color, gameMode);
 		this.winLose.setVisible(true);
+		
+		// alles im Hintergrund deaktivieren
+		setDeepEnabled(this, false);
+		setDeepEnabled(this.winLose, true);
+		
+		for(Object stone : getPanelList().toArray()){
+			((LblGameStone) stone).removeMouseListener(((LblGameStone) stone).getMouseListeners()[0]);;
+		}
 	}
+	
 	
 	
 	
@@ -648,8 +672,12 @@ public class GamePanel extends Menu {
 		
 		private Image winLoseImage;
 		
+		private String winLose,
+					   color,
+					   gameMode;
 		
-		public WinLose(View view) {
+		
+		public WinLose(View view, GamePanelVA vActions) {
 			this.view = view;
 			
 			setOpaque(false);
@@ -667,14 +695,16 @@ public class GamePanel extends Menu {
 					RowSpec.decode("20px"),}));
 			
 			MillButton btnBack = new MillButton(view, "ZumMenue");
+			btnBack.addActionListener(vActions.new winLoseBtnBack());
 			add(btnBack, "2, 2, fill, fill");
 			
 			MillButton btnNeustart = new MillButton(view, "Neustart");
+			btnNeustart.addActionListener(vActions.new winLoseBtnNeustart());
 			add(btnNeustart, "4, 2, fill, fill");
 		}
 		
 		
-		public void setImage(String winLose, String color, String gameMode){
+		private void updateImage(String winLose, String color, String gameMode){
 			switch (winLose) {
 			case "win":
 				switch (color) {
@@ -697,6 +727,13 @@ public class GamePanel extends Menu {
 				winLoseImage = view.getTheme().getVerlierer();
 				break;
 			}
+		}
+		
+		
+		public void setImage(String winLose, String color, String gameMode){
+			this.winLose = winLose;
+			this.color = color;
+			this.gameMode = gameMode;
 			
 			repaint();
 		}
@@ -705,6 +742,8 @@ public class GamePanel extends Menu {
 		
 		@Override
 		public void paintComponent(Graphics g) {
+			updateImage(winLose, color, gameMode);
+			
 			// Bild dynamisch zeichnen
 			g.drawImage(winLoseImage, 0, 0, getWidth(), getHeight(), this);
 		}

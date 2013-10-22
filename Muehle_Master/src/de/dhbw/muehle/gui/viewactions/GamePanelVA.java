@@ -324,7 +324,24 @@ public class GamePanelVA {
 		public class infoFieldBtnNeustart implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				vController.getView().setGamePanel(new GamePanel(vController, vController.getView()));
+				vController.resetGame();
+				vController.startPvP();
+			}
+		}
+		
+		// infoField
+		public class winLoseBtnBack implements ActionListener{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				vController.resetGame();
+				vController.displayMainMenu();
+			}
+		}
+		
+		public class winLoseBtnNeustart implements ActionListener{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				vController.resetGame();
 				vController.startPvP();
 			}
 		}
