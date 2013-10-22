@@ -162,7 +162,7 @@ public class Sound implements BasicPlayerListener{
 	
 	
 	public enum Sounds{
-		menue("MENUE"),
+		menue("Menue"),
 		steinSetzen("Stein"),
 		loser("Loser"),
 		winner("Winner"),
