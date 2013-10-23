@@ -615,7 +615,7 @@ public class Core {
 					Transparent_Spielsteine_Weiss.add(vController.getView()
 							.getGamePanel().getPanelList().get(z));
 					vController.getView().getGamePanel().getPanelList().get(z)
-							.setImage("weiss", "trasparent");
+							.setImage("weiss", "transparent");
 				}
 			}
 		}
