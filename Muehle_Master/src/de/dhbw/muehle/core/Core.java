@@ -1189,6 +1189,7 @@ public class Core {
 
 		if (getStW().size() <= 2) {
 			System.out.println("Spieler Schwarz gewinnt");
+			vController.getView().getGamePanel().displayGameOver("win", "schwarz", "PvE");
 		}
 	}
 
@@ -1259,6 +1260,7 @@ public class Core {
 
 		if (getStS().size() <= 2) {
 			System.out.println("Spieler Weiss gewinnt");
+			vController.getView().getGamePanel().displayGameOver("win", "weiss", "PvE");
 		}
 
 	}
