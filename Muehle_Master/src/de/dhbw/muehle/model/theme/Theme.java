@@ -395,7 +395,7 @@ public class Theme {
 		 * @return siegerPvEWeiss
 		 */
 		public Image getSiegerPvEWeiss() {
-			return siegerPvEWeiss = returnImage("/SiegerbildVerliererbild/Siegerbild/SiegerHumanvspcschwarz.png", siegerPvEWeiss);
+			return siegerPvEWeiss = returnImage("/SiegerbildVerliererbild/Siegerbild/SiegerHumanvspcweiss.png", siegerPvEWeiss);
 		}
 		
 		
@@ -411,7 +411,7 @@ public class Theme {
 		 * @return siegerPvPWeiss
 		 */
 		public Image getSiegerPvPWeiss() {
-			return siegerPvPWeiss = returnImage("/SiegerbildVerliererbild/Siegerbild/SiegerHumanvshumanschwarz.png", siegerPvPWeiss);
+			return siegerPvPWeiss = returnImage("/SiegerbildVerliererbild/Siegerbild/SiegerHumanvshumanweiss.png", siegerPvPWeiss);
 		}
 		
 		

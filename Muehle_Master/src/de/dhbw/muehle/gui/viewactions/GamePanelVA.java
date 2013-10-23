@@ -376,7 +376,7 @@ public class GamePanelVA {
 		public class winLoseBtnBack implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				vController.resetGamePanel();
+				vController.getCore().resetAll();
 				vController.displayMainMenu();
 			}
 		}
@@ -384,7 +384,7 @@ public class GamePanelVA {
 		public class winLoseBtnNeustart implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				vController.resetGamePanel();
+				vController.getCore().resetAll();
 				vController.startPvP();
 			}
 		}

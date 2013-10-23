@@ -666,93 +666,6 @@ public class GamePanel extends Menu {
 	
 	
 	
-	private class WinLose extends JPanel{
-		
-		private View view;
-		
-		private Image winLoseImage;
-		
-		private String winLose,
-					   color,
-					   gameMode;
-		
-		
-		public WinLose(View view, GamePanelVA vActions) {
-			this.view = view;
-			
-			setOpaque(false);
-			setVisible(false);
-			
-			addMouseListener(new MouseAdapter(){}); // der Mouseadapter sperrt die dahinterliegenden Objekte
-			
-			setLayout(new FormLayout(new ColumnSpec[] {
-					ColumnSpec.decode("4dlu:grow(3)"),
-					ColumnSpec.decode("max(159px;default)"),
-					ColumnSpec.decode("4dlu:grow"),
-					ColumnSpec.decode("max(159px;default)"),
-					ColumnSpec.decode("4dlu:grow(3)"),},
-				new RowSpec[] {
-					RowSpec.decode("3dlu:grow"),
-					RowSpec.decode("max(52px;default)"),
-					RowSpec.decode("20px"),}));
-			
-			MillButton btnBack = new MillButton(view, "ZumMenue");
-			btnBack.addActionListener(vActions.new winLoseBtnBack());
-			add(btnBack, "2, 2, fill, fill");
-			
-			MillButton btnNeustart = new MillButton(view, "Neustart");
-			btnNeustart.addActionListener(vActions.new winLoseBtnNeustart());
-			add(btnNeustart, "4, 2, fill, fill");
-		}
-		
-		
-		private void updateImage(String winLose, String color, String gameMode){
-			switch (winLose) {
-			case "win":
-				switch (color) {
-				case "weiss":
-					if(gameMode.equals("PvE"))
-						winLoseImage = view.getTheme().getSiegerPvEWeiss();
-					else if(gameMode.equals("PvP"))
-						winLoseImage = view.getTheme().getSiegerPvPWeiss();
-					break;
-
-				case "schwarz":
-					if(gameMode.equals("PvE"))
-						winLoseImage = view.getTheme().getSiegerPvESchwarz();
-					else if(gameMode.equals("PvP"))
-						winLoseImage = view.getTheme().getSiegerPvPSchwarz();
-					break;
-				}
-				break;
-			case "lose":
-				winLoseImage = view.getTheme().getVerlierer();
-				break;
-			}
-		}
-		
-		
-		public void setImage(String winLose, String color, String gameMode){
-			this.winLose = winLose;
-			this.color = color;
-			this.gameMode = gameMode;
-			
-			repaint();
-		}
-		
-		
-		
-		@Override
-		public void paintComponent(Graphics g) {
-			updateImage(winLose, color, gameMode);
-			
-			// Bild dynamisch zeichnen
-			g.drawImage(winLoseImage, 0, 0, getWidth(), getHeight(), this);
-		}
-	}
-	
-	
-	
 	public class Dialog extends JPanel{
 		
 		private BufferedImage screenShot;
@@ -817,7 +730,7 @@ public class GamePanel extends Menu {
 		}
 		
 		
-		private BufferedImage getBluredScreenShot() throws IOException, AWTException{
+		protected BufferedImage getBluredScreenShot() throws IOException, AWTException{
 			Rectangle panelPosition = new Rectangle();
 			panelPosition.setLocation(view.getLocationOnScreen().x, view.getLocationOnScreen().y + 20);
 			panelPosition.setSize(view.getGamePanel().getSize());
@@ -864,6 +777,101 @@ public class GamePanel extends Menu {
 	        // Hintergrund zeichnen
 		    g.drawImage(screenShot, 0, 0, w, h, this);
 		    g.fillRect(0, 0, w, h);
+		}
+	}
+	
+	
+	
+	private class WinLose extends Dialog{
+		
+		private View view;
+		
+		private Image winLoseImage;
+		
+		private String winLose,
+					   color,
+					   gameMode;
+		
+		
+		public WinLose(View view, GamePanelVA vActions) {
+			super(view, vActions);
+			
+			this.view = view;
+			
+			setOpaque(false);
+			setVisible(false);
+			
+			addMouseListener(new MouseAdapter(){}); // der Mouseadapter sperrt die dahinterliegenden Objekte
+			
+			setLayout(new FormLayout(new ColumnSpec[] {
+					ColumnSpec.decode("4dlu:grow(3)"),
+					ColumnSpec.decode("max(159px;default)"),
+					ColumnSpec.decode("4dlu:grow"),
+					ColumnSpec.decode("max(159px;default)"),
+					ColumnSpec.decode("4dlu:grow(3)"),},
+				new RowSpec[] {
+					RowSpec.decode("3dlu:grow"),
+					RowSpec.decode("max(52px;default)"),
+					RowSpec.decode("20px"),}));
+			
+			MillButton btnBack = new MillButton(view, "ZumMenue");
+			btnBack.addActionListener(vActions.new winLoseBtnBack());
+			add(btnBack, "2, 2, fill, fill");
+			
+			MillButton btnNeustart = new MillButton(view, "Neustart");
+			btnNeustart.addActionListener(vActions.new winLoseBtnNeustart());
+			add(btnNeustart, "4, 2, fill, fill");
+		}
+		
+		
+		private void updateImage(String winLose, String color, String gameMode){
+			switch (winLose) {
+			case "win":
+				switch (color) {
+				case "weiss":
+					if(gameMode.equals("PvE"))
+						winLoseImage = view.getTheme().getSiegerPvEWeiss();
+					else if(gameMode.equals("PvP"))
+						winLoseImage = view.getTheme().getSiegerPvPWeiss();
+					break;
+
+				case "schwarz":
+					if(gameMode.equals("PvE"))
+						winLoseImage = view.getTheme().getSiegerPvESchwarz();
+					else if(gameMode.equals("PvP"))
+						winLoseImage = view.getTheme().getSiegerPvPSchwarz();
+					break;
+				}
+				break;
+			case "lose":
+				winLoseImage = view.getTheme().getVerlierer();
+				break;
+			}
+		}
+		
+		
+		public void setImage(String winLose, String color, String gameMode){
+			this.winLose = winLose;
+			this.color = color;
+			this.gameMode = gameMode;
+			
+			try {
+				super.screenShot = getBluredScreenShot();
+			} catch (IOException | AWTException e) {e.printStackTrace();}
+			
+			repaint();
+		}
+		
+		
+		
+		@Override
+		public void paintComponent(Graphics g) {
+			updateImage(winLose, color, gameMode);
+			
+			super.paintComponent(g);
+			
+			// Bild dynamisch zeichnen
+			g.drawImage(winLoseImage, 0, 0, getWidth(), getHeight(), this);
 		}
 	}
 }
