@@ -181,6 +181,11 @@ public class View extends JFrame{
 	}
 	
 	
+	public ViewController getViewController(){
+		return vController;
+	}
+	
+	
 	
 	public MainMenu getMainMenu() {
 		return mainMenu;

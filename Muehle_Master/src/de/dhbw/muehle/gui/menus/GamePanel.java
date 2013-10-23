@@ -199,6 +199,14 @@ public class GamePanel extends Menu {
 	}
 	
 	
+	public boolean anyChangesMade(){
+		if(weisseSteine.getCountStones() < 9 || schwarzeSteine.getCountStones() < 9)
+			return true;
+		else
+			return false;
+	}
+	
+	
 	/**
 	 * Erhöht oder veringert einen Stack
 	 * @param type Typ des Stacks ("schwarz" oder "weiss")
@@ -528,8 +536,6 @@ public class GamePanel extends Menu {
 		private String Spieler1Name,
 					   Spieler2Name;
 		
-		private boolean weissDran = true; // Weiß beginnt immer
-		
 		
 		public InfoField(View view, GamePanelVA vActions) {setOpaque(false);
 			
@@ -641,22 +647,18 @@ public class GamePanel extends Menu {
 		
 		
 		public void changePlayer(){
-			if(weissDran){
+			if(view.getViewController().getCore().isWeissDran() && !view.getViewController().getCore().isSchwarzDran()){
 				lblSpielSteinSpieler1.setImage("weiss");
 				lblSpielSteinSpieler2.setImage("schwarz", "transparent");
 				
 				lblSpieler1.setFont(new Font("Arial", Font.BOLD, 14));
 				lblSpieler2.setFont(new Font("Arial", Font.PLAIN, 14));
-				
-				weissDran = false;
 			}else{
 				lblSpielSteinSpieler1.setImage("weiss", "transparent");
 				lblSpielSteinSpieler2.setImage("schwarz");
 				
 				lblSpieler1.setFont(new Font("Arial", Font.PLAIN, 14));
 				lblSpieler2.setFont(new Font("Arial", Font.BOLD, 14));
-				
-				weissDran = true;
 			}
 			
 			repaint();

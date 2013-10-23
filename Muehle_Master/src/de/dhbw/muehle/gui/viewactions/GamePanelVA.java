@@ -328,7 +328,8 @@ public class GamePanelVA {
 		public class infoFieldBtnBack implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				vController.showDialog(true, "Wollen Sie wirklich?");
+				if(vController.getView().getGamePanel().anyChangesMade())
+					vController.showDialog(true, "Wollen Sie wirklich?");
 				
 				new Thread(){
 					public void run(){
@@ -348,8 +349,9 @@ public class GamePanelVA {
 		public class infoFieldBtnNeustart implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				vController.showDialog(true, "Wollen Sie wirklich?");
-				
+				if(vController.getView().getGamePanel().anyChangesMade())
+					vController.showDialog(true, "Wollen Sie wirklich?");
+					
 				new Thread(){
 					public void run(){
 					synchronized (vActions) {
