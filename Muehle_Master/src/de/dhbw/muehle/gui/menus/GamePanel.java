@@ -290,6 +290,8 @@ public class GamePanel extends Menu {
 		private String color,
 					   type;
 		
+		private boolean removed;
+		
 		
 		public LblGameStone(String color, View view) {
 			this(color, "", view);
@@ -370,6 +372,7 @@ public class GamePanel extends Menu {
 		public void setImage(String color, String type){
 			this.color = color;
 			this.type = type;
+			removed = false;
 			
 			repaint();
 		}
@@ -381,6 +384,8 @@ public class GamePanel extends Menu {
 		 */
 		public void removeImage(){
 			this.steinImage = null;
+			removed = true;
+			
 			repaint();
 		}
 		
@@ -390,8 +395,9 @@ public class GamePanel extends Menu {
 		 */
 		@Override
 		public void paintComponent(Graphics g) {
-			if(!(color == null) || !(type == null))
+			if((color != null || type != null) && !removed){
 				updateImage(color, type);
+			}
 			
 			// Bild dynamisch zeichnen
 			g.drawImage(steinImage, 0, 0, getWidth(), getHeight(), this);
@@ -732,7 +738,8 @@ public class GamePanel extends Menu {
 		
 		protected BufferedImage getBluredScreenShot() throws IOException, AWTException{
 			Rectangle panelPosition = new Rectangle();
-			panelPosition.setLocation(view.getLocationOnScreen().x, view.getLocationOnScreen().y + 20);
+			panelPosition.setLocation(view.getLocationOnScreen().x+view.getGamePanel().getLocation().x,
+									  view.getLocationOnScreen().y + view.getTopBar().getHeight());
 			panelPosition.setSize(view.getGamePanel().getSize());
 				        
 	        return new BoxBlurFilter(10, 10, 2).filter(new Robot().createScreenCapture(panelPosition),null);

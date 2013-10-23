@@ -36,6 +36,7 @@ public class View extends JFrame{
 	
 	private JPanel contentPane;
 	private JPanel content;
+	private JPanel topBar;
 	
 	private ViewController vController;
 	private ViewVA vActions;
@@ -94,7 +95,7 @@ public class View extends JFrame{
 				vActions.new ResizeAdapter(lblUpRight, ResizeAdapter.NORTH_EAST);
 				top.add(lblUpRight, "3, 1, 1, 2, fill, fill");
 				
-				JPanel topBar = new JPanel(){
+				topBar = new JPanel(){
 					@Override
 					public void paintComponent(Graphics g){
 						g.drawImage(getTheme().getLeiste(), 0, 0, getWidth(), getHeight(), this);
@@ -195,6 +196,10 @@ public class View extends JFrame{
 	
 	public SettingsPanel getSetingsPanel() {
 		return settingsPanel;
+	}
+	
+	public JPanel getTopBar(){
+		return topBar;
 	}
 	
 	
