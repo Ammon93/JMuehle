@@ -23,6 +23,8 @@ public class Theme {
 	private Image menueHintergrund,
 				  einstellungsHintergrund;
 	
+	private Image dialogHintergrund;
+	
 	private Image logo;
 	
 	private Image spielBrett;
@@ -87,6 +89,8 @@ public class Theme {
 		
 		menueHintergrund = null;
 		einstellungsHintergrund = null;
+		
+		dialogHintergrund = null;
 
 		logo = null;
 
@@ -216,6 +220,14 @@ public class Theme {
 		 */
 		public Image getEinstellungsHintergrund() {
 			return einstellungsHintergrund = returnImage("/Einstellungen/EinstellungenHintergrundbild.png", einstellungsHintergrund);
+		}
+		
+		
+		/**
+		 * @return einstellungsHintergrund
+		 */
+		public Image getDialogHintergrund() {
+			return dialogHintergrund = returnImage("/Dialog/Dialog.png", dialogHintergrund);
 		}
 		
 		

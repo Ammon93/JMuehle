@@ -41,7 +41,6 @@ public class ViewController implements IViewController {
 	public void initGui() {
 		displayMainMenu();
 		frame.setVisible(true); // Frame anzeigen
-		
 	}
 
 	public void displayMainMenu() {
@@ -59,13 +58,27 @@ public class ViewController implements IViewController {
 	public void displaySettings() {
 		frame.setContentPane(frame.getSetingsPanel());
 	}
+	
+	
+	public void showDialog(boolean show){
+		showDialog(show, "");
+	}
+	
+	public void showDialog(boolean show, String message){
+		if(show){
+			frame.getGamePanel().displayDialog(message);
+		}else{
+			frame.getGamePanel().disposeDialog();
+		}
+	}
 
+	
 	public void changePlayer() {
 		frame.getGamePanel().changePlayer();
 	}
 	
 	
-	public void resetGame(){
+	public void resetGamePanel(){
 		frame.setGamePanel(new GamePanel(this, frame));
 	}
 

@@ -118,8 +118,8 @@ public class MillButton extends JButton{
 		g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
 		
 		if(mouseOver && isEnabled()){
-			int brightness = (int) (256 - 256 * 0.5f);
-	        g.setColor(new Color(0,0,0,brightness));
+			int brightness = (int) (255 - 255 * 0.5f);
+	        g.setColor(new Color(0, 0, 0, brightness));
 	        g.fillRect(0, 0, getWidth(), getHeight());
 		}
 	}

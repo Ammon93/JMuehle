@@ -1,13 +1,25 @@
 package de.dhbw.muehle.gui.menus;
 
+import java.awt.AWTException;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Toolkit;
 import java.awt.event.HierarchyBoundsListener;
 import java.awt.event.HierarchyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
+import java.awt.image.ConvolveOp;
+import java.awt.image.Kernel;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
@@ -19,6 +31,7 @@ import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
+import com.jhlabs.image.BoxBlurFilter;
 
 import de.dhbw.muehle.gui.MillButton;
 import de.dhbw.muehle.gui.View;
@@ -31,6 +44,7 @@ public class GamePanel extends Menu {
 	private JPanel gameField;
 	private InfoField infoField;
 	private WinLose winLose;
+	private Dialog dialog;
 	
 	private LblGameStone lblGameStone[][][];
 	private LblStoneStack schwarzeSteine;
@@ -58,6 +72,9 @@ public class GamePanel extends Menu {
 			new RowSpec[] {
 				RowSpec.decode("default:grow"),}));
 		
+		
+		dialog = new Dialog(view, vActions);
+		add(dialog, "1, 1, 3, 1, fill, fill");
 		
 		winLose = new WinLose(view, vActions);
 		add(winLose, "1, 1, 3, 1, fill, fill");
@@ -133,21 +150,7 @@ public class GamePanel extends Menu {
 			}
 			i--;
 		}
-	}
-	
-	
-	private void setDeepEnabled(Component component, boolean enabled){
-	    if (component instanceof Container){
-	        Container container = (Container)component;
-	        
-	        for (Component children : container.getComponents()){
-	            setDeepEnabled(children, enabled);
-	        }
-	    }
-
-	    component.setEnabled(enabled);
-	}
-	
+	}	
 	
 	
 	protected LblStoneStack getStack(String color){
@@ -247,14 +250,16 @@ public class GamePanel extends Menu {
 	public void displayGameOver(String winLose, String color, String gameMode){
 		this.winLose.setImage(winLose, color, gameMode);
 		this.winLose.setVisible(true);
-		
-		// alles im Hintergrund deaktivieren
-		setDeepEnabled(this, false);
-		setDeepEnabled(this.winLose, true);
-		
-		for(Object stone : getPanelList().toArray()){
-			((LblGameStone) stone).removeMouseListener(((LblGameStone) stone).getMouseListeners()[0]);;
-		}
+	}
+	
+	
+	
+	public void displayDialog(String message){
+		this.dialog.show(message);
+	}
+	
+	public void disposeDialog(){
+		this.dialog.disappear();
 	}
 	
 	
@@ -515,8 +520,6 @@ public class GamePanel extends Menu {
 	
 	private class InfoField extends JPanel{
 		
-		private View view;
-		
 		private JTextArea logPane;
 		private LblGameStone lblSpielSteinSpieler1,
 							 lblSpielSteinSpieler2;
@@ -529,10 +532,7 @@ public class GamePanel extends Menu {
 		private boolean weissDran = true; // Weiß beginnt immer
 		
 		
-		public InfoField(View view, GamePanelVA vActions) {
-			this.view = view;
-			
-			setOpaque(false);
+		public InfoField(View view, GamePanelVA vActions) {setOpaque(false);
 			
 			setLayout(new FormLayout(new ColumnSpec[] {
 					ColumnSpec.decode("51px:grow"),
@@ -683,6 +683,8 @@ public class GamePanel extends Menu {
 			setOpaque(false);
 			setVisible(false);
 			
+			addMouseListener(new MouseAdapter(){}); // der Mouseadapter sperrt die dahinterliegenden Objekte
+			
 			setLayout(new FormLayout(new ColumnSpec[] {
 					ColumnSpec.decode("4dlu:grow(3)"),
 					ColumnSpec.decode("max(159px;default)"),
@@ -746,6 +748,122 @@ public class GamePanel extends Menu {
 			
 			// Bild dynamisch zeichnen
 			g.drawImage(winLoseImage, 0, 0, getWidth(), getHeight(), this);
+		}
+	}
+	
+	
+	
+	public class Dialog extends JPanel{
+		
+		private BufferedImage screenShot;
+		private Image dialogBG;
+		
+		private JPanel dialog;
+		private JLabel message;
+		
+		private GamePanelVA vActions;
+		
+		
+		public Dialog(View view, GamePanelVA vActions) {
+			this.vActions = vActions;
+			
+			setVisible(false);
+			setOpaque(false);
+			
+			addMouseListener(new MouseAdapter(){}); // der Mouseadapter sperrt die dahinterliegenden Objekte
+			
+			setLayout(new FormLayout(new ColumnSpec[] {
+					ColumnSpec.decode("default:grow"),
+					FormFactory.RELATED_GAP_COLSPEC,
+					ColumnSpec.decode("375px"),
+					FormFactory.RELATED_GAP_COLSPEC,
+					ColumnSpec.decode("default:grow"),},
+				new RowSpec[] {
+					RowSpec.decode("default:grow"),
+					FormFactory.RELATED_GAP_ROWSPEC,
+					RowSpec.decode("200px"),
+					FormFactory.RELATED_GAP_ROWSPEC,
+					RowSpec.decode("default:grow"),}));
+			
+			dialog = new JPanel(){
+				@Override
+				public void paintComponent(Graphics g) {
+					// Bild dynamisch zeichnen
+					g.drawImage(dialogBG, 0, 0, getWidth(), getHeight(), this);
+				}
+			};
+			add(dialog, "3, 3, fill, fill");
+			dialog.setLayout(new FormLayout(new ColumnSpec[] {
+					ColumnSpec.decode("max(20px;default)"),
+					ColumnSpec.decode("max(159px;default)"),
+					ColumnSpec.decode("default:grow"),
+					ColumnSpec.decode("max(159px;default)"),
+					ColumnSpec.decode("max(20px;default)"),},
+				new RowSpec[] {
+					RowSpec.decode("3dlu:grow"),
+					RowSpec.decode("max(52px;default)"),
+					RowSpec.decode("max(20px;default)"),}));
+			
+			message = new JLabel();
+			dialog.add(message, "2, 1, 3, 1, center, fill");
+			
+			MillButton btnOK = new MillButton(view, "OK");
+			btnOK.addActionListener(vActions.new dialogBtnOK());
+			dialog.add(btnOK, "2, 2, fill, fill");
+			
+			MillButton btnAbbrechen = new MillButton(view, "Abbrechen");
+			btnAbbrechen.addActionListener(vActions.new dialogBtnAbbrechen());
+			dialog.add(btnAbbrechen, "4, 2, fill, fill");
+		}
+		
+		
+		private BufferedImage getBluredScreenShot() throws IOException, AWTException{
+			Rectangle panelPosition = new Rectangle();
+			panelPosition.setLocation(view.getLocationOnScreen().x, view.getLocationOnScreen().y + 20);
+			panelPosition.setSize(view.getGamePanel().getSize());
+				        
+	        return new BoxBlurFilter(10, 10, 2).filter(new Robot().createScreenCapture(panelPosition),null);
+	    }
+		
+		
+		
+		public void show(String message){
+			this.message.setText(message);
+			
+			try {
+				screenShot = getBluredScreenShot();
+			} catch (IOException | AWTException e) {e.printStackTrace();}
+			
+			setVisible(true);
+			vActions.setDialogShown(true);
+		}
+		
+		public void disappear(){
+			setVisible(false);
+			vActions.setDialogShown(false);
+		}
+		
+		
+		
+		@Override
+		public void paintComponent(Graphics g) {
+			dialogBG = view.getTheme().getDialogHintergrund();
+			
+			int w = getWidth();
+			int h = getHeight();
+			
+			if(w > view.getWidth())
+				w = view.getWidth();
+			if(h > view.getHeight())
+				h = view.getHeight();
+			
+			// Hintergrund aufhellen
+			int brightness = (int) (255 - 255 * 0.85f);
+	        g.setColor(new Color(255, 255, 255, brightness));
+			
+	        // Hintergrund zeichnen
+		    g.drawImage(screenShot, 0, 0, w, h, this);
+		    g.fillRect(0, 0, w, h);
 		}
 	}
 }
