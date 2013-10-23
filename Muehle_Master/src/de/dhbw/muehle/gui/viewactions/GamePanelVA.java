@@ -4,14 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.EventListener;
-import java.util.EventListenerProxy;
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 import de.dhbw.muehle.gui.ViewController;
-import de.dhbw.muehle.gui.menus.GamePanel;
 import de.dhbw.muehle.gui.menus.GamePanel.LblGameStone;
 
 public class GamePanelVA {
