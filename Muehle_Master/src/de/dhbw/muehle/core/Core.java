@@ -1187,7 +1187,7 @@ public class Core {
 			setWeiss_Sprungphase(true);
 		}
 
-		if (getStW().size() <= 2) {
+		if (getStW().size() <= 2 && Spielphase ==2) {
 			System.out.println("Spieler Schwarz gewinnt");
 			vController.getView().getGamePanel().displayGameOver("win", "schwarz", "PvE");
 		}
@@ -1258,7 +1258,7 @@ public class Core {
 			setSchwarz_Sprungphase(true);
 		}
 
-		if (getStS().size() <= 2) {
+		if (getStS().size() <= 2 && Spielphase ==2) {
 			System.out.println("Spieler Weiss gewinnt");
 			vController.getView().getGamePanel().displayGameOver("win", "weiss", "PvE");
 		}
