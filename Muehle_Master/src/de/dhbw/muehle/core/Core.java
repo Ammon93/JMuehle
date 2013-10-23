@@ -1293,6 +1293,7 @@ public class Core {
 		alleWeissenSteineinMuehle = false;
 		alleSchwarzenSteineinMuehle = false;
 		Spielphase = 1;
-
+		
+		vController.resetGamePanel();
 	}
 }
