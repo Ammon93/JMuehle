@@ -27,7 +27,7 @@ public class Core {
 
 	private ViewController vController;
 	private Model model;
-	private KIBefehle KI;
+	//private KIBefehle KI;
 
 	public ViewController getvController() {
 		return vController;
@@ -295,7 +295,7 @@ public class Core {
 		index1s = new ArrayList<Spielstein>();
 		index2s = new ArrayList<Spielstein>();
 		index3s = new ArrayList<Spielstein>();
-		KI = new KIBefehle(this);
+		//KI = new KIBefehle(this);
 	}
 
 	// private void run() {
@@ -393,7 +393,7 @@ public class Core {
 				}
 			}
 			System.out.println("Muehle weiss");
-			anzahlgeschlosseneMuehlen_weiss++;
+			//anzahlgeschlosseneMuehlen_weiss++;
 			Muehle_weiss = true;
 
 		}
@@ -454,7 +454,7 @@ public class Core {
 				}
 			}
 			System.out.println("Muehle weiss ge�ffnet");
-			anzahlgeschlosseneMuehlen_weiss--;
+			//anzahlgeschlosseneMuehlen_weiss--;
 			Muehle_weiss = false;
 
 		}
@@ -513,7 +513,7 @@ public class Core {
 				}
 			}
 			System.out.println("Muehle schwarz");
-			anzahlgeschlosseneMuehlen_schwarz++;
+			//anzahlgeschlosseneMuehlen_schwarz++;
 			Muehle_schwarz = true;
 		}
 
@@ -573,7 +573,7 @@ public class Core {
 				}
 			}
 			System.out.println("Muehle schwarz ge�ffnet");
-			anzahlgeschlosseneMuehlen_schwarz--;
+			//anzahlgeschlosseneMuehlen_schwarz--;
 			Muehle_schwarz = false;
 		}
 
@@ -626,7 +626,7 @@ public class Core {
 
 		pruefeZug(angeklickterStein);
 		transparentsetzenSteine_weiss(stone);
-		KI.pruefeAlle();
+		//KI.pruefeAlle();
 
 		if (getHashliste_Weiss().contains(stone.getPosition().hashCode())
 				&& ueberpruefeZugmoeglichkeit() < Hashliste_gueltige_Zuege
@@ -665,7 +665,7 @@ public class Core {
 	public void angeklicktSetzen_schwarz(LblGameStone stone) {
 		pruefeZug(angeklickterStein);
 		transparentsetzenSteine_schwarz(stone);
-		KI.pruefeAlle();
+		//KI.pruefeAlle();
 		if (getHashliste_Schwarz().contains(stone.getPosition().hashCode())
 				&& ueberpruefeZugmoeglichkeit() < Hashliste_gueltige_Zuege
 						.size()) {
@@ -1108,19 +1108,17 @@ public class Core {
 			}
 
 		}
-		if (getStS().size() + getStW().size() >= 9) {
-			setSpielphase(2);
-		}
+//		if (getStS().size() + getStW().size() >= 9) {
+//			setSpielphase(2);
+//		}
 
 		// System.out.println(core.isWeissDran());
 		// System.out.println(core.isSchwarzDran());
 		// }
-		// if (vController.frame.gamePanel.isStackEmpty("weiss",
-		// vController.frame.gamePanel.weisseSteine)
-		// && vController.frame.gamePanel.isStackEmpty("schwarz",
-		// vController.frame.gamePanel.schwarzeSteine)) {
-		// setSpielphase(2);
-		// }
+		 if (vController.getView().getGamePanel().isStackEmpty("weiss")
+		 && vController.getView().getGamePanel().isStackEmpty("schwarz")) {
+		 setSpielphase(2);
+		 }
 	}
 
 	public void entferneSteinWeiss(LblGameStone stone) {
