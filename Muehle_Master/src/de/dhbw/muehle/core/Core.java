@@ -157,6 +157,7 @@ public class Core {
 		this.schwarzDran = schwarzDran;
 		if (schwarzDran)
 			vController.changePlayer();
+			
 	}
 
 	public boolean isWeissDran() {
@@ -167,6 +168,7 @@ public class Core {
 		this.weissDran = weissDran;
 		if (weissDran)
 			vController.changePlayer();
+			
 	}
 
 	public List<Integer> getHashliste_Weiss() {
@@ -394,7 +396,9 @@ public class Core {
 			}
 			System.out.println("Muehle weiss");
 			//anzahlgeschlosseneMuehlen_weiss++;
+			
 			Muehle_weiss = true;
+			vController.getView().getGamePanel().info("Weiss hat eine Muehle");
 
 		}
 
@@ -514,6 +518,7 @@ public class Core {
 			}
 			System.out.println("Muehle schwarz");
 			//anzahlgeschlosseneMuehlen_schwarz++;
+			vController.getView().getGamePanel().info("Schwarz hat eine Muehle");
 			Muehle_schwarz = true;
 		}
 
@@ -599,6 +604,7 @@ public class Core {
 	}
 
 	public void transparentsetzenSteine_weiss(LblGameStone stone) {
+		if(weiss_Sprungphase==false){
 		Transparent_Spielsteine_Weiss.clear();
 		for (int j = 0; j < Hashliste_gueltige_Zuege.size(); j++) {
 			for (int z = 0; z < vController.getView().getGamePanel()
@@ -618,6 +624,10 @@ public class Core {
 							.setImage("weiss", "transparent");
 				}
 			}
+		}
+		}
+		else{
+			
 		}
 
 	}
@@ -640,6 +650,7 @@ public class Core {
 	}
 
 	public void transparentsetzenSteine_schwarz(LblGameStone stone) {
+		if(schwarz_Sprungphase==false){
 		Transparent_Spielsteine_Schwarz.clear();
 		for (int j = 0; j < Hashliste_gueltige_Zuege.size(); j++) {
 			for (int z = 0; z < vController.getView().getGamePanel()
@@ -659,6 +670,10 @@ public class Core {
 							.setImage("schwarz", "transparent");
 				}
 			}
+		}
+		}
+		else{
+			
 		}
 	}
 
@@ -1124,7 +1139,7 @@ public class Core {
 	public void entferneSteinWeiss(LblGameStone stone) {
 
 		if (isMuehle_schwarz() == true) {
-			if (isAlleWeissenSteineinMuehle() == false) {
+			if (isAlleWeissenSteineinMuehle()== false) {
 				if (!getHashliste_Schwarz().contains(
 						stone.getPosition().hashCode())) {
 
@@ -1183,7 +1198,7 @@ public class Core {
 			}
 		}
 
-		if (getStW().size() <= 3) {
+		if (getStW().size() <= 3 && Spielphase == 2) {
 			setWeiss_Sprungphase(true);
 		}
 
@@ -1254,7 +1269,7 @@ public class Core {
 			}
 		}
 
-		if (getStS().size() <= 3) {
+		if (getStS().size() <= 3 && Spielphase ==2) {
 			setSchwarz_Sprungphase(true);
 		}
 
