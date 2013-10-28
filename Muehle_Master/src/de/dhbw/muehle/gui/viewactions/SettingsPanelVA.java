@@ -18,7 +18,7 @@ public class SettingsPanelVA extends ViewActions{
 			}
 		}
 		
-		public class btnWoodenMill extends ABtnWoodenMill{
+		public class btnWoodenMill extends ABtnChangeTheme{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				vController.setTheme("Wooden Mill");
@@ -26,7 +26,7 @@ public class SettingsPanelVA extends ViewActions{
 			}
 		}
 		
-		public class btn8bitMill extends ABtn8bitMill{
+		public class btn8bitMill extends ABtnChangeTheme{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				vController.setTheme("8bit Mill");
@@ -34,7 +34,23 @@ public class SettingsPanelVA extends ViewActions{
 			}
 		}
 		
-		public class btnDirtyMill extends ABtnDirtyMill{
+		public class btnOSMill extends ABtnChangeTheme{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				vController.setTheme("OS Mill");
+				vController.getTheme().playSound(Sounds.menue);
+			}
+		}
+		
+		public class btnStarWarsMill extends ABtnChangeTheme{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				vController.setTheme("Star Wars Mill");
+				vController.getTheme().playSound(Sounds.menue);
+			}
+		}
+		
+		public class btnDirtyMill extends ABtnChangeTheme{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				vController.setTheme("Dirty Mill");

@@ -24,11 +24,12 @@ public class MillButton extends JButton implements MouseListener{
 	public MillButton(View view, String type){
 		this.view = view;
 		this.type = type;
-		
-		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+	
 		addMouseListener(this);
 		
 		setBackgroundImage(view.getTheme(), type);
+		
+		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 	}
 	
 	

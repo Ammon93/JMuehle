@@ -4,6 +4,7 @@ import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -28,6 +29,8 @@ public class DialogBackgroundPanel extends JPanel{
 	
 	protected JPanel dialog;
 	
+	protected Font font;
+	
 	public static String OPEN = "open",
 						 CLOSE = "close",
 						 HIDE = "hide";
@@ -44,6 +47,8 @@ public class DialogBackgroundPanel extends JPanel{
 		setOpaque(false);
 		
 		addMouseListener(new MouseAdapter(){}); // der Mouseadapter sperrt die dahinterliegenden Objekte
+		
+		font = view.getTheme().getFont();
 		
 		dialog = new JPanel(){
 			@Override
@@ -126,6 +131,8 @@ public class DialogBackgroundPanel extends JPanel{
 	@Override
 	public void paintComponent(Graphics g) {
 		calculateVGap(dialog);
+		
+		font = view.getTheme().getFont();
 		
 		int w = getWidth();
 		int h = getHeight();

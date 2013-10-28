@@ -597,7 +597,6 @@ public class GamePanel extends AMenu {
 				infoPanel.add(lblSpielSteinSpieler2, "4, 2, fill, fill");
 				
 				lblSpielerDran = new JLabel();
-				lblSpielerDran.setFont(new Font("Arial", Font.BOLD, 18));
 				infoPanel.add(lblSpielerDran, "2, 4, 3, 1, center, fill");
 			
 				
@@ -680,6 +679,8 @@ public class GamePanel extends AMenu {
 		
 		
 		public void changePlayer(){
+			lblSpielerDran.setFont(view.getTheme().getFont().deriveFont(Font.BOLD, 18));
+			
 			if(view.getViewController().getCore().isWeissDran() && !view.getViewController().getCore().isSchwarzDran()){
 				lblSpielSteinSpieler1.setImage("weiss");
 				lblSpielSteinSpieler2.setImage("schwarz", "transparent");
@@ -741,6 +742,8 @@ public class GamePanel extends AMenu {
 		@Override
 		public void paintComponent(Graphics g) {
 			setDialogBackground(view.getTheme().getDialogHintergrund());
+			
+			dialogMessage.setFont(font.deriveFont(Font.BOLD, 20));
 		
 			super.paintComponent(g);
 		}
@@ -752,6 +755,9 @@ public class GamePanel extends AMenu {
 		
 		private JTextField spieler1,
 						   spieler2;
+		
+		private JLabel lblNameSpieler1,
+					   lblNameSpieler2;
 		
 
 		public InputDialog(View view, GamePanelVA vActions) {
@@ -774,10 +780,10 @@ public class GamePanel extends AMenu {
 					RowSpec.decode("max(52px;default)"),
 					RowSpec.decode("max(20px;default)"),}));
 			
-			JLabel lblNameSpieler1 = new JLabel("Name Spieler 1:");
+			lblNameSpieler1 = new JLabel("Name Spieler 1:");
 			dialog.add(lblNameSpieler1, "2, 1, 2, 1, center, bottom");
 			
-			JLabel lblNameSpieler2 = new JLabel("Name Spieler 2:");
+			lblNameSpieler2 = new JLabel("Name Spieler 2:");
 			dialog.add(lblNameSpieler2, "5, 1, 2, 1, center, bottom");
 			
 			spieler1 = new JTextField("Spieler 1");
@@ -819,6 +825,9 @@ public class GamePanel extends AMenu {
 		@Override
 		public void paintComponent(Graphics g) {
 			setDialogBackground(view.getTheme().getDialogHintergrund());
+			
+			lblNameSpieler1.setFont(font.deriveFont(Font.BOLD, 15));
+			lblNameSpieler2.setFont(font.deriveFont(Font.BOLD, 15));
 			
 			super.paintComponent(g);
 		}

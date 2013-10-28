@@ -187,11 +187,7 @@ public class ViewActions{
 	 */
 	public abstract class ABtnBack implements ActionListener{};
 	
-	public abstract class ABtnWoodenMill implements ActionListener{};
-	
-	public abstract class ABtn8bitMill implements ActionListener{};
-	
-	public abstract class ABtnDirtyMill implements ActionListener{};
+	public abstract class ABtnChangeTheme implements ActionListener{};
 	
 	
 	

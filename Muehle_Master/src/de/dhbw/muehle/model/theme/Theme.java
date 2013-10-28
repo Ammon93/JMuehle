@@ -1,6 +1,9 @@
 package de.dhbw.muehle.model.theme;
 
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Image;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 
@@ -13,6 +16,8 @@ public class Theme {
 	
 	private Sound sound;
 	private String soundPath;
+	
+	private Font themeFont;
 	
 	
 	private Image leiste,
@@ -143,6 +148,19 @@ public class Theme {
 	
 	public boolean isSoundPlaying(){
 		return this.sound.isPlaying();
+	}
+	
+	
+	public Font getFont(){
+		if(themeFont != null)
+			return themeFont;
+		else
+			try {
+				return themeFont = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResource(themePath + "/Font/Font.ttf").openStream());
+			} catch (FontFormatException | IOException e) {
+				e.printStackTrace();
+				return new Font("Arial", Font.PLAIN, 12);
+			}
 	}
 	
 	

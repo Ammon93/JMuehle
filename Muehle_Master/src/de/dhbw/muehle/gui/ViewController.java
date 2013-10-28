@@ -52,6 +52,9 @@ public class ViewController implements IViewController {
 	}
 	
 	public void startPvE(){
+		if(!frame.getGlobalVA().getGamePanelVA().getPvE())
+			core.resetAll();
+		
 		frame.getGlobalVA().getGamePanelVA().setPvE(true);
 		
 		getTheme().stopSound();
@@ -60,6 +63,9 @@ public class ViewController implements IViewController {
 	}
 
 	public void startPvP() {
+		if(frame.getGlobalVA().getGamePanelVA().getPvE())
+			core.resetAll();
+		
 		frame.getGlobalVA().getGamePanelVA().setPvE(false);
 		
 		getTheme().stopSound();

@@ -24,8 +24,13 @@ public class GamePanelVA extends ViewActions{
 	}
 	
 	
+	
 	public void setPvE(boolean PvE){
 		this.PvE = PvE;
+	}
+	
+	public boolean getPvE(){
+		return PvE;
 	}
 	
 	
