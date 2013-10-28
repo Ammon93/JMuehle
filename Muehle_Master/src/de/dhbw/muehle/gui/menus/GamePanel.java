@@ -29,6 +29,7 @@ import de.dhbw.muehle.gui.View;
 import de.dhbw.muehle.gui.ViewController;
 import de.dhbw.muehle.gui.menus.MainMenu.Spielregeln;
 import de.dhbw.muehle.gui.viewactions.GamePanelVA;
+import de.dhbw.muehle.model.spielstein.EPositionIndex;
 import de.dhbw.muehle.model.spielstein.Position;
 
 public class GamePanel extends AMenu {
@@ -334,7 +335,7 @@ public class GamePanel extends AMenu {
 		
 		public LblGameStone(int ebene, int x, int y, View view, GamePanelVA vActions) {
 			this.view = view;
-			pos = new Position(ebene, x, y);
+			newPosition(ebene, x, y);
 			
 			setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			addMouseListener(vActions.new lblGameStoneMouse());
@@ -342,8 +343,7 @@ public class GamePanel extends AMenu {
 		
 		public LblGameStone(String color, String type, int ebene, int x, int y, View view, GamePanelVA vActions) {
 			this(color, type, view);
-			
-			pos = new Position(ebene, x, y);
+			newPosition(ebene, x, y);
 			
 			setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			addMouseListener(vActions.new lblGameStoneMouse());
@@ -374,6 +374,140 @@ public class GamePanel extends AMenu {
 				else if(type.equals("transparent"))
 					steinImage = view.getTheme().getSpielSteinSchwarzTransparent();
 				break;
+			}
+		}
+		
+		
+		private void newPosition(int ebene, int x, int y){
+			switch (ebene) {
+			case 1:
+				switch (x) {
+				case 1:
+					switch (y) {
+					case 1:
+						pos = new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Eins);
+						break;
+					case 2:
+						pos = new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Zwei);
+						break;
+					case 3:
+						pos = new Position(EPositionIndex.Eins, EPositionIndex.Eins, EPositionIndex.Drei);
+						break;
+					}
+					break;
+				case 2:
+					switch (y) {
+					case 1:
+						pos = new Position(EPositionIndex.Eins, EPositionIndex.Zwei, EPositionIndex.Eins);
+						break;
+					case 2:
+						pos = new Position(EPositionIndex.Eins, EPositionIndex.Zwei, EPositionIndex.Zwei);
+						break;
+					case 3:
+						pos = new Position(EPositionIndex.Eins, EPositionIndex.Zwei, EPositionIndex.Drei);
+						break;
+					}
+					break;
+				case 3:
+					switch (y) {
+					case 1:
+						pos = new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Eins);
+						break;
+					case 2:
+						pos = new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Zwei);
+						break;
+					case 3:
+						pos = new Position(EPositionIndex.Eins, EPositionIndex.Drei, EPositionIndex.Drei);
+						break;
+					}
+					break;
+				}
+				
+			case 2:
+				switch (x) {
+				case 1:
+					switch (y) {
+					case 1:
+						pos = new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Eins);
+						break;
+					case 2:
+						pos = new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Zwei);
+						break;
+					case 3:
+						pos = new Position(EPositionIndex.Zwei, EPositionIndex.Eins, EPositionIndex.Drei);
+						break;
+					}
+					break;
+				case 2:
+					switch (y) {
+					case 1:
+						pos = new Position(EPositionIndex.Zwei, EPositionIndex.Zwei, EPositionIndex.Eins);
+						break;
+					case 2:
+						pos = new Position(EPositionIndex.Zwei, EPositionIndex.Zwei, EPositionIndex.Zwei);
+						break;
+					case 3:
+						pos = new Position(EPositionIndex.Zwei, EPositionIndex.Zwei, EPositionIndex.Drei);
+						break;
+					}
+					break;
+				case 3:
+					switch (y) {
+					case 1:
+						pos = new Position(EPositionIndex.Zwei, EPositionIndex.Drei, EPositionIndex.Eins);
+						break;
+					case 2:
+						pos = new Position(EPositionIndex.Zwei, EPositionIndex.Drei, EPositionIndex.Zwei);
+						break;
+					case 3:
+						pos = new Position(EPositionIndex.Zwei, EPositionIndex.Drei, EPositionIndex.Drei);
+						break;
+					}
+					break;
+				}
+				
+			case 3:
+				switch (x) {
+				case 1:
+					switch (y) {
+					case 1:
+						pos = new Position(EPositionIndex.Drei, EPositionIndex.Eins, EPositionIndex.Eins);
+						break;
+					case 2:
+						pos = new Position(EPositionIndex.Drei, EPositionIndex.Eins, EPositionIndex.Zwei);
+						break;
+					case 3:
+						pos = new Position(EPositionIndex.Drei, EPositionIndex.Eins, EPositionIndex.Drei);
+						break;
+					}
+					break;
+				case 2:
+					switch (y) {
+					case 1:
+						pos = new Position(EPositionIndex.Drei, EPositionIndex.Zwei, EPositionIndex.Eins);
+						break;
+					case 2:
+						pos = new Position(EPositionIndex.Drei, EPositionIndex.Zwei, EPositionIndex.Zwei);
+						break;
+					case 3:
+						pos = new Position(EPositionIndex.Drei, EPositionIndex.Zwei, EPositionIndex.Drei);
+						break;
+					}
+					break;
+				case 3:
+					switch (y) {
+					case 1:
+						pos = new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Eins);
+						break;
+					case 2:
+						pos = new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Zwei);
+						break;
+					case 3:
+						pos = new Position(EPositionIndex.Drei, EPositionIndex.Drei, EPositionIndex.Drei);
+						break;
+					}
+					break;
+				}
 			}
 		}
 		
