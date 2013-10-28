@@ -25,6 +25,8 @@ public class Theme {
 	
 	private Image dialogHintergrund;
 	
+	private Image spielregeln;
+	
 	private Image logo;
 	
 	private Image spielBrett;
@@ -91,6 +93,8 @@ public class Theme {
 		einstellungsHintergrund = null;
 		
 		dialogHintergrund = null;
+		
+		spielregeln = null;
 
 		logo = null;
 
@@ -224,13 +228,21 @@ public class Theme {
 		
 		
 		/**
-		 * @return einstellungsHintergrund
+		 * @return dialogHintergrund
 		 */
 		public Image getDialogHintergrund() {
 			return dialogHintergrund = returnImage("/Dialog/Dialog.png", dialogHintergrund);
 		}
 		
 		
+		/**
+		 * @return the spielregeln
+		 */
+		public Image getSpielregeln() {
+			return spielregeln = returnImage("/Spielregeln/Spielregeln.png", spielregeln);
+		}
+
+
 		/**
 		 * @return logo
 		 */

@@ -11,7 +11,7 @@ import javax.swing.JButton;
 
 import de.dhbw.muehle.model.theme.Theme;
 
-public class MillButton extends JButton{
+public class MillButton extends JButton implements MouseListener{
 	
 	private View view;
 	private Theme theme;
@@ -26,7 +26,7 @@ public class MillButton extends JButton{
 		this.type = type;
 		
 		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		addMouseListener(new MillButtonListener(this));
+		addMouseListener(this);
 		
 		setBackgroundImage(view.getTheme(), type);
 	}
@@ -105,6 +105,39 @@ public class MillButton extends JButton{
 		
 		themeOverride = true;
 	}
+	
+	
+	public View getView(){
+		return view;
+	}
+	
+	
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {	
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		setMouseOver(false);
+		repaint();
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		setMouseOver(true);
+		repaint();
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		setMouseOver(false);
+		repaint();
+	}
 
 	
 
@@ -121,47 +154,6 @@ public class MillButton extends JButton{
 			int brightness = (int) (255 - 255 * 0.5f);
 	        g.setColor(new Color(0, 0, 0, brightness));
 	        g.fillRect(0, 0, getWidth(), getHeight());
-		}
-	}
-	
-	
-	
-	
-	private class MillButtonListener implements MouseListener{
-		
-		private MillButton mB;
-		
-		
-		public MillButtonListener(MillButton mB) {
-			this.mB = mB;
-		}
-
-		
-		
-		@Override
-		public void mouseClicked(MouseEvent e) {	
-		}
-
-		@Override
-		public void mousePressed(MouseEvent e) {
-			mB.setMouseOver(false);
-			mB.repaint();
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent e) {
-		}
-
-		@Override
-		public void mouseEntered(MouseEvent e) {
-			mB.setMouseOver(true);
-			mB.repaint();
-		}
-
-		@Override
-		public void mouseExited(MouseEvent e) {
-			mB.setMouseOver(false);
-			mB.repaint();
 		}
 	}
 }

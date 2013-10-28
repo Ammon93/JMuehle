@@ -7,14 +7,15 @@ package de.dhbw.muehle.gui;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Insets;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import javax.swing.JComponent;
 
 import de.dhbw.muehle.core.Core;
-import de.dhbw.muehle.gui.menus.GamePanel.LblGameStone;
+import de.dhbw.muehle.gui.menus.AMenu;
 import de.dhbw.muehle.gui.menus.GamePanel;
-import de.dhbw.muehle.gui.menus.Menu;
+import de.dhbw.muehle.gui.menus.GamePanel.LblGameStone;
 import de.dhbw.muehle.model.spielstein.ISpielstein;
 import de.dhbw.muehle.model.spielstein.Position;
 import de.dhbw.muehle.model.theme.Sound;
@@ -53,6 +54,18 @@ public class ViewController implements IViewController {
 		getTheme().stopSound();
 		frame.setContentPane(frame.getGamePanel()); // GamePanel (Spielbrett)
 		changePlayer(); // Weiß beginnt
+		
+		// inputDialog einblenden
+		if(!getView().getGamePanel().anyChangesMade())
+			new Thread(){
+				public void run(){
+					try {
+						sleep(500);
+					} catch (InterruptedException e) {e.printStackTrace();}
+					
+					frame.getGamePanel().openInputDialog();
+				}
+			}.start();
 	}
 
 	public void displaySettings() {
@@ -60,16 +73,19 @@ public class ViewController implements IViewController {
 	}
 	
 	
-	public void showDialog(boolean show){
-		showDialog(show, "");
+	public void openDialog(String command, String dialogType, AMenu parentMenu){
+		openDialog(command, dialogType, "", parentMenu);
 	}
 	
-	public void showDialog(boolean show, String message){
-		if(show){
-			frame.getGamePanel().displayDialog(message);
-		}else{
-			frame.getGamePanel().disposeDialog();
-		}
+	public void openDialog(String command, String dialogType, String message, AMenu parentMenu){
+		try {
+			if(message.isEmpty())
+				Class.forName(parentMenu.getClass().getName()).getMethod(command+dialogType).invoke(parentMenu);
+			else
+				Class.forName(parentMenu.getClass().getName()).getMethod(command+dialogType, String.class).invoke(parentMenu, message);
+		} catch (IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException | NoSuchMethodException
+				| SecurityException | ClassNotFoundException e) {e.printStackTrace();}
 	}
 
 	
@@ -124,7 +140,7 @@ public class ViewController implements IViewController {
 	}
 	
 	
-	public void resizePanel(Menu panel){
+	public void resizePanel(AMenu panel){
 		double aspectRatio = (double) panel.getOriginalSize().height / (double) panel.getOriginalSize().width;
 		
 		JComponent parent = (JComponent) panel.getParent();

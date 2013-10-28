@@ -1,30 +1,24 @@
 package de.dhbw.muehle.gui.viewactions;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
-import de.dhbw.muehle.gui.ViewController;
+import javax.swing.JTextField;
+
+import de.dhbw.muehle.gui.DialogBackgroundPanel;
 import de.dhbw.muehle.gui.menus.GamePanel.LblGameStone;
 
-public class GamePanelVA {
-
-	private ViewController vController;
+public class GamePanelVA extends ViewActions{
 	
 	private GamePanelVA vActions;
-    private boolean dialogShown;
 	
 
-	public GamePanelVA(ViewController vController) {
-		this.vController = vController;
-		
+	public GamePanelVA() {
 		vActions = this;
-	}
-	
-	
-	public void setDialogShown(boolean dialogShown){
-		this.dialogShown = dialogShown;
 	}
 	
 
@@ -40,8 +34,8 @@ public class GamePanelVA {
 		 *         Spielablauf Je nach gesetzten booleans werden jeweilige
 		 *         Funktionen ausgef�hrt
 		 */
-	
-		public class lblGameStoneMouse implements MouseListener {
+		
+		public class lblGameStoneMouse extends ALblGameStoneMouse {
 			@Override
 			// Wird aufgerufen falls einmal geklickt wird
 			public void mouseClicked(MouseEvent e) {
@@ -325,51 +319,61 @@ public class GamePanelVA {
 	 */
 	// {
 	// infoField
-		public class infoFieldBtnBack implements ActionListener{
+		public class infoFieldBtnHilfe extends ABtnHilfe{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				vController.openDialog(DialogBackgroundPanel.OPEN, DialogBackgroundPanel.SPIELREGELN, vController.getView().getActualPanel());
+			}
+		}
+		
+		public class infoFieldBtnBack extends AInfoFieldBtnBack{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(vController.getView().getGamePanel().anyChangesMade())
-					vController.showDialog(true, "Wollen Sie wirklich?");
+					vController.openDialog(DialogBackgroundPanel.OPEN, DialogBackgroundPanel.DIALOG, "Wollen Sie wirklich?", vController.getView().getActualPanel());
 				
 				new Thread(){
 					public void run(){
 					synchronized (vActions) {
-						while(dialogShown){
+						while(vActions.isDialogShown() && !vActions.isCanceled()){
 			                try {
 								vActions.wait();
 							} catch (InterruptedException e1) {e1.printStackTrace();}
 			            }
 					}
 					
-					vController.displayMainMenu();
+					if(!vActions.isCanceled())
+						vController.displayMainMenu();
 				}}.start();
 			}
 		}
 		
-		public class infoFieldBtnNeustart implements ActionListener{
+		public class infoFieldBtnNeustart extends AInfoFieldBtnNeustart{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(vController.getView().getGamePanel().anyChangesMade())
-					vController.showDialog(true, "Wollen Sie wirklich?");
-					
+					vController.openDialog(DialogBackgroundPanel.OPEN, DialogBackgroundPanel.DIALOG, "Wollen Sie wirklich?", vController.getView().getActualPanel());
+				
 				new Thread(){
 					public void run(){
 					synchronized (vActions) {
-						while(dialogShown){
+						while(vActions.isDialogShown() && !vActions.isCanceled()){
 			                try {
 								vActions.wait();
 							} catch (InterruptedException e1) {e1.printStackTrace();}
 			            }
 					}
 					
-					vController.getCore().resetAll();
-					vController.startPvP();
+					if(!vActions.isCanceled()){
+						vController.getCore().resetAll();
+						vController.startPvP();
+					}
 				}}.start();
 			}
 		}
 		
-		// winLose
-		public class winLoseBtnBack implements ActionListener{
+	// winLose
+		public class winLoseBtnBack extends AWinLoseBtnBack{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				vController.getCore().resetAll();
@@ -377,7 +381,7 @@ public class GamePanelVA {
 			}
 		}
 		
-		public class winLoseBtnNeustart implements ActionListener{
+		public class winLoseBtnNeustart extends AWinLoseBtnNeustart{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				vController.getCore().resetAll();
@@ -385,23 +389,98 @@ public class GamePanelVA {
 			}
 		}
 		
-		// dialog
-		public class dialogBtnOK implements ActionListener{
+	// dialog
+		public class dialogBtnOK extends ADialogBtnOK{
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				vController.showDialog(false);
-			
-				synchronized (vActions) {
-					vActions.notifyAll();
-				}
+				vController.openDialog(DialogBackgroundPanel.CLOSE, DialogBackgroundPanel.DIALOG, vController.getView().getActualPanel());
 			}
 		}
 		
-		public class dialogBtnAbbrechen implements ActionListener{
+		public class dialogBtnAbbrechen extends ADialogBtnAbbrechen{
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				vController.showDialog(false);
+				vController.openDialog(DialogBackgroundPanel.HIDE, DialogBackgroundPanel.DIALOG, vController.getView().getActualPanel());
+			}
+		}
+		
+	// inputDialog
+		public class inputDialogBtnOK extends ADialogBtnOK{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				vController.openDialog(DialogBackgroundPanel.CLOSE, DialogBackgroundPanel.INPUTDIALOG, vController.getView().getActualPanel());
+				vController.getView().getGamePanel().changePlayer();
 			}
 		}
 	// }
+		
+		
+		
+	/**
+	 * AdvancedTextFieldAdapter
+	 */
+//	{
+		public class advancedTextFieldAdapter extends AAdvancedTextFieldAdapter{
+			
+			private String spieler;
+			private String lastText;
+			
+			
+			public advancedTextFieldAdapter(String dafaultSpielerName) {
+				spieler = dafaultSpielerName;
+			}
+			
+			
+			@Override
+			public void focusGained(FocusEvent e) {
+				String text = ((JTextField) e.getSource()).getText();
+				
+		    	if(text.equals("Spieler 1")
+		    			|| text.equals("Spieler 2")){
+		    		((JTextField) e.getSource()).setText("");
+		    		((JTextField) e.getSource()).setForeground(Color.BLACK);
+		    	}
+		    }
+			
+			@Override
+		    public void focusLost(FocusEvent e) {
+				String text = ((JTextField) e.getSource()).getText();
+				
+		    	if(text.equals("Spieler 1")
+		    			|| text.equals("Spieler 2")
+		    			|| text.isEmpty()){
+		    		((JTextField) e.getSource()).setText(spieler);
+		    		((JTextField) e.getSource()).setForeground(Color.GRAY);
+		    	}
+			}
+	
+			@Override
+			public void keyTyped(KeyEvent e) {}
+	
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER){
+					focusLost(new FocusEvent((Component) e.getSource(), FocusEvent.FOCUS_LOST));
+					
+					new inputDialogBtnOK().actionPerformed(
+							new ActionEvent(this,
+							ActionEvent.ACTION_PERFORMED,""));
+				}
+				
+				if(lastText == null)
+					lastText = ((JTextField) e.getSource()).getText();
+				
+				if(((JTextField) e.getSource()).getText().length() > 13)
+					((JTextField) e.getSource()).setText(lastText);
+				else
+					lastText = ((JTextField) e.getSource()).getText();
+			}
+	
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(((JTextField) e.getSource()).getText().length() > 13)
+					((JTextField) e.getSource()).setText(lastText);
+			}
+		}
+//	}
 }

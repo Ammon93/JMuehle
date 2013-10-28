@@ -1,9 +1,8 @@
 package de.dhbw.muehle.gui.viewactions;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import de.dhbw.muehle.gui.ViewController;
+import de.dhbw.muehle.gui.DialogBackgroundPanel;
 
 /**
  * Hier werden alle Action Listener der View implementiert
@@ -11,23 +10,14 @@ import de.dhbw.muehle.gui.ViewController;
  *
  */
 
-public class MainMenuVA {
-	
-	private ViewController vController;
-	
-	
-	public MainMenuVA(ViewController vController) {
-		this.vController = vController;
-	}
-	
-	
+public class MainMenuVA extends ViewActions{	
 	
 	/**
 	 * Actionlistener
 	 */
 //	{
 		//btnPvE
-		public class btnPvEAction implements ActionListener{
+		public class btnPvEAction extends ABtnPvE{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
@@ -35,7 +25,7 @@ public class MainMenuVA {
 		}
 		
 		//btnPvP
-		public class btnPvPAction implements ActionListener{
+		public class btnPvPAction extends ABtnPvP{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				vController.startPvP();
@@ -43,7 +33,7 @@ public class MainMenuVA {
 		}
 		
 		//btnSettings
-		public class btnSettingsAction implements ActionListener{
+		public class btnSettingsAction extends ABtnSettings{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				vController.displaySettings();
@@ -51,11 +41,26 @@ public class MainMenuVA {
 		}
 		
 		//btnQuit
-		public class btnQuitAction implements ActionListener{
+		public class btnQuitAction extends ABtnQuit{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// Programm beenden
 				System.exit(0); //noch die brachiale Methode, muss noch besser gelöst werden!!!
+			}
+		}
+		
+		public class btnHilfeAction extends ABtnHilfe{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				vController.openDialog(DialogBackgroundPanel.OPEN, DialogBackgroundPanel.SPIELREGELN, vController.getView().getActualPanel());
+			}
+		}
+		
+		
+		public class dialogBtnBack extends ADialogBtnOK{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				vController.openDialog(DialogBackgroundPanel.CLOSE, DialogBackgroundPanel.SPIELREGELN, vController.getView().getActualPanel());
 			}
 		}
 //	}

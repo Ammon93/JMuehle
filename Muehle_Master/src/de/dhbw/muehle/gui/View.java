@@ -15,8 +15,9 @@ import com.jgoodies.forms.layout.RowSpec;
 
 import de.dhbw.muehle.gui.menus.GamePanel;
 import de.dhbw.muehle.gui.menus.MainMenu;
-import de.dhbw.muehle.gui.menus.Menu;
+import de.dhbw.muehle.gui.menus.AMenu;
 import de.dhbw.muehle.gui.menus.SettingsPanel;
+import de.dhbw.muehle.gui.viewactions.ViewActions;
 import de.dhbw.muehle.gui.viewactions.ViewVA;
 import de.dhbw.muehle.gui.viewactions.ViewVA.ResizeAdapter;
 import de.dhbw.muehle.model.theme.Theme;
@@ -39,6 +40,7 @@ public class View extends JFrame{
 	private JPanel topBar;
 	
 	private ViewController vController;
+	private ViewActions globalVA;
 	private ViewVA vActions;
 
 	private MainMenu mainMenu;
@@ -50,8 +52,11 @@ public class View extends JFrame{
 		this.theme = theme;
 		this.vController = vController;
 		
-		// Listener initialisieren
-		vActions = new ViewVA(vController);
+		// globale ViewActions initialisieren
+		globalVA = new ViewActions(vController);
+		
+		// ViewActions für View holen
+		vActions = globalVA.getViewVA();
 		
 
 		setTitle("JMuehle");		
@@ -163,6 +168,11 @@ public class View extends JFrame{
 	
 	
 	
+	public ViewActions getGlobalVA(){
+		return globalVA;
+	}
+	
+	
 	/**
 	 * Setzt eine Theme
 	 * @param theme Theme
@@ -208,8 +218,8 @@ public class View extends JFrame{
 	}
 	
 	
-	public Menu getActualPanel(){
-		return (Menu) content.getComponent(0);
+	public AMenu getActualPanel(){
+		return (AMenu) content.getComponent(0);
 	}
 	
 	
@@ -217,7 +227,7 @@ public class View extends JFrame{
 	 * Setzt das Hauptpanel des Frames
 	 * @param container Container (In diesem Fall das JPanel)
 	 */
-	public void setContentPane(Menu container){
+	public void setContentPane(AMenu container){
 		
 		// aktuelles Panel entfernen, sofern vorhanden
 		if(content.getComponents().length != 0)
@@ -225,6 +235,7 @@ public class View extends JFrame{
 		
 		// neues Panel setzen
 		content.add(container);
+		
 		
 		// Framegröße auf Panelgröße anpassen
 		if(container.getOriginalSize().height > getHeight() || container.getOriginalSize().width > getWidth()){

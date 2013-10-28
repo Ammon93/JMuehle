@@ -13,20 +13,22 @@ import javazoom.jlgui.basicplayer.BasicPlayerListener;
 
 public class Sound implements BasicPlayerListener{
 	
-	private static BasicPlayer player;
+	private static BasicPlayer musicPlayer,
+							   soundPlayer;
 	
 	private static String soundPfad;
 	
-	private static boolean musicPlayed;
 	private static boolean fading,
 						   fadingExt;
 	private static boolean playing;
 	
 	
 	public Sound() {		
-		player = new BasicPlayer();
-		player.setSleepTime(1);
-		player.addBasicPlayerListener(this);
+		musicPlayer = new BasicPlayer();
+		musicPlayer.setSleepTime(1);
+		musicPlayer.addBasicPlayerListener(this);
+		
+		soundPlayer = new BasicPlayer();
 	}
 	
 	
@@ -46,16 +48,15 @@ public class Sound implements BasicPlayerListener{
 			playing = true;
 			
 			try {
-				player.play();
-				player.setGain(0d);
+				musicPlayer.play();
+				musicPlayer.setGain(0d);
 				Thread.sleep(100);
 				
-				musicPlayed = true;
 				for(double i=0;i<=1.414;i+=0.001){
 					if(!fadingExt)
 						break;
 					
-					player.setGain(Math.round(i*100d)/100d);
+					musicPlayer.setGain(Math.round(i*100d)/100d);
 					Thread.sleep(1);
 				}
 			} catch (InterruptedException | BasicPlayerException e) {e.printStackTrace();}
@@ -65,12 +66,12 @@ public class Sound implements BasicPlayerListener{
 			playing = false;
 			
 			try {
-				double actualGain = Math.round((((player.getGainValue()+80d)/86.0206)*1000d)/1000d);
+				double actualGain = Math.round((((musicPlayer.getGainValue()+80d)/86.0206)*1000d)/1000d);
 				for(double i=actualGain;i>=0;i-=0.001){
-					player.setGain(Math.round(i*100d)/100d);
+					musicPlayer.setGain(Math.round(i*100d)/100d);
 					Thread.sleep(1);
 				}
-				player.stop();
+				musicPlayer.stop();
 			} catch (InterruptedException | BasicPlayerException e) {e.printStackTrace();}
 			break;
 		}
@@ -90,7 +91,7 @@ public class Sound implements BasicPlayerListener{
 		setEnum(soundPfad);
 		new Thread(){
 			public void run(){
-				if(player.getStatus()==BasicPlayer.PLAYING){
+				if(musicPlayer.getStatus()==BasicPlayer.PLAYING){
 					if(fading)
 						fadingExt = false;
 					
@@ -99,14 +100,12 @@ public class Sound implements BasicPlayerListener{
 							Thread.sleep(1);
 						} catch (InterruptedException e) {e.printStackTrace();}
 					
-					if(player.getStatus()==BasicPlayer.PLAYING){
-						musicPlayed = false;
+					if(musicPlayer.getStatus()==BasicPlayer.PLAYING)
 						fade("out");
-					}
 				}
 				
 				try {
-					player.open(getSoundLocation(enumeration));
+					musicPlayer.open(getSoundLocation(enumeration));
 					fade("in");
 				} catch (BasicPlayerException | MalformedURLException e) {e.printStackTrace();}
 		}}.start();
@@ -115,21 +114,18 @@ public class Sound implements BasicPlayerListener{
 	protected void stopMusic(){
 		new Thread(){
 			public void run(){
-				if(player.getStatus()==BasicPlayer.PLAYING){
-					musicPlayed = false;
+				if(musicPlayer.getStatus()==BasicPlayer.PLAYING)
 					fade("out");
-				}
 		}}.start();
 	}
 	
 	
 	protected void playSound(Sounds enumeration){
 		setEnum(soundPfad);
-		musicPlayed = false;
 		
 		try {
-			player.open(getSoundLocation(enumeration));
-			player.play();
+			soundPlayer.open(getSoundLocation(enumeration));
+			soundPlayer.play();
 		} catch (BasicPlayerException | MalformedURLException e) {
 			e.printStackTrace();
 		}
@@ -165,9 +161,8 @@ public class Sound implements BasicPlayerListener{
 
 	@Override
 	public void stateUpdated(BasicPlayerEvent arg0) {
-		if(arg0.getCode()==BasicPlayerEvent.STOPPED && musicPlayed){
+		if(arg0.getCode()==BasicPlayerEvent.STOPPED && playing)
 			playMusic(Sounds.menue);
-		}
 	}
 	
 	

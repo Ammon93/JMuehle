@@ -6,29 +6,17 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JComponent;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
-import de.dhbw.muehle.gui.ViewController;
-
-public class ViewVA {
-
-	private ViewController vController;
+public class ViewVA extends ViewActions{
 	
 	private Rectangle bounds;
 	
 	private boolean maximized;
-	
-	
-	
-	public ViewVA(ViewController vController) {
-		this.vController = vController;
-	}
 	
 
 	
@@ -36,14 +24,14 @@ public class ViewVA {
 	 * ActionListener
 	 */
 //	{
-		public class btnClose implements ActionListener{
+		public class btnClose extends ABtnClose{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
 		}
 		
-		public class btnMax implements ActionListener{
+		public class btnMax extends ABtnMax{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(maximized){
@@ -59,7 +47,7 @@ public class ViewVA {
 			}
 		}
 		
-		public class btnMin implements ActionListener{
+		public class btnMin extends ABtnMin{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				vController.getView().setExtendedState(Frame.ICONIFIED);
@@ -74,7 +62,7 @@ public class ViewVA {
 	 * ResizeAdapter
 	 */
 //	{
-		public class ResizeAdapter extends MouseAdapter implements SwingConstants {
+		public class ResizeAdapter extends AViewResizeAdapter {
 			private boolean resizing = false;
 			private int prevX = -1;
 			private int prevY = -1;
@@ -145,6 +133,22 @@ public class ViewVA {
 				resizing = false;
 				vController.resizePanel(vController.getView().getActualPanel());
 			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseMoved(MouseEvent e) {
+			}
 		}
 //	}
 		
@@ -154,7 +158,7 @@ public class ViewVA {
 	 * MoveAdapter
 	 */
 //	{
-		public class MoveAdapter extends MouseAdapter{
+		public class MoveAdapter extends AViewMoveAdapter{
 			
 			private Point initialClick;
 			
@@ -187,6 +191,36 @@ public class ViewVA {
 	            int Y = fensterY + mausRelativY;
 	            w.setLocation(X, Y);
 	        }
+
+
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+
+
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			}
+
+
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+			}
+
+
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+			}
+
+
+
+			@Override
+			public void mouseMoved(MouseEvent e) {
+			}
 		}
 //	}
 }
