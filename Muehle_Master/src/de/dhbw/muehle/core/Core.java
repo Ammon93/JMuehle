@@ -3,14 +3,16 @@ package de.dhbw.muehle.core;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.dhbw.muehle.EPositionIndex;
+import de.dhbw.muehle.ESpielsteinFarbe;
+import de.dhbw.muehle.ISpielstein;
+import de.dhbw.muehle.Position;
 import de.dhbw.muehle.gui.ViewController;
 import de.dhbw.muehle.gui.menus.GamePanel.LblGameStone;
 import de.dhbw.muehle.model.Log;
 import de.dhbw.muehle.model.Model;
 import de.dhbw.muehle.model.database.dbconnection;
-import de.dhbw.muehle.model.spielstein.EPositionIndex;
-import de.dhbw.muehle.model.spielstein.ESpielsteinFarbe;
-import de.dhbw.muehle.model.spielstein.Position;
+
 import de.dhbw.muehle.model.spielstein.Spielstein;
 import de.dhbw.muehle.model.theme.Sound.Sounds;
 import de.dhbw.muehle.strategien.Strategien;
@@ -32,11 +34,11 @@ public class Core {
 	private ViewController vController;
 	private Model model;
 	private dbconnection dbconn;
+
 	
 	private static List<IStrategieFactory> strat = Strategien.list();
 	private static IStrategieFactory S = strat.get(0);
-	private IStrategie PC = S.getStrategie();
-	
+	private static IStrategie PC = S.getStrategie();
 
 	// private KIBefehle KI;
 
@@ -60,6 +62,7 @@ public class Core {
 
 	// In den Listen StW und StS werden alle Spielsteine gespeichert
 	private List<Spielstein> StW, StS;
+	private List<ISpielstein> Spielsteine_gesamt;
 	private List<LblGameStone> Transparent_Spielsteine_Weiss;
 	private List<LblGameStone> Transparent_Spielsteine_Schwarz;
 
@@ -308,6 +311,8 @@ public class Core {
 		index1s = new ArrayList<Spielstein>();
 		index2s = new ArrayList<Spielstein>();
 		index3s = new ArrayList<Spielstein>();
+		Spielsteine_gesamt = new ArrayList<ISpielstein>();
+		
 		dbconn = new dbconnection();
 		dbconn.databaseconnection();
 		System.out.println(S.getName());
@@ -337,6 +342,23 @@ public class Core {
 		StS.add(new Spielstein(ebene, x, y, ESpielsteinFarbe.SCHWARZ));
 		Hashliste_Schwarz.add(pos.hashCode());
 
+	}
+
+	public void erstelleSpielsteinegesamt() {
+		for (int i = 0; i < StW.size(); i++) {
+			Spielsteine_gesamt.add(StW.get(i));
+		}
+		for (int i = 0; i < StS.size(); i++) {
+			Spielsteine_gesamt.add(StS.get(i));
+		}
+	}
+
+	public List<ISpielstein> getSpielsteine_gesamt() {
+		return Spielsteine_gesamt;
+		}
+
+	public void setSpielsteine_gesamt(List<ISpielstein> spielsteine_gesamt) {
+		Spielsteine_gesamt = spielsteine_gesamt;
 	}
 
 	public boolean postitionFree(Position pos) {
@@ -413,7 +435,6 @@ public class Core {
 
 			Muehle_weiss = true;
 			vController.getView().getGamePanel().info("Weiss hat eine Muehle");
-
 		}
 
 	}
@@ -760,6 +781,14 @@ public class Core {
 			}
 		}
 
+	}
+
+	public IStrategie getPC() {
+		return PC;
+	}
+
+	public void setPC(IStrategie pC) {
+		PC = pC;
 	}
 
 	public void setzeStein_ziehen_schwarz(LblGameStone stone) {
@@ -1128,7 +1157,8 @@ public class Core {
 		}
 	}
 
-	public void weisseSteine_setzen(LblGameStone stone) {
+	public void weisseSteine_setzen(
+			LblGameStone stone) {
 		if (postitionFree(stone.getPosition())
 				&& !vController.getView().getGamePanel().isStackEmpty("weiss")) {
 			erzeugeSpielsteinweiss(stone.getPosition().getEbene(), stone
@@ -1136,13 +1166,14 @@ public class Core {
 					stone.getPosition());
 			stone.setImage("weiss");
 			vController.getView().getGamePanel().updateStack("weiss", -1);
-			System.out.println(getStW().size());
+			System.out.println(stone.getPosition());
 			ueberpruefen_Muehele_weiss(stone.getPosition());
 			vController.getTheme().playSound(Sounds.steinSetzen);
 			dbconn.databasewrite("Weiss", null, ""
 					+ stone.getPosition().getEbene().getValue() + ", "
 					+ stone.getPosition().getX().getValue() + ", "
 					+ stone.getPosition().getY().getValue() + "");
+			erstelleSpielsteinegesamt();
 			if (isMuehle_weiss() == true) {
 				setWeissDran(true);
 				setSchwarzDran(false);
@@ -1172,6 +1203,7 @@ public class Core {
 					+ stone.getPosition().getEbene().getValue() + ", "
 					+ stone.getPosition().getX().getValue() + ", "
 					+ stone.getPosition().getY().getValue() + "");
+			erstelleSpielsteinegesamt();
 			if (isMuehle_schwarz() == true) {
 				setWeissDran(false);
 				setSchwarzDran(true);
@@ -1371,5 +1403,24 @@ public class Core {
 
 		vController.resetGamePanel();
 		dbconn.databaseread();
+	}
+
+	public Spielstein konvertiereStein(ISpielstein stein) {
+
+		Spielstein konvSpielstein = new Spielstein(stein.getPosition()
+				.getEbene(), stein.getPosition().getX(), stein.getPosition()
+				.getY(), stein.getFarbe());
+
+		return konvSpielstein;
+
+	}
+	public ISpielstein konvertiereStein2(Spielstein stein) {
+
+		ISpielstein konvSpielstein = new Spielstein(stein.getPosition()
+				.getEbene(), stein.getPosition().getX(), stein.getPosition()
+				.getY(), stein.getFarbe());
+
+		return konvSpielstein;
+
 	}
 }

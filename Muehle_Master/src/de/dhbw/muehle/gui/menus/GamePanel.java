@@ -23,14 +23,15 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 
+import de.dhbw.muehle.EPositionIndex;
+import de.dhbw.muehle.Position;
 import de.dhbw.muehle.gui.DialogBackgroundPanel;
 import de.dhbw.muehle.gui.MillButton;
 import de.dhbw.muehle.gui.View;
 import de.dhbw.muehle.gui.ViewController;
 import de.dhbw.muehle.gui.menus.MainMenu.Spielregeln;
 import de.dhbw.muehle.gui.viewactions.GamePanelVA;
-import de.dhbw.muehle.model.spielstein.EPositionIndex;
-import de.dhbw.muehle.model.spielstein.Position;
+
 
 public class GamePanel extends AMenu {
 	
@@ -173,7 +174,7 @@ public class GamePanel extends AMenu {
 	 * Liefert das Label auf dem Spielstein anhand der angegbenen Position
 	 * @param pos Position
 	 */
-	public JLabel getLabel(Position pos){
+	public LblGameStone getLabel(Position pos){
 		return lblGameStone[pos.getEbene().getValue()-1][pos.getX().getValue()-1][pos.getY().getValue()-1];
 	}
 	

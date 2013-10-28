@@ -12,13 +12,14 @@ import java.util.List;
 
 import javax.swing.JComponent;
 
+import de.dhbw.muehle.ISpielstein;
+import de.dhbw.muehle.Position;
 import de.dhbw.muehle.core.Core;
 import de.dhbw.muehle.gui.menus.AMenu;
 import de.dhbw.muehle.gui.menus.GamePanel;
 import de.dhbw.muehle.gui.menus.GamePanel.LblGameStone;
 import de.dhbw.muehle.gui.viewactions.ViewActions;
-import de.dhbw.muehle.model.spielstein.ISpielstein;
-import de.dhbw.muehle.model.spielstein.Position;
+
 import de.dhbw.muehle.model.theme.Sound;
 import de.dhbw.muehle.model.theme.Sound.Sounds;
 import de.dhbw.muehle.model.theme.Theme;
@@ -207,4 +208,6 @@ public class ViewController implements IViewController {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 }

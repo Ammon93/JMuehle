@@ -5,8 +5,11 @@ package de.dhbw.muehle.gui;
 
 import java.util.List;
 
-import de.dhbw.muehle.model.spielstein.ISpielstein;
-import de.dhbw.muehle.model.spielstein.Position;
+import de.dhbw.muehle.ISpielstein;
+import de.dhbw.muehle.Position;
+
+
+
 
 /**
  * Hier können die Schnittstellenmethoden definiert werden, über die später mit dem Core kommuniziert wird.

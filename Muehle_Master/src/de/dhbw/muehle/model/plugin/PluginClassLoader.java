@@ -11,10 +11,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import de.dhbw.muehle.model.spielstein.EPositionIndex;
-import de.dhbw.muehle.model.spielstein.ESpielsteinFarbe;
-import de.dhbw.muehle.model.spielstein.ISpielstein;
-import de.dhbw.muehle.model.spielstein.Position;
+
+import de.dhbw.muehle.EPositionIndex;
+import de.dhbw.muehle.ESpielsteinFarbe;
+import de.dhbw.muehle.ISpielstein;
+import de.dhbw.muehle.Position;
+
 import de.dhbw.muehle.strategy.IStrategie;
 import de.dhbw.muehle.strategy.IStrategieFactory;
 import de.dhbw.muehle.strategy.StrategieException;

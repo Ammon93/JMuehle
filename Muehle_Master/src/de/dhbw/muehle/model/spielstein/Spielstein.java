@@ -1,5 +1,12 @@
 package de.dhbw.muehle.model.spielstein;
 
+import javax.swing.JLabel;
+
+import de.dhbw.muehle.EPositionIndex;
+import de.dhbw.muehle.ESpielsteinFarbe;
+import de.dhbw.muehle.ISpielstein;
+import de.dhbw.muehle.Position;
+
 
 public class Spielstein implements ISpielstein{
 	
@@ -32,16 +39,16 @@ public class Spielstein implements ISpielstein{
 		return farbe;
 	}
 
-	@Override
-	public Position getPosition() {
-		
-		return position;
-		
-	}
-	
 	public void setPosition(EPositionIndex ebene,EPositionIndex x,EPositionIndex y) {
 		
 		this.position = new Position(ebene, x, y);
 		
+	}
+
+
+	@Override
+	public Position getPosition() {
+		// TODO Auto-generated method stub
+		return position;
 	}
 }
