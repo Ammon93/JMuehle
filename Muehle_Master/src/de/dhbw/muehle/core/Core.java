@@ -12,8 +12,11 @@ import de.dhbw.muehle.model.spielstein.EPositionIndex;
 import de.dhbw.muehle.model.spielstein.ESpielsteinFarbe;
 import de.dhbw.muehle.model.spielstein.Position;
 import de.dhbw.muehle.model.spielstein.Spielstein;
-import de.dhbw.muehle.model.strategie.KIBefehle;
 import de.dhbw.muehle.model.theme.Sound.Sounds;
+import de.dhbw.muehle.strategien.Strategien;
+import de.dhbw.muehle.strategy.IStrategie;
+import de.dhbw.muehle.strategy.IStrategieFactory;
+import de.dhbw.muehle.strategy.StrategieException;
 
 /**
  * 
@@ -29,6 +32,11 @@ public class Core {
 	private ViewController vController;
 	private Model model;
 	private dbconnection dbconn;
+	
+	private static List<IStrategieFactory> strat = Strategien.list();
+	private static IStrategieFactory S = strat.get(0);
+	private IStrategie PC = S.getStrategie();
+	
 
 	// private KIBefehle KI;
 
@@ -302,6 +310,7 @@ public class Core {
 		index3s = new ArrayList<Spielstein>();
 		dbconn = new dbconnection();
 		dbconn.databaseconnection();
+		System.out.println(S.getName());
 		// KI = new KIBefehle(this);
 	}
 

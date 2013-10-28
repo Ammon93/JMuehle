@@ -17,5 +17,7 @@
 	<classpathentry kind="lib" path="lib/BasicPlayer3.0/basicplayer3.0.jar" sourcepath="lib/BasicPlayer3.0/src/javazoom/jlgui/basicplayer"/>
 	<classpathentry kind="lib" path="lib/BasicPlayer3.0/lib/tritonus_share.jar"/>
 	<classpathentry kind="lib" path="lib/jhlabs/Filters.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Chris/Downloads/muehle-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Chris/Downloads/muehle-util.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

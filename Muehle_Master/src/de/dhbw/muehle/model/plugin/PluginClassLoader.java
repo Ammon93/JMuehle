@@ -15,10 +15,10 @@ import de.dhbw.muehle.model.spielstein.EPositionIndex;
 import de.dhbw.muehle.model.spielstein.ESpielsteinFarbe;
 import de.dhbw.muehle.model.spielstein.ISpielstein;
 import de.dhbw.muehle.model.spielstein.Position;
-import de.dhbw.muehle.model.strategie.ISpielzug;
-import de.dhbw.muehle.model.strategie.IStrategie;
-import de.dhbw.muehle.model.strategie.IStrategieFactory;
-import de.dhbw.muehle.model.strategie.StrategieException;
+import de.dhbw.muehle.strategy.IStrategie;
+import de.dhbw.muehle.strategy.IStrategieFactory;
+import de.dhbw.muehle.strategy.StrategieException;
+
 
 public class PluginClassLoader extends URLClassLoader {
 
@@ -31,7 +31,7 @@ public class PluginClassLoader extends URLClassLoader {
 		  m_Saveclasse.add( ISpielstein.class.getName() );
 		  m_Saveclasse.add( Position.class.getName() );		  
 		  
-		  m_Saveclasse.add( ISpielzug.class.getName() );
+		  m_Saveclasse.add( de.dhbw.muehle.strategy.ISpielzug.class.getName() );
 		  m_Saveclasse.add( IStrategie.class.getName() );
 		  m_Saveclasse.add( IStrategieFactory.class.getName() );
 		  m_Saveclasse.add( StrategieException.class.getName() );
