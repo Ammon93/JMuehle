@@ -16,6 +16,7 @@ import de.dhbw.muehle.core.Core;
 import de.dhbw.muehle.gui.menus.AMenu;
 import de.dhbw.muehle.gui.menus.GamePanel;
 import de.dhbw.muehle.gui.menus.GamePanel.LblGameStone;
+import de.dhbw.muehle.gui.viewactions.ViewActions;
 import de.dhbw.muehle.model.spielstein.ISpielstein;
 import de.dhbw.muehle.model.spielstein.Position;
 import de.dhbw.muehle.model.theme.Sound;
@@ -49,8 +50,18 @@ public class ViewController implements IViewController {
 			getTheme().playSound(Sounds.menue); // Hauptmenümusik abspielen
 		frame.setContentPane(frame.getMainMenu()); // Hauptmenü anzeigen
 	}
+	
+	public void startPvE(){
+		frame.getGlobalVA().getGamePanelVA().setPvE(true);
+		
+		getTheme().stopSound();
+		frame.setContentPane(frame.getGamePanel()); // GamePanel (Spielbrett)
+		changePlayer(); // Weiß beginnt
+	}
 
 	public void startPvP() {
+		frame.getGlobalVA().getGamePanelVA().setPvE(false);
+		
 		getTheme().stopSound();
 		frame.setContentPane(frame.getGamePanel()); // GamePanel (Spielbrett)
 		changePlayer(); // Weiß beginnt

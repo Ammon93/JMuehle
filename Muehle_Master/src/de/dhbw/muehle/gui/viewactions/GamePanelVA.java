@@ -16,10 +16,18 @@ public class GamePanelVA extends ViewActions{
 	
 	private GamePanelVA vActions;
 	
+	private boolean PvE;
+	
 
 	public GamePanelVA() {
 		vActions = this;
 	}
+	
+	
+	public void setPvE(boolean PvE){
+		this.PvE = PvE;
+	}
+	
 	
 
 	/**
@@ -39,6 +47,12 @@ public class GamePanelVA extends ViewActions{
 			@Override
 			// Wird aufgerufen falls einmal geklickt wird
 			public void mouseClicked(MouseEvent e) {
+				
+				// Prüfen, ob die Strategie noch am Zug ist
+				if(PvE && vController.getCore().isSchwarzDran()){
+					return;
+				}
+				
 	
 				/**
 				 * Hier wird �berpr�ft in welcher Spielphase sich das Spiel befindet
@@ -289,6 +303,11 @@ public class GamePanelVA extends ViewActions{
 						System.out.println("Hat Schwarz eine Muehle "
 								+ vController.getCore().isMuehle_schwarz());
 	
+					}
+					
+					
+					if(PvE){
+						// Methode, die die Strategie aufruft
 					}
 				}
 			}
