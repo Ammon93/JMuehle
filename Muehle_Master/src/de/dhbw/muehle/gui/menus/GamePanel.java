@@ -341,14 +341,6 @@ public class GamePanel extends AMenu {
 			addMouseListener(vActions.new lblGameStoneMouse());
 		}
 		
-		public LblGameStone(String color, String type, int ebene, int x, int y, View view, GamePanelVA vActions) {
-			this(color, type, view);
-			newPosition(ebene, x, y);
-			
-			setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			addMouseListener(vActions.new lblGameStoneMouse());
-		}
-		
 		
 		/**
 		 * dynamisches Update der Bilder
@@ -422,6 +414,7 @@ public class GamePanel extends AMenu {
 					}
 					break;
 				}
+				break;
 				
 			case 2:
 				switch (x) {
@@ -465,6 +458,7 @@ public class GamePanel extends AMenu {
 					}
 					break;
 				}
+				break;
 				
 			case 3:
 				switch (x) {
@@ -508,6 +502,7 @@ public class GamePanel extends AMenu {
 					}
 					break;
 				}
+				break;
 			}
 		}
 		
