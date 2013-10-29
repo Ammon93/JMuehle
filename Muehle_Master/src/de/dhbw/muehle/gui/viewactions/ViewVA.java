@@ -12,6 +12,12 @@ import javax.swing.JComponent;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
+import de.dhbw.muehle.gui.View;
+
+/**
+ * Hier werden alle Listener für die {@link View} implementiert
+ * @author Ammon
+ */
 public class ViewVA extends ViewActions{
 	
 	private Rectangle bounds;

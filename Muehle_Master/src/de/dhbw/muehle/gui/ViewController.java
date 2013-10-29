@@ -1,31 +1,28 @@
 package de.dhbw.muehle.gui;
 
-/**
- * Diese Klasse dient als Schnittstelle zwischen dem Core und der View
- */
-
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Insets;
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 
 import javax.swing.JComponent;
 
-import de.dhbw.muehle.ISpielstein;
-import de.dhbw.muehle.Position;
 import de.dhbw.muehle.core.Core;
 import de.dhbw.muehle.gui.menus.AMenu;
 import de.dhbw.muehle.gui.menus.GamePanel;
-import de.dhbw.muehle.gui.menus.GamePanel.LblGameStone;
-import de.dhbw.muehle.gui.viewactions.ViewActions;
-
+import de.dhbw.muehle.gui.menus.MainMenu;
+import de.dhbw.muehle.gui.menus.SettingsPanel;
 import de.dhbw.muehle.model.theme.Sound;
 import de.dhbw.muehle.model.theme.Sound.Sounds;
 import de.dhbw.muehle.model.theme.Theme;
 import de.dhbw.muehle.model.theme.ThemeLoader;
 
-public class ViewController implements IViewController {
+/**
+ * Diese Klasse dient als Schnittstelle zwischen dem {@link Core} und der {@link View}.
+ * 
+ * @author Ammon
+ */
+public class ViewController {
 
 	private View frame;
 
@@ -33,6 +30,12 @@ public class ViewController implements IViewController {
 	private ThemeLoader thLoader;
 	private Theme theme;
 
+	
+	/**
+	 * Konstruktor
+	 * 
+	 * @param _core
+	 */
 	public ViewController(Core _core) {
 		thLoader = new ThemeLoader();
 		setTheme("Wooden Mill");
@@ -41,19 +44,32 @@ public class ViewController implements IViewController {
 		core = _core;
 	}
 
+	
+	
+	/**
+	 * Initialisiert die GUI/{@link View}.
+	 */
 	public void initGui() {
 		displayMainMenu();
 		frame.setVisible(true); // Frame anzeigen
 	}
-
+	
+	
+	/**
+	 * Zeigt das {@link MainMenu} an.
+	 */
 	public void displayMainMenu() {
 		if(!theme.isSoundPlaying())
 			getTheme().playSound(Sounds.menue); // Hauptmenümusik abspielen
 		frame.setContentPane(frame.getMainMenu()); // Hauptmenü anzeigen
 	}
 	
+	
+	/**
+	 * Startet das Spiel im Einzelspielermodus.
+	 */
 	public void startPvE(){
-		if(!frame.getGlobalVA().getGamePanelVA().getPvE())
+		if(!frame.getGlobalVA().getGamePanelVA().isPvE())
 			core.resetAll();
 		
 		frame.getGlobalVA().getGamePanelVA().setPvE(true);
@@ -61,10 +77,26 @@ public class ViewController implements IViewController {
 		getTheme().stopSound();
 		frame.setContentPane(frame.getGamePanel()); // GamePanel (Spielbrett)
 		changePlayer(); // Weiß beginnt
+		
+		// inputDialog einblenden
+		if(!getView().getGamePanel().anyChangesMade())
+			new Thread(){
+				public void run(){
+					try {
+						sleep(300);
+					} catch (InterruptedException e) {e.printStackTrace();}
+					
+					frame.getGamePanel().openInputDialog();
+				}
+			}.start();
 	}
 
+	
+	/**
+	 * Startet das Spiel im Mehrspielermodus
+	 */
 	public void startPvP() {
-		if(frame.getGlobalVA().getGamePanelVA().getPvE())
+		if(frame.getGlobalVA().getGamePanelVA().isPvE())
 			core.resetAll();
 		
 		frame.getGlobalVA().getGamePanelVA().setPvE(false);
@@ -78,23 +110,42 @@ public class ViewController implements IViewController {
 			new Thread(){
 				public void run(){
 					try {
-						sleep(500);
+						sleep(300);
 					} catch (InterruptedException e) {e.printStackTrace();}
 					
 					frame.getGamePanel().openInputDialog();
 				}
 			}.start();
 	}
-
+	
+	
+	/**
+	 * Zeigt das {@link SettingsPanel} an.
+	 */
 	public void displaySettings() {
 		frame.setContentPane(frame.getSetingsPanel());
 	}
 	
 	
+	
+	/**
+	 * Ruft die Methoden zum Öffnen/Schließen der Dialoge in der jeweiligen Klasse auf.
+	 * 
+	 * @param command
+	 * @param dialogType
+	 * @param parentMenu
+	 */
 	public void openDialog(String command, String dialogType, AMenu parentMenu){
 		openDialog(command, dialogType, "", parentMenu);
 	}
 	
+	/**
+	 * @see openDialog(String command, String dialogType, AMenu parentMenu)
+	 * @param command
+	 * @param dialogType
+	 * @param message
+	 * @param parentMenu
+	 */
 	public void openDialog(String command, String dialogType, String message, AMenu parentMenu){
 		try {
 			if(message.isEmpty())
@@ -107,24 +158,47 @@ public class ViewController implements IViewController {
 	}
 
 	
+	/**
+	 * Ändert den Spieler, der gerade am Zug ist, auf dem {@link InfoField}.
+	 */
 	public void changePlayer() {
 		frame.getGamePanel().changePlayer();
 	}
 	
 	
+	/**
+	 * Setzt das {@link GamePanel} zurück.
+	 */
 	public void resetGamePanel(){
 		frame.setGamePanel(new GamePanel(this, frame));
 	}
 
 
+	/**
+	 * Gibt das aktuelle Theme zurück
+	 * 
+	 * @return {@link Theme}
+	 */
 	public Theme getTheme() {
 		return theme;
 	}
 	
+	/**
+	 * Gibt ein Theme anhand des Namens zurück
+	 * 
+	 * @param theme String mit dem Themenamen
+	 * @return {@link Theme}
+	 */
 	public Theme getTheme(String theme) {
 		return thLoader.getTheme(theme);
 	}
 
+	
+	/**
+	 * Setzt die Theme.
+	 * 
+	 * @param theme
+	 */
 	public void setTheme(Theme theme) {
 		this.theme = theme;
 		
@@ -134,30 +208,42 @@ public class ViewController implements IViewController {
 		Sound.setSoundPfad(theme.getSoundPfad());
 	}
 	
+	/**
+	 * Setzt die Theme anhand des Namens.
+	 * 
+	 * @param theme
+	 */
 	public void setTheme(String theme) {
 		setTheme(thLoader.getTheme(theme));
 	}
-
-
-	public void angeklickter_Stein_speichern(LblGameStone stone) {
-
-	}
 	
 	
+	/**
+	 * Liefert den {@link View} zurück.
+	 * 
+	 * @return {@link View}
+	 */
 	public View getView(){
 		return frame;
 	}
 	
 
+	/**
+	 * Liefert den {@link Core} zurück.
+	 * 
+	 * @return {@link Core}
+	 */
 	public Core getCore() {
 		return core;
 	}
-
-	public void setCore(Core core) {
-		this.core = core;
-	}
 	
 	
+	
+	/**
+	 * Vergrößert die {@link AMenu}-Panels im richtigen Seitenverhältnis
+	 * 
+	 * @param panel
+	 */
 	public void resizePanel(AMenu panel){
 		double aspectRatio = (double) panel.getOriginalSize().height / (double) panel.getOriginalSize().width;
 		
@@ -182,32 +268,4 @@ public class ViewController implements IViewController {
         panel.revalidate();
         panel.repaint();
 	}
-	
-
-	@Override
-	public Position getPosition(ISpielstein spielStein) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<ISpielstein> setPosition(ISpielstein spielStein,
-			Position position) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<ISpielstein> getSpielSteine() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<ISpielstein> removeSpielStein(ISpielstein spielStein) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
 }

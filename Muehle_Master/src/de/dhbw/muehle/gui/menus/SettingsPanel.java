@@ -2,8 +2,6 @@ package de.dhbw.muehle.gui.menus;
 
 import java.awt.Graphics;
 
-import javax.swing.JLabel;
-
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
@@ -14,6 +12,11 @@ import de.dhbw.muehle.gui.View;
 import de.dhbw.muehle.gui.ViewController;
 import de.dhbw.muehle.gui.viewactions.SettingsPanelVA;
 
+/**
+ * Das Einstellungspanel, auf dem die verschiedenen Designs ausgewählt werden können.
+ * 
+ * @author Ammon
+ */
 public class SettingsPanel extends AMenu {
 
 	private SettingsPanelVA vActions;
@@ -22,6 +25,12 @@ public class SettingsPanel extends AMenu {
 	private MillButton btnBack;
 	
 	
+	/**
+	 * Konstruktor
+	 * 
+	 * @param vController
+	 * @param view
+	 */
 	public SettingsPanel(ViewController vController, View view) {
 		super(vController, view);
 		this.view = view;
@@ -94,6 +103,9 @@ public class SettingsPanel extends AMenu {
 	
 	
 	
+	/**
+	 * Zeichnet das Hintergrundbild der Einstellungen auf das Panel.
+	 */
 	@Override
 	public void paintComponent(Graphics g){
 		g.drawImage(view.getTheme().getEinstellungsHintergrund(), 0, 0, getWidth(), getHeight(), this);

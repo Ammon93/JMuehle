@@ -11,6 +11,11 @@ import javax.swing.SwingConstants;
 
 import de.dhbw.muehle.gui.ViewController;
 
+/**
+ * Diese Klasse dient als Oberklassen für alle ViewActions der einzelnen Panels.
+ * 
+ * @author Ammon
+ */
 public class ViewActions{
 	
 	protected static ViewController vController;	
@@ -25,9 +30,16 @@ public class ViewActions{
 					canceled;
 	
 	
-	
+	/**
+	 * Dummy Konstruktor
+	 */
 	public ViewActions(){}
 	
+	/**
+	 * Konstruktor
+	 * 
+	 * @param vController
+	 */
 	public ViewActions(ViewController vController) {
 		ViewActions.vController = vController;
 		
@@ -40,19 +52,39 @@ public class ViewActions{
 	
 	
 	
+	/**
+	 * Setzt einen {@link Boolean}, der anzeigt, ob ein Dialog gerade angezeigt wird.
+	 * 
+	 * @param dialogShown
+	 */
 	public void setDialogShown(boolean dialogShown){
 		this.dialogShown = dialogShown;
 	}
 	
+	/**
+	 * Gibt an, ob ein Dialog gerade angezeigt wird.
+	 * 
+	 * @return {@link Boolean}
+	 */
 	public boolean isDialogShown(){
 		return dialogShown;
 	}
 	
 	
+	/**
+	 * Setzt einen {@link Boolean}, der angibt, ob auf einem Dialog "Abbrechen" gewählt wurde.
+	 * 
+	 * @param canceled
+	 */
 	public void setCanceled(boolean canceled){
 		this.canceled = canceled;
 	}
 	
+	/**
+	 * Gibt an, ob auf einem Dialog "Abbrechen" gewählt wurde.
+	 * 
+	 * @return {@link Boolean}
+	 */
 	public boolean isCanceled(){
 		return canceled;
 	}

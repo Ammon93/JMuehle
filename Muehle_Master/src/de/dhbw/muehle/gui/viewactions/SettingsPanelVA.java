@@ -2,8 +2,14 @@ package de.dhbw.muehle.gui.viewactions;
 
 import java.awt.event.ActionEvent;
 
+import de.dhbw.muehle.gui.menus.SettingsPanel;
 import de.dhbw.muehle.model.theme.Sound.Sounds;
 
+/**
+ * Hier werden alle Listener für das {@link SettingsPanel} implementiert.
+ * 
+ * @author Ammon
+ */
 public class SettingsPanelVA extends ViewActions{
 	
 	/**

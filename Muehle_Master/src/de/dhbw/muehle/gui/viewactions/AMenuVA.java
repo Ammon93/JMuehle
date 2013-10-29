@@ -4,6 +4,11 @@ import java.awt.event.HierarchyEvent;
 
 import de.dhbw.muehle.gui.menus.AMenu;
 
+/**
+ * Enthält alle Listener für die abstrakte Klasse {@link AMenu}
+ * 
+ * @author Ammon
+ */
 public class AMenuVA extends ViewActions{
 	
 	/**

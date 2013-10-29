@@ -1,5 +1,6 @@
 package de.dhbw.muehle.model.theme;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Image;
@@ -9,7 +10,11 @@ import javax.swing.ImageIcon;
 
 import de.dhbw.muehle.model.theme.Sound.Sounds;
 
-
+/**
+ * Diese Klasse enthält alle Bilder und Sounds des jeweiligen Themes
+ * 
+ * @author Ammon
+ */
 public class Theme {
 	
 	private String themePath;
@@ -64,6 +69,11 @@ public class Theme {
 	
 	
 	
+	/**
+	 * Konstrktor
+	 * 
+	 * @param themePath
+	 */
 	public Theme(String themePath){
 		this.themePath = themePath;
 		
@@ -73,7 +83,8 @@ public class Theme {
 	
 	
 	/**
-	 * Liefert das Image zurück
+	 * Liefert das Image zurück.
+	 * 
 	 * @param relPfad relativer Pfad zum Bild
 	 * @return Image
 	 */
@@ -86,7 +97,7 @@ public class Theme {
 	
 	
 	/**
-	 * Löscht alle Bilder
+	 * Löscht alle Bilder.
 	 */
 	protected void flushThemeImages(){
 		leiste = null;
@@ -133,6 +144,12 @@ public class Theme {
 	}
 	
 	
+	
+	/**
+	 *  Spielt einen Sound ab.
+	 *  
+	 * @param sound
+	 */
 	public void playSound(Sounds sound){
 		if(sound.equals(Sounds.menue))
 			this.sound.playMusic(sound);
@@ -141,16 +158,29 @@ public class Theme {
 	}
 	
 	
+	/**
+	 * Stoppt das Abspielen eines Sounds.
+	 */
 	public void stopSound(){
 		this.sound.stopMusic();
 	}
 	
 	
+	/**
+	 * Prüft, ob gerade ein Sound abgespielt wird.
+	 * 
+	 * @return {@link Boolean}
+	 */
 	public boolean isSoundPlaying(){
 		return this.sound.isPlaying();
 	}
 	
 	
+	/**
+	 * Gibt die Font für das jeweilige Theme zurück.
+	 * 
+	 * @return {@link Font}
+	 */
 	public Font getFont(){
 		if(themeFont != null)
 			return themeFont;
@@ -163,11 +193,24 @@ public class Theme {
 			}
 	}
 	
+	/**
+	 * Gibt die Farbe für das jeweilige Font zurück.
+	 * 
+	 * @return {@link Color}
+	 */
+	public Color getFontColor(){
+		if(themePath.contains("Wooden Mill"))
+			return new Color(49, 26, 12);
+		else
+			return Color.WHITE;
+	}
+	
 	
 	
 	
 	/**
-	 * Liefert den Namen der Theme
+	 * Liefert den Namen der Theme.
+	 * 
 	 * @return name
 	 */
 	public String getThemeName(){
@@ -176,6 +219,8 @@ public class Theme {
 	
 	
 	/**
+	 * Gibt den Themenpfad zurück.
+	 * 
 	 * @return themePath
 	 */
 	public String getThemePfad() {
@@ -184,6 +229,8 @@ public class Theme {
 	
 	
 	/**
+	 * Gibt den Soundpfad zurück.
+	 * 
 	 * @return themePath
 	 */
 	public String getSoundPfad() {

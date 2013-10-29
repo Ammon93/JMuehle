@@ -3,13 +3,12 @@ package de.dhbw.muehle.gui.viewactions;
 import java.awt.event.ActionEvent;
 
 import de.dhbw.muehle.gui.DialogBackgroundPanel;
+import de.dhbw.muehle.gui.menus.MainMenu;
 
 /**
- * Hier werden alle Action Listener der View implementiert
- * @author Kreistschen
- *
+ * Hier werden alle Listener des {@link MainMenu} implementiert
+ * @author Ammon
  */
-
 public class MainMenuVA extends ViewActions{	
 	
 	/**

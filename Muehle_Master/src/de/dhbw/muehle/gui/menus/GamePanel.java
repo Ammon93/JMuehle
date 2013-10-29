@@ -1,6 +1,5 @@
 package de.dhbw.muehle.gui.menus;
 
-import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -9,7 +8,6 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.HierarchyBoundsListener;
 import java.awt.event.HierarchyEvent;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
@@ -24,6 +22,8 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 
 import de.dhbw.muehle.EPositionIndex;
+import de.dhbw.muehle.ESpielsteinFarbe;
+import de.dhbw.muehle.ISpielstein;
 import de.dhbw.muehle.Position;
 import de.dhbw.muehle.gui.DialogBackgroundPanel;
 import de.dhbw.muehle.gui.MillButton;
@@ -31,8 +31,14 @@ import de.dhbw.muehle.gui.View;
 import de.dhbw.muehle.gui.ViewController;
 import de.dhbw.muehle.gui.menus.MainMenu.Spielregeln;
 import de.dhbw.muehle.gui.viewactions.GamePanelVA;
+import de.dhbw.muehle.model.theme.Sound.Sounds;
 
-
+/**
+ * Die Klasse stellt ein {@link JPanel}, auf dem das Bild des Spielbretts gezeichnet wird. Außerdem sind alle
+ * für den Spielbetrieb relevanten Komponenten auf diesem {@link JPanel} dargestellt.
+ * 
+ * @author Ammon
+ */
 public class GamePanel extends AMenu {
 	
 	private JPanel gameField;
@@ -53,6 +59,12 @@ public class GamePanel extends AMenu {
 	private ArrayList<LblGameStone> panelList;
 	
 	
+	/**
+	 * Konstruktor
+	 * 
+	 * @param vController
+	 * @param view
+	 */
 	public GamePanel(ViewController vController, View view) {
 		super(vController, view);
 		this.view = view;
@@ -155,6 +167,12 @@ public class GamePanel extends AMenu {
 	}	
 	
 	
+	/**
+	 * Gibt den graphischen Stack der Spielsteine zurück.
+	 * 
+	 * @param color String mit der Farbe des Stacks ("weiss" oder "schwarz")
+	 * @return {@link LblStoneStack}
+	 */
 	protected LblStoneStack getStack(String color){
 		switch (color) {
 		case "weiss":
@@ -171,7 +189,18 @@ public class GamePanel extends AMenu {
 	
 	
 	/**
-	 * Liefert das Label auf dem Spielstein anhand der angegbenen Position
+	 * Gibt den InputDialog zurück.
+	 * 
+	 * @return {@link InputDialog}
+	 */
+	public InputDialog getInputDialog(){
+		return inputDialog;
+	}
+	
+	
+	/**
+	 * Liefert das Label auf dem Spielstein anhand der angegbenen Position.
+	 * 
 	 * @param pos Position
 	 */
 	public LblGameStone getLabel(Position pos){
@@ -179,16 +208,22 @@ public class GamePanel extends AMenu {
 	}
 	
 	
+	/**
+	 * Gibt eine {@link ArrayList} aller Spielsteinlabels zurück.
+	 * 
+	 * @return {@link ArrayList}
+	 */
 	public ArrayList<LblGameStone> getPanelList(){
 		return panelList;
 	}
 	
 	
 	/**
-	 * Prüft, ob Stack leer ist
+	 * Prüft, ob Stack leer ist.
+	 * 
 	 * @param type Typ des Stacks ("schwarz" oder "weiss")
 	 * @param weisseSteine2 
-	 * @return true/false
+	 * @return {@link Boolean}
 	 */
 	public boolean isStackEmpty(String type){
 		switch (type) {
@@ -208,6 +243,11 @@ public class GamePanel extends AMenu {
 	}
 	
 	
+	/**
+	 * Diese Methode überprüft, ob irgendwelche Änderungen auf dem Spielbrett vorgenommen wurden.
+	 * 
+	 * @return {@link Boolean}
+	 */
 	public boolean anyChangesMade(){
 		if(weisseSteine.getCountStones() < 9 || schwarzeSteine.getCountStones() < 9)
 			return true;
@@ -217,7 +257,8 @@ public class GamePanel extends AMenu {
 	
 	
 	/**
-	 * Erhöht oder veringert einen Stack
+	 * Erhöht oder veringert einen Stack.
+	 * 
 	 * @param type Typ des Stacks ("schwarz" oder "weiss")
 	 * @param weisseSteine2 
 	 * @param change Nur 1 und -1 erlaubt
@@ -240,18 +281,25 @@ public class GamePanel extends AMenu {
 	}
 	
 	
+	/**
+	 * Ändert den Spieler, der gerade am Zug ist, auf dem {@link InfoField}.
+	 */
 	public void changePlayer(){
 		infoField.changePlayer();
 	}
 	
-	
+	/**
+	 * Zeigt die Meldung auf dem {@link InfoField} an.
+	 * 
+	 * @param infoMessage
+	 */
 	public void info(String infoMessage){
 		infoField.info(infoMessage);
 	}
 	
 	
 	/**
-	 * Zeigt den GameOver-Bildschirm an
+	 * Zeigt den GameOver-Bildschirm an.
 	 * 
 	 * @param winLose gibt an, ob gewonnen oder verloren wurde ("win" oder "lose")
 	 * @param color die Farbe, die gewonnen/verloren hat ("weiss" oder "schwarz")
@@ -262,33 +310,53 @@ public class GamePanel extends AMenu {
 	}
 	
 	
-	
+	/**
+	 * Dialog {@link Spielregeln} einblenden.
+	 */
 	public void openSpielregeln(){
 		this.spielregeln.showDialog();
 	}
 	
+	/**
+	 * Dialog {@link Spielregeln} schließen.
+	 */
 	public void closeSpielregeln(){
 		this.spielregeln.close();
 	}
 	
 	
+	/**
+	 * Dialog {@link InputDialog} einblenden.
+	 */
 	public void openInputDialog(){
 		this.inputDialog.showDialog();
 	}
 	
+	/**
+	 * Dialog {@link InputDialog} schließen.
+	 */
 	public void closeInputDialog(){
 		this.inputDialog.close();
 	}
 	
 	
+	/**
+	 * Dialog {@link GameDialog} einblenden.
+	 */
 	public void openDialog(String message){
 		this.gameDialog.showDialog(message);
 	}
 	
+	/**
+	 * Dialog {@link GameDialog} ausblenden.
+	 */
 	public void hideDialog(){
 		this.gameDialog.disappear();
 	}
 	
+	/**
+	 * Dialog {@link GameDialog} schließen.
+	 */
 	public void closeDialog(){
 		this.gameDialog.close();
 	}
@@ -298,6 +366,7 @@ public class GamePanel extends AMenu {
 	
 	/**
 	 * Spielbrettbild dynamisch auf das GamePanel zeichnen
+	 * 
 	 * @param g Graphics
 	 */
     @Override
@@ -311,7 +380,12 @@ public class GamePanel extends AMenu {
     
     
     
-	public class LblGameStone extends JLabel{
+    /**
+     * Auf diesem {@link JLabel} werden die Bilder der Spielsteine angezeigt.
+     * 
+     * @author Ammon
+     */
+	public class LblGameStone extends JLabel implements ISpielstein{
 		
 		private Image steinImage;
 		private Position pos;
@@ -324,16 +398,38 @@ public class GamePanel extends AMenu {
 		private boolean removed;
 		
 		
+		/**
+		 * Konstruktor
+		 * 
+		 * @param color
+		 * @param view
+		 */
 		public LblGameStone(String color, View view) {
 			this(color, "", view);
 		}
 		
+		/**
+		 * Konstruktor
+		 * 
+		 * @param color
+		 * @param type
+		 * @param view
+		 */
 		public LblGameStone(String color, String type, View view){
 			this.color = color;
 			this.type = type;
 			this.view = view;
 		}
 		
+		/**
+		 * Konstruktor
+		 * 
+		 * @param ebene
+		 * @param x
+		 * @param y
+		 * @param view
+		 * @param vActions
+		 */
 		public LblGameStone(int ebene, int x, int y, View view, GamePanelVA vActions) {
 			this.view = view;
 			newPosition(ebene, x, y);
@@ -343,8 +439,10 @@ public class GamePanel extends AMenu {
 		}
 		
 		
+		
 		/**
-		 * dynamisches Update der Bilder
+		 * Dynamisches Update der Bilder.
+		 * 
 		 * @param color
 		 * @param type
 		 */
@@ -371,6 +469,13 @@ public class GamePanel extends AMenu {
 		}
 		
 		
+		/**
+		 * Erzeugt ein neues {@link Position}s-Objekt aus {@link Integer}-Variablen.
+		 * 
+		 * @param ebene
+		 * @param x
+		 * @param y
+		 */
 		private void newPosition(int ebene, int x, int y){
 			switch (ebene) {
 			case 1:
@@ -511,7 +616,8 @@ public class GamePanel extends AMenu {
 		
 		
 		/**
-		 * Liefert die Position des Labels auf dem Spielbrett
+		 * Liefert die Position des Labels auf dem Spielbrett.
+		 * 
 		 * @return Position
 		 */
 		public Position getPosition(){
@@ -520,8 +626,25 @@ public class GamePanel extends AMenu {
 		
 		
 		/**
-		 * Weist dem Stein ein bestimmtes Bild zu
-		 * <br/>Dadurch wird der Stein sichtbar
+		 * Gibt die Spielsteinfarbe des {@link JLabel}s zurück
+		 * 
+		 * @return {@link ESpielsteinFarbe}
+		 */
+		@Override
+		public ESpielsteinFarbe getFarbe() {
+			if(color.equals("weiss"))
+				return ESpielsteinFarbe.WEISS;
+			else if(color.equals("schwarz"))
+				return ESpielsteinFarbe.SCHWARZ;
+			
+			return null;
+		}
+		
+		
+		/**
+		 * Weist dem Stein ein bestimmtes Bild zu.
+		 * Dadurch wird der Stein sichtbar.
+		 * 
 		 * @param image Bild, das auf dem Label gezeichnet werden soll
 		 */
 		public void setImage(String color){
@@ -538,8 +661,8 @@ public class GamePanel extends AMenu {
 		
 		
 		/**
-		 * Entfernt das aktuelle Bild vom Label
-		 * <br/>Dadurch wird es unsichtbar
+		 * Entfernt das aktuelle Bild vom Label.
+		 * Dadurch wird es unsichtbar.
 		 */
 		public void removeImage(){
 			this.steinImage = null;
@@ -550,7 +673,7 @@ public class GamePanel extends AMenu {
 		
 		
 		/**
-		 * Bild dynamisch auf den Stein zeichnen
+		 * Bild dynamisch auf den Stein zeichnen.
 		 */
 		@Override
 		public void paintComponent(Graphics g) {
@@ -564,6 +687,12 @@ public class GamePanel extends AMenu {
 	}
 	
 	
+	/**
+	 * Stapel von Spielsteinen am Rand des Spielbretts.
+	 * Dient zur besseren Übersicht, wie viele Steine der Spieler noch setzen kann.
+	 * 
+	 * @author Ammon
+	 */
 	private class LblStoneStack extends JLabel{
 		
 		private Image gameStoneImage;
@@ -574,11 +703,25 @@ public class GamePanel extends AMenu {
 		private View view;
 		
 		
+		/**
+		 * Konstruktor
+		 * 
+		 * @param color
+		 * @param view
+		 * @param remainingStones
+		 */
 		public LblStoneStack(String color, View view, int remainingStones) {
 			this(color, "", view, remainingStones);
 		}
 		
-		
+		/**
+		 * Konstruktor
+		 * 
+		 * @param color
+		 * @param type
+		 * @param view
+		 * @param remainingStones
+		 */
 		public LblStoneStack(String color, String type, View view, int remainingStones){
 			this.color = color;
 			this.type = type;
@@ -589,7 +732,8 @@ public class GamePanel extends AMenu {
 		
 		
 		/**
-		 * dynamisches Update der Bilder
+		 * Dynamisches Update der Bilder.
+		 * 
 		 * @param color
 		 * @param type
 		 */
@@ -616,25 +760,9 @@ public class GamePanel extends AMenu {
 		}
 		
 		
-		
 		/**
-		 * Die Farbe für den Spielsteinstapel setzen
-		 * @param color Typ des Spielsteins ("schwarz" oder "weiß")
-		 */
-		public void setImage(String color){
-			setImage(color, "");
-		}
-		
-		public void setImage(String color, String type){
-			this.color = color;
-			this.type = type;
-			
-			repaint();
-		}
-		
-		
-		/**
-		 * Setzt die Anzahl der noch nicht gesetzten Spielsteine
+		 * Setzt die Anzahl der noch nicht gesetzten Spielsteine.
+		 * 
 		 * @param count Anzehl der noch nicht gestzten Spielsteine
 		 */
 		public void setCountStones(int count){
@@ -644,7 +772,8 @@ public class GamePanel extends AMenu {
 		
 		
 		/**
-		 * Liefert die Anzahl der noch nicht gesetzten Spielsteine
+		 * Liefert die Anzahl der noch nicht gesetzten Spielsteine.
+		 * 
 		 * @return count Anzehl der noch nicht gestzten Spielsteine
 		 */
 		public int getCountStones(){
@@ -653,7 +782,7 @@ public class GamePanel extends AMenu {
 		
 		
 		/**
-		 * Stapel an noch nicht gesetzten Steinen zeichnen
+		 * Stapel an noch nicht gesetzten Steinen zeichnen.
 		 */
 		@Override
 		public void paintComponent(Graphics g) {
@@ -683,6 +812,13 @@ public class GamePanel extends AMenu {
 	
 	
 	
+	/**
+	 * Ein {@link JPanel} neben dem Spielbrett, auf dem Informationen, wie welcher Spieler gerade am Zug ist
+	 * oder ob jemand eine Mühle hat.
+	 * Außerdem werden noch zwei {@link MillButton}s angelegt, um das Spiel neu zu starten und um ins Menü zurück zu kehren.
+	 * 
+	 * @author Ammon
+	 */
 	private class InfoField extends JPanel{
 		
 		private JTextArea logPane;
@@ -690,9 +826,13 @@ public class GamePanel extends AMenu {
 							 lblSpielSteinSpieler2;
 		private JLabel lblSpielerDran;
 		
-		private String spielerDranName;
 		
-		
+		/**
+		 * Konstruktor
+		 * 
+		 * @param view
+		 * @param vActions
+		 */
 		public InfoField(View view, GamePanelVA vActions) {setOpaque(false);
 			
 			setLayout(new FormLayout(new ColumnSpec[] {
@@ -766,8 +906,9 @@ public class GamePanel extends AMenu {
 			buttonPanel.setLayout(new FormLayout(new ColumnSpec[] {
 					ColumnSpec.decode("51px"),
 					ColumnSpec.decode("default:grow"),
+					ColumnSpec.decode("max(48px;default)"),
 					ColumnSpec.decode("max(52px;default)"),
-					ColumnSpec.decode("max(97px;default)"),
+					ColumnSpec.decode("max(49px;default)"),
 					ColumnSpec.decode("default:grow"),
 					ColumnSpec.decode("max(66px;default)"),},
 				new RowSpec[] {
@@ -783,33 +924,37 @@ public class GamePanel extends AMenu {
 				MillButton btnHilfe = new MillButton(view, "Hilfe");
 				btnHilfe.setPreferredSize(new Dimension(0, 0));
 				btnHilfe.addActionListener(vActions.new infoFieldBtnHilfe());
-				buttonPanel.add(btnHilfe, "3, 2, fill, fill");
+				buttonPanel.add(btnHilfe, "4, 2, fill, fill");
 			
 				MillButton btnNeustart = new MillButton(view, "Neustart");
 				btnNeustart.addActionListener(vActions.new infoFieldBtnNeustart());
-				buttonPanel.add(btnNeustart, "3, 4, 2, 1, fill, fill");
+				buttonPanel.add(btnNeustart, "3, 4, 3, 1, fill, fill");
 				
 				MillButton btnBack = new MillButton(view, "ZumMenue");
 				btnBack.addActionListener(vActions.new infoFieldBtnBack());
-				buttonPanel.add(btnBack, "3, 6, 2, 1, fill, fill");
+				buttonPanel.add(btnBack, "3, 6, 3, 1, fill, fill");
 		}
 		
 		
 		
-		public void setSpielerNamen(String spielerName){
-			this.spielerDranName = spielerName;
-			lblSpielerDran.setText(spielerName);
-		}
-		
-		
+		/**
+		 * Fügt einen Text zur TextArea hinzu.
+		 * 
+		 * @param infoMessage
+		 */
 		public void info(String infoMessage){
 			logPane.append(infoMessage + "\n");
 			repaint();
 		}
 		
 		
+		/**
+		 * Setzt alle Labels so, dass der aktuelle Spieler hervorgehoben wird.
+		 */
 		public void changePlayer(){
 			lblSpielerDran.setFont(view.getTheme().getFont().deriveFont(Font.BOLD, 18));
+			lblSpielerDran.setForeground(view.getTheme().getFontColor());
+			logPane.setForeground(view.getTheme().getFontColor());
 			
 			if(view.getViewController().getCore().isWeissDran() && !view.getViewController().getCore().isSchwarzDran()){
 				lblSpielSteinSpieler1.setImage("weiss");
@@ -827,11 +972,22 @@ public class GamePanel extends AMenu {
 	
 	
 	
+	/**
+	 * Dialog, der es ermöglicht, die aufgerufene Aktion zu widerrufen.
+	 * 
+	 * @author Ammon
+	 */
 	private class GameDialog extends DialogBackgroundPanel{
 		
 		private JLabel dialogMessage;
 		
 		
+		/**
+		 * Konstruktor
+		 * 
+		 * @param view
+		 * @param vActions
+		 */
 		public GameDialog(View view, GamePanelVA vActions) {
 			super(view, vActions);
 			
@@ -861,6 +1017,11 @@ public class GamePanel extends AMenu {
 		}
 		
 		
+		/**
+		 * Zeigt den Dialog mit dem übergebenen {@link String} als Nachricht an.
+		 * 
+		 * @param message
+		 */
 		public void showDialog(final String message){
 			dialogMessage.setText(message);
 			
@@ -869,19 +1030,29 @@ public class GamePanel extends AMenu {
 		
 		
 		
+		/**
+		 * Updated alle themenrelevanten Variablen bei einem repaint();
+		 */
 		@Override
 		public void paintComponent(Graphics g) {
 			setDialogBackground(view.getTheme().getDialogHintergrund());
-			
-			dialogMessage.setFont(font.deriveFont(Font.BOLD, 20));
 		
 			super.paintComponent(g);
+			
+			dialogMessage.setFont(font.deriveFont(Font.BOLD, 20));
+			dialogMessage.setForeground(view.getTheme().getFontColor());
 		}
 	}
 	
 	
 	
-	private class InputDialog extends DialogBackgroundPanel{
+	/**
+	 * Eine Erweiterung des Standarddialogs.
+	 * Bei diesem Dialog können die Namen der Spieler (PvP) und die Farbe des Spielers (PvE) festgelegt werden.
+	 * 
+	 * @author Ammon
+	 */
+	public class InputDialog extends DialogBackgroundPanel{
 		
 		private JTextField spieler1,
 						   spieler2;
@@ -889,7 +1060,15 @@ public class GamePanel extends AMenu {
 		private JLabel lblNameSpieler1,
 					   lblNameSpieler2;
 		
+		private LblGameStone lblInputDialogSpielstein;
+		
 
+		/**
+		 * Kostruktor
+		 * 
+		 * @param view
+		 * @param vActions
+		 */
 		public InputDialog(View view, GamePanelVA vActions) {
 			super(view, vActions);
 			
@@ -897,53 +1076,129 @@ public class GamePanel extends AMenu {
 			
 			dialog.setLayout(new FormLayout(new ColumnSpec[] {
 					ColumnSpec.decode("max(20px;default)"),
-					ColumnSpec.decode("default:grow"),
-					ColumnSpec.decode("max(80px;default)"),
+					ColumnSpec.decode("max(88px;default)"),
+					ColumnSpec.decode("max(70px;default)"),
 					ColumnSpec.decode("max(19px;default)"),
-					ColumnSpec.decode("max(80px;default)"),
-					ColumnSpec.decode("default:grow"),
+					ColumnSpec.decode("max(44px;default)"),
+					ColumnSpec.decode("max(70px;default)"),
+					ColumnSpec.decode("max(44px;default)"),
 					ColumnSpec.decode("max(20px;default)"),},
 				new RowSpec[] {
-					RowSpec.decode("3dlu:grow"),
-					RowSpec.decode("default:grow"),
+					RowSpec.decode("max(20px;default)"),
+					RowSpec.decode("max(28px;default)"),
+					RowSpec.decode("max(70px;default)"),
 					FormFactory.UNRELATED_GAP_ROWSPEC,
 					RowSpec.decode("max(52px;default)"),
 					RowSpec.decode("max(20px;default)"),}));
 			
-			lblNameSpieler1 = new JLabel("Name Spieler 1:");
-			dialog.add(lblNameSpieler1, "2, 1, 2, 1, center, bottom");
+			lblNameSpieler1 = new JLabel();
+			dialog.add(lblNameSpieler1, "2, 2, 2, 1, center, bottom");
 			
-			lblNameSpieler2 = new JLabel("Name Spieler 2:");
-			dialog.add(lblNameSpieler2, "5, 1, 2, 1, center, bottom");
-			
+			lblNameSpieler2 = new JLabel();
+			dialog.add(lblNameSpieler2, "5, 2, 3, 1, center, bottom");
+						
 			spieler1 = new JTextField("Spieler 1");
 			spieler1.setForeground(Color.GRAY);
 			spieler1.addFocusListener(vActions.new advancedTextFieldAdapter(spieler1.getText()));
 			spieler1.addKeyListener(vActions.new advancedTextFieldAdapter(spieler1.getText()));
-			dialog.add(spieler1, "2, 2, 2, 1, fill, center");
+			dialog.add(spieler1, "2, 3, 2, 1, fill, center");
 			
 			spieler2 = new JTextField("Spieler 2");
 			spieler2.setForeground(Color.GRAY);
 			spieler2.addFocusListener(vActions.new advancedTextFieldAdapter(spieler2.getText()));
 			spieler2.addKeyListener(vActions.new advancedTextFieldAdapter(spieler2.getText()));
-			dialog.add(spieler2, "5, 2, 2, 1, fill, center");
+			
+			lblInputDialogSpielstein = new LblGameStone("weiss", view);
+			lblInputDialogSpielstein.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			lblInputDialogSpielstein.addMouseListener(vActions.new LblInputDialogSpielsteinMouse());
 			
 			MillButton btnOK = new MillButton(view, "OK");
 			btnOK.addActionListener(vActions.new inputDialogBtnOK());
-			dialog.add(btnOK, "3, 4, 3, 1, fill, fill");
+			dialog.add(btnOK, "3, 5, 3, 1, fill, fill");
 		}
 		
 		
+		/**
+		 * Updated alle relevanten Labels in dem Dialog.
+		 */
+		private void updateInputDialog(){
+			lblNameSpieler1.setFont(font.deriveFont(Font.BOLD, 15));
+			lblNameSpieler1.setForeground(view.getTheme().getFontColor());
+			lblNameSpieler2.setFont(font.deriveFont(Font.BOLD, 15));
+			lblNameSpieler2.setForeground(view.getTheme().getFontColor());
+			
+			if(view.getGlobalVA().getGamePanelVA().isPvE()){
+				lblNameSpieler1.setText("Name des Spielers:");
+				lblNameSpieler2.setText("Spielsteinfarbe:");
+				
+				if(spieler2.isVisible()){
+					remove(spieler2);
+					dialog.add(lblInputDialogSpielstein, "6, 3, fill, fill");
+				}
+			}else{
+				lblNameSpieler1.setText("Name Spieler 1:");
+				lblNameSpieler2.setText("Name Spieler 2:");
+				
+				if(lblInputDialogSpielstein.isVisible()){
+					remove(lblInputDialogSpielstein);
+					dialog.add(spieler2, "5, 3, 3, 1, fill, center");
+				}
+			}
+		}
+		
+		
+		/**
+		 * Gibt den Namen des ersten Spielers zurück (Aus dem {@link JTextField}).
+		 * 
+		 * @return {@link String}
+		 */
 		public String getSpielerName1(){
 			return spieler1.getText();
 		}
 		
+		/**
+		 * Setzt den Namen des ersten Spielers (Auf das {@link JTextField}).
+		 * 
+		 * @param text
+		 */
+		public void setSpielerName1(String text){
+			spieler1.setText(text);
+		}
+		
+		
+		/**
+		 * Gibt den Namen des zweiten Spielers zurück (Aus dem {@link JTextField}).
+		 * 
+		 * @return {@link String}
+		 */
 		public String getSpielerName2(){
 			return spieler2.getText();
 		}
 		
+		/**
+		 * Setzt den Namen des zweiten Spielers (Auf das {@link JTextField}).
+		 * 
+		 * @param text
+		 */
+		public void setSpielerName2(String text){
+			spieler2.setText(text);
+		}
 		
 		
+		/**
+		 * Gibt die gewählte Farbe des Spielers zurück.
+		 * 
+		 * @return {@link ESpielsteinFarbe}
+		 */
+		public ESpielsteinFarbe getSpielerFarbe(){
+			return lblInputDialogSpielstein.getFarbe();
+		}
+		
+		
+		
+		/**
+		 * Zeigt den Dialog an und setzt den Focus auf das erste {@link JTextField}.
+		 */
 		@Override
 		public void showDialog(){
 			super.showDialog();
@@ -952,12 +1207,14 @@ public class GamePanel extends AMenu {
 		}
 		
 		
+		/**
+		 * Zeichnet den Dialog neu.
+		 */
 		@Override
 		public void paintComponent(Graphics g) {
 			setDialogBackground(view.getTheme().getDialogHintergrund());
 			
-			lblNameSpieler1.setFont(font.deriveFont(Font.BOLD, 15));
-			lblNameSpieler2.setFont(font.deriveFont(Font.BOLD, 15));
+			updateInputDialog();
 			
 			super.paintComponent(g);
 		}
@@ -965,6 +1222,11 @@ public class GamePanel extends AMenu {
 	
 	
 	
+	/**
+	 * Dieser Dialog zeigt das Gewinner-/Verliererbild über dem Spielbrett.
+	 * 
+	 * @author Ammon
+	 */
 	private class WinLose extends DialogBackgroundPanel{
 				
 		private Image winLoseImage;
@@ -973,7 +1235,15 @@ public class GamePanel extends AMenu {
 					   color,
 					   gameMode;
 		
+		private Sounds endSound;
 		
+		
+		/**
+		 * Kostruktor
+		 * 
+		 * @param view
+		 * @param vActions
+		 */
 		public WinLose(View view, GamePanelVA vActions) {
 			super(view, vActions);
 			
@@ -998,9 +1268,18 @@ public class GamePanel extends AMenu {
 		}
 		
 		
+		/**
+		 * Aktualisiert das Sieger-/Verliererbild auf das aktuelle Theme.
+		 * 
+		 * @param winLose
+		 * @param color
+		 * @param gameMode
+		 */
 		private void updateImage(String winLose, String color, String gameMode){
 			switch (winLose) {
 			case "win":
+				endSound = Sounds.winner;
+				
 				switch (color) {
 				case "weiss":
 					if(gameMode.equals("PvE"))
@@ -1018,28 +1297,39 @@ public class GamePanel extends AMenu {
 				}
 				break;
 			case "lose":
+				endSound = Sounds.loser;
+				
 				winLoseImage = view.getTheme().getVerlierer();
 				break;
 			}
 		}
 		
 		
+		/**
+		 * Zeigt den Dialog samt dem Gewinner-/verliererbild an.
+		 * 
+		 * @param winLose
+		 * @param color
+		 * @param gameMode
+		 */
 		public void showDialog(String winLose, String color, String gameMode){
 			this.winLose = winLose;
 			this.color = color;
 			this.gameMode = gameMode;
 			
+			updateImage(winLose, color, gameMode);
 			setDialogSize(getSize().width-1, getSize().height-1);
 			
-			try {
-				getBluredScreenShot();
-			} catch (IOException | AWTException e) {e.printStackTrace();}
+			view.getTheme().playSound(endSound);
 			
 			showDialog();
 		}
 		
 		
 		
+		/**
+		 * Zeichnet das Gewinner-/Verliererbild neu.
+		 */
 		@Override
 		public void paintComponent(Graphics g) {
 			updateImage(winLose, color, gameMode);

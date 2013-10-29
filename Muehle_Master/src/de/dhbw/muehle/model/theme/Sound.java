@@ -10,7 +10,11 @@ import javazoom.jlgui.basicplayer.BasicPlayerEvent;
 import javazoom.jlgui.basicplayer.BasicPlayerException;
 import javazoom.jlgui.basicplayer.BasicPlayerListener;
 
-
+/**
+ * Diese Klasse stellt die Sounds der Themen und den dazugehörigen Player.
+ * 
+ * @author Ammon
+ */
 public class Sound implements BasicPlayerListener{
 	
 	private static BasicPlayer musicPlayer,
@@ -23,6 +27,9 @@ public class Sound implements BasicPlayerListener{
 	private static boolean playing;
 	
 	
+	/**
+	 * Konstruktor
+	 */
 	public Sound() {		
 		musicPlayer = new BasicPlayer();
 		musicPlayer.setSleepTime(1);
@@ -33,6 +40,11 @@ public class Sound implements BasicPlayerListener{
 	
 	
 	
+	/**
+	 * Setzt die Enums auf das aktuelle Soundverzeichnis.
+	 * 
+	 * @param soundPfad
+	 */
 	private void setEnum(String soundPfad){
 		for(Sounds snd : Sounds.values()){
 			snd.setSoundVerzeichnis(soundPfad);
@@ -40,6 +52,11 @@ public class Sound implements BasicPlayerListener{
 	}
 	
 	
+	/**
+	 * Erzeugt einen Fade-Effekt für den Sound.
+	 * 
+	 * @param type String "in" oder "out"
+	 */
 	private void fade(final String type){
 		fading = fadingExt = true;
 		
@@ -87,6 +104,11 @@ public class Sound implements BasicPlayerListener{
 	
 	
 	
+	/**
+	 * Spielt die Menümusik ab.
+	 * 
+	 * @param enumeration
+	 */
 	protected void playMusic(final Sounds enumeration){
 		setEnum(soundPfad);
 		new Thread(){
@@ -111,6 +133,9 @@ public class Sound implements BasicPlayerListener{
 		}}.start();
 	}
 	
+	/**
+	 * Stoppt die Menümusik.
+	 */
 	protected void stopMusic(){
 		new Thread(){
 			public void run(){
@@ -120,6 +145,11 @@ public class Sound implements BasicPlayerListener{
 	}
 	
 	
+	/**
+	 * Spielt einen Sound ab.
+	 * 
+	 * @param enumeration
+	 */
 	protected void playSound(Sounds enumeration){
 		setEnum(soundPfad);
 		
@@ -132,11 +162,21 @@ public class Sound implements BasicPlayerListener{
 	}
 	
 	
+	/**
+	 * Gibt an, ob zur Zeit ein Sound abgespielt wird.
+	 * 
+	 * @return {@link Boolean}
+	 */
 	protected boolean isPlaying(){
 		return playing;
 	}
 	
 	
+	/**
+	 * Setzt den Soundpfad.
+	 * 
+	 * @param soundPfad
+	 */
 	public static void setSoundPfad(String soundPfad){
 		Sound.soundPfad = soundPfad;
 	}
@@ -168,6 +208,11 @@ public class Sound implements BasicPlayerListener{
 	
 	
 	
+	/**
+	 * Über diesen {@link Enum} werden alle Sound-Dateien bereitgestellt.
+	 * 
+	 * @author Ammon
+	 */
 	public enum Sounds{
 		menue("Menue"),
 		steinSetzen("Stein"),
@@ -179,20 +224,41 @@ public class Sound implements BasicPlayerListener{
 					   mp3DateiName;
 		
 		
+		/**
+		 * Konstruktor
+		 * 
+		 * @param mp3DateiName
+		 */
 		private Sounds(String mp3DateiName){
 			this.mp3DateiName = mp3DateiName;
 		}
 		
 		
+		/**
+		 * Setzt das Soundverzeichnis.
+		 * 
+		 * @param soundVerzeichnis
+		 */
 		private void setSoundVerzeichnis(String soundVerzeichnis){
 			this.soundVerzeichnis = soundVerzeichnis;
 		}
 		
 		
+		/**
+		 * Liefert den Pfad zur mp3-Datei.
+		 * 
+		 * @return {@link String}
+		 */
 		public String getSound(){
 			return soundVerzeichnis + "/" + mp3DateiName + ".mp3";
 		}
 		
+		
+		/**
+		 * Gibt den Namen des Sounds zurück.
+		 * 
+		 * @return {@link String}
+		 */
 		public String getSoundName(){
 			return mp3DateiName;
 		}

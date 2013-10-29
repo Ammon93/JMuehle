@@ -22,15 +22,12 @@ import de.dhbw.muehle.gui.viewactions.ViewVA;
 import de.dhbw.muehle.gui.viewactions.ViewVA.ResizeAdapter;
 import de.dhbw.muehle.model.theme.Theme;
 
-
-
 /**
- * Hier wird die View gebaut. Nur der Aufbau !!
- * sämtliche Funktionen werden im ViewController und den View Actions implementiert.
- * @author Kreistschen
+ * Hier wird die View gebaut.
+ * Sämtliche Funktionen werden im ViewController und den View Actions implementiert.
+ * @author Ammon
  *
  */
-
 public class View extends JFrame{
 	
 	private Theme theme;
@@ -48,6 +45,12 @@ public class View extends JFrame{
 	private SettingsPanel settingsPanel;
 	
 	
+	/**
+	 * Konstruktor
+	 * 
+	 * @param vController
+	 * @param theme
+	 */
 	public View(ViewController vController, Theme theme){
 		this.theme = theme;
 		this.vController = vController;
@@ -168,13 +171,19 @@ public class View extends JFrame{
 	
 	
 	
+	/**
+	 * Gibt ein Objekt der globalen {@link ViewActions}-Klasse zurück.
+	 * 
+	 * @return {@link ViewActions}
+	 */
 	public ViewActions getGlobalVA(){
 		return globalVA;
 	}
 	
 	
 	/**
-	 * Setzt eine Theme
+	 * Setzt eine Theme.
+	 * 
 	 * @param theme Theme
 	 */
 	public void setTheme(Theme theme){
@@ -183,7 +192,8 @@ public class View extends JFrame{
 	}
 	
 	/**
-	 * Liefert das aktuell verwendete Theme
+	 * Liefert das aktuell verwendete Theme.
+	 * 
 	 * @return Theme
 	 */
 	public Theme getTheme(){
@@ -191,40 +201,78 @@ public class View extends JFrame{
 	}
 	
 	
+	/**
+	 * Gibt den ViewController zurück.
+	 * @return
+	 */
 	public ViewController getViewController(){
 		return vController;
 	}
 	
 	
-	
+	/**
+	 * Gibt das {@link MainMenu} zurück.
+	 * 
+	 * @return {@link MainMenu}
+	 */
 	public MainMenu getMainMenu() {
 		return mainMenu;
 	}
 	
+	
+	/**
+	 * Gibt das {@link GamePanel} zurück.
+	 * 
+	 * @return {@link GamePanel}
+	 */
 	public GamePanel getGamePanel() {
 		return gamePanel;
 	}
 	
+	/**
+	 * Setzt das aktuelle {@link GamePanel}.
+	 * 
+	 * @param {@link GamePanel}
+	 */
 	public void setGamePanel(GamePanel gamePanel){
 		this.gamePanel = gamePanel;
 	}
 	
+	
+	/**
+	 * Gibt das {@link SettingsPanel} zurück.
+	 * 
+	 * @return {@link SettingsPanel}
+	 */
 	public SettingsPanel getSetingsPanel() {
 		return settingsPanel;
 	}
 	
-	public JPanel getTopBar(){
-		return topBar;
-	}
 	
-	
+	/**
+	 * Gibt das aktuelle Panel, das im Frame angezeigt wird, zurück.
+	 * 
+	 * @return {@link AMenu}
+	 */
 	public AMenu getActualPanel(){
 		return (AMenu) content.getComponent(0);
 	}
 	
 	
 	/**
-	 * Setzt das Hauptpanel des Frames
+	 * Gibt die obere Fensterleiste zurück.
+	 * 
+	 * @return {@link JPanel}
+	 */
+	public JPanel getTopBar(){
+		return topBar;
+	}
+
+	
+	
+	/**
+	 * Setzt das Hauptpanel des Frames.
+	 * 
 	 * @param container Container (In diesem Fall das JPanel)
 	 */
 	public void setContentPane(AMenu container){

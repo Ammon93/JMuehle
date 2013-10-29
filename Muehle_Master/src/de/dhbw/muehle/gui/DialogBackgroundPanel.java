@@ -19,6 +19,13 @@ import com.jhlabs.image.BoxBlurFilter;
 
 import de.dhbw.muehle.gui.viewactions.ViewActions;
 
+/**
+ * Oberklasse für alle Dialoge.
+ * Wendet auf dem aktuellen Panel einen Blur-Effekt an und zeigt ein neues {@link JPanel} dialog.
+ * 
+ * @author Ammon
+ *
+ */
 public class DialogBackgroundPanel extends JPanel{
 	
 	private Image dialogBG;
@@ -39,6 +46,12 @@ public class DialogBackgroundPanel extends JPanel{
 						 INPUTDIALOG = "InputDialog";
 	
 	
+	/**
+	 * Konstruktor
+	 * 
+	 * @param view
+	 * @param vActions
+	 */
 	public DialogBackgroundPanel(View view, ViewActions vActions) {
 		this.view = view;
 		this.vActions = vActions;
@@ -63,23 +76,46 @@ public class DialogBackgroundPanel extends JPanel{
 	}
 	
 	
+	/**
+	 * Berechnet den Abstand vom oberen Rand des Panels zum Dialog, damit dieser vertikal zentriert ist.
+	 * 
+	 * @param dialog
+	 */
 	private void calculateVGap(JPanel dialog){
-		dialog.setLocation(dialog.getX(), (getHeight()-dialog.getHeight()) /2);
+		((FlowLayout) getLayout()).setVgap((view.getActualPanel().getHeight()-dialog.getHeight()) /2);
+		revalidate();
 	}
 	
 	
+	
+	/**
+	 * Hier wird die Größe des Dialogs festgelegt.
+	 * 
+	 * @param width
+	 * @param height
+	 */
 	protected void setDialogSize(int width, int height){
 		setDialogSize(new Dimension(width, height));
 	}
 	
+	/**
+	 * Hier wird die Größe des Dialogs festgelegt.
+	 * 
+	 * @param size
+	 */
 	protected void setDialogSize(Dimension size){
 		dialog.setPreferredSize(size);
-		calculateVGap(dialog);
 		
 		repaint();
 	}
 	
 	
+	/**
+	 * Diese Methode erzeugt einen Screenshot vom aktuellen Panel und wendet auf diesen einen Blur-Effekt an.
+	 * 
+	 * @throws IOException
+	 * @throws AWTException
+	 */
 	protected void getBluredScreenShot() throws IOException, AWTException{
 		Rectangle panelPosition = new Rectangle();
 		panelPosition.setLocation(view.getLocationOnScreen().x+view.getActualPanel().getLocation().x,
@@ -90,12 +126,24 @@ public class DialogBackgroundPanel extends JPanel{
     }
 	
 	
+	/**
+	 * Hier kann ein Hintergrund für den Dialog gesetzt werden.
+	 * 
+	 * @param dialogBG
+	 */
 	protected void setDialogBackground(Image dialogBG){
 		this.dialogBG = dialogBG;
 	}
 	
 	
+	
+	/**
+	 * Zeigt den Dialog an.
+	 */
 	public void showDialog(){
+		// VGap vor dem Zeichnen initial berechnen
+		calculateVGap(dialog);
+		
 		try {
 			getBluredScreenShot();
 		} catch (IOException | AWTException e) {e.printStackTrace();}
@@ -108,6 +156,9 @@ public class DialogBackgroundPanel extends JPanel{
 		}
 	}
 	
+	/**
+	 * Setzt den Dialog nur unsichtbar
+	 */
 	public void disappear(){
 		setVisible(false);
 		
@@ -118,6 +169,9 @@ public class DialogBackgroundPanel extends JPanel{
 		}
 	}
 	
+	/**
+	 * Schließt den Dialog
+	 */
 	public void close(){
 		setVisible(false);
 		
@@ -128,6 +182,11 @@ public class DialogBackgroundPanel extends JPanel{
 		}
 	}
 	
+	
+	
+	/**
+	 * Zeichnet den Dialog.
+	 */
 	@Override
 	public void paintComponent(Graphics g) {
 		calculateVGap(dialog);

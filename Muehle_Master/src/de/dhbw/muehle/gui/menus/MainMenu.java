@@ -18,6 +18,8 @@ import de.dhbw.muehle.gui.viewactions.MainMenuVA;
 
 /**
  * Dieses Panel ist das Hauptmenüpanel, das zuerst im Frame angezeigt wird.
+ * 
+ * @author Ammon
  */
 public class MainMenu extends AMenu {
 
@@ -28,6 +30,12 @@ public class MainMenu extends AMenu {
 	private View view;
 	
 	
+	/**
+	 * Konstruktor
+	 * 
+	 * @param vController
+	 * @param view
+	 */
 	public MainMenu(ViewController vController, View view) {
 		super(vController, view);
 		this.view = view;
@@ -37,7 +45,7 @@ public class MainMenu extends AMenu {
 		
 		setLayout(new FormLayout(new ColumnSpec[] {
 				ColumnSpec.decode("20px"),
-				ColumnSpec.decode("max(159px;min)"),
+				ColumnSpec.decode("max(149px;min)"),
 				ColumnSpec.decode("default:grow"),
 				ColumnSpec.decode("max(149px;min)"),
 				ColumnSpec.decode("default:grow"),
@@ -80,16 +88,26 @@ public class MainMenu extends AMenu {
 	}
 	
 	
+	
+	/**
+	 * Öffnet den Dialog {@link Spielregeln}.
+	 */
 	public void openSpielregeln(){
 		this.spielregeln.showDialog();
 	}
 	
+	/**
+	 * Schließt den Dialog {@link Spielregeln}.
+	 */
 	public void closeSpielregeln(){
 			this.spielregeln.close();
 	}
 	
 	
 	
+	/**
+	 * Zeichnet das Hintergrundbild auf das Panel.
+	 */
 	@Override
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
@@ -99,11 +117,22 @@ public class MainMenu extends AMenu {
 	
 	
 	
+	/**
+	 * Ein Dialog auf dem die Spielregeln der Mühle dargestellt werden
+	 * 
+	 * @author Ammon
+	 */
 	public class Spielregeln extends DialogBackgroundPanel{
 		
 		private JLabel dialogMessage;
 		
 		
+		/**
+		 * Konstruktor
+		 * 
+		 * @param view
+		 * @param vActions
+		 */
 		public Spielregeln(View view, MainMenuVA vActions) {
 			super(view, vActions);
 			
@@ -130,6 +159,9 @@ public class MainMenu extends AMenu {
 		
 		
 		
+		/**
+		 * Zeichnet den Dialog.
+		 */
 		@Override
 		public void paintComponent(Graphics g) {
 			setDialogBackground(view.getTheme().getSpielregeln());

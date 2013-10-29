@@ -11,6 +11,11 @@ import javax.swing.JButton;
 
 import de.dhbw.muehle.model.theme.Theme;
 
+/**
+ * Diese Klasse wird als Standard für alle Buttons in der GUI verwendet
+ * 
+ * @author Ammon
+ */
 public class MillButton extends JButton implements MouseListener{
 	
 	private View view;
@@ -21,6 +26,12 @@ public class MillButton extends JButton implements MouseListener{
 	private Image background;
 	
 	
+	/**
+	 * Konstruktor
+	 * 
+	 * @param view
+	 * @param type
+	 */
 	public MillButton(View view, String type){
 		this.view = view;
 		this.type = type;
@@ -33,6 +44,12 @@ public class MillButton extends JButton implements MouseListener{
 	}
 	
 	
+	/**
+	 * Setzt das Hintergrundbild des Buttons anhand des übergebenen Typs.
+	 * 
+	 * @param theme
+	 * @param type
+	 */
 	private void setBackgroundImage(Theme theme, String type){
 		switch(type){
 		case "Abbrechen":
@@ -108,20 +125,14 @@ public class MillButton extends JButton implements MouseListener{
 	}
 	
 	
-	public View getView(){
-		return view;
-	}
-	
-	
 	
 	@Override
-	public void mouseClicked(MouseEvent e) {	
-	}
+	public void mouseClicked(MouseEvent e) {}
 
 	@Override
-	public void mousePressed(MouseEvent e) {
-	}
+	public void mousePressed(MouseEvent e) {}
 
+	
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		setMouseOver(false);
@@ -142,6 +153,9 @@ public class MillButton extends JButton implements MouseListener{
 
 	
 
+	/**
+	 * Zeichnet den Button.
+	 */
 	@Override
 	public void paintComponent(Graphics g){
 		if(themeOverride)

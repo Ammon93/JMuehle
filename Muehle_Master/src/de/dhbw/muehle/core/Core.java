@@ -345,6 +345,7 @@ public class Core {
 	}
 
 	public void erstelleSpielsteinegesamt() {
+		Spielsteine_gesamt.clear();
 		for (int i = 0; i < StW.size(); i++) {
 			Spielsteine_gesamt.add(StW.get(i));
 		}
@@ -821,6 +822,17 @@ public class Core {
 		}
 
 	}
+	
+	public void zieheKI(Position stonealt, Position stoneneu){
+		vController.getView().getGamePanel().getLabel(stonealt).removeImage();
+		System.out.println(stoneneu);
+		vController.getView().getGamePanel().getLabel(stoneneu).setImage("schwarz");
+		StS.remove(stonealt);
+		Spielstein sp = new Spielstein(stoneneu.getEbene(),stoneneu.getX(),stoneneu.getY(),ESpielsteinFarbe.SCHWARZ);
+		StS.add(sp);
+		setWeissDran(true);
+		setSchwarzDran(false);
+	}
 
 	public void zieheSteinWeiss(LblGameStone stone) {
 		int zaehler = 0;
@@ -929,11 +941,6 @@ public class Core {
 		}
 	}
 
-	// Pr�ft Steine an den Eckpositionen
-	// if (pos.getX().getValue() + pos.getY().getValue() % 2 == 0) {
-	// //Dann modulo 0 heist dass der Stein an einer Ecke steht
-	// System.out.println("Eckstein");
-	//
 
 	public void zieheSteinSchwarz(LblGameStone stone) {
 		int zaehler = 0;
@@ -1213,18 +1220,19 @@ public class Core {
 			}
 
 		}
-		// if (getStS().size() + getStW().size() >= 9) {
-		// setSpielphase(2);
-		// }
+		 if (getStS().size() + getStW().size() >= 7) {
+			 setSpielphase(2);
+		 }
+		 }
 
 		// System.out.println(core.isWeissDran());
 		// System.out.println(core.isSchwarzDran());
 		// }
-		if (vController.getView().getGamePanel().isStackEmpty("weiss")
-				&& vController.getView().getGamePanel().isStackEmpty("schwarz")) {
-			setSpielphase(2);
-		}
-	}
+//		if (vController.getView().getGamePanel().isStackEmpty("weiss")
+//				&& vController.getView().getGamePanel().isStackEmpty("schwarz")) {
+//			setSpielphase(2);
+//		}
+	
 
 	public void entferneSteinWeiss(LblGameStone stone) {
 

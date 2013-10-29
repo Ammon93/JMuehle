@@ -11,12 +11,22 @@ import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+/**
+ * Diese Klasse dient dazu die einzelnen Themen aus dem "theme"-Ordner zu laden.
+ * 
+ * @author Ammon
+ */
 public class ThemeLoader {
 
 	private String[] themeFolders;
 	private Theme availableThemes[];
 	
 
+	/**
+	 * Konstruktor
+	 * 
+	 * Durchsucht den "themes"-Ordner nach Themen.
+	 */
 	public ThemeLoader(){
 		String ressource = "themes";
 		
@@ -34,6 +44,9 @@ public class ThemeLoader {
 	}
 	
 	
+	/**
+	 * Alle geladenen Bilder der einzelnen Themen auf <code>null</code> setzen.
+	 */
 	private void flushAllThemes(){
 		for(int i=0;i<availableThemes.length;i++)
 			availableThemes[i].flushThemeImages();
@@ -94,7 +107,8 @@ public class ThemeLoader {
 	
 	
 	/**
-	 * Lädt eine Theme
+	 * Lädt eine Theme anhand des Indexes.
+	 * 
 	 * @param index Index der Theme
 	 */
 	public Theme getTheme(int index){
@@ -102,7 +116,8 @@ public class ThemeLoader {
 	}
 	
 	/**
-	 * Lädt eine Theme
+	 * Lädt eine Theme anhand des Themennamens.
+	 * 
 	 * @param name Name der Theme
 	 */
 	public Theme getTheme(String name){

@@ -9,6 +9,11 @@ import de.dhbw.muehle.gui.ViewController;
 import de.dhbw.muehle.gui.viewactions.AMenuVA;
 import de.dhbw.muehle.gui.viewactions.ViewActions;
 
+/**
+ * Diese abstrakte Klasse dient als Oberklasse für alle Panels, die im View angezeigt werden
+ * 
+ * @author Ammon
+ */
 public abstract class AMenu extends JPanel{
 	
 	public final Dimension Size;
@@ -17,6 +22,12 @@ public abstract class AMenu extends JPanel{
 	protected static ViewActions vActions;
 	
 	
+	/**
+	 * Konstruktor
+	 * 
+	 * @param vController
+	 * @param view
+	 */
 	public AMenu(ViewController vController, View view) {
 		this.view = view;
 		AMenu.vActions = view.getGlobalVA();
@@ -34,6 +45,11 @@ public abstract class AMenu extends JPanel{
 	}
 	
 	
+	/**
+	 * Gibt die Originalgröße des Panels zurück.
+	 * 
+	 * @return {@link Dimension}
+	 */
 	public Dimension getOriginalSize(){
 		return Size;
 	}
