@@ -309,7 +309,7 @@ public class GamePanelVA extends ViewActions {
 
 			}
 
-			if (PvE) {
+			if (PvE && vController.getCore().isWeissDran() == false) {
 
 				try {
 					vController
