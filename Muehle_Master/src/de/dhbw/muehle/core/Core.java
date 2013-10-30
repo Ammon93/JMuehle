@@ -823,14 +823,23 @@ public class Core {
 
 	}
 	
-	public void zieheKI(Position stonealt, Position stoneneu){
+	public void zieheKI(Position stonealt, Position stoneneu){;
+		//erstelleSpielsteinegesamt();
 		vController.getView().getGamePanel().getLabel(stonealt).removeImage();
-		System.out.println(stoneneu);
+		System.out.println(stoneneu +" neue Position");
+		System.out.println(stonealt +" alte Position");
 		vController.getView().getGamePanel().getLabel(stoneneu).setImage("schwarz");
-		StS.remove(stonealt);
+	//	StS.remove(stonealt);
 		Spielstein sp = new Spielstein(stoneneu.getEbene(),stoneneu.getX(),stoneneu.getY(),ESpielsteinFarbe.SCHWARZ);
 		StS.add(sp);
+		for(int i= 0; i< StS.size(); i++){
+			if(StS.get(i).getPosition().hashCode()==stonealt.hashCode()){
+				StS.remove(i);
+			}
+		}
+		erstelleSpielsteinegesamt();
 		setWeissDran(true);
+		setWeisserStein_angeklickt(false);
 		setSchwarzDran(false);
 	}
 
@@ -1220,19 +1229,19 @@ public class Core {
 			}
 
 		}
-		 if (getStS().size() + getStW().size() >= 7) {
-			 setSpielphase(2);
-		 }
-		 }
+//		 if (getStS().size() + getStW().size() >= 7) {
+//			 setSpielphase(2);
+//		 }
+		 
 
 		// System.out.println(core.isWeissDran());
 		// System.out.println(core.isSchwarzDran());
 		// }
-//		if (vController.getView().getGamePanel().isStackEmpty("weiss")
-//				&& vController.getView().getGamePanel().isStackEmpty("schwarz")) {
-//			setSpielphase(2);
-//		}
-	
+		if (vController.getView().getGamePanel().isStackEmpty("weiss")
+				&& vController.getView().getGamePanel().isStackEmpty("schwarz")) {
+			setSpielphase(2);
+		}
+}
 
 	public void entferneSteinWeiss(LblGameStone stone) {
 

@@ -16,7 +16,8 @@ import de.dhbw.muehle.gui.menus.GamePanel.LblGameStone;
 import de.dhbw.muehle.strategy.StrategieException;
 
 /**
- * Hier werden alle Listener für das {@link GamePanel} implementiert und ausformuliert.
+ * Hier werden alle Listener für das {@link GamePanel} implementiert und
+ * ausformuliert.
  * 
  * @author Ammon
  */
@@ -27,24 +28,21 @@ public class GamePanelVA extends ViewActions {
 	private boolean PvE;
 	private ESpielsteinFarbe pcFarbe;
 
-	
 	/**
 	 * Konstruktor
 	 */
 	public GamePanelVA() {
 		vActions = this;
 	}
-	
-	
-	
+
 	/**
 	 * Startet die KI
 	 */
-	private void PC(){
-		new Thread(){
-			public void run(){
+	private void PC() {
+		new Thread() {
+			public void run() {
 				LblGameStone newStone = null;
-				
+
 				try {
 					newStone = vController
 							.getView()
@@ -54,22 +52,25 @@ public class GamePanelVA extends ViewActions {
 											.getCore()
 											.getPC()
 											.bewegeStein(
-													vController.getCore()
+													vController
+															.getCore()
 															.getSpielsteine_gesamt())
 											.getNeuenSpielstein().getPosition());
-				} catch (StrategieException e1) {e1.printStackTrace();}
-				
-				if(pcFarbe.equals(ESpielsteinFarbe.WEISS))
+				} catch (StrategieException e1) {
+					e1.printStackTrace();
+				}
+
+				if (pcFarbe.equals(ESpielsteinFarbe.WEISS))
 					vController.getCore().weisseSteine_setzen(newStone);
 				else
 					vController.getCore().schwarzeSteine_setzen(newStone);
-		}}.start();
+			}
+		}.start();
 	}
-	
-	
 
 	/**
-	 * Setzt einen {@link Boolean}, der anzeigt, ob sich das Spiel im Einzelspielermodus befindet.
+	 * Setzt einen {@link Boolean}, der anzeigt, ob sich das Spiel im
+	 * Einzelspielermodus befindet.
 	 * 
 	 * @param PvE
 	 */
@@ -91,22 +92,22 @@ public class GamePanelVA extends ViewActions {
 	 */
 	// {
 	// gameStone[][][]
-		/**
-		 * 
-		 * @author Kreistschen Diese Mouselistener steuert den kompletten
-		 *         Spielablauf Je nach gesetzten booleans werden jeweilige
-		 *         Funktionen ausgef�hrt
-		 */
-	
+	/**
+	 * 
+	 * @author Kreistschen Diese Mouselistener steuert den kompletten
+	 *         Spielablauf Je nach gesetzten booleans werden jeweilige
+	 *         Funktionen ausgef�hrt
+	 */
+
 	public class lblGameStoneMouse extends ALblGameStoneMouse {
 		@Override
 		// Wird aufgerufen falls einmal geklickt wird
 		public void mouseClicked(MouseEvent e) {
 
 			// Prüfen, ob die Strategie noch am Zug ist
-			if (PvE && vController.getCore().isSchwarzDran()) {
-				return;
-			}
+			// if (PvE && vController.getCore().isSchwarzDran()) {
+			// return;
+			// }
 
 			/**
 			 * Hier wird �berpr�ft in welcher Spielphase sich das Spiel
@@ -388,26 +389,47 @@ public class GamePanelVA extends ViewActions {
 
 				}
 
-			    if (PvE && vController.getCore().isWeissDran() == false) {
+				if (PvE
+						&& vController.getCore().isWeissDran() == false
+						&& vController.getCore().isSchwarzDran()
+						&& vController.getCore().isWeisserStein_angeklickt() == false) {
+					
+					System.out.println("Ich bin drinnen");
 					try {
-						vController.getCore().zieheKI((vController
+						vController
 								.getCore()
-								.getPC()
-								.bewegeStein(
-										vController.getCore()
-												.getSpielsteine_gesamt())
-								.bewegeSpielStein().altePosition()), vController
-								.getCore()
-								.getPC()
-								.bewegeStein(
-										vController.getCore()
-												.getSpielsteine_gesamt())
-								.bewegeSpielStein().neuePosition());
+								.zieheKI(
+										(vController
+												.getCore()
+												.getPC()
+												.bewegeStein(
+														vController
+																.getCore()
+																.getSpielsteine_gesamt())
+												.bewegeSpielStein()
+												.altePosition()),
+										vController
+												.getCore()
+												.getPC()
+												.bewegeStein(
+														vController
+																.getCore()
+																.getSpielsteine_gesamt())
+												.bewegeSpielStein()
+												.neuePosition());
 					} catch (StrategieException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}
+				System.out.println("Ist Weiss dran "
+						+ vController.getCore().isWeissDran());
+				System.out.println("Ist Schwarz dran "
+						+ vController.getCore().isSchwarzDran());
+				System.out.println("Hat Weiss eine Muehle "
+						+ vController.getCore().isMuehle_weiss());
+				System.out.println("Hat Schwarz eine Muehle "
+						+ vController.getCore().isMuehle_schwarz());
 
 			}
 
@@ -429,32 +451,36 @@ public class GamePanelVA extends ViewActions {
 		public void mouseExited(MouseEvent e) {
 		}
 	}
-	
 
 	// lblInputDialogSpielstein
-		public class LblInputDialogSpielsteinMouse extends ALblGameStoneMouse{
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				LblGameStone stein = ((LblGameStone) e.getSource());
-				
-				if(stein.getFarbe().equals(ESpielsteinFarbe.WEISS))
-					stein.setImage("schwarz");
-				else if(stein.getFarbe().equals(ESpielsteinFarbe.SCHWARZ))
-					stein.setImage("weiss");
-			}
-	
-			@Override
-			public void mousePressed(MouseEvent e) {}
-	
-			@Override
-			public void mouseReleased(MouseEvent e) {}
-	
-			@Override
-			public void mouseEntered(MouseEvent e) {}
-	
-			@Override
-			public void mouseExited(MouseEvent e) {}
+	public class LblInputDialogSpielsteinMouse extends ALblGameStoneMouse {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			LblGameStone stein = ((LblGameStone) e.getSource());
+
+			if (stein.getFarbe().equals(ESpielsteinFarbe.WEISS))
+				stein.setImage("schwarz");
+			else if (stein.getFarbe().equals(ESpielsteinFarbe.SCHWARZ))
+				stein.setImage("weiss");
 		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+		}
+	}
+
 	// }
 
 	/**
@@ -522,8 +548,8 @@ public class GamePanelVA extends ViewActions {
 
 					if (!vActions.isCanceled()) {
 						vController.getCore().resetAll();
-						
-						if(PvE)
+
+						if (PvE)
 							vController.startPvE();
 						else
 							vController.startPvP();
@@ -546,8 +572,8 @@ public class GamePanelVA extends ViewActions {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			vController.getCore().resetAll();
-			
-			if(PvE)
+
+			if (PvE)
 				vController.startPvE();
 			else
 				vController.startPvP();
@@ -581,18 +607,19 @@ public class GamePanelVA extends ViewActions {
 					DialogBackgroundPanel.INPUTDIALOG, vController.getView()
 							.getActualPanel());
 			vController.getView().getGamePanel().changePlayer();
-			
-			if(PvE){
-				InputDialog inDialog = vController.getView().getGamePanel().getInputDialog();
-				
-				if(inDialog.getSpielerFarbe().equals(ESpielsteinFarbe.SCHWARZ)){
+
+			if (PvE) {
+				InputDialog inDialog = vController.getView().getGamePanel()
+						.getInputDialog();
+
+				if (inDialog.getSpielerFarbe().equals(ESpielsteinFarbe.SCHWARZ)) {
 					pcFarbe = ESpielsteinFarbe.WEISS;
-					
+
 					inDialog.setSpielerName2(inDialog.getSpielerName1());
 					inDialog.setSpielerName1("PC");
-					
+
 					PC();
-				}else{
+				} else {
 					inDialog.setSpielerName2("PC");
 					pcFarbe = ESpielsteinFarbe.SCHWARZ;
 				}
