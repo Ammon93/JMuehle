@@ -606,7 +606,7 @@ public class GamePanelVA extends ViewActions {
 			vController.openDialog(DialogBackgroundPanel.CLOSE,
 					DialogBackgroundPanel.INPUTDIALOG, vController.getView()
 							.getActualPanel());
-			vController.getView().getGamePanel().changePlayer();
+			vController.getView().getGamePanel().updatePlayer();
 
 			if (PvE) {
 				InputDialog inDialog = vController.getView().getGamePanel()

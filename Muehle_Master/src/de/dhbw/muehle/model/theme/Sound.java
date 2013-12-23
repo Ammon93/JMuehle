@@ -84,7 +84,7 @@ public class Sound implements BasicPlayerListener{
 			
 			try {
 				double actualGain = Math.round((((musicPlayer.getGainValue()+80d)/86.0206)*1000d)/1000d);
-				for(double i=actualGain;i>=0;i-=0.001){
+				for(double i=actualGain;i>=0d;i-=0.001){
 					musicPlayer.setGain(Math.round(i*100d)/100d);
 					Thread.sleep(1);
 				}

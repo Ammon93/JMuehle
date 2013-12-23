@@ -76,7 +76,7 @@ public class ViewController {
 		
 		getTheme().stopSound();
 		frame.setContentPane(frame.getGamePanel()); // GamePanel (Spielbrett)
-		changePlayer(); // Weiß beginnt
+		frame.getGamePanel().updatePlayer();
 		
 		// inputDialog einblenden
 		if(!getView().getGamePanel().anyChangesMade())
@@ -103,7 +103,7 @@ public class ViewController {
 		
 		getTheme().stopSound();
 		frame.setContentPane(frame.getGamePanel()); // GamePanel (Spielbrett)
-		changePlayer(); // Weiß beginnt
+		frame.getGamePanel().updatePlayer();
 		
 		// inputDialog einblenden
 		if(!getView().getGamePanel().anyChangesMade())
@@ -155,14 +155,6 @@ public class ViewController {
 		} catch (IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException | NoSuchMethodException
 				| SecurityException | ClassNotFoundException e) {e.printStackTrace();}
-	}
-
-	
-	/**
-	 * Ändert den Spieler, der gerade am Zug ist, auf dem {@link InfoField}.
-	 */
-	public void changePlayer() {
-		frame.getGamePanel().changePlayer();
 	}
 	
 	

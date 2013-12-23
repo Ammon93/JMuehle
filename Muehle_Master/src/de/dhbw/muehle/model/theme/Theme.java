@@ -70,7 +70,7 @@ public class Theme {
 	
 	
 	/**
-	 * Konstrktor
+	 * Konstruktor
 	 * 
 	 * @param themePath
 	 */

@@ -4,20 +4,20 @@
 	<classpathentry kind="src" path="res"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/sqlite/sqlite-jdbc-3.7.2.jar"/>
+	<classpathentry kind="lib" path="lib/Schlegel_Strategie/muehle-api.jar"/>
+	<classpathentry kind="lib" path="lib/Schlegel_Strategie/muehle-util.jar"/>
+	<classpathentry kind="lib" path="lib/jhLabs/Filters.jar"/>
+	<classpathentry kind="lib" path="lib/forms-1.3.0/forms-1.3.0.jar"/>
 	<classpathentry kind="lib" path="lib/joda-time-2.3/joda-time-2.3.jar" sourcepath="lib/joda-time-2.3/joda-time-2.3-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/Muehle_Master/lib/joda-time-2.3/joda-time-2.3-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/forms-1.3.0/forms-1.3.0.jar"/>
-	<classpathentry kind="lib" path="lib/sqlite/sqlite-jdbc-3.7.2.jar"/>
 	<classpathentry kind="lib" path="lib/BasicPlayer3.0/lib/commons-logging-api-1.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/BasicPlayer3.0/lib/jl1.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/BasicPlayer3.0/lib/mp3spi1.9.5.jar"/>
-	<classpathentry kind="lib" path="lib/BasicPlayer3.0/basicplayer3.0.jar" sourcepath="lib/BasicPlayer3.0/src/javazoom/jlgui/basicplayer"/>
 	<classpathentry kind="lib" path="lib/BasicPlayer3.0/lib/tritonus_share.jar"/>
-	<classpathentry kind="lib" path="lib/jhlabs/Filters.jar"/>
-	<classpathentry kind="lib" path="lib/Schlegel_Strategie/muehle-api.jar"/>
-	<classpathentry kind="lib" path="lib/Schlegel_Strategie/muehle-util.jar"/>
+	<classpathentry kind="lib" path="lib/BasicPlayer3.0/basicplayer3.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

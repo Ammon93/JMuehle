@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.HierarchyBoundsListener;
 import java.awt.event.HierarchyEvent;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
@@ -15,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -282,11 +284,12 @@ public class GamePanel extends AMenu {
 	
 	
 	/**
-	 * Ändert den Spieler, der gerade am Zug ist, auf dem {@link InfoField}.
+	 * Aktualisiert den aktuellen Spieler auf dem InfoPanel
 	 */
-	public void changePlayer(){
-		infoField.changePlayer();
+	public void updatePlayer(){
+		infoField.updatePlayer();
 	}
+	
 	
 	/**
 	 * Zeigt die Meldung auf dem {@link InfoField} an.
@@ -938,20 +941,9 @@ public class GamePanel extends AMenu {
 		
 		
 		/**
-		 * Fügt einen Text zur TextArea hinzu.
-		 * 
-		 * @param infoMessage
-		 */
-		public void info(String infoMessage){
-			logPane.append(infoMessage + "\n");
-			repaint();
-		}
-		
-		
-		/**
 		 * Setzt alle Labels so, dass der aktuelle Spieler hervorgehoben wird.
 		 */
-		public void changePlayer(){
+		public void updatePlayer(){
 			lblSpielerDran.setFont(view.getTheme().getFont().deriveFont(Font.BOLD, 18));
 			lblSpielerDran.setForeground(view.getTheme().getFontColor());
 			logPane.setForeground(view.getTheme().getFontColor());
@@ -965,7 +957,17 @@ public class GamePanel extends AMenu {
 				lblSpielSteinSpieler2.setImage("schwarz");
 				lblSpielerDran.setText(inputDialog.getSpielerName2());
 			}
-			
+		}
+		
+		
+		
+		/**
+		 * Fügt einen Text zur TextArea hinzu.
+		 * 
+		 * @param infoMessage
+		 */
+		public void info(String infoMessage){
+			logPane.append(infoMessage + "\n");
 			repaint();
 		}
 	}
