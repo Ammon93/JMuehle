@@ -34,14 +34,17 @@ public class ViewController {
 	/**
 	 * Konstruktor
 	 * 
-	 * @param _core
+	 * @param core
 	 */
-	public ViewController(Core _core) {
+	public ViewController(Core core) {
+		this.core = core;
+		
+		// Themen laden
 		thLoader = new ThemeLoader();
-		setTheme("Wooden Mill");
+		setTheme("Wooden Mill");		// Standardtheme anwenden
 
-		frame = new View(this, theme);
-		core = _core;
+		// Frame initialisieren
+		frame = new View(core, this, theme);
 	}
 
 	
@@ -66,41 +69,9 @@ public class ViewController {
 	
 	
 	/**
-	 * Startet das Spiel im Einzelspielermodus.
+	 * Startet das Spiel.
 	 */
-	public void startPvE(){
-		if(!frame.getGlobalVA().getGamePanelVA().isPvE())
-			core.resetAll();
-		
-		frame.getGlobalVA().getGamePanelVA().setPvE(true);
-		
-		getTheme().stopSound();
-		frame.setContentPane(frame.getGamePanel()); // GamePanel (Spielbrett)
-		frame.getGamePanel().updatePlayer();
-		
-		// inputDialog einblenden
-		if(!getView().getGamePanel().anyChangesMade())
-			new Thread(){
-				public void run(){
-					try {
-						sleep(300);
-					} catch (InterruptedException e) {e.printStackTrace();}
-					
-					frame.getGamePanel().openInputDialog();
-				}
-			}.start();
-	}
-
-	
-	/**
-	 * Startet das Spiel im Mehrspielermodus
-	 */
-	public void startPvP() {
-		if(frame.getGlobalVA().getGamePanelVA().isPvE())
-			core.resetAll();
-		
-		frame.getGlobalVA().getGamePanelVA().setPvE(false);
-		
+	public void starteSpiel(){
 		getTheme().stopSound();
 		frame.setContentPane(frame.getGamePanel()); // GamePanel (Spielbrett)
 		frame.getGamePanel().updatePlayer();

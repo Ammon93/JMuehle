@@ -13,6 +13,7 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 
+import de.dhbw.muehle.core.Core;
 import de.dhbw.muehle.gui.menus.GamePanel;
 import de.dhbw.muehle.gui.menus.MainMenu;
 import de.dhbw.muehle.gui.menus.AMenu;
@@ -51,12 +52,12 @@ public class View extends JFrame{
 	 * @param vController
 	 * @param theme
 	 */
-	public View(ViewController vController, Theme theme){
+	public View(Core core, ViewController vController, Theme theme){
 		this.theme = theme;
 		this.vController = vController;
 		
 		// globale ViewActions initialisieren
-		globalVA = new ViewActions(vController);
+		globalVA = new ViewActions(vController, core);
 		
 		// ViewActions für View holen
 		vActions = globalVA.getViewVA();

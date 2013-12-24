@@ -4,6 +4,7 @@ import java.awt.Dimension;
 
 import javax.swing.JPanel;
 
+import de.dhbw.muehle.core.Core;
 import de.dhbw.muehle.gui.View;
 import de.dhbw.muehle.gui.ViewController;
 import de.dhbw.muehle.gui.viewactions.AMenuVA;
@@ -19,6 +20,7 @@ public abstract class AMenu extends JPanel{
 	public final Dimension Size;
 	
 	protected View view;
+	protected Core core;
 	protected static ViewActions vActions;
 	
 	
@@ -30,6 +32,7 @@ public abstract class AMenu extends JPanel{
 	 */
 	public AMenu(ViewController vController, View view) {
 		this.view = view;
+		this.core = vController.getCore();
 		AMenu.vActions = view.getGlobalVA();
 		
 		// ViewActions für AMenu holen

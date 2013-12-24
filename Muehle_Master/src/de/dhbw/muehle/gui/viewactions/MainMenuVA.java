@@ -19,7 +19,7 @@ public class MainMenuVA extends ViewActions{
 		public class btnPvEAction extends ABtnPvE{
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				vController.startPvE();
+				core.startPvE();
 			}
 		}
 		
@@ -27,7 +27,7 @@ public class MainMenuVA extends ViewActions{
 		public class btnPvPAction extends ABtnPvP{
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				vController.startPvP();
+				core.startPvP();
 			}
 		}
 		
