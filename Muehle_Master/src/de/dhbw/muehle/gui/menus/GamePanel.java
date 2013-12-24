@@ -948,15 +948,15 @@ public class GamePanel extends AMenu {
 			lblSpielerDran.setForeground(view.getTheme().getFontColor());
 			logPane.setForeground(view.getTheme().getFontColor());
 			
-//			if(view.getViewController().getCore().isWeissDran() && !view.getViewController().getCore().isSchwarzDran()){
-//				lblSpielSteinSpieler1.setImage("weiss");
-//				lblSpielSteinSpieler2.setImage("schwarz", "transparent");
-//				lblSpielerDran.setText(inputDialog.getSpielerName1());
-//			}else{
-//				lblSpielSteinSpieler1.setImage("weiss", "transparent");
-//				lblSpielSteinSpieler2.setImage("schwarz");
-//				lblSpielerDran.setText(inputDialog.getSpielerName2());
-//			}
+			if(view.getViewController().getCore().isWeissDran() && !view.getViewController().getCore().isSchwarzDran()){
+				lblSpielSteinSpieler1.setImage("weiss");
+				lblSpielSteinSpieler2.setImage("schwarz", "transparent");
+				lblSpielerDran.setText(inputDialog.getSpielerName1());
+			}else{
+				lblSpielSteinSpieler1.setImage("weiss", "transparent");
+				lblSpielSteinSpieler2.setImage("schwarz");
+				lblSpielerDran.setText(inputDialog.getSpielerName2());
+			}
 		}
 		
 		
@@ -1129,12 +1129,12 @@ public class GamePanel extends AMenu {
 			lblNameSpieler2.setFont(font.deriveFont(Font.BOLD, 15));
 			lblNameSpieler2.setForeground(view.getTheme().getFontColor());
 			
-			if(core.isPvE()){
+			if(view.getGlobalVA().getGamePanelVA().isPvE()){
 				lblNameSpieler1.setText("Name des Spielers:");
 				lblNameSpieler2.setText("Spielsteinfarbe:");
 				
 				if(spieler2.isVisible()){
-					dialog.remove(spieler2);
+					remove(spieler2);
 					dialog.add(lblInputDialogSpielstein, "6, 3, fill, fill");
 				}
 			}else{
@@ -1142,7 +1142,7 @@ public class GamePanel extends AMenu {
 				lblNameSpieler2.setText("Name Spieler 2:");
 				
 				if(lblInputDialogSpielstein.isVisible()){
-					dialog.remove(lblInputDialogSpielstein);
+					remove(lblInputDialogSpielstein);
 					dialog.add(spieler2, "5, 3, 3, 1, fill, center");
 				}
 			}

@@ -9,7 +9,6 @@ import java.awt.event.MouseMotionListener;
 
 import javax.swing.SwingConstants;
 
-import de.dhbw.muehle.core.Core;
 import de.dhbw.muehle.gui.ViewController;
 
 /**
@@ -19,8 +18,7 @@ import de.dhbw.muehle.gui.ViewController;
  */
 public class ViewActions{
 	
-	protected static ViewController vController;
-	protected static Core core;
+	protected static ViewController vController;	
 	
 	private ViewVA viewVA;
 	private AMenuVA aMenuVA;
@@ -42,9 +40,8 @@ public class ViewActions{
 	 * 
 	 * @param vController
 	 */
-	public ViewActions(ViewController vController, Core core) {
+	public ViewActions(ViewController vController) {
 		ViewActions.vController = vController;
-		ViewActions.core = core;
 		
 		viewVA = new ViewVA();
 		aMenuVA = new AMenuVA();
