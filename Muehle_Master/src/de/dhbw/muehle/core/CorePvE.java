@@ -1,5 +1,5 @@
 package de.dhbw.muehle.core;
 
-public class CorePvE {
+public class CorePvE extends Core{
 
 }

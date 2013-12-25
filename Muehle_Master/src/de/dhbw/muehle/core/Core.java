@@ -1,6 +1,9 @@
 package de.dhbw.muehle.core;
 
 import de.dhbw.muehle.gui.ViewController;
+import de.dhbw.muehle.gui.menus.GamePanel.LblGameStone;
+import de.dhbw.muehle.model.theme.Sound.Sounds;
+
 
 /**
  * Die Coreklasse dient als zentrale Fuktionseinheit des
@@ -21,10 +24,11 @@ public class Core {
 	public static String PvE="PvE",
 						 PvP="PvP";
 
+	
 	/**
 	 * Konstruktor
 	 */
-	public Core() {
+	public Core(){
 		// ViewController initialisieren
 		vController = new ViewController(this);
 		
@@ -38,12 +42,17 @@ public class Core {
 	// Log.log("run() ohne Fehler gestartet", getClass().getSimpleName());
 	// }
 
-	// Zentrale Methode zur initalisierung der GUI und allen weiteren Fenstern
-	public void initGame() {
+	/**
+	 * Zentrale Methode zur initalisierung der GUI und allen weiteren Fenstern.
+	 */
+	public void initGame(){
 		vController.initGui();
 	}
 	
 	
+	/**
+	 * Startet das Spiel im Einzelspielermodus.
+	 */
 	public void startPvE(){
 		// Wenn bereits eine PvE-Sitzung läuft diese fortsetzen, andernfalls eine neue starten
 		if(!isPvE())
@@ -54,6 +63,9 @@ public class Core {
 		spielModus = PvE;
 	}
 	
+	/**
+	 * Startet das Spiel im Mehrspielermodus.
+	 */
 	public void startPvP(){
 		// Wenn bereits eine PvP-Sitzung läuft diese fortsetzen, andernfalls eine neue starten
 		if(!isPvP())
@@ -64,32 +76,56 @@ public class Core {
 		spielModus = PvP;
 	}
 	
+	
+	/**
+	 * Diese Methode leitet alle weiteren Schritte ein, wenn ein Label auf dem
+	 * Spielbrett angeklickt wurde.
+	 * 
+	 * @param label
+	 */
+	public void labelClicked(LblGameStone label){
+		
+	}
+	
+	
+	
+	/**
+	 * Gibt zurück, ob es sich das Spiel aktuell im Einzelspielermodus befindet.
+	 * @return {@link Boolean}
+	 */
 	public boolean isPvE(){
-		if(spielModus == null)
-			return true;
-		if(spielModus.equals(PvE))
+		if(spielModus == PvE)
 			return true;
 		else
 			return false;
 	}
 	
+	/**
+	 * Gibt zurück, ob es sich das Spiel aktuell im Mehrspielermodus befindet.
+	 * @return {@link Boolean}
+	 */
 	public boolean isPvP(){
-		if(spielModus == null)
-			return true;
-		if(spielModus.equals(PvP))
+		if(spielModus == PvP)
 			return true;
 		else
 			return false;
 	}
 	
+	/**
+	 * Gibt den aktuellen Spielmodus zurück.
+	 * @return PvE / PvP
+	 */
 	public String getSpielModus(){
 		return spielModus;
 	}
 	
 	
-	// Reset Game
+	
+	/**
+	 *  Setzt das Spiel auf Anfang zurück.
+	 */
 	public void resetAll() {
-		// TODO Auto-generated method stub
+		// TODO Reset Game
 		
 	}
 }

@@ -25,7 +25,6 @@ public class GamePanelVA extends ViewActions {
 
 	private GamePanelVA vActions;
 
-//	private boolean PvE;
 	private ESpielsteinFarbe pcFarbe;
 
 	/**
@@ -49,7 +48,7 @@ public class GamePanelVA extends ViewActions {
 		@Override
 		// Wird aufgerufen falls einmal geklickt wird
 		public void mouseClicked(MouseEvent e) {
-			
+			core.labelClicked((LblGameStone) e.getSource());
 		}
 
 		@Override

@@ -82,18 +82,18 @@ public class GamePanel extends AMenu {
 			new RowSpec[] {
 				RowSpec.decode("default:grow"),}));
 		
-		
-		gameDialog = new GameDialog(view, vActions);
-		add(gameDialog, "1, 1, 3, 1, fill, fill");
-		
-		inputDialog = new InputDialog(view, vActions);
-		add(inputDialog, "1, 1, 3, 1, fill, fill");
-		
-		spielregeln = view.getMainMenu().new Spielregeln(view, AMenu.vActions.getMainMenuVA());
-		add(spielregeln, "1, 1, 3, 1, fill, fill");
-		
-		winLose = new WinLose(view, vActions);
-		add(winLose, "1, 1, 3, 1, fill, fill");
+		// Meldungen/Dialoge die über dem kompletten Spielbrett angezeigt werden sollen
+			gameDialog = new GameDialog(view, vActions);
+			add(gameDialog, "1, 1, 3, 1, fill, fill");
+			
+			inputDialog = new InputDialog(view, vActions);
+			add(inputDialog, "1, 1, 3, 1, fill, fill");
+			
+			spielregeln = view.getMainMenu().new Spielregeln(view, AMenu.vActions.getMainMenuVA());
+			add(spielregeln, "1, 1, 3, 1, fill, fill");
+			
+			winLose = new WinLose(view, vActions);
+			add(winLose, "1, 1, 3, 1, fill, fill");
 		
 		gameField = new JPanel();
 		gameField.setOpaque(false);
@@ -127,11 +127,12 @@ public class GamePanel extends AMenu {
 				RowSpec.decode("default:grow(6)"),
 				RowSpec.decode("default:grow"),}));
 		
-		weisseSteine = new LblStoneStack("weiss", view, 9);
-		stoneField.add(weisseSteine, "1, 2, fill, fill");
+			weisseSteine = new LblStoneStack("weiss", view, 9);
+			stoneField.add(weisseSteine, "1, 2, fill, fill");
+			
+			schwarzeSteine = new LblStoneStack("schwarz", view, 9);
+			stoneField.add(schwarzeSteine, "1, 3, fill, fill");
 		
-		schwarzeSteine = new LblStoneStack("schwarz", view, 9);
-		stoneField.add(schwarzeSteine, "1, 3, fill, fill");
 		
 		infoField = new InfoField(view, vActions);
 		add(infoField, "3, 1, fill, fill");
@@ -224,7 +225,6 @@ public class GamePanel extends AMenu {
 	 * Prüft, ob Stack leer ist.
 	 * 
 	 * @param type Typ des Stacks ("schwarz" oder "weiss")
-	 * @param weisseSteine2 
 	 * @return {@link Boolean}
 	 */
 	public boolean isStackEmpty(String type){
@@ -262,8 +262,7 @@ public class GamePanel extends AMenu {
 	 * Erhöht oder veringert einen Stack.
 	 * 
 	 * @param type Typ des Stacks ("schwarz" oder "weiss")
-	 * @param weisseSteine2 
-	 * @param change Nur 1 und -1 erlaubt
+	 * @param change (nur 1 und -1 erlaubt)
 	 */
 	public void updateStack(String type, int change){
 		switch (type){
@@ -284,7 +283,7 @@ public class GamePanel extends AMenu {
 	
 	
 	/**
-	 * Aktualisiert den aktuellen Spieler auf dem InfoPanel
+	 * Aktualisiert den aktuellen Spieler auf dem {@link InfoField}
 	 */
 	public void updatePlayer(){
 		infoField.updatePlayer();
