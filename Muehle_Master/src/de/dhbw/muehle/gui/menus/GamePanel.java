@@ -400,6 +400,13 @@ public class GamePanel extends AMenu {
 		private boolean removed;
 		
 		
+		public static final String schwarz = "schwarz",
+								   weiss = "weiss";
+		public static final String transparent = "transparent",
+								   gewaehlt = "gewaehlt",
+								   normal = "";
+		
+		
 		/**
 		 * Konstruktor
 		 * 
@@ -418,8 +425,7 @@ public class GamePanel extends AMenu {
 		 * @param view
 		 */
 		public LblGameStone(String color, String type, View view){
-			this.color = color;
-			this.type = type;
+			setImage(color, type);
 			this.view = view;
 		}
 		
@@ -654,8 +660,16 @@ public class GamePanel extends AMenu {
 		}
 		
 		public void setImage(String color, String type){
-			this.color = color;
-			this.type = type;
+			if(color == schwarz || color == weiss)
+				this.color = color;
+			else
+				return;
+			
+			if(type == normal || type == gewaehlt || type == transparent)
+				this.type = type;
+			else
+				return;
+			
 			removed = false;
 			
 			repaint();
@@ -862,10 +876,10 @@ public class GamePanel extends AMenu {
 					RowSpec.decode("max(41px;default):grow(50)"),}));
 			add(infoPanel, "1, 1, 3, 1, fill, fill");
 			
-				lblSpielSteinSpieler1 = new LblGameStone("weiss", view);
+				lblSpielSteinSpieler1 = new LblGameStone(LblGameStone.weiss, view);
 				infoPanel.add(lblSpielSteinSpieler1, "2, 2, fill, fill");
 				
-				lblSpielSteinSpieler2 = new LblGameStone("schwarz", view);
+				lblSpielSteinSpieler2 = new LblGameStone(LblGameStone.schwarz, view);
 				infoPanel.add(lblSpielSteinSpieler2, "4, 2, fill, fill");
 				
 				lblSpielerDran = new JLabel();
@@ -948,12 +962,12 @@ public class GamePanel extends AMenu {
 			logPane.setForeground(view.getTheme().getFontColor());
 			
 //			if(view.getViewController().getCore().isWeissDran() && !view.getViewController().getCore().isSchwarzDran()){
-//				lblSpielSteinSpieler1.setImage("weiss");
-//				lblSpielSteinSpieler2.setImage("schwarz", "transparent");
+//				lblSpielSteinSpieler1.setImage(LblGameStone.weiss);
+//				lblSpielSteinSpieler2.setImage(LblGameStone.schwarz, LblGameStone.transparent);
 //				lblSpielerDran.setText(inputDialog.getSpielerName1());
 //			}else{
-//				lblSpielSteinSpieler1.setImage("weiss", "transparent");
-//				lblSpielSteinSpieler2.setImage("schwarz");
+//				lblSpielSteinSpieler1.setImage(LblGameStone.weiss, LblGameStone.transparent);
+//				lblSpielSteinSpieler2.setImage(LblGameStone.schwarz);
 //				lblSpielerDran.setText(inputDialog.getSpielerName2());
 //			}
 		}

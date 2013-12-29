@@ -69,6 +69,14 @@ public class ViewController {
 	
 	
 	/**
+	 * Zeigt das {@link SettingsPanel} an.
+	 */
+	public void displaySettings() {
+		frame.setContentPane(frame.getSetingsPanel());
+	}
+	
+	
+	/**
 	 * Startet das Spiel.
 	 */
 	public void starteSpiel(){
@@ -77,7 +85,7 @@ public class ViewController {
 		frame.getGamePanel().updatePlayer();
 		
 		// inputDialog einblenden
-		if(!getView().getGamePanel().anyChangesMade())
+		if(!frame.getGamePanel().anyChangesMade())
 			new Thread(){
 				public void run(){
 					try {
@@ -87,14 +95,6 @@ public class ViewController {
 					frame.getGamePanel().openInputDialog();
 				}
 			}.start();
-	}
-	
-	
-	/**
-	 * Zeigt das {@link SettingsPanel} an.
-	 */
-	public void displaySettings() {
-		frame.setContentPane(frame.getSetingsPanel());
 	}
 	
 	

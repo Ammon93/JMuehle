@@ -1,5 +1,6 @@
 package de.dhbw.muehle.core;
 
+import de.dhbw.muehle.gui.View;
 import de.dhbw.muehle.gui.ViewController;
 import de.dhbw.muehle.gui.menus.GamePanel.LblGameStone;
 import de.dhbw.muehle.model.theme.Sound.Sounds;
@@ -21,8 +22,8 @@ public class Core {
 	private String spielModus;
 	
 	
-	public static String PvE="PvE",
-						 PvP="PvP";
+	public static final String PvE = "PvE",
+						 	   PvP = "PvP";
 
 	
 	/**
@@ -34,7 +35,7 @@ public class Core {
 		
 		// einzelne Spilemodi initialisieren
 		cPvE = new CorePvE();
-		cPvP = new CorePvP();
+		cPvP = new CorePvP(this);
 	}
 
 	// TODO Log + Datenbank
@@ -84,7 +85,8 @@ public class Core {
 	 * @param label
 	 */
 	public void labelClicked(LblGameStone label){
-		
+		if(isPvP())
+			cPvP.labelClicked(label);
 	}
 	
 	
@@ -117,6 +119,14 @@ public class Core {
 	 */
 	public String getSpielModus(){
 		return spielModus;
+	}
+	
+	/**
+	 * Gibt das View-Objekt zurück.
+	 * @return {@link View}
+	 */
+	public View getView(){
+		return vController.getView();
 	}
 	
 	
