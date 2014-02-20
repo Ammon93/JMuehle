@@ -224,11 +224,11 @@ public class GamePanel extends AMenu {
 	/**
 	 * Prüft, ob Stack leer ist.
 	 * 
-	 * @param type Typ des Stacks ("schwarz" oder "weiss")
+	 * @param color Typ des Stacks ("schwarz" oder "weiss")
 	 * @return {@link Boolean}
 	 */
-	public boolean isStackEmpty(String type){
-		switch (type) {
+	public boolean isStackEmpty(String color){
+		switch (color) {
 		case "schwarz":
 			if(schwarzeSteine.getCountStones() == 0)
 				return true;
@@ -261,11 +261,11 @@ public class GamePanel extends AMenu {
 	/**
 	 * Erhöht oder veringert einen Stack.
 	 * 
-	 * @param type Typ des Stacks ("schwarz" oder "weiss")
+	 * @param color Typ des Stacks ("schwarz" oder "weiss")
 	 * @param change (nur 1 und -1 erlaubt)
 	 */
-	public void updateStack(String type, int change){
-		switch (type){
+	public void updateStack(String color, int change){
+		switch (color){
 		case "schwarz":
 			if(change >= 1)
 				schwarzeSteine.setCountStones(schwarzeSteine.getCountStones() + 1);
@@ -397,7 +397,7 @@ public class GamePanel extends AMenu {
 		private String color,
 					   type;
 		
-		private boolean removed;
+		private boolean free;
 		
 		
 		public static final String schwarz = "schwarz",
@@ -444,6 +444,9 @@ public class GamePanel extends AMenu {
 			
 			setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			addMouseListener(vActions.new lblGameStoneMouse());
+			
+			// Bei Initialisierung ist jedes Label frei
+			free = true;
 		}
 		
 		
@@ -650,6 +653,15 @@ public class GamePanel extends AMenu {
 		
 		
 		/**
+		 * Gibt an, ob das Label aktuell frei ist.
+		 * @return
+		 */
+		public boolean isFree(){
+			return free;
+		}
+		
+		
+		/**
 		 * Weist dem Stein ein bestimmtes Bild zu.
 		 * Dadurch wird der Stein sichtbar.
 		 * 
@@ -670,7 +682,7 @@ public class GamePanel extends AMenu {
 			else
 				return;
 			
-			removed = false;
+			free = false;
 			
 			repaint();
 		}
@@ -682,7 +694,10 @@ public class GamePanel extends AMenu {
 		 */
 		public void removeImage(){
 			this.steinImage = null;
-			removed = true;
+			this.color = null;
+			this.type = null;
+			
+			free = true;
 			
 			repaint();
 		}
@@ -693,7 +708,7 @@ public class GamePanel extends AMenu {
 		 */
 		@Override
 		public void paintComponent(Graphics g) {
-			if((color != null || type != null) && !removed){
+			if((color != null || type != null) && !free){
 				updateImage(color, type);
 			}
 			
@@ -961,15 +976,15 @@ public class GamePanel extends AMenu {
 			lblSpielerDran.setForeground(view.getTheme().getFontColor());
 			logPane.setForeground(view.getTheme().getFontColor());
 			
-//			if(view.getViewController().getCore().isWeissDran() && !view.getViewController().getCore().isSchwarzDran()){
-//				lblSpielSteinSpieler1.setImage(LblGameStone.weiss);
-//				lblSpielSteinSpieler2.setImage(LblGameStone.schwarz, LblGameStone.transparent);
-//				lblSpielerDran.setText(inputDialog.getSpielerName1());
-//			}else{
-//				lblSpielSteinSpieler1.setImage(LblGameStone.weiss, LblGameStone.transparent);
-//				lblSpielSteinSpieler2.setImage(LblGameStone.schwarz);
-//				lblSpielerDran.setText(inputDialog.getSpielerName2());
-//			}
+			if(view.getViewController().getCore().isWeissDran() && !view.getViewController().getCore().isSchwarzDran()){
+				lblSpielSteinSpieler1.setImage(LblGameStone.weiss);
+				lblSpielSteinSpieler2.setImage(LblGameStone.schwarz, LblGameStone.transparent);
+				lblSpielerDran.setText(inputDialog.getSpielerName1());
+			}else{
+				lblSpielSteinSpieler1.setImage(LblGameStone.weiss, LblGameStone.transparent);
+				lblSpielSteinSpieler2.setImage(LblGameStone.schwarz);
+				lblSpielerDran.setText(inputDialog.getSpielerName2());
+			}
 		}
 		
 		
@@ -980,6 +995,8 @@ public class GamePanel extends AMenu {
 		 * @param infoMessage
 		 */
 		public void info(String infoMessage){
+			logPane.setFont(view.getTheme().getFont().deriveFont(Font.PLAIN, 12));
+			logPane.setForeground(view.getTheme().getFontColor());
 			logPane.append(infoMessage + "\n");
 			repaint();
 		}
