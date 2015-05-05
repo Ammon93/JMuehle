@@ -210,6 +210,14 @@ public class GamePanel extends AMenu {
 		return lblGameStone[pos.getEbene().getValue()-1][pos.getX().getValue()-1][pos.getY().getValue()-1];
 	}
 	
+	public LblGameStone getLabel(int ebene, int x, int y){
+		try {
+			return lblGameStone[ebene-1][x-1][y-1];
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
 	
 	/**
 	 * Gibt eine {@link ArrayList} aller Spielsteinlabels zurück.
@@ -264,15 +272,15 @@ public class GamePanel extends AMenu {
 	 * @param color Typ des Stacks ("schwarz" oder "weiss")
 	 * @param change (nur 1 und -1 erlaubt)
 	 */
-	public void updateStack(String color, int change){
+	public void updateStack(ESpielsteinFarbe color, int change){
 		switch (color){
-		case "schwarz":
+		case SCHWARZ:
 			if(change >= 1)
 				schwarzeSteine.setCountStones(schwarzeSteine.getCountStones() + 1);
 			else
 				schwarzeSteine.setCountStones(schwarzeSteine.getCountStones() - 1);
 			break;
-		case "weiss":
+		case WEISS:
 			if(change >= 1)
 				weisseSteine.setCountStones(weisseSteine.getCountStones() + 1);
 			else
@@ -394,17 +402,10 @@ public class GamePanel extends AMenu {
 		
 		private View view;
 		
-		private String color,
-					   type;
+		private ESpielsteinFarbe color;
+		private ESpielsteinTyp type;
 		
 		private boolean free;
-		
-		
-		public static final String schwarz = "schwarz",
-								   weiss = "weiss";
-		public static final String transparent = "transparent",
-								   gewaehlt = "gewaehlt",
-								   normal = "";
 		
 		
 		/**
@@ -413,8 +414,8 @@ public class GamePanel extends AMenu {
 		 * @param color
 		 * @param view
 		 */
-		public LblGameStone(String color, View view) {
-			this(color, "", view);
+		public LblGameStone(ESpielsteinFarbe color, View view) {
+			this(color, ESpielsteinTyp.NORMAL, view);
 		}
 		
 		/**
@@ -424,7 +425,7 @@ public class GamePanel extends AMenu {
 		 * @param type
 		 * @param view
 		 */
-		public LblGameStone(String color, String type, View view){
+		public LblGameStone(ESpielsteinFarbe color, ESpielsteinTyp type, View view){
 			setImage(color, type);
 			this.view = view;
 		}
@@ -457,23 +458,23 @@ public class GamePanel extends AMenu {
 		 * @param color
 		 * @param type
 		 */
-		private void updateImage(String color, String type){
+		private void updateImage(ESpielsteinFarbe color, ESpielsteinTyp type){
 			switch (color) {
-			case "weiss":
-				if(type.isEmpty())
+			case WEISS:
+				if(type.equals(ESpielsteinTyp.NORMAL))
 					steinImage = view.getTheme().getSpielSteinWeiss();
-				else if(type.equals("gewaehlt"))
+				else if(type.equals(ESpielsteinTyp.GEWAEHLT))
 					steinImage = view.getTheme().getSpielSteinWeissGewaehlt();
-				else if(type.equals("transparent"))
+				else if(type.equals(ESpielsteinTyp.TRANSPARENT))
 					steinImage = view.getTheme().getSpielSteinWeissTransparent();
 				break;
 				
-			case "schwarz":
-				if(type.isEmpty())
+			case SCHWARZ:
+				if(type.equals(ESpielsteinTyp.NORMAL))
 					steinImage = view.getTheme().getSpielSteinSchwarz();
-				else if(type.equals("gewaehlt"))
+				else if(type.equals(ESpielsteinTyp.GEWAEHLT))
 					steinImage = view.getTheme().getSpielSteinSchwarzGewaehlt();
-				else if(type.equals("transparent"))
+				else if(type.equals(ESpielsteinTyp.TRANSPARENT))
 					steinImage = view.getTheme().getSpielSteinSchwarzTransparent();
 				break;
 			}
@@ -643,12 +644,7 @@ public class GamePanel extends AMenu {
 		 */
 		@Override
 		public ESpielsteinFarbe getFarbe() {
-			if(color.equals("weiss"))
-				return ESpielsteinFarbe.WEISS;
-			else if(color.equals("schwarz"))
-				return ESpielsteinFarbe.SCHWARZ;
-			
-			return null;
+			return color;
 		}
 		
 		
@@ -667,17 +663,17 @@ public class GamePanel extends AMenu {
 		 * 
 		 * @param image Bild, das auf dem Label gezeichnet werden soll
 		 */
-		public void setImage(String color){
-			setImage(color, "");
+		public void setImage(ESpielsteinFarbe color){
+			setImage(color, ESpielsteinTyp.NORMAL);
 		}
 		
-		public void setImage(String color, String type){
-			if(color == schwarz || color == weiss)
+		public void setImage(ESpielsteinFarbe color, ESpielsteinTyp type){
+			if(color == ESpielsteinFarbe.SCHWARZ || color == ESpielsteinFarbe.WEISS)
 				this.color = color;
 			else
 				return;
 			
-			if(type == normal || type == gewaehlt || type == transparent)
+			if(type == ESpielsteinTyp.NORMAL || type == ESpielsteinTyp.GEWAEHLT || type == ESpielsteinTyp.TRANSPARENT)
 				this.type = type;
 			else
 				return;
@@ -715,6 +711,12 @@ public class GamePanel extends AMenu {
 			// Bild dynamisch zeichnen
 			g.drawImage(steinImage, 0, 0, getWidth(), getHeight(), this);
 		}
+	}
+	
+	public enum ESpielsteinTyp{
+		TRANSPARENT,
+		GEWAEHLT,
+		NORMAL
 	}
 	
 	
@@ -891,10 +893,10 @@ public class GamePanel extends AMenu {
 					RowSpec.decode("max(41px;default):grow(50)"),}));
 			add(infoPanel, "1, 1, 3, 1, fill, fill");
 			
-				lblSpielSteinSpieler1 = new LblGameStone(LblGameStone.weiss, view);
+				lblSpielSteinSpieler1 = new LblGameStone(ESpielsteinFarbe.WEISS, view);
 				infoPanel.add(lblSpielSteinSpieler1, "2, 2, fill, fill");
 				
-				lblSpielSteinSpieler2 = new LblGameStone(LblGameStone.schwarz, view);
+				lblSpielSteinSpieler2 = new LblGameStone(ESpielsteinFarbe.SCHWARZ, view);
 				infoPanel.add(lblSpielSteinSpieler2, "4, 2, fill, fill");
 				
 				lblSpielerDran = new JLabel();
@@ -977,12 +979,12 @@ public class GamePanel extends AMenu {
 			logPane.setForeground(view.getTheme().getFontColor());
 			
 			if(view.getViewController().getCore().isWeissDran() && !view.getViewController().getCore().isSchwarzDran()){
-				lblSpielSteinSpieler1.setImage(LblGameStone.weiss);
-				lblSpielSteinSpieler2.setImage(LblGameStone.schwarz, LblGameStone.transparent);
+				lblSpielSteinSpieler1.setImage(ESpielsteinFarbe.WEISS);
+				lblSpielSteinSpieler2.setImage(ESpielsteinFarbe.SCHWARZ, ESpielsteinTyp.TRANSPARENT);
 				lblSpielerDran.setText(inputDialog.getSpielerName1());
 			}else{
-				lblSpielSteinSpieler1.setImage(LblGameStone.weiss, LblGameStone.transparent);
-				lblSpielSteinSpieler2.setImage(LblGameStone.schwarz);
+				lblSpielSteinSpieler1.setImage(ESpielsteinFarbe.WEISS, ESpielsteinTyp.TRANSPARENT);
+				lblSpielSteinSpieler2.setImage(ESpielsteinFarbe.SCHWARZ);
 				lblSpielerDran.setText(inputDialog.getSpielerName2());
 			}
 		}
@@ -1140,7 +1142,7 @@ public class GamePanel extends AMenu {
 			spieler2.addFocusListener(vActions.new advancedTextFieldAdapter(spieler2.getText()));
 			spieler2.addKeyListener(vActions.new advancedTextFieldAdapter(spieler2.getText()));
 			
-			lblInputDialogSpielstein = new LblGameStone("weiss", view);
+			lblInputDialogSpielstein = new LblGameStone(ESpielsteinFarbe.WEISS, view);
 			lblInputDialogSpielstein.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			lblInputDialogSpielstein.addMouseListener(vActions.new LblInputDialogSpielsteinMouse());
 			

@@ -3,7 +3,6 @@ package de.dhbw.muehle.core;
 import de.dhbw.muehle.gui.View;
 import de.dhbw.muehle.gui.ViewController;
 import de.dhbw.muehle.gui.menus.GamePanel.LblGameStone;
-import de.dhbw.muehle.model.theme.Sound.Sounds;
 
 
 /**
@@ -21,10 +20,20 @@ public class Core {
 	
 	private String spielModus;
 	
+	private int spielPhase;
+	
+	private boolean weissDran,
+					schwarzDran;
+	
 	
 	public static final String PvE = "PvE",
 						 	   PvP = "PvP";
-
+	
+	public static final int phase1 = 1,
+							phase2 = 2,
+							phase3 = 3;
+	
+	
 	
 	/**
 	 * Konstruktor
@@ -37,6 +46,8 @@ public class Core {
 		cPvE = new CorePvE();
 		cPvP = new CorePvP(this);
 	}
+	
+	
 
 	// TODO Log + Datenbank
 	// private void run() {
@@ -59,6 +70,11 @@ public class Core {
 		if(!isPvE())
 			resetAll();
 		
+		// Weiss beginnt immer
+		setWeissDran();
+		// die Setzt-Phase beginnen
+		spielPhase = phase1;
+		
 		vController.starteSpiel();
 		
 		spielModus = PvE;
@@ -71,6 +87,11 @@ public class Core {
 		// Wenn bereits eine PvP-Sitzung läuft diese fortsetzen, andernfalls eine neue starten
 		if(!isPvP())
 			resetAll();
+		
+		// Weiss beginnt immer
+		setWeissDran();
+		// die Setzt-Phase beginnen
+		spielPhase = phase1;
 		
 		vController.starteSpiel();
 				
@@ -87,6 +108,9 @@ public class Core {
 	public void labelClicked(LblGameStone label){
 		if(isPvP())
 			cPvP.labelClicked(label);
+		
+		// Anzeige des aktuellen Spielers aktualisieren
+		getView().getGamePanel().updatePlayer();
 	}
 	
 	
@@ -111,6 +135,56 @@ public class Core {
 			return true;
 		else
 			return false;
+	}
+	
+	/**
+	 * Der Indikator, ob Weiss dran ist wird gesetzt.
+	 * @param weiss
+	 */
+	public void setWeissDran(){
+		weissDran = true;
+		schwarzDran = false;
+	}
+	
+	/**
+	 * Gibt zurück, ob Weiß am Zug ist.
+	 * @return {@link Boolean}
+	 */
+	public boolean isWeissDran(){
+		return weissDran;
+	}
+	
+	/**
+	 * Der Indikator, ob Schwarz dran ist wird gesetzt.
+	 * @param schwarz
+	 */
+	public void setSchwarzDran(){
+		schwarzDran = true;
+		weissDran = false;
+	}
+	
+	/**
+	 * Gibt zurück, ob Schwarz am Zug ist.
+	 * @return {@link Boolean}
+	 */
+	public boolean isSchwarzDran(){
+		return schwarzDran;
+	}
+	
+	/**
+	 * Setzt die Spielphase.
+	 * @param phase
+	 */
+	public void setSpielPhase(int phase){
+		spielPhase = phase;
+	}
+	
+	/**
+	 * Gibt die aktuelle Spielphase zurück.
+	 * @return
+	 */
+	public int getSpielPhase(){
+		return spielPhase;
 	}
 	
 	/**

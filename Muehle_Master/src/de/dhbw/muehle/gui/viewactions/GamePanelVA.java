@@ -75,9 +75,9 @@ public class GamePanelVA extends ViewActions {
 			LblGameStone stein = ((LblGameStone) e.getSource());
 
 			if (stein.getFarbe().equals(ESpielsteinFarbe.WEISS))
-				stein.setImage("schwarz");
+				stein.setImage(ESpielsteinFarbe.SCHWARZ);
 			else if (stein.getFarbe().equals(ESpielsteinFarbe.SCHWARZ))
-				stein.setImage("weiss");
+				stein.setImage(ESpielsteinFarbe.WEISS);
 		}
 
 		@Override
